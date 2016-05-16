@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 
 //const mapStateToProps = state => ({
@@ -33,7 +34,8 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				Hello World
+				<h1>Hello World</h1>
+				<Link to="/signup">Sign Up</Link>
 			</div>
 		);
 	}
