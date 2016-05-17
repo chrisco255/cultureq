@@ -1,38 +1,54 @@
 //import agent from '../agent';
 //import Header from './Header';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import React from 'react';
 
-//const mapStateToProps = state => ({
-//	appLoaded: state.appLoaded,
-//	appName: state.appName,
-//	currentUser: state.currentUser,
-//	redirectTo: state.redirectTo
-//});
+const mapStateToProps = state => ({
+	lock: state.lock
+});
 
-//const mapDispatchToProps = dispatch => ({
-//	onLoad: (payload, token) =>
-//		dispatch({ type: 'APP_LOAD', payload, token, skipTracking: true }),
-//	onRedirect: () =>
-//		dispatch({ type: 'REDIRECT' })
-//});
 
-class App extends React.Component {
+
+const mapDispatchToProps = dispatch => ({
+	onLoad: (idToken) =>
+		dispatch({ type: 'LOGIN', payload: { idToken } })
+	//onRedirect: () =>
+	//	dispatch({ type: 'REDIRECT' })
+});
+
+const App = React.createClass({
 	//componentWillReceiveProps(nextProps) {
 	//	if (nextProps.redirectTo) {
 	//		this.context.router.replace(nextProps.redirectTo);
 	//		this.props.onRedirect();
 	//	}
 	//}
+	componentWillMount() {
 
-	//componentWillMount() {
-	//	const token = window.localStorage.getItem('jwt');
-	//	if (token) {
-	//		agent.setToken(token);
-	//	}
-	//
-	//	this.props.onLoad(token ? agent.Auth.current() : null, token);
-	//}
+
+		//if (idToken) {
+		//	agent.setToken(token);
+		//}
+
+		this.props.onLoad(this.getIdToken());
+
+	},
+	getIdToken() {
+		let idToken = window.localStorage.getItem('userToken');
+		let authHash = this.props.lock.parseHash(window.location.hash);
+		if (!idToken && authHash) {
+			if (authHash.id_token) {
+				idToken = authHash.id_token;
+				localStorage.setItem('userToken', authHash.id_token);
+				window.location.hash = '';
+			}
+			if (authHash.error) {
+				console.log("Error signing in", authHash);
+				return null;
+			}
+		}
+		return idToken;
+	},
 
 	render() {
 		return (
@@ -41,11 +57,11 @@ class App extends React.Component {
 			</div>
 		);
 	}
-}
+});
 
 //App.contextTypes = {
 //	router: React.PropTypes.object.isRequired
 //};
 
-//export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+//export default App;

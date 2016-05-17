@@ -8,4 +8,4 @@ export default (props) => {
 			<h1>Sign Up Today!</h1>
 		</div>
 	);
-};
+}
