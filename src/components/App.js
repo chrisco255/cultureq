@@ -1,19 +1,16 @@
-//import agent from '../agent';
-//import Header from './Header';
+import Header from './Header';
 import { connect } from 'react-redux';
 import React from 'react';
+import { login } from '../action_creators';
+//import agent from '../agent';
 
 const mapStateToProps = state => ({
 	lock: state.lock
 });
 
 
-
 const mapDispatchToProps = dispatch => ({
-	onLoad: (idToken) =>
-		dispatch({ type: 'LOGIN', payload: { idToken } })
-	//onRedirect: () =>
-	//	dispatch({ type: 'REDIRECT' })
+	onLogin: (idToken) => dispatch( login(idToken) )
 });
 
 const App = React.createClass({
@@ -24,23 +21,21 @@ const App = React.createClass({
 	//	}
 	//}
 	componentWillMount() {
-
-
 		//if (idToken) {
 		//	agent.setToken(token);
 		//}
-
-		this.props.onLoad(this.getIdToken());
-
+		this.props.onLogin(this.getIdToken());
 	},
+
 	getIdToken() {
 		let idToken = window.localStorage.getItem('userToken');
 		let authHash = this.props.lock.parseHash(window.location.hash);
+		window.location.hash = '';
+
 		if (!idToken && authHash) {
 			if (authHash.id_token) {
 				idToken = authHash.id_token;
 				localStorage.setItem('userToken', authHash.id_token);
-				window.location.hash = '';
 			}
 			if (authHash.error) {
 				console.log("Error signing in", authHash);
@@ -53,15 +48,11 @@ const App = React.createClass({
 	render() {
 		return (
 			<div>
+				<Header />
 				{this.props.children}
 			</div>
 		);
 	}
 });
 
-//App.contextTypes = {
-//	router: React.PropTypes.object.isRequired
-//};
-
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-//export default App;

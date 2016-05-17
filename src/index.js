@@ -5,9 +5,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import store from './store';
-//import agent from './agent';
+//import agent from './agent';s
 
-//import { App, Home, SignUp, Dashboard } from './components'
 import App from './components/App';
 import Home from './components/Home';
 import SignUp from './components/SignUp';
@@ -21,7 +20,6 @@ ReactDOM.render((
 				<Route path="signup" component={SignUp} />
 				<Route path="dashboard" component={Dashboard} />
 			</Route>
-
 		</Router>
 	</Provider>
 ), document.getElementById('main'));

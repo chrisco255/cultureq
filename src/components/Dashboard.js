@@ -8,8 +8,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-	onLogOut: (tag, payload) =>
-		dispatch({ type: 'LOG_OUT'})
+	
 });
 
 
@@ -24,10 +23,7 @@ let Dashboard = React.createClass({
 		return (
 			<div>
 				<h1>Dashboard</h1>
-				<Link to="/home">Home</Link>
-				<div>
-					<a onClick={this.logout}>Logout</a>
-				</div>
+				<p>This is the Dashboard you have achieved reaching the Dashboard. Good Luck.</p>
 			</div>
 		);
 	}

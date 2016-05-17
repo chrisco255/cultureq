@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
+
+
 const mapStateToProps = state => ({
 	lock: state.lock,
 	idToken: state.idToken
@@ -9,44 +11,25 @@ const mapStateToProps = state => ({
 
 
 let mapDispatchToProps = dispatch => ({
-	onLogOut: () =>
-		dispatch({ type: 'LOG_OUT' })
+
 });
 
 
 let Home = React.createClass({
-	logOut() {
-		this.props.onLogOut();
-		this.props.router.push('/');
-	},
 	showLock() {
-		// We receive lock from the parent component in this case
-		// If you instantiate it in this component, just do this.lock.show()
 		this.props.lock.show();
 	},
-
 	render() {
 		return (
 			<div>
-				{
-					this.props.idToken ? <p>Yoooo</p> : null
-				}
+				{ this.props.idToken ? <p>LOGGED IN</p> : null }
 				<h1>Hello World</h1>
-				<Link to="/signup">Sign Up</Link>
 
-				<div className="login-box">
-					<a onClick={this.showLock}>Sign In</a>
-				</div>
-
-				<div>
-					<a onClick={this.props.onLogOut}>Logout</a>
-				</div>
+				{ this.props.idToken ? '' : <button onClick={this.showLock}>Log In</button> }
 			</div>
 		);
 	}
 });
 
-//export default Home;
-Home = withRouter(Home);
-
+Home = withRouter(Home); // Wrapping in order to have redirect work with this.props.router.push()
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,44 +1,14 @@
 'use strict';
 
 export default (state, action) => {
-	switch (action.type) {
+
+	switch(action.type) {
 		case 'LOGIN':
-		case 'REGISTER':
-			state = Object.assign({}, state);
-			state.inProgress = false;
-			if (action.error) {
-				state.errors = action.payload.errors;
-			} else {
-				state.redirectTo = '/';
-				state.token = action.payload.user.token;
-				state.currentUser = action.payload.user;
-			}
+			state = Object.assign({}, state, {idToken: action.payload.idToken});
 			break;
-		case 'LOGIN_PAGE_UNLOADED':
-		case 'REGISTER_PAGE_UNLOADED':
-			if (state.outstandingActions) {
-				state.outstandingActions.forEach(promise => promise.cancel());
-			}
-			return Object.assign({}, state, {
-				errors: null,
-				username: null,
-				email: null,
-				password: null,
-				inProgress: null,
-				outstandingActions: null
-			});
-		case 'ASYNC_START':
-			if (action.subtype === 'LOGIN' || action.subtype === 'REGISTER') {
-				state = Object.assign({}, state);
-				state.inProgress = true;
-			}
-			break;
-		case 'LOGOUT':
-			state = Object.assign({}, state, {
-				redirectTo: '/',
-				token: null,
-				currentUser: undefined
-			});
+		case 'LOG_OUT':
+			localStorage.removeItem('userToken');
+			state = Object.assign({}, state, { idToken: null });
 			break;
 	}
 

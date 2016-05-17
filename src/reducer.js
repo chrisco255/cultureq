@@ -1,7 +1,7 @@
 'use strict';
 
-//import { combineReducers } from 'redux';
-
+import auth from './reducers/auth.reducer';
+import common from './reducers/auth.reducer';
 
 const defaultState = {
 	appName: 'Culture Shock',
@@ -10,15 +10,8 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
-	switch(action.type) {
-		case 'LOGIN':
-			state = Object.assign({}, state);
-			state.idToken = action.payload.idToken;
-			break;
-		case 'LOG_OUT':
-			localStorage.removeItem('userToken');
-			state = Object.assign({}, state, { idToken: null });
-			break;
-	}
+    state = auth(state, action);
+    state = common(state, action);
+    
 	return state;
 };
