@@ -2,12 +2,10 @@ import Header from './Header';
 import { connect } from 'react-redux';
 import React from 'react';
 import { login } from '../action_creators';
-//import agent from '../agent';
 
 const mapStateToProps = state => ({
-	lock: state.lock
+	lock: state.auth.lock
 });
-
 
 const mapDispatchToProps = dispatch => ({
 	onLogin: (idToken) => dispatch( login(idToken) )

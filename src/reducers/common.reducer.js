@@ -1,6 +1,10 @@
 'use strict';
 
-export default (state, action) => {
+const defaultState = {
+	appName: 'Culture Shock'
+};
+
+export default (state = defaultState, action) => {
 	// switch (action.type) {
 	// 	case 'APP_LOAD':
 	// 		const assignments = {

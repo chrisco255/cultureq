@@ -1,6 +1,11 @@
 'use strict';
 
-export default (state, action) => {
+const defaultState = {
+	lock: new Auth0Lock('Ty9ofoTxjYJqOlCSnqKhaSDWPurI3DzU', 'ultilabs.auth0.com'),
+	idToken: null
+};
+
+export default (state = defaultState, action) => {
 
 	switch(action.type) {
 		case 'LOGIN':

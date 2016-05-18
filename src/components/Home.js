@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 
 const mapStateToProps = state => ({
-	lock: state.lock,
-	idToken: state.idToken
+	lock: state.auth.lock,
+	idToken: state.auth.idToken
 });
 
 
