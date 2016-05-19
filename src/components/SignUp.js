@@ -1,32 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import SignUpForm from './SignUpForm';
+import {signUpSubmitted} from '../action_creators';
 
 let SignUp = React.createClass({
+	onSignUpSubmit(values, dispatch) {
+		dispatch(signUpSubmitted(values));
+	},
+
 	render() {
-		const { fields: { companyName, address } } = this.props;
 		return (
 			<div>
 				<h1>Complete This form to sign up!</h1>
-
-				<form onSubmit={}>
-					<div>
-						<label>Company Name</label>
-						<input type="text" placeholder="Company Name" { ...companyName } />
-					</div>
-					<div>
-						<label>Address</label>
-						<input type="text" placeholder="Address" {...address} />
-					</div>
-					<input type="submit" />
-				</form>
+				<SignUpForm onSubmit={this.onSignUpSubmit}/>
 			</div>
 		);
 	}
 });
-
-SignUp = reduxForm({
-	form: 'signup',
-	fields: ['companyName', 'address']
-})(SignUp);
 
 export default SignUp;
