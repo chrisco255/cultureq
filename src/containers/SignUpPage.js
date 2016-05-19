@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import SignUpForm from './SignUpForm';
-import {signUpSubmitted} from '../action_creators';
+import SignUpForm from '../components/SignUpForm';
+import {signUpSubmitted} from '../actions';
 
 let SignUp = React.createClass({
 	onSignUpSubmit(values, dispatch) {

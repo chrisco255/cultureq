@@ -2,8 +2,6 @@ import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-
-
 const mapStateToProps = state => ({
 	lock: state.auth.lock,
 	idToken: state.auth.idToken

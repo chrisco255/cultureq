@@ -1,17 +1,16 @@
 'use strict';
 
-import { reset } from 'redux-form';
-
+import * as ActionTypes from '../actions';
 
 const defaultState = {};
 
 export default (state = defaultState, action) => {
 
     switch(action.type) {
-        case 'ASYNC_START':
-            // if(action.subtype === 'SIGN_UP_SUBMITTED') console.log(action);
+        case ActionTypes.ASYNC_START:
+            // if(action.subtype === ActionTypes.SIGN_UP_SUBMITTED) console.log(action);
             break;
-        case 'SIGN_UP_SUBMITTED':
+        case ActionTypes.SIGN_UP_SUBMITTED:
             if(action.error) {
                 console.log('ERROR');
             } else {
@@ -26,7 +25,7 @@ export default (state = defaultState, action) => {
                 state = Object.assign({}, state, resetForm);
             }
             break;
-        case 'ASYNC_END':
+        case ActionTypes.ASYNC_END:
             break;
     }
 

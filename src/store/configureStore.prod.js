@@ -7,5 +7,5 @@ export default function configureStore(initialState) {
         reducer,
         initialState,
         applyMiddleware(promiseMiddleware)
-    )
+    );
 };

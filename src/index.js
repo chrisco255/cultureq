@@ -1,27 +1,16 @@
 'use strict';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import store from './store';
-//import agent from './agent';s
+import { render } from 'react-dom';
+import { browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import Root from './containers/Root';
+import configureStore from './store/configureStore';
 
-// Page level view Components
-import App from './components/App';
-import Home from './components/Home';
-import SignUp from './components/SignUp';
-import Dashboard from './components/Dashboard';
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 
-// Routes and initial mount
-ReactDOM.render((
-	<Provider store={store}>
-		<Router history={browserHistory}>
-			<Route path="/" component={App}>
-				<IndexRoute component={Home} />
-				<Route path="signup" component={SignUp} />
-				<Route path="dashboard" component={Dashboard} />
-			</Route>
-		</Router>
-	</Provider>
-), document.getElementById('main'));
+render(
+  <Root store={store} history={history} />,
+  document.getElementById('main')
+);

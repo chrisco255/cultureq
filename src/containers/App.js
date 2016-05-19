@@ -1,7 +1,7 @@
-import Header from './Header';
+import Header from '../components/Header';
 import { connect } from 'react-redux';
 import React from 'react';
-import { login } from '../action_creators';
+import { login } from '../actions';
 
 const mapStateToProps = state => ({
 	lock: state.auth.lock

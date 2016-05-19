@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, IndexLink, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from '../action_creators';
+import { logout } from '../actions';
 
 const mapStateToProps = state => ({
     lock: state.lock,

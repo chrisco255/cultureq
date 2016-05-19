@@ -1,5 +1,7 @@
 'use strict';
 
+import * as ActionTypes from '../actions';
+
 const defaultState = {
 	lock: new Auth0Lock('Ty9ofoTxjYJqOlCSnqKhaSDWPurI3DzU', 'ultilabs.auth0.com'),
 	idToken: null
@@ -8,10 +10,10 @@ const defaultState = {
 export default (state = defaultState, action) => {
 
 	switch(action.type) {
-		case 'LOGIN':
+		case ActionTypes.USER_LOGIN:
 			state = Object.assign({}, state, {idToken: action.payload.idToken});
 			break;
-		case 'LOG_OUT':
+		case ActionTypes.USER_LOGOUT:
 			localStorage.removeItem('userToken');
 			state = Object.assign({}, state, { idToken: null });
 			break;
