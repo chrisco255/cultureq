@@ -1,14 +1,19 @@
 import { applyMiddleware, createStore, compose } from 'redux';
-import { promiseMiddleware } from '../middleware';
+// import { promiseMiddleware } from '../middleware';
+import createSagaMiddleware from 'redux-saga';
 import reducer from '../reducers/reducer';
 import DevTools from '../containers/DevTools';
 
+
+
 export default function configureStore(initialState) {
+    const sagaMiddleware = createSagaMiddleware();
+
     const store = createStore(
         reducer,
         initialState,
         compose(
-            applyMiddleware(promiseMiddleware),
+            applyMiddleware(sagaMiddleware),
             DevTools.instrument()
         )
     );
@@ -21,5 +26,7 @@ export default function configureStore(initialState) {
         });
     }
 
+    store.runSaga = sagaMiddleware.run;
+    store.close = () => store.dispatch(END);
     return store;
 };
