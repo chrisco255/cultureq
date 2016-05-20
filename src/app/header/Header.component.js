@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link, IndexLink, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from '../actions';
+import { logout } from '../../common/auth/Auth.actions';
 
 const mapStateToProps = state => ({
     lock: state.lock,
     idToken: state.idToken
 });
-
 
 let mapDispatchToProps = dispatch => ({
     onLogOut: () => dispatch( logout() )

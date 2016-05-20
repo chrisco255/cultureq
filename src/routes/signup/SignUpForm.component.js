@@ -6,7 +6,6 @@ let SignUpForm = React.createClass({
         const { fields: { companyName, address }, handleSubmit } = this.props;
         return (
             <div>
-
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Company Name</label>

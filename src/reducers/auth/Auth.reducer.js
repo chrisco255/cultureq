@@ -1,6 +1,5 @@
 'use strict';
-
-import * as ActionTypes from '../actions';
+import * as ActionTypes from './../../common/auth/Auth.actions.js';
 
 const defaultState = {
 	lock: new Auth0Lock('Ty9ofoTxjYJqOlCSnqKhaSDWPurI3DzU', 'ultilabs.auth0.com'),

@@ -1,7 +1,7 @@
-import Header from '../components/Header';
+import Header from './header/Header.component.js';
 import { connect } from 'react-redux';
 import React from 'react';
-import { login } from '../actions';
+import { login } from '../common/auth/Auth.actions.js';
 
 const mapStateToProps = state => ({
 	lock: state.auth.lock
@@ -12,16 +12,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const App = React.createClass({
-	//componentWillReceiveProps(nextProps) {
-	//	if (nextProps.redirectTo) {
-	//		this.context.router.replace(nextProps.redirectTo);
-	//		this.props.onRedirect();
-	//	}
-	//}
 	componentWillMount() {
-		//if (idToken) {
-		//	agent.setToken(token);
-		//}
 		this.props.onLogin(this.getIdToken());
 	},
 

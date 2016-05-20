@@ -1,11 +1,17 @@
 import { applyMiddleware, createStore } from 'redux';
-import { promiseMiddleware } from '../middleware';
-import reducer from '../reducers/reducer';
+// import { promiseMiddleware } from '../middleware';
+import reducer from '../reducers/index';
+import createSagaMiddleware, { END } from 'redux-saga';
+
 
 export default function configureStore(initialState) {
-    return createStore(
+    const store = createStore(
         reducer,
         initialState,
-        applyMiddleware(promiseMiddleware)
+        applyMiddleware(createSagaMiddleware)
     );
+
+    store.runSaga = sagaMiddleware.run;
+    store.close = () => store.dispatch(END);
+    return store;
 };
