@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import HomePageComponent from './Title.component.js';
+import Title from './Title.component.js';
 
 const mapStateToProps = state => ({
 	lock: state.auth.lock,
@@ -13,7 +13,7 @@ let mapDispatchToProps = dispatch => ({ });
 class HomePage extends Component {
 	render() {
 		return (
-			<HomePageComponent {...this.props} />
+			<Title {...this.props} />
 		);
 	}
 }

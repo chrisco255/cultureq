@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import SignUpForm from './SignUpForm.component';
-import {signUpSubmitted} from './SignUp.actions';
+import { signUpSubmitted } from './SignUp.actions';
 
 class SignUp extends Component {
 	onSignUpSubmit = (values, dispatch) => {
 		dispatch(signUpSubmitted(values));
 	}
+
 	render = () =>  {
 		return (
 			<div>

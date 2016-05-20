@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from '../applayout/App.component';
-import HomePage from './home/HomePage.route.js';
-import SignUpPage from './signup/SignUpPage.component.js';
-import DashboardPage from './dashboard/DashboardPage.component';
+import HomePage from './home/HomePage.container.js';
+import SignUpPage from './signup/SignUpPage.container.js';
+import DashboardPage from './dashboard/DashboardPage.container.js';
 
 export default (
   <Route path="/" component={App}>

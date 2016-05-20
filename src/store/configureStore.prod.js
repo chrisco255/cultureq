@@ -1,17 +1,17 @@
 import { applyMiddleware, createStore } from 'redux';
-// import { promiseMiddleware } from '../middleware';
 import reducer from '../reducers/index';
 import createSagaMiddleware, { END } from 'redux-saga';
 
-
 export default function configureStore(initialState) {
-    const store = createStore(
-        reducer,
-        initialState,
-        applyMiddleware(createSagaMiddleware)
-    );
+	const sagaMiddleware = createSagaMiddleware();
 
-    store.runSaga = sagaMiddleware.run;
-    store.close = () => store.dispatch(END);
-    return store;
+	const store = createStore(
+		reducer,
+		initialState,
+		applyMiddleware(sagaMiddleware)
+	);
+
+	store.runSaga = sagaMiddleware.run;
+	store.close = () => store.dispatch(END);
+	return store;
 };
