@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from '../app/App.component';
+import App from '../applayout/App.component';
 import HomePage from './home/HomePage.component';
 import SignUpPage from './signup/SignUpPage.component.js';
 import DashboardPage from './dashboard/DashboardPage.component';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -7,17 +7,15 @@ const mapStateToProps = state => ({
 	idToken: state.auth.idToken
 });
 
-
 let mapDispatchToProps = dispatch => ({
 
 });
 
-
-let Home = React.createClass({
-	showLock() {
+class Home extends Component {
+	showLock = () =>  {
 		this.props.lock.show();
-	},
-	render() {
+	}
+	render = () =>  {
 		return (
 			<div>
 				{ this.props.idToken ? <p>LOGGED IN</p> : null }
@@ -27,7 +25,7 @@ let Home = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
 Home = withRouter(Home); // Wrapping in order to have redirect work with this.props.router.push()
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

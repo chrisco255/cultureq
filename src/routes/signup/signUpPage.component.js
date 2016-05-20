@@ -3,12 +3,11 @@ import { reduxForm } from 'redux-form';
 import SignUpForm from './SignUpForm.component';
 import {signUpSubmitted} from './SignUp.actions';
 
-let SignUp = React.createClass({
+class SignUp extends Component {
 	onSignUpSubmit(values, dispatch) {
 		dispatch(signUpSubmitted(values));
-	},
-
-	render() {
+	}
+	render = () =>  {
 		return (
 			<div>
 				<h1>Complete This form to sign up!</h1>
@@ -16,6 +15,6 @@ let SignUp = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
 export default SignUp;

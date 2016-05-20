@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -6,20 +6,17 @@ const mapStateToProps = state => ({
 	lock: state.lock
 });
 
-
 const mapDispatchToProps = dispatch => ({
 
 });
 
-
-let Dashboard = React.createClass({
-	logout() {
+class Dashboard extends Component {
+	logout = () => {
 		this.props.router.push('/');
 		this.props.onLogOut();
-	},
+	}
 
-
-	render() {
+	render = () =>  {
 		return (
 			<div>
 				<h1>Dashboard</h1>
@@ -27,7 +24,7 @@ let Dashboard = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
 Dashboard = withRouter(Dashboard);
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

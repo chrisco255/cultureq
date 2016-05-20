@@ -1,6 +1,6 @@
 import Header from './header/Header.component.js';
 import { connect } from 'react-redux';
-import React from 'react';
+import React, { Component } from 'react';
 import { login } from '../common/auth/Auth.actions.js';
 
 const mapStateToProps = state => ({
@@ -11,10 +11,10 @@ const mapDispatchToProps = dispatch => ({
 	onLogin: (idToken) => dispatch( login(idToken) )
 });
 
-const App = React.createClass({
+class App extends Component {
 	componentWillMount() {
 		this.props.onLogin(this.getIdToken());
-	},
+	}
 
 	getIdToken() {
 		let idToken = window.localStorage.getItem('userToken');
@@ -32,7 +32,7 @@ const App = React.createClass({
 			}
 		}
 		return idToken;
-	},
+	}
 
 	render() {
 		return (
@@ -42,6 +42,6 @@ const App = React.createClass({
 			</div>
 		);
 	}
-});
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

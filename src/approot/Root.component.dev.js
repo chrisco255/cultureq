@@ -5,7 +5,7 @@ import { Router } from 'react-router';
 import DevTools from './DevTools.component.js';
 
 export default class Root extends Component {
-  render() {
+  render = () =>  {
     const {store, history } = this.props;
     return (
       <Provider store={store}>
