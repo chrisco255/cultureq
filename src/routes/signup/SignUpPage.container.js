@@ -8,7 +8,7 @@ class SignUp extends Component {
 		dispatch(signUpSubmitted(values));
 	}
 
-	render = () =>  {
+	render() {
 		return (
 			<div>
 				<h1>Complete This form to sign up!</h1>
