@@ -4,7 +4,7 @@ import SignUpForm from './SignUpForm.component';
 import {signUpSubmitted} from './SignUp.actions';
 
 class SignUp extends Component {
-	onSignUpSubmit(values, dispatch) {
+	onSignUpSubmit = (values, dispatch) => {
 		dispatch(signUpSubmitted(values));
 	}
 	render = () =>  {
