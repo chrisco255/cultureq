@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import validate from './SignUp.validations';
 
 let SignUpForm = (props) => {
   const { fields: { companyName, address }, error, handleSubmit } = props;
@@ -26,18 +27,7 @@ let SignUpForm = (props) => {
   );
 }
 
-const validate = (values) => {
-	const errors = {};
 
-	if (!values.companyName)  errors.companyName = 'Required';
-	else if (values.companyName.length < 6)  errors.companyName = 'Length must be atleast 6 characters';
-  // else if ( isNaN(values.companyName) ) errors.companyName = 'Must be a Number';
-
-  if (!values.address)  errors.address = 'Required';
-	else if (values.address.length < 6)  errors.address = 'Length must be atleast 6 characters';
-
-	return errors;
-}
 
 // Composition FTW!
 SignUpForm = reduxForm({

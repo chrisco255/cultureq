@@ -19,8 +19,20 @@ export default (state = defaultState, action) => {
             state = Object.assign({}, state, resetForm);
             break;
         case SIGN_UP_FAILED:
-            console.log('ERROR! resetting form.');
-            console.log(action);
+            console.log('ERROR!');
+
+            let { errors, errorType } = action.error; // TODO: DEMOOOOOOOOOOOOOOOOOOOOOOO remove error from action.error
+
+            let newState = {
+              _error: errorType
+            };
+
+            let fields = Object.keys(errors);
+            fields.forEach( field => {
+              newState[field] = Object.assign({}, state[field], { submitError: errors[field] });
+            });
+
+            state = Object.assign({}, state, newState);
             break;
     }
 
