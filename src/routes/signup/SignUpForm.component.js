@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
 let SignUpForm = (props) => {
-  const { fields: { companyName, address }, handleSubmit } = props;
+  const { fields: { companyName, address }, error, handleSubmit } = props;
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -18,7 +18,9 @@ let SignUpForm = (props) => {
           {address.touched && address.error && <div style={{color: 'red'}}>{address.error}</div>}
         </div>
         <br/>
-        <button type="submit">Submit</button>
+        {error && <div style={{color: 'red'}}>{error}</div>}
+        <br/>
+        <button type="submit" >Submit</button>
       </form>
     </div>
   );
@@ -29,7 +31,7 @@ const validate = (values) => {
 
 	if (!values.companyName)  errors.companyName = 'Required';
 	else if (values.companyName.length < 6)  errors.companyName = 'Length must be atleast 6 characters';
-  else if ( isNaN(values.companyName) ) errors.companyName = 'Must be a Number';
+  // else if ( isNaN(values.companyName) ) errors.companyName = 'Must be a Number';
 
   if (!values.address)  errors.address = 'Required';
 	else if (values.address.length < 6)  errors.address = 'Length must be atleast 6 characters';
