@@ -1,14 +1,20 @@
 'use strict';
-import { SIGN_UP_SUCCEEDED, SIGN_UP_FAILED } from '../../../routes/signup/SignUp.actions';
+import * as ActionTypes from '../../../routes/signup/SignUp.actions';
 
-const defaultState = {};
+const defaultState = { submitting: false };
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case SIGN_UP_SUCCEEDED:
+        case ActionTypes.SIGN_UP_SUBMITTED:
+            const submitting = {
+                _submitting: true
+            };
+            state = Object.assign({}, state, submitting);
+            break;
+        case ActionTypes.SIGN_UP_SUCCEEDED:
             console.log('SUCCESS! resetting form.');
-            console.log(action.payload);
             const resetForm = {
+                _submitting: false,
                 companyName: {
                     value: ''
                 },
@@ -18,12 +24,13 @@ export default (state = defaultState, action) => {
             };
             state = Object.assign({}, state, resetForm);
             break;
-        case SIGN_UP_FAILED:
+        case ActionTypes.SIGN_UP_FAILED:
             console.log('ERROR!');
 
             let { errors, errorType } = action.error; // TODO: DEMOOOOOOOOOOOOOOOOOOOOOOO remove error from action.error
 
             let newState = {
+              _submitting: false,
               _error: errorType
             };
 

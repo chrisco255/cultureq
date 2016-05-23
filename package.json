@@ -16,7 +16,8 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
     "test:watch": "npm run test -- --watch",
     "dev": "webpack-dev-server",
-    "webpack": "webpack -p --config webpack.production.config.js"
+    "webpack": "webpack -p --config webpack.production.config.js",
+    "prod": "http-server ./dist"
   },
   "repository": {
     "type": "git",

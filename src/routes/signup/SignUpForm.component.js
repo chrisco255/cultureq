@@ -3,7 +3,7 @@ import { reduxForm } from 'redux-form';
 import validate from './SignUp.validations';
 
 let SignUpForm = (props) => {
-  const { fields: { companyName, address }, error, handleSubmit } = props;
+  const { fields: { companyName, address }, error, handleSubmit, submitting } = props;
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -21,7 +21,7 @@ let SignUpForm = (props) => {
         <br/>
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
-        <button type="submit" >Submit</button>
+        <button type="submit" disabled={submitting} >Submit</button>
       </form>
     </div>
   );

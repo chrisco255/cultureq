@@ -8,6 +8,7 @@ import * as ActionTypes from '../routes/signup/SignUp.actions';
 
 function* submitSignUp(action) {
   try {
+    console.log('SAGA RECEIVED');
     yield delay(2000);
     let payload;
     if( Math.random() > .50 ) {
