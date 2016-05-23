@@ -9,6 +9,7 @@ RUN npm install http-server -g
 
 ADD . /app
 
+ENV NODE_ENV production
 RUN npm run webpack
 
 EXPOSE 80
