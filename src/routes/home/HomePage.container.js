@@ -22,7 +22,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import Title from './Title.component.js';
+import Title from './title/Title.component.js';
 
 const mapStateToProps = state => ({
 	lock: state.auth.lock,

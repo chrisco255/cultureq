@@ -11,7 +11,7 @@ class Title extends Component {
 		return (
 			<div>
 				{ this.props.idToken ? <p>LOGGED IN</p> : null }
-				<h1 styleName='title'>Hello World</h1>
+				<h1 styleName='title'>Changing the text</h1>
 
 				{ this.props.idToken ? '' : <button onClick={this.showLock}>Log In</button> }
 			</div>
