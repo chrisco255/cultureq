@@ -4,7 +4,7 @@ import routes from '../routes/index';
 import { Router } from 'react-router';
 
 export default class Root extends Component {
-  render = () =>  {
+  render = () => {
     const {store, history } = this.props;
     return (
       <Provider store={store}>
@@ -17,4 +17,4 @@ export default class Root extends Component {
 Root.propTypes = {
   store: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
-}
+};
