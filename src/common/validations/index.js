@@ -4,11 +4,14 @@
   I think
 */
 
+import emailRegex from 'email-regex';
+
 const isEmpty = (value) => { return value === undefined || value === null || value === '' };
 
 export function email(value) {
-  // Let's not start a debate on email regex. This is just for an example app!
-  if (!isEmpty(value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+  // This is used to see if email fields are "email like", it's not perfect.
+  // See this: https://davidcel.is/posts/stop-validating-email-addresses-with-regex/
+  if ( !isEmpty(value) && !emailRegex({exact: true}).test(value) ) {
     return 'Invalid email address';
   }
 }

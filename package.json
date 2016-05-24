@@ -13,7 +13,7 @@
     ]
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
+    "test": "mocha \"src/**/*.spec.js\" --compilers js:babel-core/register --require ./test/test_helper.js",
     "test:watch": "npm run test -- --watch",
     "dev": "webpack-dev-server",
     "webpack": "webpack -p --config webpack.production.config.js",
@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "email-regex": "^1.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "immutable": "^3.8.1",
     "react": "^15.0.2",
