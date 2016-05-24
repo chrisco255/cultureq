@@ -1,6 +1,7 @@
 /*
   For examples see:
   https://github.com/erikras/react-redux-universal-hot-example/search?utf8=%E2%9C%93&q=createValidator
+  I think
 */
 
 const isEmpty = (value) => { return value === undefined || value === null || value === '' };
