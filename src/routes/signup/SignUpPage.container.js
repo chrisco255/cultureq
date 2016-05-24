@@ -21,8 +21,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import { reduxForm, show as showResults } from 'redux-form';
-import SignUpForm from './SignUpForm.component';
-import { signUpSubmitted } from './SignUp.actions';
+import SignUpForm from './signup_form/SignUpForm.component.js';
+import SignUpHeader from './signup_header/SignUpHeader.component';
+import { signUpSubmitted } from './SignUp.actions.js';
 
 class SignUp extends Component {
 
@@ -32,8 +33,8 @@ class SignUp extends Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Complete This form to sign up!</h1>
+			<div className="container">
+				<SignUpHeader />
 				<SignUpForm onSubmit={this.onSignUpSubmit}/>
 			</div>
 		);

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { logout } from '../../common/auth/Auth.actions';
 
 const mapStateToProps = state => ({
-	lock: state.lock,
-	idToken: state.idToken
+	lock: state.auth.lock,
+	idToken: state.auth.idToken
 });
 
 let mapDispatchToProps = dispatch => ({
@@ -13,11 +13,16 @@ let mapDispatchToProps = dispatch => ({
 });
 
 class Header extends Component {
+	logIn = () => {
+		this.props.lock.show();
+	}
 	logOut = () => {
 		this.props.onLogOut();
 		this.props.router.push('/');
 	}
 	render = () => {
+		let { idToken } = this.props;
+
 		return (
 			<nav>
 				<div className="nav-fixed">
@@ -30,7 +35,8 @@ class Header extends Component {
 								<li><IndexLink to="/">Home</IndexLink></li>
 								<li><Link to="/signup">Sign Up</Link></li>
 								<li><Link to="/dashboard">Dashboard</Link></li>
-								<li><a onClick={this.props.onLogOut}>Logout</a></li>
+								{ idToken && <li><a onClick={this.logOut}>Logout</a></li> }
+								{ !idToken && <li><a onClick={this.logIn}>Login</a></li> }
 							</ul>
 						</div>
 					</div>

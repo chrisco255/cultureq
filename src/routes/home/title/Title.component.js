@@ -3,17 +3,20 @@ import CSSModules from 'react-css-modules';
 import styles from './Title.css';
 
 class Title extends Component {
-	showLock = () => {
+	logIn = () => {
 		this.props.lock.show();
 	}
 
 	render() {
 		return (
-			<div>
-				{ this.props.idToken ? <p>LOGGED IN</p> : null }
-				<h1 styleName='title'>Changing the text</h1>
-
-				{ this.props.idToken ? '' : <button onClick={this.showLock}>Log In</button> }
+			<div className="container">
+				<h1 styleName="title">Culture Shock</h1>
+				<p>
+					What do you want to know? Culture Shock is the best app since Pandr.
+				</p>
+				<p>
+					Sign up today!
+				</p>
 			</div>
 		);
 	}

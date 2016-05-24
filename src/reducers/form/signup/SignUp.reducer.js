@@ -1,5 +1,5 @@
 'use strict';
-import * as ActionTypes from '../../../routes/signup/SignUp.actions';
+import * as ActionTypes from '../../../routes/signup/SignUp.actions.js';
 
 const defaultState = { submitting: false };
 

@@ -21,8 +21,8 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import FeatureBody from './FeatureBody/FeatureBody.component';
-import HeroImage from './HeroImage/HeroImage.component';
+import FeatureBody from './featurebody/featurebody.component';
+import HeroImage from './heroimage/heroimage.component';
 
 const mapStateToProps = state => ({
 
