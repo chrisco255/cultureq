@@ -23,7 +23,7 @@
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/ultilabs/culture-shock-client.git"
   },
-  "author": "",
+  "author": "http://ultilabs.xyz",
   "license": "ISC",
   "homepage": "https://bitbucket.org/ultilabs/culture-shock-client#readme",
   "devDependencies": {
