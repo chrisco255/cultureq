@@ -17,7 +17,7 @@
     "test:watch": "npm run test -- --watch",
     "dev": "webpack-dev-server",
     "build": "webpack -p --config webpack.production.config.js",
-    "prod": "build && http-server ./dist"
+    "prod": "npm run build && http-server ./dist"
   },
   "repository": {
     "type": "git",
