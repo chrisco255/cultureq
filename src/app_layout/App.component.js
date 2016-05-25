@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component {
 	componentWillMount() {
-		this.props.onLogin(this.getIdToken());
+		this.props.onLogin( this.getIdToken() );
 	}
 
 	getIdToken() {

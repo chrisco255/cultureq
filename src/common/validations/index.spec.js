@@ -1,7 +1,5 @@
 import {expect} from 'chai';
 import { required, email } from './';
-// describe('', () => {});
-// it('', () => {});
 
 describe('validations', () => {
   describe('required', () => {

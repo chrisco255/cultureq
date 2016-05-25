@@ -1,4 +1,3 @@
-'use strict';
 import { put, call, fork } from 'redux-saga/effects';
 import { takeEvery, delay } from 'redux-saga';
 

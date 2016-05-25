@@ -47,4 +47,5 @@ class Header extends Component {
 }
 
 Header = withRouter(Header);
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+Header = connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

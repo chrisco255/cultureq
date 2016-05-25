@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { reduxForm } from 'redux-form';
-import validate from './SignUp.validation.js';
+import validate from './SignUpForm.validation.js';
 
 let SignUpForm = (props) => {
   const { fields: { companyName, address }, error, handleSubmit, submitting } = props;
