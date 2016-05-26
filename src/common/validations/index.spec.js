@@ -11,7 +11,7 @@ describe('validations', () => {
       const output = required(input);
 
       // Assert
-      expect(output).to.equal("HAHAHAHAHAHAHAHAHAHAHAHAHAHA LOLZ");
+      expect(output).to.equal('Required');
     });
 
     it('Given input is undefined, should return error message', () => {
