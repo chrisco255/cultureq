@@ -13,7 +13,7 @@
     ]
   },
   "scripts": {
-    "test": "mocha \"src/**/*.spec.js\" --compilers js:babel-core/register --require test/config.js",
+    "test": "./node_modules/mocha/bin/mocha \"src/**/*.spec.js\" --compilers js:babel-core/register --require test/config.js",
     "test:watch": "npm run test -- --watch",
     "dev": "webpack-dev-server",
     "build": "webpack -p --config webpack.production.config.js",
