@@ -1,5 +1,4 @@
-'use strict';
-import * as ActionTypes from '../../../routes/signup/SignUp.actions';
+import * as ActionTypes from '../../../routes/signup/SignUp.actions.js';
 
 const defaultState = { submitting: false };
 
@@ -27,7 +26,7 @@ export default (state = defaultState, action) => {
         case ActionTypes.SIGN_UP_FAILED:
             console.log('ERROR!');
 
-            let { errors, errorType } = action.error; // TODO: DEMOOOOOOOOOOOOOOOOOOOOOOO remove error from action.error
+            let { errors, errorType } = action.error;
 
             let newState = {
               _submitting: false,

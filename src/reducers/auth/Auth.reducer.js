@@ -1,4 +1,3 @@
-'use strict';
 import * as ActionTypes from './../../common/auth/Auth.actions.js';
 
 const defaultState = {

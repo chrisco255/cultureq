@@ -6,6 +6,7 @@ module.exports = {
 		'webpack/hot/only-dev-server',
 		'./src/index.js'
 	],
+	// devtool: 'eval-cheap-module-source-map', // <== faster yet not complete source maps
 	devtool: 'source-map',
 	module: {
 		loaders: [

@@ -1,4 +1,3 @@
-'use strict';
 import auth from './auth/Auth.reducer.js';
 import signUp from './form/signup/SignUp.reducer.js';
 import { combineReducers } from 'redux';
