@@ -1,0 +1,46 @@
+---
+resource_types:
+- name: slack
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+resources:
+  - name: culture-client-develop
+    type: git
+    source:
+      uri: git@bitbucket.org:ultilabs/culture-shock-client.git
+      branch: develop
+      private_key: {{bitbucket-key}}
+  - name: slack
+    type: slack
+    source:
+      url: {{slack-hook}}
+jobs:
+  - name: test
+    plan:
+      - get: culture-client-develop
+        trigger: true
+      - task: build
+        file: culture-client-develop/ci/develop/tasks/build.yml
+        on_success:
+            put: slack
+            params:
+              text: |
+                Build develop Success: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+        on_failure:
+            put: slack
+            params:
+              text: |
+                Build develop Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+      - task: unit-tests
+        file: culture-client-develop/ci/develop/tasks/test.yml
+        on_success:
+            put: slack
+            params:
+              text: |
+                Tests develop Passed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+        on_failure:
+            put: slack
+            params:
+              text: |
+                Tests develop Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME

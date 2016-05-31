@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: node, tag: "6"}
+run:
+  path: sh
+  args: 
+    - -exec
+    - |
+      cp culture-client-develop/* culture-client-develop-installed -r
+      cp culture-client-develop/.git culture-client-develop-installed -r
+      cp culture-client-develop/.gitignore culture-client-develop-installed -r
+      cp culture-client-develop/.dockerignore culture-client-develop-installed -r
+      cd culture-client-develop-installed
+      npm install
+inputs:
+  - name: culture-client-develop
+outputs:
+  - name: culture-client-develop-installed
