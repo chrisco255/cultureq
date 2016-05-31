@@ -1,5 +1,11 @@
 import 'babel-polyfill';
 
+import hook from 'css-modules-require-hook';
+
+hook({
+  generateScopedName: '[path]___[name]__[local]___[hash:base64:5]'
+})
+
 // jsdom stuff
 // import jsdom from 'jsdom';
 //

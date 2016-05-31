@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import { required, email } from './';
 
 describe('validations', () => {
