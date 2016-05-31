@@ -5,4 +5,5 @@ dist/bundle.js.map
 dist/style.css
 dist/style.css.map
 npm-debug.log
+creds.yml
 .DS_Store

@@ -1,0 +1,60 @@
+---
+resources:
+  - name: culture-client
+    type: git
+    source:
+      uri: git@bitbucket.org:ultilabs/culture-shock-client.git
+      branch: master
+      private_key: {{bitbucket-key}}
+  - name: dokku
+    type: git
+    source:
+      uri: dokku@ultilabs.xyz:culture-client
+      branch: master
+      private_key: {{bitbucket-key}}
+
+jobs:
+  - name: test
+    plan:
+      - get: culture-client
+        trigger: true
+      - task: install packages
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: node, tag: "6"}
+          run:
+            path: sh
+            args: 
+              - -exec
+              - |
+                cp culture-client/* culture-client-installed -r
+                cp culture-client/.git culture-client-installed -r
+                cp culture-client/.gitignore culture-client-installed -r
+                cp culture-client/.dockerignore culture-client-installed -r
+                cd culture-client-installed
+                npm install
+          inputs:
+            - name: culture-client
+          outputs:
+            - name: culture-client-installed
+      - task: unit-tests
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: node, tag: "6"}
+          run: 
+            path: npm
+            args: [run, test]
+            dir: culture-client-installed
+          inputs:
+            - name: culture-client-installed
+  - name: deploy
+    plan:
+      - get: culture-client
+        passed: [test]
+        trigger: true
+      - put: dokku
+        params: {repository: culture-client}
