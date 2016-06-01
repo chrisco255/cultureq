@@ -5,7 +5,7 @@ resource_types:
   source:
     repository: cfcommunity/slack-notification-resource
 resources:
-  - name: culture-client
+  - name: culture-client-master
     type: git
     source:
       uri: git@bitbucket.org:ultilabs/culture-shock-client.git
@@ -24,76 +24,47 @@ resources:
 jobs:
   - name: test
     plan:
-      - get: culture-client
+      - get: culture-client-master
         trigger: true
-      - task: install packages
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source: {repository: node, tag: "6"}
-          run:
-            path: sh
-            args: 
-              - -exec
-              - |
-                cp culture-client/* culture-client-installed -r
-                cp culture-client/.git culture-client-installed -r
-                cp culture-client/.gitignore culture-client-installed -r
-                cp culture-client/.dockerignore culture-client-installed -r
-                cd culture-client-installed
-                npm install
-          inputs:
-            - name: culture-client
-          outputs:
-            - name: culture-client-installed
+      - task: build
+        file: culture-client-master/ci/tasks/build.yml
         on_success:
             put: slack
             params:
               text: |
-                Build Success: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+                Build Master Success: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
         on_failure:
             put: slack
             params:
               text: |
-                Build Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
-
+                Build Master Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
       - task: unit-tests
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source: {repository: node, tag: "6"}
-          run: 
-            path: npm
-            args: [run, test]
-            dir: culture-client-installed
-          inputs:
-            - name: culture-client-installed
+        file: culture-client-master/ci/tasks/test.yml
         on_success:
             put: slack
             params:
               text: |
-                Tests Passed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+                Tests Master Passed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
         on_failure:
             put: slack
             params:
               text: |
-                Tests Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+                Tests Master Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
   - name: deploy
     plan:
-      - get: culture-client
+      - get: culture-client-master
+        trigger: true
         passed: [test]
       - put: dokku
-        params: {repository: culture-client}
+        params: {repository: culture-client-master}
         on_success:
             put: slack
             params:
               text: |
-                Deploy Succeeded: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+                Deploy Master Succeeded: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
         on_failure:
             put: slack
             params:
               text: |
-                Deploy Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+                Deploy Master Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
 
