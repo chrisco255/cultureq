@@ -12,11 +12,10 @@ const PATHS = {
     // path.join(__dirname, 'node_modules', 'purecss'),
     path.join(__dirname, 'src', 'main.css')
   ],
-  build: path.join(__dirname, 'dist')
+  build: path.join(__dirname, 'build')
 };
 
 const common = {
-	devtool: 'source-map',
   entry: {
     style: PATHS.style
   },
@@ -62,15 +61,16 @@ switch( TARGET ) {
         name: 'vendor',
         entries: Object.keys(pkg.dependencies)
       }),
-			parts.extractCSS(PATHS.style),
-      parts.minify(),
-      parts.purifyCSS([PATHS.app])
+			parts.extractCSS(PATHS.app),
+      parts.minify()
+      //parts.purifyCSS([PATHS.app])
     );
     break;
   default:
     config = merge(
       common,
 			{
+        devtool: 'eval-source-map',
 				entry: {
 					app: [
           	'webpack-dev-server/client?http://0.0.0.0:8080',
