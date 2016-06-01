@@ -5,7 +5,7 @@ WORKDIR /app
 
 ADD ./package.json /app/package.json
 RUN npm install
-RUN npm install http-server webpack -g
+RUN npm install http-server -g
 
 ADD . /app
 
@@ -14,4 +14,4 @@ RUN npm run build
 
 EXPOSE 80
 
-CMD [ "http-server", "-p", "80", "./dist" ]
+CMD [ "http-server", "-p", "80", "./build" ]
