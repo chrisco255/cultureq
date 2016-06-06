@@ -19,10 +19,7 @@ export default (state = defaultState, action) => {
                 },
                 address: {
                     value: ''
-                },
-                hasSubmitted: true,
-                submittedCompanyName: action.payload.companyName,
-                submittedAddress: action.payload.address
+                }
             };
             state = Object.assign({}, state, resetForm);
             break;

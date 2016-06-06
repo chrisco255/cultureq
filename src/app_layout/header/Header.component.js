@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { Link, IndexLink, withRouter } from 'react-router';
+import { Link, IndexLink } from 'react-router';
+import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { logout } from '../../common/auth/Auth.actions';
 
 const mapStateToProps = state => ({
 	lock: state.auth.lock,
 	loggedIn: state.auth.idToken,
-	hasSubmitted: state.form.signup.hasSubmitted
+	hasSubmitted: state.signup.hasSubmitted
 });
 
 let mapDispatchToProps = dispatch => ({
-	onLogOut: () => dispatch(logout())
+	onLogOut: () => dispatch( logout() ),
+	redirect: (url) => dispatch( push(url) )
 });
 
 class Header extends Component {
@@ -19,7 +21,7 @@ class Header extends Component {
 	}
 	logOut = () => {
 		this.props.onLogOut();
-		this.props.router.push('/signup');
+		this.props.redirect('/');
 	}
 	render = () => {
 		let { loggedIn, hasSubmitted } = this.props;
@@ -30,11 +32,11 @@ class Header extends Component {
 					<div className="container">
 						<div className="nav-wrapper">
 							<ul className="left left-name">
-								<a href="#" className="brand-logo">Culture Shock</a>
+								<IndexLink to="/" className="brand-logo">Culture Shock</IndexLink>
 							</ul>
 							<ul id="nav-mobile" className="right">
-								{ !loggedIn && <li><IndexLink to="/">Home</IndexLink></li> }
-								{ loggedIn && <li><Link to="/signup">Getting Started</Link></li> }
+								{/*{ !loggedIn && <li><IndexLink to="/">Home</IndexLink></li> }*/}
+								{ !hasSubmitted && loggedIn && <li><Link to="/signup">Getting Started</Link></li> }
 								{ hasSubmitted && loggedIn && <li><Link to="/dashboard">Dashboard</Link></li> }
 								{ hasSubmitted && loggedIn && <li><Link to="/profile">Profile</Link></li> }
 								{ loggedIn && <li><a onClick={this.logOut}>Logout</a></li> }
@@ -48,6 +50,5 @@ class Header extends Component {
 	}
 }
 
-Header = withRouter(Header);
 Header = connect(mapStateToProps, mapDispatchToProps)(Header);
 export default Header;

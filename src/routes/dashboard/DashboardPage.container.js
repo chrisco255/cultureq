@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import HeroImage from './hero_image/HeroImage.component';
 
