@@ -2,15 +2,19 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducer from '../reducers/index';
 import DevTools from '../app_root/DevTools.component.js';
+import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'react-router-redux';
 
 export default function configureStore(initialState) {
 	const sagaMiddleware = createSagaMiddleware();
+	const officalRouterMiddleware = routerMiddleware(browserHistory);
 
 	const store = createStore(
 		reducer,
 		initialState,
 		compose(
-			applyMiddleware(sagaMiddleware),
+			applyMiddleware(sagaMiddleware, officalRouterMiddleware),
+
 			window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()
 		)
 	);
@@ -19,7 +23,7 @@ export default function configureStore(initialState) {
 		// Enable Webpack hot module replacement for reducers
 		module.hot.accept('../reducers/index', () => {
 			const nextRootReducer = require('../reducers/index').default;
-			
+
 			store.replaceReducer(nextRootReducer);
 		});
 	}

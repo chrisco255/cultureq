@@ -1,6 +1,8 @@
 import { put, call, fork } from 'redux-saga/effects';
 import { takeEvery, delay } from 'redux-saga';
 
+import { push } from 'react-router-redux';
+
 import * as ActionTypes from '../../routes/signup/SignUp.actions.js';
 
 export function* submitSignUp(action) {
@@ -15,7 +17,8 @@ export function* submitSignUp(action) {
 		const payload = action.payload;
 		// const payload = yield call(Api.fetchSignUpForm, action.payload);
 
-		yield put( {type: ActionTypes.SIGN_UP_SUCCEEDED, payload} );
+		yield put( {type: ActionTypes.SIGN_UP_SUCCEEDED, payload } );
+		yield put( push('/dashboard') );
 	} catch (error) {
 		yield put( {type: ActionTypes.SIGN_UP_FAILED, error} );
 	}
