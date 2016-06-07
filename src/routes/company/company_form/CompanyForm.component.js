@@ -10,12 +10,12 @@ let CompanyForm = (props) => {
         <div>
           <label>Company Name</label>
           <input type="text" placeholder="Company Name" { ...name } />
-          {companyName.touched && companyName.error && <div style={{color: 'red'}}>{companyName.error}</div>}
+          {name.touched && name.error && <div style={{color: 'red'}}>{name.error}</div>}
         </div>
         <br/>
         <div>
-          <label>Address</label>
-          <input type="text" placeholder="Address" { ...address } />
+          <label>Company Address</label>
+          <input type="text" placeholder="Company Address" { ...address } />
           {address.touched && address.error && <div style={{color: 'red'}}>{address.error}</div>}
         </div>
         <br/>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
-import SignUpForm from './company_form/CompanyForm.component';
+import CompanyForm from './company_form/CompanyForm.component';
 import { companySubmitted } from '../../reducers/company/Company.actions';
 import styles from './CompanyPage.css';
 

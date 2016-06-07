@@ -14,7 +14,7 @@ export default (state = defaultState, action) => {
             console.log('SUCCESS! resetting form.');
             const resetForm = {
                 _submitting: false,
-                companyName: {
+                name: {
                     value: ''
                 },
                 address: {
