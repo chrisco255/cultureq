@@ -4,11 +4,14 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { logout, login } from '../../reducers/user/User.actions';
 
-const mapStateToProps = state => ({
-	lock: state.user.lock,
-	loggedIn: state.user.token,
-	companyName: state.company.name
-});
+const mapStateToProps = function mapStateToProps(state) {
+	console.log('HEADER STATE: ', state);
+	return {
+		lock: state.user.lock,
+		loggedIn: state.user.token,
+		companyName: state.company.name
+	};
+}
 
 let mapDispatchToProps = dispatch => ({
   onLogIn(payload) { dispatch( login(payload) )},
@@ -50,8 +53,7 @@ class Header extends Component {
 								<IndexLink to="/" className="brand-logo">Culture Shock</IndexLink>
 							</ul>
 							<ul id="nav-mobile" className="right">
-								{/*{ !loggedIn && <li><IndexLink to="/">Home</IndexLink></li> }*/}
-								{ !companyName && loggedIn && <li><Link to="/signup">Getting Started</Link></li> }
+								{ !companyName && loggedIn && <li><Link to="/company">Getting Started</Link></li> }
 								{ companyName && loggedIn && <li><Link to="/dashboard">Dashboard</Link></li> }
 								{ companyName && loggedIn && <li><Link to="/profile">Profile</Link></li> }
 								{ loggedIn && <li><a onClick={this.logOut}>Logout</a></li> }
