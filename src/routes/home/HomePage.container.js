@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import styles from './HomePage.css';
-
-const mapStateToProps = state => ({ });
-const mapDispatchToProps = dispatch => ({ });
 
 class HomePage extends Component {
 	render() {
@@ -23,8 +19,6 @@ class HomePage extends Component {
 }
 
 HomePage = CSSModules(HomePage, styles);
-HomePage = connect(mapStateToProps, mapDispatchToProps)(HomePage);
-
 export default HomePage;
 
 

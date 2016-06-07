@@ -11,8 +11,8 @@ const mapStateToProps = state => ({
 });
 
 let mapDispatchToProps = dispatch => ({
-	onLogOut: () => dispatch( logout() ),
-	redirect: (url) => dispatch( push(url) )
+	onLogOut() { dispatch( logout() )},
+	redirect(url) { dispatch( push(url) ) }
 });
 
 class Header extends Component {

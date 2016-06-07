@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import HeroImage from './hero_image/HeroImage.component';
-
-const mapStateToProps = state => ({ });
-const mapDispatchToProps = dispatch => ({ });
 
 export class DashboardPage extends Component {
 	render = () =>  {
@@ -17,4 +13,4 @@ export class DashboardPage extends Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+export default DashboardPage;
