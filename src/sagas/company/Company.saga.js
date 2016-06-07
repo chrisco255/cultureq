@@ -5,17 +5,17 @@ import { push } from 'react-router-redux';
 
 import * as ActionTypes from '../../reducers/company/Company.actions';
 
-export function* submitSignUp(action) {
+export function* companySubmit(action) {
 	try {
 		yield call(delay, 2000);
 		const payload = action.payload;
-		yield put( {type: ActionTypes.SIGN_UP_SUCCEEDED, payload } );
+		yield put( {type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload } );
 		yield put( push('/dashboard') );
 	} catch (error) {
-		yield put( {type: ActionTypes.SIGN_UP_FAILED, error} );
+		yield put( {type: ActionTypes.COMPANY_SUBMIT_FAILED, error} );
 	}
 }
 
-export default function* watchSignUpSubmission() {
-	yield* takeEvery(ActionTypes.SIGN_UP_SUBMITTED, submitSignUp);
+export default function* watchCompanySubmitted() {
+	yield* takeEvery(ActionTypes.COMPANY_SUBMITTED, companySubmit);
 }

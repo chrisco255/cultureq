@@ -1,10 +1,10 @@
-export const SIGN_UP_SUBMITTED = 'SIGN_UP_SUBMITTED';
-export const SIGN_UP_SUCCEEDED = 'SIGN_UP_SUCCEEDED';
-export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
+export const COMPANY_SUBMITTED = 'COMPANY_SUBMITTED';
+export const COMPANY_SUBMIT_SUCCEEDED = 'COMPANY_SUBMIT_SUCCEEDED';
+export const COMPANY_SUBMIT_FAILED = 'COMPANY_SUBMIT_FAILED';
 
-export function signUpSubmitted({ address, companyName }) {
+export function companySubmitted({ address, companyName }) {
 	return {
-		type: SIGN_UP_SUBMITTED,
+		type: COMPANY_SUBMITTED,
 		payload: { address, companyName }
 	};
 }

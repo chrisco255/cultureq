@@ -4,13 +4,13 @@ const defaultState = { submitting: false };
 
 export default (state = defaultState, action) => {
     switch(action.type) {
-        case ActionTypes.SIGN_UP_SUBMITTED:
+        case ActionTypes.COMPANY_SUBMITTED:
             const submitting = {
                 _submitting: true
             };
             state = Object.assign({}, state, submitting);
             break;
-        case ActionTypes.SIGN_UP_SUCCEEDED:
+        case ActionTypes.COMPANY_SUBMIT_SUCCEEDED:
             console.log('SUCCESS! resetting form.');
             const resetForm = {
                 _submitting: false,
@@ -23,7 +23,7 @@ export default (state = defaultState, action) => {
             };
             state = Object.assign({}, state, resetForm);
             break;
-        case ActionTypes.SIGN_UP_FAILED:
+        case ActionTypes.COMPANY_SUBMIT_FAILED:
             console.log('ERROR!');
 
             let { errors, errorType } = action.error;
