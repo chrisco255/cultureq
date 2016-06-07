@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../../routes/signup/SignUp.actions.js';
+import * as ActionTypes from '../../company/Company.actions';
 
 const defaultState = { submitting: false };
 

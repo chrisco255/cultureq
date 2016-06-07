@@ -1,4 +1,3 @@
-// var webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
@@ -56,6 +55,7 @@ switch( TARGET ) {
       },
       parts.clean(PATHS.build),
       parts.setFreeVariable( 'process.env.NODE_ENV', 'production' ),
+      parts.setupAuth0Lock(),
 			parts.setupJSProd(PATHS.app),
       parts.extractBundle({
         name: 'vendor',
@@ -79,6 +79,7 @@ switch( TARGET ) {
         	]
 				},
 			},
+      parts.setupAuth0Lock(),
 			parts.setupJSDev(PATHS.app),
       parts.setupCSS(PATHS.app),
       parts.devServer({

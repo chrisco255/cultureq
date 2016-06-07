@@ -1,37 +1,37 @@
-import Header from './header/Header.component.js';
+import Header from './header/Header.component';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { login } from '../common/auth/Auth.actions.js';
+import { login } from '../reducers/user/User.actions';
 
 const mapStateToProps = state => ({
 	lock: state.auth.lock
 });
 
 const mapDispatchToProps = dispatch => ({
-	onLogin: (idToken) => dispatch( login(idToken) )
+	onLogin: (payload) => dispatch( login(payload) )
 });
 
 class App extends Component {
 	componentWillMount() {
-		this.props.onLogin( this.getIdToken() );
+		this.props.onLogin( this.getLogin() );
 	}
 
-	getIdToken() {
-		let idToken = window.localStorage.getItem('userToken');
-		let authHash = this.props.lock.parseHash(window.location.hash);
-		window.location.hash = '';
-
-		if (!idToken && authHash) {
-			if (authHash.id_token) {
-				idToken = authHash.id_token;
-				localStorage.setItem('userToken', authHash.id_token);
-			}
-			if (authHash.error) {
-				console.log("Error signing in", authHash);
-				return null;
-			}
+	getLogin = () => {
+		let token = null;
+		let profile = null;
+		try {
+			token = window.localStorage.getItem('userToken');
+			profile = window.localStorage.getItem('userProfile');
+			profile = JSON.parse(profile);
+		} catch(err) {
+			console.log('Failed to read userToken/userProfile from localStorage ', err);
 		}
-		return idToken;
+
+		return {
+			token,
+			profile
+		};
+
 	}
 
 	render() {

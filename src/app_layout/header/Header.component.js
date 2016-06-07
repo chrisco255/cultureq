@@ -2,22 +2,37 @@ import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { logout } from '../../common/auth/Auth.actions';
+import { logout, login } from '../../reducers/user/User.actions';
 
 const mapStateToProps = state => ({
 	lock: state.auth.lock,
-	loggedIn: state.auth.idToken,
+	loggedIn: state.auth.token,
 	hasSubmitted: state.signup.hasSubmitted
 });
 
 let mapDispatchToProps = dispatch => ({
+  onLogIn(payload) { dispatch( login(payload) )},
 	onLogOut() { dispatch( logout() )},
 	redirect(url) { dispatch( push(url) ) }
 });
 
 class Header extends Component {
 	logIn = () => {
-		this.props.lock.show();
+		this.props.lock.show( (err, profile, token) => {
+      if(err) {
+        console.log('Login Failed: ',err);
+        return;
+      }
+
+      try {
+        window.localStorage.setItem('userToken', token);
+        window.localStorage.setItem('userProfile', JSON.stringify(profile));
+      } catch(err) {
+        console.log(err);
+      }
+
+      this.props.onLogIn({ token, profile });
+    });
 	}
 	logOut = () => {
 		this.props.onLogOut();

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import SignUpForm from './signup_form/SignUpForm.component.js';
+import SignUpForm from './signup_form/SignUpForm.component';
 import SignUpHeader from './signup_header/SignUpHeader.component';
-import { signUpSubmitted } from './SignUp.actions.js';
+import { signUpSubmitted } from '../../reducers/company/Company.actions';
 
 class SignUp extends Component {
 
