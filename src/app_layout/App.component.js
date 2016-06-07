@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { login } from '../reducers/user/User.actions';
 
-const mapStateToProps = state => ({
-	lock: state.auth.lock
-});
-
 const mapDispatchToProps = dispatch => ({
 	onLogin: (payload) => dispatch( login(payload) )
 });
@@ -44,4 +40,4 @@ class App extends Component {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

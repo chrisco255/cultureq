@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { logout, login } from '../../reducers/user/User.actions';
 
 const mapStateToProps = state => ({
-	lock: state.auth.lock,
-	loggedIn: state.auth.token,
-	hasSubmitted: state.signup.hasSubmitted
+	lock: state.user.lock,
+	loggedIn: state.user.token,
+	companyName: state.company.name
 });
 
 let mapDispatchToProps = dispatch => ({
@@ -39,7 +39,7 @@ class Header extends Component {
 		this.props.redirect('/');
 	}
 	render = () => {
-		let { loggedIn, hasSubmitted } = this.props;
+		let { loggedIn, companyName } = this.props;
 
 		return (
 			<nav>
@@ -51,9 +51,9 @@ class Header extends Component {
 							</ul>
 							<ul id="nav-mobile" className="right">
 								{/*{ !loggedIn && <li><IndexLink to="/">Home</IndexLink></li> }*/}
-								{ !hasSubmitted && loggedIn && <li><Link to="/signup">Getting Started</Link></li> }
-								{ hasSubmitted && loggedIn && <li><Link to="/dashboard">Dashboard</Link></li> }
-								{ hasSubmitted && loggedIn && <li><Link to="/profile">Profile</Link></li> }
+								{ !companyName && loggedIn && <li><Link to="/signup">Getting Started</Link></li> }
+								{ companyName && loggedIn && <li><Link to="/dashboard">Dashboard</Link></li> }
+								{ companyName && loggedIn && <li><Link to="/profile">Profile</Link></li> }
 								{ loggedIn && <li><a onClick={this.logOut}>Logout</a></li> }
 								{ !loggedIn && <li><a onClick={this.logIn}>Login</a></li> }
 							</ul>
