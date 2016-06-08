@@ -5,7 +5,7 @@ const defaultState = {
   name: null,
   address: null,
   contact: {
-    name: null,
+    cname: null,
     email: null,
     phone: null
   }
@@ -19,7 +19,7 @@ export default (state = defaultState, action) => {
         name: action.payload.name,
         address: action.payload.address,
         contact: {
-          name: action.payload.contact.name,
+          cname: action.payload.contact.cname,
           email: action.payload.contact.email,
           phone: action.payload.contact.phone
         }

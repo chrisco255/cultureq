@@ -21,7 +21,7 @@ export default (state = defaultState, action) => {
                     value: ''
                 },
                 contact: {
-                  name: {
+                  cname: {
                     value: ''
                   },
                   email: {
