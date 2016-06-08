@@ -15,8 +15,8 @@ class CompanyPage extends Component {
 		return (
 			<div className="container">
 				<div>
-					<h1 styleName='title'>Sign Up For Shockingly Good Savings</h1>
-					<p styleName='instructions'>Howdy ho!</p>
+					<h1 styleName='title'>Let's get started!</h1>
+					<p styleName='instructions'>Fill out the following form about your company.</p>
 				</div>
 				<CompanyForm onSubmit={this.onCompanyFormSubmit}/>
 			</div>
