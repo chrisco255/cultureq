@@ -8,7 +8,7 @@ var structure = {
     name: "",
     address: "",
     contact: {
-      name: "",
+      cname: "",
       phone: 0,
       email: ""
     },
@@ -41,48 +41,46 @@ let CompanyForm = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Company Name</label>
-          <input type="text" placeholder="Company Name" { ...name } />
+          <input type="text" placeholder="Ultimate Software" { ...name } />
           {name.touched && name.error && <div style={{color: 'red'}}>{name.error}</div>}
         </div>
         <br/>
         <div>
           <label>Company Address</label>
-          <input type="text" placeholder="Company Address" { ...address } />
+          <input type="text" placeholder="2000 Ultimate Way Weston, FL 33326" { ...address } />
           {address.touched && address.error && <div style={{color: 'red'}}>{address.error}</div>}
         </div>
         <br/>
         <div>
           <label>Contact Name</label>
-          <input type="text" placeholder="Contact Name" { ...contact.name } />
-          {contact.name.touched && contact.name.error && <div style={{color: 'red'}}>{contact.name.error}</div>}
+          <input type="text" placeholder="Jane Doe" { ...contact.cname } />
+          {contact.cname.touched && contact.cname.error && <div style={{color: 'red'}}>{contact.cname.error}</div>}
         </div>
         <br/>
         <div>
           <label>Contact Email</label>
-          <input type="text" placeholder="Contact Email" { ...contact.email } />
+          <input type="text" placeholder="jane_doe@ultimatesoftware.com" { ...contact.email } />
           {contact.email.touched && contact.email.error && <div style={{color: 'red'}}>{contact.email.error}</div>}
         </div>
         <br/>
         <div>
           <label>Contact Phone</label>
-          <input type="text" placeholder="Contact Phone" { ...contact.phone } />
+          <input type="text" placeholder="9541234563" { ...contact.phone } />
           {contact.phone.touched && contact.phone.error && <div style={{color: 'red'}}>{contact.phone.error}</div>}
         </div>
         <br/>
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
-        <button type="submit" disabled={submitting} >Submit</button>
+        <button className="btn waves-effect waves-light" type="submit" disabled={submitting}>Submit</button>
       </form>
     </div>
   );
 }
 
-
-
 // Composition FTW!
 CompanyForm = reduxForm({
 	form: 'company',
-	fields: ['name', 'address', 'contact.name', 'contact.email', 'contact.phone'],
+	fields: ['name', 'address', 'contact.cname', 'contact.email', 'contact.phone'],
   validate
 })(CompanyForm);
 

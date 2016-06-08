@@ -1,8 +1,14 @@
-import { createValidator, required, maxLength, minLength, integer } from '../../../common/validations';
+import { createValidator, required, minLength, integer } from '../../../common/validations';
 
 const companyValidation = createValidator({
-  name: [required, minLength(4), maxLength(10)],
-  address: [required, integer, minLength(7)]
+  'name': [required, minLength(4)],
+  'address': [required, minLength(7)]
 });
+
+// const contactValidation = createValidator({
+//   'cname':  [required, minLength(4)],
+//   'email': [required],
+//   'phone': [required, integer]
+// });
 
 export default companyValidation;
