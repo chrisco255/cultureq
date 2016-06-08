@@ -4,8 +4,7 @@ import Auth0Lock from 'auth0-lock';
 const defaultState = {
 	lock: new Auth0Lock('Ty9ofoTxjYJqOlCSnqKhaSDWPurI3DzU', 'ultilabs.auth0.com'),
 	token: null,
-	profile: null,
-	hasSubmitted: false
+	profile: null
 };
 
 export default (state = defaultState, action) => {

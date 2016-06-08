@@ -10,7 +10,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
 
 	switch(action.type) {
-		case ActionTypes.COMPANY_LOADED:
+		case ActionTypes.COMPANY_SUBMIT_SUCCEEDED:
 			state = Object.assign({}, state, {
         name: action.payload.name,
         address: action.payload.address,
