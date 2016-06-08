@@ -4,14 +4,11 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { logout, login } from '../../reducers/user/User.actions';
 
-const mapStateToProps = function mapStateToProps(state) {
-	console.log('HEADER STATE: ', state);
-	return {
+const mapStateToProps = (state) => ({
 		lock: state.user.lock,
 		loggedIn: state.user.token,
 		companyName: state.company.name
-	};
-}
+});
 
 let mapDispatchToProps = dispatch => ({
   onLogIn(payload) { dispatch( login(payload) )},
