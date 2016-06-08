@@ -7,6 +7,7 @@ import styles from './CompanyPage.css';
 class CompanyPage extends Component {
 
 	onCompanyFormSubmit = (values, dispatch) => {
+		console.log('Company Form Values: ', values);
 		dispatch( companySubmitted(values) );
 	}
 

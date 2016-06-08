@@ -20,8 +20,16 @@ export default (state = defaultState, action) => {
                 address: {
                     value: ''
                 },
-                contactEmail: {
+                contact: {
+                  name: {
                     value: ''
+                  },
+                  email: {
+                    value: ''
+                  },
+                  phone: {
+                    value: ''
+                  }
                 }
             };
             state = Object.assign({}, state, resetForm);

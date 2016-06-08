@@ -4,7 +4,11 @@ import * as UserActionTypes from '../user/User.actions';
 const defaultState = {
   name: null,
   address: null,
-  contactEmail: null
+  contact: {
+    name: null,
+    email: null,
+    phone: null
+  }
 };
 
 export default (state = defaultState, action) => {
@@ -14,7 +18,11 @@ export default (state = defaultState, action) => {
 			state = Object.assign({}, state, {
         name: action.payload.name,
         address: action.payload.address,
-        contactEmail: action.payload.contactEmail
+        contact: {
+          name: action.payload.contact.name,
+          email: action.payload.contact.email,
+          phone: action.payload.contact.phone
+        }
       });
 			break;
     case UserActionTypes.USER_LOGOUT:

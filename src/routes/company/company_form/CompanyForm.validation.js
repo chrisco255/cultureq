@@ -2,8 +2,7 @@ import { createValidator, required, maxLength, minLength, integer } from '../../
 
 const companyValidation = createValidator({
   name: [required, minLength(4), maxLength(10)],
-  address: [required, integer, minLength(7)],
-  contactEmail: [required, minLength(7)]
+  address: [required, integer, minLength(7)]
 });
 
 export default companyValidation;
