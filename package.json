@@ -68,7 +68,7 @@
     "react-router-redux": "4.0.5",
     "redux": "3.5.2",
     "redux-form": "5.2.5",
-    "redux-saga": "0.10.4",
+    "redux-saga": "0.10.5",
     "transform-loader": "^0.2.3"
   }
 }
