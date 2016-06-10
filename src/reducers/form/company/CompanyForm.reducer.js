@@ -20,6 +20,7 @@ export default (state = defaultState, action) => {
                 address: {
                     value: ''
                 },
+                peepCSV: {},
                 contact: {
                   name: {
                     value: ''

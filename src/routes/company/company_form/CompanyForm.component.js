@@ -1,46 +1,55 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import validate from './CompanyForm.validation.js';
+import { Receiver } from 'react-file-uploader';
+
+var Dropzone = require('react-dropzone');
 
 export const fields = [
   'name',
   'address',
+  'peepCSV',
   'contact.name',
   'contact.email',
   'contact.phone'
 ];
 
-// SignUp Form Info
-var structure = {
-  company: {
-    name: "",
-    address: "",
-    contact: {
-      name: "",
-      phone: 0,
-      email: ""
+{/*<Receiver
+  customClass={STRING_OR_ARRAY}
+  style={OBJECT}
+  isOpen={BOOLEAN}
+  onDragEnter={FUNCTION}
+  onDragOver={FUNCTION}
+  onDragLeave={FUNCTION}
+  onFileDrop={FUNCTION}
+>
+    <div>
+      visual layer of the receiver (drag & drop panel)
+    </div>
+</Receiver>*/}
+
+var DropzoneDemo = React.createClass({
+    onDrop: function (files) {
+      console.log('Received files: ', files);
     },
-    culture: {
-      tenants: [{
-        name: "",
-        content: [{
-         type: "",
-         data: ""
-       }]
-      }]
-    },
-  users: [{
-      email: "",
-        name: ""
-      }]
-  }
-};
+
+    render: function () {
+      return (
+          <div>
+            <Dropzone onDrop={this.onDrop}>
+              <div>Try dropping some files here, or click to select files to upload.</div>
+            </Dropzone>
+          </div>
+      );
+    }
+});
 
 let CompanyForm = (props) => {
   const {
     fields: {
       name,
       address,
+      peepCSV,
       contact
     }, error, handleSubmit, submitting
   } = props;
@@ -67,16 +76,30 @@ let CompanyForm = (props) => {
         <br/>
         <div>
           <label>Contact Email</label>
-          <input type="text" placeholder="jane_doe@ultimatesoftware.com" { ...contact.email } />
+          <input type="email" placeholder="jane_doe@ultimatesoftware.com" { ...contact.email } />
           {contact.email.touched && contact.email.error && <div style={{color: 'red'}}>{contact.email.error}</div>}
         </div>
         <br/>
         <div>
           <label>Contact Phone</label>
-          <input type="text" placeholder="9541234563" { ...contact.phone } />
+          <input type="number" placeholder="9541234563" { ...contact.phone } />
           {contact.phone.touched && contact.phone.error && <div style={{color: 'red'}}>{contact.phone.error}</div>}
         </div>
         <br/>
+        <div>
+          <div className="file-field input-field">
+            <div className="btn">
+              <span>Import Employees</span>
+              <input type="file" { ...peepCSV } />
+              {peepCSV.touched && peepCSV.error && <div style={{color: 'red'}}>{peepCSV.error}</div>}
+            </div>
+            <div className="file-path-wrapper">
+              <input className="file-path validate" type="text" />
+            </div>
+          </div>
+        </div>
+        <br/>
+        {/*<DropzoneDemo />*/}
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
         <button className="btn waves-effect waves-light" type="submit" disabled={submitting}>Submit</button>
@@ -91,5 +114,32 @@ CompanyForm = reduxForm({
 	fields,
   validate
 })(CompanyForm);
+
+
+// SignUp Form Info
+var structure = {
+  company: {
+    name: "",
+    address: "",
+    contact: {
+      name: "",
+      phone: 0,
+      email: ""
+    },
+    culture: {
+      tenants: [{
+      name: "",
+      content: [{
+        type: "",
+        data: ""
+        }]
+      }]
+    },
+    users: [{
+      email: "",
+      name: ""
+    }]
+  }
+};
 
 export default CompanyForm;
