@@ -68,16 +68,40 @@ const join = (rules) => {
   }
 }
 
+
+// createValidator({
+//   name: [required],
+//   address: [required],
+//   contact: {
+//     name: [required]
+//   }
+// })
+
+
+// TODO: Clean up logic. NOTE: only works for one level of nesting.
 export function createValidator(rules) {
   return (data = {}) => {
     const errors = {};
     Object.keys(rules).forEach( (key) => {
-      const rule = join([].concat(rules[key])); // concat enables both functions and arrays of functions
-      const error = rule(data[key], data);
-      if (error) {
-        errors[key] = error;
+      if( !(rules[key] instanceof Array) ) {
+        const innerRules = rules[key];
+        Object.keys(innerRules).forEach( (innerKey) => {
+          const innerRule = join([].concat(innerRules[innerKey])); // concat enables both functions and arrays of functions
+          const error = innerRule(data[key][innerKey], data); // this might need to be data[key]
+          if (error) {
+            errors[key] = errors[key] || {};
+            errors[key][innerKey] = error;
+          }
+        }); // End inner forEach
+      } else {
+        const rule = join([].concat(rules[key])); // concat enables both functions and arrays of functions
+        const error = rule(data[key], data);
+        if (error) {
+          errors[key] = error;
+        }
       }
-    });
+    }); // End outer forEach
+
     return errors;
   };
 }

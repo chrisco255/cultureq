@@ -2,13 +2,21 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import validate from './CompanyForm.validation.js';
 
+export const fields = [
+  'name',
+  'address',
+  'contact.name',
+  'contact.email',
+  'contact.phone'
+];
+
 // SignUp Form Info
 var structure = {
   company: {
     name: "",
     address: "",
     contact: {
-      cname: "",
+      name: "",
       phone: 0,
       email: ""
     },
@@ -53,8 +61,8 @@ let CompanyForm = (props) => {
         <br/>
         <div>
           <label>Contact Name</label>
-          <input type="text" placeholder="Jane Doe" { ...contact.cname } />
-          {contact.cname.touched && contact.cname.error && <div style={{color: 'red'}}>{contact.cname.error}</div>}
+          <input type="text" placeholder="Jane Doe" { ...contact.name } />
+          {contact.name.touched && contact.name.error && <div style={{color: 'red'}}>{contact.name.error}</div>}
         </div>
         <br/>
         <div>
@@ -80,7 +88,7 @@ let CompanyForm = (props) => {
 // Composition FTW!
 CompanyForm = reduxForm({
 	form: 'company',
-	fields: ['name', 'address', 'contact.cname', 'contact.email', 'contact.phone'],
+	fields,
   validate
 })(CompanyForm);
 
