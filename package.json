@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "auth0-lock": "^9.2.1",
+    "axios": "^0.12.0",
     "email-regex": "1.0.0",
     "json-loader": "^0.5.4",
     "lodash": "^4.13.1",
