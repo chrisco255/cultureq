@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './ProductPage.css';
 import { connect } from 'react-redux';
-import { fetchProducts, createProduct } from '../../reducers/product/Product.actions';
+import { fetchProducts, productSubmitted } from '../../reducers/product/Product.actions';
 import ProductForm from './product_form/ProductForm.component';
 
 const query = `
@@ -29,7 +29,7 @@ class ProductPage extends Component {
 	}
 
 	onProductFormSubmit = (values, dispatch) => {
-		dispatch( createProduct(values) );
+		dispatch( productSubmitted(values) );
 	}
 
 	render() {
