@@ -1,5 +1,7 @@
 .idea
 node_modules
-dist/bundle.js
+build
 npm-debug.log
+credentials.yml
+creds.yml
 .DS_Store

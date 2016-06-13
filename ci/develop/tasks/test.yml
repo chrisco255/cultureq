@@ -1,0 +1,11 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source: {repository: node, tag: "6"}
+run: 
+  path: npm
+  args: [run, test]
+  dir: culture-client-develop-installed
+inputs:
+  - name: culture-client-develop-installed

@@ -1,25 +1,34 @@
 import { applyMiddleware, createStore, compose } from 'redux';
-import { promiseMiddleware } from '../middleware';
-import reducer from '../reducers/reducer';
-import DevTools from '../containers/DevTools';
+import createSagaMiddleware from 'redux-saga';
+import reducer from '../reducers/index';
+import DevTools from '../root/DevTools.component.js';
+import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'react-router-redux';
 
 export default function configureStore(initialState) {
-    const store = createStore(
-        reducer,
-        initialState,
-        compose(
-            applyMiddleware(promiseMiddleware),
-            DevTools.instrument()
-        )
-    );
+	const sagaMiddleware = createSagaMiddleware();
+	const officalRouterMiddleware = routerMiddleware(browserHistory);
 
-    if (module.hot) {
-        // Enable Webpack hot module replacement for reducers
-        module.hot.accept('../reducers/reducer', () => {
-            const nextRootReducer = require('../reducers/reducer').default;
-            store.replaceReducer(nextRootReducer);
-        });
-    }
+	const store = createStore(
+		reducer,
+		initialState,
+		compose(
+			applyMiddleware(sagaMiddleware, officalRouterMiddleware),
 
-    return store;
+			window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()
+		)
+	);
+
+	if (module.hot) {
+		// Enable Webpack hot module replacement for reducers
+		module.hot.accept('../reducers/index', () => {
+			const nextRootReducer = require('../reducers/index').default;
+
+			store.replaceReducer(nextRootReducer);
+		});
+	}
+
+	store.runSaga = sagaMiddleware.run;
+	store.close = () => store.dispatch(END);
+	return store;
 };

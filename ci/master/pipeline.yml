@@ -1,0 +1,70 @@
+---
+resource_types:
+- name: slack
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+resources:
+  - name: culture-client-master
+    type: git
+    source:
+      uri: git@bitbucket.org:ultilabs/culture-shock-client.git
+      branch: master
+      private_key: {{bitbucket-key}}
+  - name: dokku
+    type: git
+    source:
+      uri: dokku@ultilabs.xyz:culture-client
+      branch: master
+      private_key: {{bitbucket-key}}
+  - name: slack
+    type: slack
+    source:
+      url: {{slack-hook}}
+jobs:
+  - name: test
+    plan:
+      - get: culture-client-master
+        trigger: true
+      - task: build
+        file: culture-client-master/ci/master/tasks/build.yml
+        on_success:
+            put: slack
+            params:
+              text: |
+                Build Master Success: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+        on_failure:
+            put: slack
+            params:
+              text: |
+                Build Master Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+      - task: unit-tests
+        file: culture-client-master/ci/master/tasks/test.yml
+        on_success:
+            put: slack
+            params:
+              text: |
+                Tests Master Passed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+        on_failure:
+            put: slack
+            params:
+              text: |
+                Tests Master Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+  - name: deploy
+    plan:
+      - get: culture-client-master
+        trigger: true
+        passed: [test]
+      - put: dokku
+        params: {repository: culture-client-master}
+        on_success:
+            put: slack
+            params:
+              text: |
+                Deploy Master Succeeded: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+        on_failure:
+            put: slack
+            params:
+              text: |
+                Deploy Master Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+
