@@ -15,7 +15,9 @@ export default (state = defaultState, action) => {
 		case ActionTypes.FETCH_PRODUCTS_SUCCEEDED:
 			state = Object.assign({}, state, {
           products: action.payload.products
-        });
+        }
+      );
+
 			break;
     case UserActionTypes.USER_LOGOUT:
       state = {};

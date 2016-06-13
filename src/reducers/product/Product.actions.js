@@ -1,9 +1,11 @@
-export const PRODUCTS_FETCHED = 'PRODUCTS_FETCHED';
 export const FETCH_PRODUCTS_SUCCEEDED = 'FETCH_PRODUCTS_SUCCEEDED';
 export const FETCH_PRODUCTS_FAILED = 'FETCH_PRODUCTS_FAILED';
 export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
 
-export const CREATE_POST = 'CREATE_POST';
+export const PRODUCT_SUBMITTED = 'PRODUCT_SUBMITTED'
+export const PRODUCT_SUBMIT_SUCCEEDED = 'PRODUCT_SUBMIT_SUCCEEDED';
+export const PRODUCT_SUBMIT_FAILED = 'PRODUCT_SUBMIT_FAILED';
+
 
 export function fetchProducts({ query }) {
 	return {
@@ -12,9 +14,11 @@ export function fetchProducts({ query }) {
 	};
 }
 
-export function createProduct({ proposal_id, _id, status, improvements }) {
+
+export function productSubmitted({ proposal_id, _id, status, improvements }) {
 	return {
-		type: CREATE_POST,
+		type: PRODUCT_SUBMITTED,
 		payload: { proposal_id, _id, status, improvements }
 	};
 }
+
