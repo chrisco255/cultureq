@@ -1,7 +1,6 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import validate from './CompanyForm.validation.js';
-import { Receiver } from 'react-file-uploader';
 
 var Dropzone = require('react-dropzone');
 
@@ -13,36 +12,6 @@ export const fields = [
   'contact.email',
   'contact.phone'
 ];
-
-{/*<Receiver
-  customClass={STRING_OR_ARRAY}
-  style={OBJECT}
-  isOpen={BOOLEAN}
-  onDragEnter={FUNCTION}
-  onDragOver={FUNCTION}
-  onDragLeave={FUNCTION}
-  onFileDrop={FUNCTION}
->
-    <div>
-      visual layer of the receiver (drag & drop panel)
-    </div>
-</Receiver>*/}
-
-var DropzoneDemo = React.createClass({
-    onDrop: function (files) {
-      console.log('Received files: ', files);
-    },
-
-    render: function () {
-      return (
-          <div>
-            <Dropzone onDrop={this.onDrop}>
-              <div>Try dropping some files here, or click to select files to upload.</div>
-            </Dropzone>
-          </div>
-      );
-    }
-});
 
 let CompanyForm = (props) => {
   const {
@@ -82,7 +51,7 @@ let CompanyForm = (props) => {
         <br/>
         <div>
           <label>Contact Phone</label>
-          <input type="number" placeholder="9541234563" { ...contact.phone } />
+          <input type="number" placeholder="9541234563" {...contact.phone} />
           {contact.phone.touched && contact.phone.error && <div style={{color: 'red'}}>{contact.phone.error}</div>}
         </div>
         <br/>
@@ -90,16 +59,15 @@ let CompanyForm = (props) => {
           <div className="file-field input-field">
             <div className="btn">
               <span>Import Employees</span>
-              <input type="file" { ...peepCSV } />
+              <input type="file" { ...peepCSV } value={ null } />
               {peepCSV.touched && peepCSV.error && <div style={{color: 'red'}}>{peepCSV.error}</div>}
             </div>
             <div className="file-path-wrapper">
-              <input className="file-path validate" type="text" />
+              <input className="file-path validate" placeholder="You can drag and drop your file here too!" type="text" />
             </div>
           </div>
         </div>
         <br/>
-        {/*<DropzoneDemo />*/}
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
         <button className="btn waves-effect waves-light" type="submit" disabled={submitting}>Submit</button>
