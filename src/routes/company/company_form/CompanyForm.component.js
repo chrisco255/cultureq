@@ -1,8 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import validate from './CompanyForm.validation.js';
-
-var Dropzone = require('react-dropzone');
+import Dropzone from 'react-dropzone';
 
 export const fields = [
   'name',
@@ -59,7 +58,7 @@ let CompanyForm = (props) => {
           <div className="file-field input-field">
             <div className="btn">
               <span>Import Employees</span>
-              <input type="file" { ...peepCSV } value={ null } />
+              <input type="file" { ...peepCSV } value={undefined} />
               {peepCSV.touched && peepCSV.error && <div style={{color: 'red'}}>{peepCSV.error}</div>}
             </div>
             <div className="file-path-wrapper">
