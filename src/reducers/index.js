@@ -2,6 +2,7 @@ import user from './user/User.reducer.js';
 import companyForm from './form/company/CompanyForm.reducer';
 import company from './company/Company.reducer';
 import product from './product/Product.reducer';
+import tenant from './tenant/Tenant.reducer';
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
@@ -14,6 +15,7 @@ const reducers = {
 	routing,
 	company,
 	product,
+	tenant,
 	form: formReducer.plugin({
 		company: companyForm
 	})
