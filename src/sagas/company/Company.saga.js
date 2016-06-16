@@ -10,7 +10,7 @@ export function* companySubmit(action) {
 		yield call(delay, 2000);
 		const payload = action.payload;
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload } );
-		yield put( push('/dashboard') );
+		yield put( push('/tenants') );
 	} catch (error) {
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_FAILED, error} );
 	}
