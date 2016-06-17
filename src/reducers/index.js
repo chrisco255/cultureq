@@ -20,3 +20,58 @@ const reducers = {
 };
 
 export default combineReducers(reducers);
+
+//playground
+// import { createValidator, required, minLength, integer, unique } from './../common/validations';
+
+// const testValidation = createValidator({
+// 	name: [required],
+// 	address: [required],
+// 	contact: {
+// 		name: [required],
+// 		friend: {
+// 			name: [required, unique],
+// 			phone: [required]
+// 		}
+// 	}
+// });
+
+// const testObject = {
+// 	name: 'bob',
+// 	address: 'addr',
+// 	contact: {
+// 		name: 'joe',
+// 		// friend: {
+// 		// 	name: 'sue',
+// 		// 	phone: 5
+// 		// }
+// 	}
+// }
+
+// const testCollection = [
+// {
+// 	name: 'mary',
+// 	address: 'addr',
+// 	contact: {
+// 		name: 'joe',
+// 		friend: {
+// 			name: 'sue',
+// 			phone: 5
+// 		}
+// 	}
+// },
+// {
+// 	name: 'bob',
+// 	address: 'addr',
+// 	contact: {
+// 		name: 'joe',
+// 		friend: {
+// 			name: 'mary',
+// 			phone: 5
+// 		}
+// 	}
+// }
+// ];
+
+// const errors = testValidation(testObject, testCollection);
+// console.log("Errors - ", errors);

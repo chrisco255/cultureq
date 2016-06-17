@@ -4,6 +4,7 @@
 */
 
 import emailRegex from 'email-regex';
+import _ from 'underscore';
 
 const isEmpty = (value) => { return value === undefined || value === null || value === '' };
 
@@ -61,10 +62,35 @@ export function oneOf(enumeration) {
   };
 }
 
+export function notOneOf(enumeration) {
+  return (value) => {
+    if ( enumeration.includes(value) ) {
+      return `Must not be one of: ${enumeration.join(', ')}`;
+    }
+  };
+}
+
+
+export function unique(value, data, key, collection) {
+  let values = _.pluck(collection, key);
+  let duplicate = _.find(values, v => v === value);
+  if(duplicate) {
+    return `${key} must be unique. That one is already taken.`;
+  }
+}
+
+export function valueExistsInCollection(value, data, key, collection) {
+  let values = _.pluck(collection, key);
+  let duplicate = _.find(values, v => v === value);
+  if(!duplicate) {
+    return `${key} must exist.  No resource found.`;
+  }
+}
+
 // rules is an array of functions.
 const join = (rules) => {
-  return (value, data) => {
-    return rules.map(rule => rule(value, data)).filter(error => !!error)[0]; // first error
+  return (value, data, key, collection) => {
+    return rules.map(rule => rule(value, data, key, collection)).filter(error => !!error)[0]; // first error
   }
 }
 
@@ -73,35 +99,39 @@ const join = (rules) => {
 //   name: [required],
 //   address: [required],
 //   contact: {
-//     name: [required]
+//     name: [required],
+//     friend: {
+//       name: [required],
+//       phone: [required]    
+//     }
 //   }
 // })
 
-
-// TODO: Clean up logic. NOTE: only works for one level of nesting.
-export function createValidator(rules) {
-  return (data = {}) => {
-    const errors = {};
-    Object.keys(rules).forEach( (key) => {
-      if( !(rules[key] instanceof Array) ) {
-        const innerRules = rules[key];
-        Object.keys(innerRules).forEach( (innerKey) => {
-          const innerRule = join([].concat(innerRules[innerKey])); // concat enables both functions and arrays of functions
-          const error = innerRule(data[key][innerKey], data); // this might need to be data[key]
+export function createValidator (rules) {
+  return (data = {}, collection = {}) => {
+    let getErrorsForRules = (rules, data, collection) => {
+      const errors = {};
+      for (let key of Object.keys(rules)) {
+        if(rules[key] instanceof Array) {
+          const rule = join([].concat(rules[key])); // concat enables both functions and arrays of functions
+          const error = rule(data[key], data, key, collection);
           if (error) {
-            errors[key] = errors[key] || {};
-            errors[key][innerKey] = error;
+            errors[key] = error;
+          }          
+        } else {
+          if (data.hasOwnProperty(key)) {
+            let subErrors = getErrorsForRules(rules[key], data[key], _.pluck(collection, key));
+            if (Object.keys(subErrors).length > 0) {
+              errors[key] = subErrors;
+            }            
+          } else {
+            throw new Error (`Data (${JSON.stringify(data)}) to be validated is missing key ${key}`);
           }
-        }); // End inner forEach
-      } else {
-        const rule = join([].concat(rules[key])); // concat enables both functions and arrays of functions
-        const error = rule(data[key], data);
-        if (error) {
-          errors[key] = error;
         }
       }
-    }); // End outer forEach
-
+      return errors;
+    }
+    const errors = getErrorsForRules(rules, data, collection);
     return errors;
   };
 }
