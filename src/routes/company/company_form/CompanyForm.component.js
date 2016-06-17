@@ -5,7 +5,6 @@ import validate from './CompanyForm.validation.js';
 export const fields = [
   'name',
   'address',
-  'peepCSV',
   'contact.name',
   'contact.email',
   'contact.phone'
@@ -16,7 +15,6 @@ let CompanyForm = (props) => {
     fields: {
       name,
       address,
-      peepCSV,
       contact
     }, error, handleSubmit, submitting
   } = props;
@@ -53,19 +51,21 @@ let CompanyForm = (props) => {
           {contact.phone.touched && contact.phone.error && <div style={{color: 'red'}}>{contact.phone.error}</div>}
         </div>
         <br/>
-        <div>
-          <div className="file-field input-field">
-            <div className="btn">
-              <span>Import Employees</span>
-              <input type="file" { ...peepCSV } value={undefined} />
-              {peepCSV.touched && peepCSV.error && <div style={{color: 'red'}}>{peepCSV.error}</div>}
-            </div>
-            <div className="file-path-wrapper">
-              <input className="file-path validate" placeholder="You can drag and drop your file here too!" type="text" />
-            </div>
-          </div>
-        </div>
-        <br/>
+        {
+          // <div>
+          //   <div className="file-field input-field">
+          //     <div className="btn">
+          //       <span>Import Employees</span>
+          //       <input type="file" { ...peepCSV } value={undefined} />
+          //       {peepCSV.touched && peepCSV.error && <div style={{color: 'red'}}>{peepCSV.error}</div>}
+          //     </div>
+          //     <div className="file-path-wrapper">
+          //       <input className="file-path validate" placeholder="You can drag and drop your file here too!" type="text" />
+          //     </div>
+          //   </div>
+          // </div>
+          // <br/>
+        }
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
         <button className="btn waves-effect waves-light" type="submit" disabled={submitting}>Submit</button>

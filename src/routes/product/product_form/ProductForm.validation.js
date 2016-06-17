@@ -1,4 +1,4 @@
-import { createValidator, required, integer } from '../../../common/validations';
+import { createValidator, required, integer } from 'validations';
 
 const validation = createValidator({
   improvements: [required, integer],
