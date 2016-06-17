@@ -4,36 +4,11 @@ import CompanyForm from './company_form/CompanyForm.component';
 import { companySubmitted } from '../../reducers/company/Company.actions';
 import styles from './CompanyPage.css';
 import axios from 'axios';
-// import 'whatwg-fetch';
 
 class CompanyPage extends Component {
 
 	onCompanyFormSubmit = (values, dispatch) => {
 		dispatch( companySubmitted(values) );
-
-		// console.log('Company Form Values', values);
-		// let formData = new FormData();
-		// for (let key of Object.keys(values)) {
-		// 	let value = values[key];
-		// 	if (typeof value === 'object') {
-		// 		if (value instanceof FileList) {
-		// 			value = value[0]; //only works for FileLists with one file. also, what happens if form is submitted w/o file?
-		// 		} else {
-		// 			value = JSON.stringify(value);					
-		// 		}
-		// 	}
-		// 	formData.append(key, value);
-		// }
-
-		// axios.post('http://localhost:1996/tenants', formData)
-		// .then(function (response) {
-		// 	console.log('SUCCESS', response);
-		// 	dispatch( companySubmitted(values) );
-		// })
-		// .catch(function (response) {
-		// 	console.log('ERROR', response);
-		// });
-
 	}
 
 	render() {

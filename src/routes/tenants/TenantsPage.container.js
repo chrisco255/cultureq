@@ -27,7 +27,7 @@ class TenantsPage extends Component {
 
 	render() {
 
-		var listTenants = this.props.tenants.map( (tenant) => {
+		const listTenants = this.props.tenants.map( (tenant) => {
 			return (
 				<a className="collection-item hand" key={tenant.name} onClick={this.props.addTenant.bind(this, tenant)}>
 					{tenant.name}
@@ -38,7 +38,7 @@ class TenantsPage extends Component {
 			);
 		});
 
-		var listSelectedTenants = this.props.selectedTenants.map( (tenant) => {
+		const listSelectedTenants = this.props.selectedTenants.map( (tenant) => {
 			return (
 				<a className="collection-item hand" key={tenant.name} onClick={this.props.removeTenant.bind(this, tenant)}>
 					{tenant.name}

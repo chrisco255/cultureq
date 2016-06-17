@@ -3,6 +3,7 @@ import HeroImage from './hero_image/HeroImage.component';
 import { connect } from 'react-redux';
 import { joinRoom, leaveRoom } from '../../socket/configureSocket';
 import { socketJoinRoom, socketLeaveRoom } from '../../reducers/socket/Socket.actions';
+import { Link } from 'react-router';
 
 const mapDispatchToProps = (dispatch) => ({
 	dispatchJoinRoom: (roomName) => {
@@ -29,6 +30,7 @@ export class DashboardPage extends Component {
 			<div>
 				<HeroImage />
 				<h1>Dashboard</h1>
+				<Link to="/company/import"> import </Link>
 				<p>This is the Dashboard you have achieved reaching the Dashboard. Good Luck.</p>
 			</div>
 		);

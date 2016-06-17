@@ -2,9 +2,21 @@ export const COMPANY_SUBMITTED = 'COMPANY_SUBMITTED';
 export const COMPANY_SUBMIT_SUCCEEDED = 'COMPANY_SUBMIT_SUCCEEDED';
 export const COMPANY_SUBMIT_FAILED = 'COMPANY_SUBMIT_FAILED';
 
+export const IMPORT_DATA_SUBMITTED = 'IMPORT_DATA_SUBMITTED';
+export const IMPORT_DATA_SUBMIT_SUCCEEDED = 'IMPORT_DATA_SUBMIT_SUCCEEDED';
+export const IMPORT_DATA_SUBMIT_FAILED = 'IMPORT_DATA_SUBMIT_FAILED';
+
+
 export function companySubmitted({ address, name, contact }) {
 	return {
 		type: COMPANY_SUBMITTED,
 		payload: { address, name, contact }
 	};
+}
+
+export function importDataSubmitted (values) {
+	return {
+		type: IMPORT_DATA_SUBMITTED,
+		payload: values
+	}
 }
