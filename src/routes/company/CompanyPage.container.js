@@ -4,7 +4,6 @@ import CompanyForm from './company_form/CompanyForm.component';
 import { companySubmitted } from '../../reducers/company/Company.actions';
 import styles from './CompanyPage.css';
 import axios from 'axios';
-// import 'whatwg-fetch';
 
 class CompanyPage extends Component {
 
