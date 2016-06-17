@@ -4,6 +4,7 @@ import reducer from '../reducers/index';
 import DevTools from '../root/DevTools.component.js';
 import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
+import configureSocket from '../socket/configureSocket';
 
 export default function configureStore(initialState) {
 	const sagaMiddleware = createSagaMiddleware();
@@ -18,6 +19,8 @@ export default function configureStore(initialState) {
 			window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()
 		)
 	);
+
+	configureSocket(store);
 
 	if (module.hot) {
 		// Enable Webpack hot module replacement for reducers

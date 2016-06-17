@@ -19,7 +19,7 @@ export function* companySubmit(action) {
 		});
 		console.log('received payload from call - ', payload);
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload } );
-		// yield put( push('/dashboard') );
+		yield put( push('/tenants') );
 	} catch (error) {
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_FAILED, error} );
 	}
