@@ -73,6 +73,7 @@
     "redux-form": "5.2.5",
     "redux-saga": "0.10.5",
     "socket.io-client": "^1.4.6",
-    "transform-loader": "^0.2.3"
+    "transform-loader": "^0.2.3",
+    "validations": "git+ssh://git@bitbucket.org/ultilabs/validations.git"
   }
 }

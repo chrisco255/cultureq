@@ -1,4 +1,4 @@
-import { createValidator, required, minLength, integer } from '../../../common/validations';
+import { createValidator, required, minLength, integer } from 'validations';
 
 const companyValidation = createValidator({
   name: [required, minLength(4)],
