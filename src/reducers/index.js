@@ -1,5 +1,6 @@
 import user from './user/User.reducer.js';
 import companyForm from './form/company/CompanyForm.reducer';
+import tenantForm from './form/tenant/TenantForm.reducer';
 import company from './company/Company.reducer';
 import product from './product/Product.reducer';
 import tenant from './tenant/Tenant.reducer';
@@ -19,7 +20,8 @@ const reducers = {
 	socket,
 	tenant,
 	form: formReducer.plugin({
-		company: companyForm
+		company: companyForm,
+		tenant: tenantForm
 	})
 };
 

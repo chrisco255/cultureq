@@ -6,6 +6,7 @@ import TenantsPageStyles from './TenantsPage.css';
 import { Link, IndexLink } from 'react-router';
 import _ from 'lodash';
 import { addTenant, removeTenant } from '../../reducers/tenant/Tenant.actions';
+import TenantForm from './tenant_form/TenantForm.component';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -25,29 +26,53 @@ const mapStateToProps = (state) => {
 
 class TenantsPage extends Component {
 
+	onTenantSubmit = (values, dispatch) => {
+		console.log(values);
+		dispatch(addTenant(values));
+	}
+
 	render() {
 
-		const listTenants = this.props.tenants.map( (tenant) => {
-			return (
-				<a className="collection-item hand" key={tenant.name} onClick={this.props.addTenant.bind(this, tenant)}>
-					{tenant.name}
-					<div className="secondary-content">
-						<i className="material-icons">add_circle</i>
-					</div>
-				</a>
-			);
-		});
+		var listTenants = null;
+		var listSelectedTenants = null;
 
-		const listSelectedTenants = this.props.selectedTenants.map( (tenant) => {
-			return (
-				<a className="collection-item hand" key={tenant.name} onClick={this.props.removeTenant.bind(this, tenant)}>
-					{tenant.name}
-					<div className="secondary-content">
-						<i className="material-icons">delete</i>
-					</div>
-				</a>
+		if(this.props.tenants.length < 1) {
+			listTenants = (
+				<div className="collection-item">
+    			There are no more tenants to select. Create new ones!
+    		</div>
 			);
-		});
+		} else {
+			listTenants = this.props.tenants.map( (tenant) => {
+				return (
+					<a className="collection-item hand" key={tenant.name} onClick={this.props.addTenant.bind(this, tenant)}>
+						{tenant.name}
+						<div className="secondary-content">
+							<i className="material-icons">add_circle</i>
+						</div>
+					</a>
+				);
+			});
+		}
+
+		if(this.props.selectedTenants.length < 1) {
+			listSelectedTenants = (
+				<div className="collection-item">
+					You have not selected any tenants yet!
+    		</div>
+			);
+		} else {
+			listSelectedTenants = this.props.selectedTenants.map( (tenant) => {
+				return (
+					<a className="collection-item hand" key={tenant.name} onClick={this.props.removeTenant.bind(this, tenant)}>
+						{tenant.name}
+						<div className="secondary-content">
+							<i className="material-icons">delete</i>
+						</div>
+					</a>
+				);
+			});
+		}
 
 		return (
 				<div className="row">
@@ -72,8 +97,11 @@ class TenantsPage extends Component {
 					 			</div>
 				 		 </div>
 						</div>
-					</div>
-     		</div>
+						<div className="container">
+	      			<TenantForm onSubmit={this.onTenantSubmit}/>
+      			</div>
+			    </div>
+				</div>
 		);
 	}
 
