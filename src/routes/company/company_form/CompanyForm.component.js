@@ -20,6 +20,12 @@ let CompanyForm = (props) => {
       csvFile
     }, error, handleSubmit, submitting
   } = props;
+
+  var submitBtnClassName = 'btn waves-effect waves-light';
+  if(submitting || !name.value || !address.value || !contact.name.value || !contact.email.value || !contact.phone.value) {
+    submitBtnClassName = 'btn waves-effect waves-light disabled';
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -68,7 +74,7 @@ let CompanyForm = (props) => {
         <br/>
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
-        <button className="btn waves-effect waves-light" type="submit" disabled={submitting}>Submit</button>
+        <button className={submitBtnClassName} type="submit" disabled={submitting}>Submit</button>
       </form>
     </div>
   );
