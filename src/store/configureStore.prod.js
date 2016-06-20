@@ -4,8 +4,9 @@ import createSagaMiddleware, { END } from 'redux-saga';
 import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import configureSocket from '../socket/configureSocket';
+import rootSaga from '../sagas';
 
-export default function configureStore(initialState) {
+function configureStore(initialState) {
 	const sagaMiddleware = createSagaMiddleware();
 	const officalRouterMiddleware = routerMiddleware(browserHistory);
 
@@ -21,3 +22,9 @@ export default function configureStore(initialState) {
 	store.close = () => store.dispatch(END);
 	return store;
 };
+
+const store = configureStore();
+
+store.runSaga(rootSaga);
+
+export default store;

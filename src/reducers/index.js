@@ -1,5 +1,6 @@
 import user from './user/User.reducer.js';
 import companyForm from './form/company/CompanyForm.reducer';
+import tenantForm from './form/tenant/TenantForm.reducer';
 import company from './company/Company.reducer';
 import product from './product/Product.reducer';
 import tenant from './tenant/Tenant.reducer';
@@ -19,63 +20,9 @@ const reducers = {
 	socket,
 	tenant,
 	form: formReducer.plugin({
-		company: companyForm
+		company: companyForm,
+		tenant: tenantForm
 	})
 };
 
 export default combineReducers(reducers);
-
-//playground
-// import { createValidator, required, minLength, integer, unique } from './../common/validations';
-
-// const testValidation = createValidator({
-// 	name: [required],
-// 	address: [required],
-// 	contact: {
-// 		name: [required],
-// 		friend: {
-// 			name: [required, unique],
-// 			phone: [required]
-// 		}
-// 	}
-// });
-
-// const testObject = {
-// 	name: 'bob',
-// 	address: 'addr',
-// 	contact: {
-// 		name: 'joe',
-// 		// friend: {
-// 		// 	name: 'sue',
-// 		// 	phone: 5
-// 		// }
-// 	}
-// }
-
-// const testCollection = [
-// {
-// 	name: 'mary',
-// 	address: 'addr',
-// 	contact: {
-// 		name: 'joe',
-// 		friend: {
-// 			name: 'sue',
-// 			phone: 5
-// 		}
-// 	}
-// },
-// {
-// 	name: 'bob',
-// 	address: 'addr',
-// 	contact: {
-// 		name: 'joe',
-// 		friend: {
-// 			name: 'mary',
-// 			phone: 5
-// 		}
-// 	}
-// }
-// ];
-
-// const errors = testValidation(testObject, testCollection);
-// console.log("Errors - ", errors);
