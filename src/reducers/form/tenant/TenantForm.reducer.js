@@ -14,13 +14,8 @@ export default (state = defaultState, action) => {
             console.log('SUCCESS! resetting form.');
             const resetForm = {
                 _submitting: false,
-                name: {
-                    value: ''
-                },
-                content: [{
-                  type: '',
-                  data: ''
-                }]
+                name: '',
+                content: []
               };
             state = Object.assign({}, state, resetForm);
             break;
@@ -41,7 +36,7 @@ export default (state = defaultState, action) => {
 
             state = Object.assign({}, state, newState);
             break;
-    
+
   }
 
     return state;
