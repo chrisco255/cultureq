@@ -8,13 +8,11 @@ import ProfilePage from './profile/ProfilePage.container.js';
 import ProductPage from './product/ProductPage.container.js';
 import ProposalPage from './proposal/ProposalPage.container.js';
 import TenantsPage from './tenants/TenantsPage.container.js';
-import ImportPage from './company/import/ImportPage.container.js';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="company" component={CompanyPage} />
-    <Route path="company/import" component={ImportPage} />
     <Route path="product" component={ProductPage} />
     <Route path="proposal" component={ProposalPage} />
     <Route path="dashboard" component={DashboardPage} />
