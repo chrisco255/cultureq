@@ -45,10 +45,10 @@ export default (state = defaultState, action) => {
               _error: errorType
             };
 
-            let fields = Object.keys(errors);
-            fields.forEach( field => {
-              newState[field] = Object.assign({}, state[field], { submitError: errors[field] });
-            });
+            // let fields = Object.keys(errors);
+            // fields.forEach( field => {
+            //   newState[field] = Object.assign({}, state[field], { submitError: errors[field] });
+            // });
 
             state = Object.assign({}, state, newState);
             break;
