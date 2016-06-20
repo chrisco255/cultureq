@@ -2,10 +2,11 @@ import { put, call, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import * as ActionTypes from '../../reducers/product/Product.actions';
 import axios from 'axios';
+import config from '../../config';
 
 //fetching of products
 const fetch = (query) => {
-	return axios.get(`http://localhost:8000/graphql?query=${encodeURIComponent(query)}`)
+	return axios.get(`${config.url}/graphql?query=${encodeURIComponent(query)}`)
 							.then( response => response.data.data );
 }
 
@@ -26,7 +27,7 @@ export function* watchFetchProducts() {
 
 //creation of products
 const post = (body) => {
-	return axios.post('http://localhost:8000/product', body);
+	return axios.post(`${config.url}/product`, body);
 }
 
 export function* submitProduct(action) {

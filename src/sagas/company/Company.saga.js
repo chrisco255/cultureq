@@ -1,14 +1,12 @@
 import { put, call, fork } from 'redux-saga/effects';
 import { takeEvery, delay } from 'redux-saga';
-import axios from 'axios';
-
 import { push } from 'react-router-redux';
-
+import axios from 'axios';
 import * as ActionTypes from '../../reducers/company/Company.actions';
 
 const post = (body) => {
 	console.log("Posting create tenant body - ", body);
-	return axios.post('http://localhost:8000/tenants', body).then( response => response.data );
+	return axios.post(`${config.url}/tenants`, body).then( response => response.data );
 }
 
 export function* companySubmit(action) {

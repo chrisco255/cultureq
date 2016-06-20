@@ -1,12 +1,14 @@
 import { socketConnect, socketDisconnect } from '../reducers/socket/Socket.actions';
 import io from 'socket.io-client';
+import config from '../config';
 
 var socket;
 
 export default function configureSocket(store) {
+  if(!config.useSockets) return;
   if(!store) { throw new Error('configureSocket requires store to be passed in') }
 
-  socket = io('http://localhost:8090');
+  socket = io(config.socketUrl);
 
   socket.on('connect', () => {
     store.dispatch( socketConnect({ socketId: socket.id }) );
@@ -20,24 +22,22 @@ export default function configureSocket(store) {
     console.log('SOCKET_ERROR: ', err);
   });
 
-  socket.on('event', event => {
+  socket.on('event', (event) => {
     console.log('DISPATCHING EVENT FROM SOCKET: ', event);
     store.dispatch(event);
   });
 
 }
 
-// setInterval( function() {
-//   console.log(socket)
-// }, 10 * 1000);
-
 
 export const joinRoom = function(name) {
+  if(!config.useSockets) return;
   console.log(`Joining Room: ${name}`);
   socket.emit('joinRoom', name);
 };
 
 export const leaveRoom = function(name) {
+  if(!config.useSockets) return;
   console.log(`Leaving Room: ${name}`);
   socket.emit('leaveRoom', name);
 };
