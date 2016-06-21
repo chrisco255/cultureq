@@ -5,6 +5,23 @@ const validate = require('webpack-validator');
 const parts = require('./webpack.parts');
 const pkg = require('./package.json');
 
+
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+
+
+'use strict';
+
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
+
+// -------------------------------------------------------
+
 const PATHS = {
   app: path.join(__dirname, 'src'),
   style: [
@@ -35,11 +52,6 @@ const common = {
 
 var config;
 
-var TARGET = process.env.npm_lifecycle_event;
-
-
-// Detect how npm is run and branch based on that
-switch( TARGET ) {
   case 'build':
     config = merge(
       common,
@@ -53,41 +65,151 @@ switch( TARGET ) {
           chunkFilename: '[chunkhash].js'
         }
       },
-      parts.clean(PATHS.build),
-      parts.setFreeVariable( 'process.env.NODE_ENV', 'production' ),
-      parts.setupAuth0Lock(),
-			parts.setupJSProd(PATHS.app),
       parts.extractBundle({
         name: 'vendor',
         entries: Object.keys(pkg.dependencies)
       }),
 			parts.extractCSS(PATHS.app),
       parts.minify()
-      //parts.purifyCSS([PATHS.app])
     );
-    break;
-  default:
-    config = merge(
-      common,
-			{
-        devtool: 'eval-source-map',
-				entry: {
-					app: [
-          	'webpack-dev-server/client?http://0.0.0.0:8080',
-      			'webpack/hot/only-dev-server',
-          	PATHS.app
-        	]
-				},
-			},
-      parts.setupAuth0Lock(),
-			parts.setupJSDev(PATHS.app),
-      parts.setupCSS(PATHS.app),
-      parts.devServer({
-        // Customize host/port here if needed
-        host: process.env.HOST,
-        port: process.env.PORT
-      })
-    );
-}
+
+
 
 module.exports = validate(config);
+
+
+exports.minify = function() {
+  return {
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
+    ]
+  };
+}
+
+exports.extractBundle = function(options) {
+  const entry = {};
+  entry[options.name] = options.entries;
+
+  return {
+    // Define an entry point needed for splitting.
+    entry: entry,
+    plugins: [
+      // Extract bundle and manifest files. Manifest is needed for reliable caching.
+      new webpack.optimize.CommonsChunkPlugin({
+        names: [options.name, 'manifest'],
+        minChunks: Infinity
+      })
+    ]
+  };
+}
+
+
+exports.extractCSS = function(paths) {
+  return {
+    module: {
+      loaders: [
+        // Extract CSS during build
+        {
+          test: /\.css$/,
+   				loader: ExtractTextPlugin.extract('style?sourceMap','css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'),
+          include: paths
+        }
+      ]
+    },
+    plugins: [
+      // Output extracted CSS to a file
+      new ExtractTextPlugin('[name].[chunkhash].css', {
+        allChunks: true
+      })
+    ]
+  };
+}
+
+
+
+
+// ---------------------------------------------------------------------------
+
+
+
+// TODO: PREVIOUS entry.app
+// entry: {
+//   app: [
+//     'webpack-dev-server/client?http://0.0.0.0:8080',
+//     'webpack/hot/only-dev-server',
+//     PATHS.app
+//   ]
+// },
+
+module.exports = {
+  devtool: 'eval-source-map',
+  entry: {
+    app: [
+      'webpack-hot-middleware/client?reload=true',
+      PATHS.app
+    ],
+    style: PATHS.style
+  },
+  output: {
+    path: PATHS.build,
+    filename: '[name].js',
+    publicPath: '/' //TODO: IS THIS NECESSARY?
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+  devServer: {
+    // Enable history API fallback so HTML5 History API based
+    // routing works. This is a good default that will come
+    // in handy in more complicated setups.
+    historyApiFallback: true,
+
+    hot: true,
+    inline: true,
+
+    // Display only errors to reduce the amount of output.
+    stats: 'errors-only',
+
+    host: process.env.HOST || '0.0.0.0',
+    port: process.env.PORT || '8080'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+			filename: 'index.html',
+			template: path.join(PATHS.app, 'index.html')
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
+  ],
+  module: {
+    loaders: [{
+      test: /node_modules[\\\/]auth0-lock[\\\/].*\.js$/,
+      loaders: [
+        'transform-loader/cacheable?brfs',
+        'transform-loader/cacheable?packageify'
+      ]
+    }, {
+      test: /node_modules[\\\/]auth0-lock[\\\/].*\.ejs$/,
+      loader: 'transform-loader/cacheable?ejsify'
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader'
+    }, {
+      test: /\.js?$/,
+      loaders: ['react-hot', 'babel?cacheDirectory'],
+      include: PATHS.app
+    }, {
+      test: /\.css$/,
+      loaders: ['style?sourceMap','css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'],
+      include: PATHS.app
+    }]
+  }
+};
