@@ -108,4 +108,4 @@ class TenantsPage extends Component {
 }
 
 TenantsPage = CSSModules(TenantsPage, TenantsPageStyles);
-export default connect(mapStateToProps, mapDispatchToProps)(TenantsPage);
+export default connect(mapStateToProps, mapDispatchToProps) (TenantsPage);

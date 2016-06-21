@@ -6,7 +6,7 @@ image_resource:
   source: {repository: node, tag: "6"}
 run:
   path: sh
-  args: 
+  args:
     - -exec
     - |
       cp culture-client-develop/* culture-client-develop-installed -r

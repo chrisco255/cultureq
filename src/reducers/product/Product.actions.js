@@ -21,4 +21,3 @@ export function productSubmitted({ proposal_id, _id, status, improvements }) {
 		payload: { proposal_id, _id, status, improvements }
 	};
 }
-

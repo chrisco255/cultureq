@@ -46,11 +46,11 @@ export default (state = defaultState, action) => {
       state = action.payload.tenants;
       console.log("New state - ", state);
 
-      break;    
+      break;
     case UserActionTypes.USER_LOGOUT:
       state = {};
       break;
 	}
 
 	return state;
-};
+}

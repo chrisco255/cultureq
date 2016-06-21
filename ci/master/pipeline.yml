@@ -67,4 +67,3 @@ jobs:
             params:
               text: |
                 Deploy Master Failed: http://ec2-54-201-147-140.us-west-2.compute.amazonaws.com/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
-
