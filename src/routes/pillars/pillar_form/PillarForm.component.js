@@ -132,7 +132,11 @@ let PillarForm = (props) => {
 
         <hr />
 
-        <button id="submit-btn" className={submitBtnClassName} type="submit" disabled={ submitting || !content.length }>Add Pillar</button>
+        <div styleName="flex-space-between">
+          <button className="btn waves-effect waves-light" type="button" disabled={ submitting } onClick={ resetForm }>Start Over</button>
+
+          <button className={submitBtnClassName} type="submit" disabled={ submitting || !content.length }>Add Pillar</button>
+        </div>
       </form>
     </div>
   );

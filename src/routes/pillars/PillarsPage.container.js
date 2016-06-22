@@ -28,7 +28,11 @@ class PillarsPage extends Component {
 
 	onPillarSubmit = (values, dispatch) => {
 		console.log(values);
-		dispatch(addPillar(values));
+		dispatch( addPillar(values) );
+	}
+
+	submitPillarList = () => {
+		console.log('SUBMIT');
 	}
 
 	render() {
@@ -99,6 +103,16 @@ class PillarsPage extends Component {
 						</div>
 						<div className="container">
 	      			<PillarForm onSubmit={this.onPillarSubmit}/>
+      			</div>
+						<br />
+						<br />
+						<div className="container" styleName="flex-space-between">
+							<div>
+								<Link className="waves-effect waves-light btn" to="/dashboard">Skip</Link>
+							</div>
+							<div>
+								<button className="waves-effect waves-light btn" onClick={this.submitPillarList}>Submit</button>
+							</div>
       			</div>
 			    </div>
 				</div>
