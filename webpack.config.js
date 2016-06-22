@@ -1,26 +1,11 @@
+'use strict';
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const merge = require('webpack-merge');
-const validate = require('webpack-validator');
-const parts = require('./webpack.parts');
-const pkg = require('./package.json');
-
-
 const webpack = require('webpack');
+const validate = require('webpack-validator');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-
-
-'use strict';
-
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-
-
-
-// -------------------------------------------------------
+// const pkg = require('./package.json');
 
 const PATHS = {
   app: path.join(__dirname, 'src'),
@@ -30,110 +15,6 @@ const PATHS = {
   ],
   build: path.join(__dirname, 'build')
 };
-
-const common = {
-  entry: {
-    style: PATHS.style
-  },
-  output: {
-    path: PATHS.build,
-    filename: '[name].js'
-  },
-	resolve: {
-	  extensions: ['', '.js', '.jsx']
-	},
-  plugins: [
-    new HtmlWebpackPlugin({
-			filename: 'index.html',
-			template: path.join(PATHS.app, 'index.html')
-    })
-  ]
-};
-
-var config;
-
-  case 'build':
-    config = merge(
-      common,
-      {
-				entry: {
-					app: PATHS.app
-				},
-        output: {
-          path: PATHS.build,
-          filename: '[name].[chunkhash].js',
-          chunkFilename: '[chunkhash].js'
-        }
-      },
-      parts.extractBundle({
-        name: 'vendor',
-        entries: Object.keys(pkg.dependencies)
-      }),
-			parts.extractCSS(PATHS.app),
-      parts.minify()
-    );
-
-
-
-module.exports = validate(config);
-
-
-exports.minify = function() {
-  return {
-    plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      })
-    ]
-  };
-}
-
-exports.extractBundle = function(options) {
-  const entry = {};
-  entry[options.name] = options.entries;
-
-  return {
-    // Define an entry point needed for splitting.
-    entry: entry,
-    plugins: [
-      // Extract bundle and manifest files. Manifest is needed for reliable caching.
-      new webpack.optimize.CommonsChunkPlugin({
-        names: [options.name, 'manifest'],
-        minChunks: Infinity
-      })
-    ]
-  };
-}
-
-
-exports.extractCSS = function(paths) {
-  return {
-    module: {
-      loaders: [
-        // Extract CSS during build
-        {
-          test: /\.css$/,
-   				loader: ExtractTextPlugin.extract('style?sourceMap','css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'),
-          include: paths
-        }
-      ]
-    },
-    plugins: [
-      // Output extracted CSS to a file
-      new ExtractTextPlugin('[name].[chunkhash].css', {
-        allChunks: true
-      })
-    ]
-  };
-}
-
-
-
-
-// ---------------------------------------------------------------------------
-
 
 
 // TODO: PREVIOUS entry.app
@@ -145,7 +26,7 @@ exports.extractCSS = function(paths) {
 //   ]
 // },
 
-module.exports = {
+var config = {
   devtool: 'eval-source-map',
   entry: {
     app: [
@@ -156,8 +37,8 @@ module.exports = {
   },
   output: {
     path: PATHS.build,
-    filename: '[name].js',
-    publicPath: '/' //TODO: IS THIS NECESSARY?
+    filename: '[name].js'
+    //publicPath: '/' //TODO: IS THIS NECESSARY?
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -213,3 +94,26 @@ module.exports = {
     }]
   }
 };
+
+module.exports = validate(config);
+
+// parts.extractBundle({
+//   name: 'vendor',
+//   entries: Object.keys(pkg.dependencies)
+// }),
+// exports.extractBundle = function(options) {
+//   const entry = {};
+//   entry[options.name] = options.entries;
+//
+//   return {
+//     // Define an entry point needed for splitting.
+//     entry: entry,
+//     plugins: [
+//       // Extract bundle and manifest files. Manifest is needed for reliable caching.
+//       new webpack.optimize.CommonsChunkPlugin({
+//         names: [options.name, 'manifest'],
+//         minChunks: Infinity
+//       })
+//     ]
+//   };
+// }

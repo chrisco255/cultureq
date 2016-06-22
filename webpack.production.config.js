@@ -7,13 +7,17 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StatsPlugin = require('stats-webpack-plugin');
 
 module.exports = {
-  entry: [
-    path.join(__dirname, 'app/main.js')
-  ],
+  entry: {
+    app: PATHS.app
+  },
   output: {
-    path: path.join(__dirname, '/dist/'),
-    filename: '[name]-[hash].min.js',
-    publicPath: '/'
+    path: PATHS.build,
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[chunkhash].js'
+    //publicPath: '/' //TODO: IS THIS NECESSARY?
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   plugins: [
     new CleanWebpackPlugin([PATHS.build], {
@@ -21,11 +25,10 @@ module.exports = {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
-      template: 'app/index.tpl.html',
-      inject: 'body',
-      filename: 'index.html'
+			filename: 'index.html',
+			template: path.join(PATHS.app, 'index.html')
     }),
-    new ExtractTextPlugin('[name]-[hash].min.css'),
+    new ExtractTextPlugin('[name].[chunkhash].css'),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false,
@@ -58,19 +61,10 @@ module.exports = {
       loaders: [ 'babel' ],
       include: PATHS.build
     },
-
-
-
-
-
-
-
     {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss')
+      loader: ExtractTextPlugin.extract('style?sourceMap','css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'),
+      include: PATHS.app
     }]
-  },
-  postcss: [
-    require('autoprefixer')
-  ]
+  }
 };
