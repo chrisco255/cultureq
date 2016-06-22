@@ -52,7 +52,7 @@ export function* companySubmit(action) {
 		}
 
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload: createResponse} );
-		yield put( push('/tenants') );
+		yield put( push('/pillars') );
 	} catch (error) {
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_FAILED, error} );
 	}
