@@ -49,5 +49,5 @@ class CompanyPage extends Component {
 	}
 }
 
-CompanyPage = connect(null, mapDispatchToProps)(CompanyPage);
-export default CSSModules(CompanyPage, styles);
+CompanyPage = CSSModules(CompanyPage, styles);
+export default connect(null, mapDispatchToProps)(CompanyPage);

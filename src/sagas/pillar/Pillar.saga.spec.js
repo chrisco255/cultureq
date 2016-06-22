@@ -3,13 +3,13 @@ import { put, call } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { push } from 'react-router-redux';
 
-import * as ActionTypes from '../../reducers/tenant/Tenant.actions';
-import { addTenant } from './Tenant.saga';
+import * as ActionTypes from '../../reducers/pillar/Pillar.actions';
+import { addPillar } from './Pillar.saga';
 
-describe('Tenant SAGA', () => {
+describe('Pillar SAGA', () => {
   it('Should delay for 2 seconds, then dispatch TENANT_ADD_SUCCEEDED', () => {
     const mockAction = {payload:{}};
-    const generator = addTenant(mockAction);
+    const generator = addPillar(mockAction);
 
     expect( generator.next().value ).to.deep.equal( call(delay, 2000) );
 

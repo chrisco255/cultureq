@@ -1,4 +1,4 @@
-import * as ActionTypes from '../../tenant/Tenant.actions';
+import * as ActionTypes from '../../pillar/Pillar.actions';
 
 const defaultState = { submitting: false };
 

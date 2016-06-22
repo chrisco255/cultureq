@@ -4,14 +4,14 @@ import axios from 'axios';
 
 import { push } from 'react-router-redux';
 
-import * as ActionTypes from '../../reducers/tenant/Tenant.actions';
+import * as ActionTypes from '../../reducers/pillar/Pillar.actions';
 
 const post = (body) => {
-	console.log("Posting create tenant body - ", body);
-	return axios.post('http://localhost:8000/tenants', body).then( response => response.data );
+	console.log("Posting create pillar body - ", body);
+	return axios.post('http://localhost:8000/pillars', body).then( response => response.data );
 }
 
-export function* addTenant(action) {
+export function* addPillar(action) {
 	try {
 		const payload = yield call(post, {
 			type: 'command.ADD_TENANT',
@@ -29,6 +29,6 @@ export function* addTenant(action) {
 	}
 }
 
-export default function* watchTenantSubmitted() {
-	yield* takeEvery(ActionTypes.TENANT_ADDED, addTenant);
+export default function* watchPillarSubmitted() {
+	yield* takeEvery(ActionTypes.TENANT_ADDED, addPillar);
 }
