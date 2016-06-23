@@ -15,9 +15,9 @@
   "scripts": {
     "test": "mocha \"src/**/*.spec.js\" --compilers js:babel-core/register --require test/config.js",
     "test:watch": "npm run test -- --watch",
-    "start": "webpack-dev-server",
-    "build": "webpack",
-    "serve-prod": "npm run build && http-server ./dist"
+    "start": "cross-env NODE_ENV=development node server.js",
+    "build": "rimraf build && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
+    "start:prod": "cross-env NODE_ENV=production node server.js"
   },
   "repository": {
     "type": "git",
@@ -36,12 +36,14 @@
     "babel-preset-react": "6.5.0",
     "chai": "3.5.0",
     "clean-webpack-plugin": "0.1.9",
+    "cross-env": "^1.0.8",
     "css-loader": "0.23.1",
     "css-modules-require-hook": "4.0.1",
     "enzyme": "2.3.0",
     "extract-text-webpack-plugin": "1.0.1",
     "html-webpack-plugin": "2.21.0",
     "http-server": "0.9.0",
+    "json-loader": "^0.5.4",
     "mocha": "2.5.3",
     "react-addons-test-utils": "15.1.0",
     "react-css-modules": "3.7.6",
@@ -49,9 +51,14 @@
     "redux-devtools": "3.3.1",
     "redux-devtools-dock-monitor": "1.1.1",
     "redux-devtools-log-monitor": "1.0.11",
+    "rimraf": "^2.5.2",
+    "stats-webpack-plugin": "^0.3.1",
     "style-loader": "0.13.1",
+    "transform-loader": "^0.2.3",
     "webpack": "1.13.1",
+    "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "1.14.1",
+    "webpack-hot-middleware": "^2.10.0",
     "webpack-merge": "0.14.0",
     "webpack-validator": "2.2.0"
   },
@@ -59,12 +66,10 @@
     "auth0-lock": "^9.2.1",
     "axios": "^0.12.0",
     "email-regex": "1.0.0",
-    "json-loader": "^0.5.4",
+    "http-proxy-middleware": "^0.16.0",
     "lodash": "^4.13.1",
     "react": "15.1.0",
     "react-dom": "15.1.0",
-    "react-dropzone": "^2.2.4",
-    "react-file-uploader": "^0.3.0",
     "react-redux": "4.4.5",
     "react-router": "2.4.1",
     "react-router-redux": "4.0.5",
@@ -72,7 +77,6 @@
     "redux-form": "5.2.5",
     "redux-saga": "0.10.5",
     "socket.io-client": "^1.4.6",
-    "transform-loader": "^0.2.3",
     "validations": "bitbucket:ultilabs/validations#HEAD"
   }
 }

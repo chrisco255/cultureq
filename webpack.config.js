@@ -5,16 +5,10 @@ const validate = require('webpack-validator');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PATHS = require('./paths');
 // const pkg = require('./package.json');
 
-const PATHS = {
-  app: path.join(__dirname, 'src'),
-  style: [
-    // path.join(__dirname, 'node_modules', 'purecss'),
-    path.join(__dirname, 'src', 'main.css')
-  ],
-  build: path.join(__dirname, 'build')
-};
+
 
 
 // TODO: PREVIOUS entry.app
