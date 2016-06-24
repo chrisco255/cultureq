@@ -6,7 +6,7 @@ import * as ActionTypes from '../../reducers/company/Company.actions';
 
 //fetching of companies
 const fetch = (query) => {
-	return axios.get(`http://localhost:7990/graphql?query=${encodeURIComponent(query)}`)
+	return axios.get(`/api/graphql?query=${encodeURIComponent(query)}`)
 							.then( response => response.data.data );
 }
 
@@ -27,11 +27,11 @@ export function* watchFetchCompanies() {
 
 //posting tenant top level form data
 const postTenant = (body) => {
-	return axios.post('http://localhost:8008/tenants', body).then( response => response.data );
+	return axios.post('/api/tenants', body).then( response => response.data );
 }
 
 const postFile = (body) => {
-	return axios.post('http://localhost:8007/employee_record_import', body).then( response => response.data );
+	return axios.post('/api/employee_record_import', body).then( response => response.data );
 }
 
 export function* companySubmit(action) {
