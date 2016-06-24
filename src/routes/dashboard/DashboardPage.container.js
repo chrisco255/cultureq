@@ -27,7 +27,7 @@ export class DashboardPage extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="container">
 				<HeroImage />
 				<h1>Dashboard</h1>
 				<Link to="/company/import"> import </Link>

@@ -1,7 +1,7 @@
-import * as ActionTypes from './Tenant.actions';
+import * as ActionTypes from './Pillar.actions';
 
 const defaultState = {
-	tenants: [{
+	pillars: [{
  		 name: 'Do the right thing',
  		 content: [{
  			 type: "video",
@@ -38,22 +38,22 @@ const defaultState = {
  			 data: "you have been match with alicia"
  		 }]
   }],
-  selectedTenants: []
+  selectedPillars: []
 };
 
 export default (state = defaultState, action) => {
 
 	switch(action.type) {
-		case ActionTypes.ADD_TENANT:
+		case ActionTypes.ADD_PILLAR:
 			state = Object.assign({}, state, {
-				tenants: state.tenants.filter( tenant => tenant.name !== action.payload.tenant.name),
-				selectedTenants: [...state.selectedTenants, action.payload.tenant]
+				pillars: state.pillars.filter( pillar => pillar.name !== action.payload.pillar.name),
+				selectedPillars: [...state.selectedPillars, action.payload.pillar]
 			});
 			break;
-		case ActionTypes.REMOVE_TENANT:
+		case ActionTypes.REMOVE_PILLAR:
 			state = Object.assign({}, state, {
-				tenants: [...state.tenants, action.payload.tenant],
-				selectedTenants: state.selectedTenants.filter( tenant => tenant.name !== action.payload.tenant.name)
+				pillars: [...state.pillars, action.payload.pillar],
+				selectedPillars: state.selectedPillars.filter( pillar => pillar.name !== action.payload.pillar.name)
 			});
 			break;
 	}

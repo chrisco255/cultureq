@@ -7,7 +7,7 @@ import DashboardPage from './dashboard/DashboardPage.container.js';
 import ProfilePage from './profile/ProfilePage.container.js';
 import ProductPage from './product/ProductPage.container.js';
 import ProposalPage from './proposal/ProposalPage.container.js';
-import TenantsPage from './tenants/TenantsPage.container.js';
+import PillarsPage from './pillars/PillarsPage.container.js';
 
 export default (
   <Route path="/" component={App}>
@@ -17,6 +17,6 @@ export default (
     <Route path="proposal" component={ProposalPage} />
     <Route path="dashboard" component={DashboardPage} />
     <Route path="profile" component={ProfilePage} />
-    <Route path="tenants" component={TenantsPage} />
+    <Route path="pillars" component={PillarsPage} />
   </Route>
 )

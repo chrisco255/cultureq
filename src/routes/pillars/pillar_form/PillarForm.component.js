@@ -1,9 +1,9 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import CSSModules from 'react-css-modules';
-import TenantsPageStyles from '../TenantsPage.css';
+import PillarsPageStyles from '../PillarsPage.css';
 import _ from 'lodash';
-import validate from './TenantForm.validation.js';
+import validate from './PillarForm.validation.js';
 
 export const fields = [
   'name',
@@ -11,7 +11,7 @@ export const fields = [
   'content[].data'
 ];
 
-let TenantForm = (props) => {
+let PillarForm = (props) => {
   const {
     fields: {
       name,
@@ -45,11 +45,11 @@ let TenantForm = (props) => {
 
   return (
     <div>
-      <h1 styleName="title">Create Your Own Tenant</h1>
+      <h1 styleName="title">Create Your Own Cultural Pillar</h1>
       <hr />
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Tenant Name</label>
+          <label>Pillar Name</label>
           <input type="text" placeholder="Put people first" { ...name } />
           {name.touched && name.error && <div style={{color: 'red'}}>{name.error}</div>}
         </div>
@@ -132,19 +132,23 @@ let TenantForm = (props) => {
 
         <hr />
 
-        <button id="submit-btn" className={submitBtnClassName} type="submit" disabled={ submitting || !content.length }>Add Tenant</button>
+        <div styleName="flex-space-between">
+          <button className="btn waves-effect waves-light" type="button" disabled={ submitting } onClick={ resetForm }>Start Over</button>
+
+          <button className={submitBtnClassName} type="submit" disabled={ submitting || !content.length }>Add Pillar</button>
+        </div>
       </form>
     </div>
   );
 }
 
-TenantForm = CSSModules(TenantForm, TenantsPageStyles);
+PillarForm = CSSModules(PillarForm, PillarsPageStyles);
 
 // Composition FTW!
-TenantForm = reduxForm({
-	form: 'tenant',
+PillarForm = reduxForm({
+	form: 'pillar',
 	fields,
   validate
-})(TenantForm);
+})(PillarForm);
 
-export default TenantForm;
+export default PillarForm;

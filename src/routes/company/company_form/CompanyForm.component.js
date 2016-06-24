@@ -63,7 +63,7 @@ let CompanyForm = (props) => {
           <div className="file-field input-field">
             <div className="btn">
               <span>Import Employees</span>
-              <input type="file" { ...csvFile } value={undefined} />
+              <input type="file" { ...csvFile } value={ undefined } />
               {csvFile.touched && csvFile.error && <div style={{color: 'red'}}>{csvFile.error}</div>}
             </div>
             <div className="file-path-wrapper">

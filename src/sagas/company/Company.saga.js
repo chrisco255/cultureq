@@ -27,11 +27,11 @@ export function* watchFetchCompanies() {
 
 //posting tenant top level form data
 const postTenant = (body) => {
-	return axios.post('http://localhost:8000/tenants', body).then( response => response.data );
+	return axios.post('http://localhost:8008/tenants', body).then( response => response.data );
 }
 
 const postFile = (body) => {
-	return axios.post('http://localhost:8000/csv', body).then( response => response.data );
+	return axios.post('http://localhost:8007/employee_record_import', body).then( response => response.data );
 }
 
 export function* companySubmit(action) {
@@ -52,7 +52,7 @@ export function* companySubmit(action) {
 		}
 
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload: createResponse} );
-		yield put( push('/tenants') );
+		yield put( push('/pillars') );
 	} catch (error) {
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_FAILED, error} );
 	}

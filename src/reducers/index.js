@@ -1,9 +1,9 @@
 import user from './user/User.reducer.js';
 import companyForm from './form/company/CompanyForm.reducer';
-import tenantForm from './form/tenant/TenantForm.reducer';
+import pillarForm from './form/pillar/PillarForm.reducer';
 import company from './company/Company.reducer';
 import product from './product/Product.reducer';
-import tenant from './tenant/Tenant.reducer';
+import pillar from './pillar/Pillar.reducer';
 import socket from './socket/Socket.reducer';
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
@@ -18,10 +18,10 @@ const reducers = {
 	company,
 	product,
 	socket,
-	tenant,
+	pillar,
 	form: formReducer.plugin({
 		company: companyForm,
-		tenant: tenantForm
+		pillar: pillarForm
 	})
 };
 

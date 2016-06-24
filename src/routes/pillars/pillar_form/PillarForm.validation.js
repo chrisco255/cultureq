@@ -1,7 +1,7 @@
 import { createValidator, required, minLength, integer } from 'validations';
 
-const tenantValidation = createValidator({
+const pillarValidation = createValidator({
   name: [required]
 });
 
-export default tenantValidation;
+export default pillarValidation;

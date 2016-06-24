@@ -43,8 +43,8 @@ export default (state = defaultState, action) => {
       state = [...state, newTenant];
 			break;
     case ActionTypes.FETCH_COMPANIES_SUCCEEDED:
-      state = action.payload.tenants;
-      console.log("New state - ", state);
+      //state = action.payload.tenants;
+      //console.log("New state - ", state);
 
       break;
     case UserActionTypes.USER_LOGOUT:
