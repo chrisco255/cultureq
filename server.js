@@ -15,20 +15,17 @@ const app = express();
 
 if (isDeveloping) {
   const compiler = webpack(wbpckConfig);
-  // const devServer = {
-  //   publicPath: wbpckConfig.output.publicPath,
-  //   contentBase: 'src',
-  //   stats: {
-  //     colors: true,
-  //     hash: false,
-  //     timings: true,
-  //     chunks: false,
-  //     chunkModules: false,
-  //     modules: false
-  //   }
-  // };
+  const devServer = {
+    publicPath: wbpckConfig.output.publicPath,
+    contentBase: PATHS.app,
+    noInfo: true,
+    stats: {
+      colors: true,
+      timings: true
+    }
+  };
 
-  const middleware = webpackMiddleware(compiler /*, devServer */);
+  const middleware = webpackMiddleware(compiler, devServer);
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
@@ -40,11 +37,11 @@ if (isDeveloping) {
 
 
 } else {
-  const webSocketProxy = proxy('/', {
-    target: config.socketUrl,
-    ws: true,
-    changeOrigin: true
-  });
+  // const webSocketProxy = proxy('/', {
+  //   target: config.socketUrl,
+  //   ws: true,
+  //   changeOrigin: true
+  // });
   app.use(express.static(PATHS.build));
   // app.use(webSocketProxy);
 

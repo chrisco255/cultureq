@@ -32,7 +32,6 @@ var config = {
   output: {
     path: PATHS.build,
     filename: '[name].js'
-    //publicPath: '/' //TODO: IS THIS NECESSARY?
   },
   resolve: {
     extensions: ['', '.js', '.jsx']

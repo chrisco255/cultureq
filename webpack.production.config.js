@@ -14,17 +14,17 @@ module.exports = {
     path: PATHS.build,
     filename: '[name].[chunkhash].js',
     chunkFilename: '[chunkhash].js'
-    // publicPath: PATHS.build
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
+  devtool: 'cheap-module-source-map'
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: path.join(PATHS.app, 'index.html')
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new ExtractTextPlugin('[name].[chunkhash].css'),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -32,10 +32,9 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    // new StatsPlugin('webpack.stats.json', {
-    //   source: false,
-    //   modules: false
-    // }),
+    new StatsPlugin('webpack.stats.json', {
+      source: false
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
@@ -56,8 +55,7 @@ module.exports = {
     }, {
       test: /\.js?$/,
       loader: 'babel',
-      // include: PATHS.app,
-      exclude: /node_modules/
+      include: PATHS.app
     },
     {
       test: /\.css$/,
