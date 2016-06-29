@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const proxy = require('http-proxy-middleware');
+const httpProxy = require('http-proxy');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -9,9 +9,22 @@ const PATHS = require('./paths');
 const config = require('./src/config');
 
 const isDeveloping = (process.env.NODE_ENV !== 'production');
-const port = config.port;
+const { port } = config;
 
 const app = express();
+
+const proxy = httpProxy.createProxyServer();
+
+const proxyTo = (origin) => {
+  return (req, res) => {
+    const trimmedUrl = req.originalUrl.replace('/api', '');
+    console.log(`trimming ${req.url} to ${trimmedUrl} and passing to ${origin}`);
+    req.url = trimmedUrl;
+    return proxy.web(req, res, {
+      target: origin
+    });
+  }
+}
 
 if (isDeveloping) {
   const compiler = webpack(wbpckConfig);
@@ -29,34 +42,26 @@ if (isDeveloping) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-
+  app.all('/api/*', proxyTo(config.url));
   app.get('*', function response(req, res) {
     res.write(middleware.fileSystem.readFileSync(path.join(PATHS.build, 'index.html')));
     res.end();
   });
-
-
 } else {
-  // const webSocketProxy = proxy('/', {
-  //   target: config.socketUrl,
-  //   ws: true,
-  //   changeOrigin: true
-  // });
   app.use(express.static(PATHS.build));
-  // app.use(webSocketProxy);
-
-  app.use('/api/*', proxy({
-    target: config.url,
-    changeOrigin: true ,
-    pathRewrite: { '^/remove/api': '' }
-  }));
-
+  app.all('/api/*', proxyTo(config.url));
   app.get('*', function response(req, res) {
+    console.log('CAUGHT RETURNING INDEX');
     res.sendFile(path.join(PATHS.build, 'index.html'));
   });
 }
 
-app.listen(port, '0.0.0.0', function onStart(err) {
+proxy.on('error', function (err, req, res) {
+  console.log('PROXY ERROR');
+  res.sendStatus(500);
+});
+
+app.listen(port, '0.0.0.0', function(err) {
   if (err) {
     console.log(err);
   }
