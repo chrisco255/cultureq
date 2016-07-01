@@ -5,7 +5,7 @@ import CSSModules from 'react-css-modules';
 import PillarsPageStyles from './PillarsPage.css';
 import { Link, IndexLink } from 'react-router';
 import _ from 'lodash';
-import { addPillar, removePillar } from '../../reducers/pillar/Pillar.actions';
+import { addPillar, removePillar, addPillarList } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
 
 const mapDispatchToProps = (dispatch) => {
@@ -13,7 +13,9 @@ const mapDispatchToProps = (dispatch) => {
 		addPillar: (pillar) =>
 			dispatch(addPillar(pillar)),
 		removePillar: (pillar) =>
-		 	dispatch(removePillar(pillar))
+		 	dispatch(removePillar(pillar)),
+		addPillarList: (pillars) =>
+			dispatch(addPillarList(pillars))
 	}
 }
 
@@ -33,6 +35,8 @@ class PillarsPage extends Component {
 
 	submitPillarList = () => {
 		console.log('SUBMIT');
+		console.log(this.props.selectedPillars);
+		this.props.addPillarList(this.props.selectedPillars);
 	}
 
 	render() {

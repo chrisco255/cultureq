@@ -56,6 +56,12 @@ export default (state = defaultState, action) => {
 				selectedPillars: state.selectedPillars.filter( pillar => pillar.name !== action.payload.pillar.name)
 			});
 			break;
+		case ActionTypes.ADD_PILLAR_LIST:
+			// state = Object.assign({}, state, {
+			//
+			// });
+			console.log('INSIDE ADD_PILLAR_LIST REDUCER');
+			break;
 	}
 
 	return state;
