@@ -40,7 +40,6 @@ class Header extends Component {
 	}
 	render = () => {
 		let { loggedIn, companyName } = this.props;
-		console.log('companyName', companyName);
 
 		return (
 			<nav>
