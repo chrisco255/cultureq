@@ -8,7 +8,14 @@ import validate from './PillarForm.validation.js';
 export const fields = [
   'name',
   'content[].type',
-  'content[].data'
+  'content[].data',
+  'content[].data.title',
+  'content[].data.description',
+  'content[].data.url',
+  'content[].data.quote',
+  'content[].data.author',
+  'content[].data.fullname',
+  'content[].data.position'
 ];
 
 let PillarForm = (props) => {
@@ -22,25 +29,6 @@ let PillarForm = (props) => {
   var submitBtnClassName = 'btn waves-effect waves-light';
   if(submitting || !content.length) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
-  }
-
-  //quote needs the quote and author
-  //video needs title, description, and url
-  //survey from sparksurveys
-  //lunch-meeting needs name and title
-  const contentData = (type) => {
-    if(type.value === "video") {
-      fields.push('content[].data.title', 'content[].data.description', 'content[].data.url');
-      return "video";
-    }
-    if(type.value === "quote") {
-      fields.push('content[].data.quote', 'content[].data.author');
-      return "quote";
-    }
-    if(type.value === "lunch") {
-      fields.push('content[].data.fullname', 'content[].data.position');
-      return "lunch";
-    }
   }
 
   return (
@@ -62,9 +50,9 @@ let PillarForm = (props) => {
         </div>}
 
         {content.map((item, index) =>
-        <div className="card">
+        <div key={index} className="card">
           <div className="card-content">
-            <div key={index}>
+            <div>
               <div>
                 <h6 styleName="flex-space-between">Content #{index + 1}
                   <button className="btn-floating waves-effect waves-light red" type="button" onClick={() => {
@@ -75,13 +63,13 @@ let PillarForm = (props) => {
                 <div>
                   <label>Content Type</label>
                   <select className="browser-default" { ...item.type } >
-                    <option value="" disabled selected>Choose content type</option>
+                    <option value="0" disabled hidden>Choose content type</option>
                     <option value="video">video</option>
                     <option value="quote">quote</option>
                     <option value="lunch">lunch meeting</option>
                   </select>
                 </div>
-                { (contentData(item.type) === 'video') &&
+                { (item.type.value === 'video') &&
                 <div>
                   <div>
                     <label>Video Title</label>
@@ -96,7 +84,7 @@ let PillarForm = (props) => {
                     <input type="text" placeholder="https://www.youtube.com/watch?v=JrHGFIWX2R4" { ...item.data.url } />
                   </div>
                 </div> }
-                { (contentData(item.type) === 'quote') &&
+                { (item.type.value === 'quote') &&
                <div>
                  <div>
                    <label>Quote</label>
@@ -107,7 +95,7 @@ let PillarForm = (props) => {
                    <input type="text" placeholder="Scott Scherr" { ...item.data.author } />
                  </div>
                </div> }
-               { (contentData(item.type) === 'lunch') &&
+               { (item.type.value === 'lunch') &&
               <div>
                 <div>
                   <label>Name</label>
@@ -125,7 +113,9 @@ let PillarForm = (props) => {
 
         <div>
           <button className="btn waves-effect waves-light" type="button" onClick={() => {
-              content.addField()
+              content.addField({
+                type: '0'
+              })
             }}><i/> Add Content
           </button>
         </div>
