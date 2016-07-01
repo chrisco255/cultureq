@@ -5,31 +5,27 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 
 import * as ActionTypes from '../../reducers/pillar/Pillar.actions';
-//
-// const post = (body) => {
-// 	console.log("Posting create pillar body - ", body);
-// 	return axios.post('http://localhost:8000/pillars', body).then( response => response.data );
-// }
 
-export function* addPillar(action) {
+const post = (body) => {
+	console.log("Posting create pillar body - ", body);
+	return axios.post('/api/pillar', body).then( response => response.data );
+}
+
+export function* addPillarList(action) {
 	try {
-		// const payload = yield call(post, {
-		// 	type: 'command.ADD_TENANT',
-		// 	payload: action.payload
-		// });
-		// const payload = {
-		// 	type: 'command.ADD_TENANT',
-		// 	payload: action.payload
-		// };
-		// console.log('received payload from call - ', payload);
-		// yield put( {type: ActionTypes.TENANT_ADD_SUCCEEDED, payload } );
-		// yield put( push('/dashboard') );
 		console.log('in saga');
+		const payload = yield call(post, {
+			type: 'command.ADD_PILLAR_LIST',
+			payload: action.payload
+		});
+		console.log('received payload from call - ', payload);
+		yield put( {type: ActionTypes.ADD_PILLAR_LIST_SUCCEEDED, payload } );
+		yield put( push('/dashboard') );
 	} catch (error) {
-		// yield put( {type: ActionTypes.TENANT_ADD_FAILED, error} );
+		yield put( {type: ActionTypes.ADD_PILLAR_LIST_FAILED, error} );
 	}
 }
 
-export default function* watchPillarSubmitted() {
-	yield* takeEvery(ActionTypes.ADD_PILLAR, addPillar);
+export default function* watchPillarListSubmitted() {
+	yield* takeEvery(ActionTypes.ADD_PILLAR_LIST, addPillarList);
 }
