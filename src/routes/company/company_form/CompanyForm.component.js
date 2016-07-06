@@ -32,31 +32,31 @@ let CompanyForm = (props) => {
         <div>
           <label>Company Name</label>
           <input type="text" placeholder="Ultimate Software" { ...name } />
-          {name.touched && name.error && <div style={{color: 'red'}}>{name.error}</div>}
+          {name.touched && name.error && <div style={{color: 'red'}}>{name.error[0]}</div>}
         </div>
         <br/>
         <div>
           <label>Company Address</label>
           <input type="text" placeholder="2000 Ultimate Way Weston, FL 33326" { ...address } />
-          {address.touched && address.error && <div style={{color: 'red'}}>{address.error}</div>}
+          {address.touched && address.error && <div style={{color: 'red'}}>{address.error[0]}</div>}
         </div>
         <br/>
         <div>
           <label>Contact Name</label>
           <input type="text" placeholder="Jane Doe" { ...contact.name } />
-          {contact.name.touched && contact.name.error && <div style={{color: 'red'}}>{contact.name.error}</div>}
+          {contact.name.touched && contact.name.error && <div style={{color: 'red'}}>{contact.name.error[0]}</div>}
         </div>
         <br/>
         <div>
           <label>Contact Email</label>
           <input type="email" placeholder="jane_doe@ultimatesoftware.com" { ...contact.email } />
-          {contact.email.touched && contact.email.error && <div style={{color: 'red'}}>{contact.email.error}</div>}
+          {contact.email.touched && contact.email.error && <div style={{color: 'red'}}>{contact.email.error[0]}</div>}
         </div>
         <br/>
         <div>
           <label>Contact Phone</label>
           <input type="number" placeholder="9541234563" {...contact.phone} />
-          {contact.phone.touched && contact.phone.error && <div style={{color: 'red'}}>{contact.phone.error}</div>}
+          {contact.phone.touched && contact.phone.error && <div style={{color: 'red'}}>{contact.phone.error[0]}</div>}
         </div>
         <br/>
         <div>
@@ -64,7 +64,7 @@ let CompanyForm = (props) => {
             <div className="btn">
               <span>Import Employees</span>
               <input type="file" { ...csvFile } value={ undefined } />
-              {csvFile.touched && csvFile.error && <div style={{color: 'red'}}>{csvFile.error}</div>}
+              {csvFile.touched && csvFile.error && <div style={{color: 'red'}}>{csvFile.error[0]}</div>}
             </div>
             <div className="file-path-wrapper">
               <input className="file-path validate" placeholder="You can drag and drop your file here too!" type="text" />
