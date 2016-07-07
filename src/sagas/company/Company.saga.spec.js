@@ -15,7 +15,7 @@ describe('Company SAGA', () => {
 
     expect( generator.next().value ).to.deep.equal( put({ type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload: mockAction.payload }) );
 
-    expect( generator.next().value ).to.deep.equal( put( push('/tenants') ) );
+    expect( generator.next().value ).to.deep.equal( put( push('/pillar') ) );
 
     expect( generator.next() ).to.deep.equal( {done: true, value: undefined} );
   });

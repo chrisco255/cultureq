@@ -27,7 +27,8 @@ export function* watchFetchCompanies() {
 
 //posting tenant top level form data
 const postTenant = (body) => {
-	return axios.post('/api/tenants', body).then( response => response.data );
+	console.log('postTenant', body);
+	return axios.post('/api/tenant', body).then( response => response.data );
 }
 
 const postFile = (body) => {
@@ -52,7 +53,7 @@ export function* companySubmit(action) {
 		}
 
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload: createResponse} );
-		yield put( push('/pillars') );
+		yield put( push('/pillar') );
 	} catch (error) {
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_FAILED, error} );
 	}
