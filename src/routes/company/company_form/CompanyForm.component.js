@@ -87,31 +87,4 @@ CompanyForm = reduxForm({
   validate
 })(CompanyForm);
 
-
-// SignUp Form Info
-var structure = {
-  company: {
-    name: "",
-    address: "",
-    contact: {
-      name: "",
-      phone: 0,
-      email: ""
-    },
-    culture: {
-      tenants: [{
-      name: "",
-      content: [{
-        type: "",
-        data: ""
-        }]
-      }]
-    },
-    users: [{
-      email: "",
-      name: ""
-    }]
-  }
-};
-
 export default CompanyForm;
