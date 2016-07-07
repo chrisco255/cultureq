@@ -14,11 +14,6 @@ class HomePage extends Component {
 				<p>
 					Sign up today!
 				</p>
-				<hr/>
-				<Link className="waves-effect waves-light btn" to="/product">Product</Link>
-				<br/>
-				<br/>
-				<Link className="waves-effect waves-light btn" to="/proposal">Proposal</Link>
 			</div>
 		);
 	}
