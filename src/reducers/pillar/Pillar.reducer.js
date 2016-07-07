@@ -2,41 +2,25 @@ import * as ActionTypes from './Pillar.actions';
 
 const defaultState = {
 	pillars: [{
+		 tenantId: '',
  		 name: 'Do the right thing',
- 		 content: [{
- 			 type: "video",
- 			 data: "link"
- 		 }, {
- 			 type: "lunch",
- 			 data: "you have been match with joe"
- 		 }]
+ 		 content: [],
+		 isSelected: false
   }, {
+		 tenantId: '',
  		 name: 'Put people first',
- 		 content: [{
- 			 type: "video",
- 			 data: "link1"
- 		 }, {
- 			 type: "lunch",
- 			 data: "you have been match with chris"
- 		 }]
+ 		 content: [],
+		 isSelected: false
   }, {
+		 tenantId: '',
  		 name: 'Embrace community',
- 		 content: [{
- 			 type: "video",
- 			 data: "link2"
- 		 }, {
- 			 type: "lunch",
- 			 data: "you have been match with cason"
- 		 }]
+ 		 content: [],
+		 isSelected: false
   }, {
+		 tenantId: '',
  		 name: 'Make a difference every day',
- 		 content: [{
- 			 type: "video",
- 			 data: "link3"
- 		 }, {
- 			 type: "lunch",
- 			 data: "you have been match with alicia"
- 		 }]
+ 		 content: [],
+		 isSelected: false
   }],
   selectedPillars: []
 };
@@ -45,22 +29,31 @@ export default (state = defaultState, action) => {
 
 	switch(action.type) {
 		case ActionTypes.ADD_PILLAR:
+			action.payload.pillar.tenantId = action.payload.pillar.tenantId || '';
+			action.payload.pillar.isSelected = true;
+			action.payload.pillar.content = action.payload.pillar.content || [];
+			console.log(action.payload.pillar);
 			state = Object.assign({}, state, {
 				pillars: state.pillars.filter( pillar => pillar.name !== action.payload.pillar.name),
 				selectedPillars: [...state.selectedPillars, action.payload.pillar]
 			});
 			break;
 		case ActionTypes.REMOVE_PILLAR:
+			action.payload.pillar.isSelected = false;
+			console.log(action.payload.pillar);
 			state = Object.assign({}, state, {
 				pillars: [...state.pillars, action.payload.pillar],
 				selectedPillars: state.selectedPillars.filter( pillar => pillar.name !== action.payload.pillar.name)
 			});
 			break;
 		case ActionTypes.ADD_PILLAR_LIST:
-			// state = Object.assign({}, state, {
-			//
-			// });
-			console.log('INSIDE ADD_PILLAR_LIST REDUCER');
+			console.log('ADD_PILLAR_LIST', action.payload.pillars);
+			break;
+		case ActionTypes.ADD_PILLAR_LIST_SUCCEEDED:
+			console.log('ADD_PILLAR_LIST_SUCCEEDED');
+			break;
+		case ActionTypes.ADD_PILLAR_LIST_FAILED:
+			console.log('ADD_PILLAR_LIST_FAILED');
 			break;
 	}
 
