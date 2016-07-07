@@ -2,7 +2,6 @@ import user from './user/User.reducer.js';
 import companyForm from './form/company/CompanyForm.reducer';
 import pillarForm from './form/pillar/PillarForm.reducer';
 import company from './company/Company.reducer';
-import product from './product/Product.reducer';
 import pillar from './pillar/Pillar.reducer';
 import socket from './socket/Socket.reducer';
 import { combineReducers } from 'redux';
@@ -16,7 +15,6 @@ const reducers = {
 	user,
 	routing,
 	company,
-	product,
 	socket,
 	pillar,
 	form: formReducer.plugin({
