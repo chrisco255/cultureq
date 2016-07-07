@@ -22,7 +22,8 @@ const defaultState = {
  		 content: [],
 		 isSelected: false
   }],
-  selectedPillars: []
+  selectedPillars: [],
+	isEditing: false
 };
 
 export default (state = defaultState, action) => {
@@ -32,7 +33,7 @@ export default (state = defaultState, action) => {
 			action.payload.pillar.tenantId = action.payload.pillar.tenantId || '';
 			action.payload.pillar.isSelected = true;
 			action.payload.pillar.content = action.payload.pillar.content || [];
-			console.log(action.payload.pillar);
+			console.log('ADD_PILLAR', action.payload.pillar);
 			state = Object.assign({}, state, {
 				pillars: state.pillars.filter( pillar => pillar.name !== action.payload.pillar.name),
 				selectedPillars: [...state.selectedPillars, action.payload.pillar]
@@ -40,10 +41,16 @@ export default (state = defaultState, action) => {
 			break;
 		case ActionTypes.REMOVE_PILLAR:
 			action.payload.pillar.isSelected = false;
-			console.log(action.payload.pillar);
+			console.log('REMOVE_PILLAR', action.payload.pillar);
 			state = Object.assign({}, state, {
 				pillars: [...state.pillars, action.payload.pillar],
 				selectedPillars: state.selectedPillars.filter( pillar => pillar.name !== action.payload.pillar.name)
+			});
+			break;
+		case ActionTypes.EDIT_PILLAR:
+			console.log('EDIT_PILLAR', action.payload.pillar);
+			state = Object.assign({}, state, {
+				isEditing: true
 			});
 			break;
 		case ActionTypes.ADD_PILLAR_LIST:

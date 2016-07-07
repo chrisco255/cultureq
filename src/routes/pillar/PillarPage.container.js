@@ -5,7 +5,7 @@ import CSSModules from 'react-css-modules';
 import PillarPageStyles from './PillarPage.css';
 import { Link, IndexLink } from 'react-router';
 import _ from 'lodash';
-import { addPillar, removePillar, addPillarList } from '../../reducers/pillar/Pillar.actions';
+import { addPillar, removePillar, editPillar, addPillarList } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
 
 const mapDispatchToProps = (dispatch) => {
@@ -14,6 +14,8 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(addPillar(pillar)),
 		removePillar: (pillar) =>
 		 	dispatch(removePillar(pillar)),
+		editPillar: (pillar) =>
+			dispatch(editPillar(pillar)),
 		addPillarList: (pillars) =>
 			dispatch(addPillarList(pillars))
 	}
@@ -22,7 +24,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
 	return {
 		pillars: state.pillar.pillars,
-		selectedPillars: state.pillar.selectedPillars
+		selectedPillars: state.pillar.selectedPillars,
+		isEditing: state.pillar.isEditing
 	}
 }
 
@@ -50,20 +53,25 @@ class PillarPage extends Component {
 				</div>
 			);
 		} else {
-			listPillars = this.props.pillars.map((pillar) => {
+			listPillars = this.props.pillars.map((pillar, index) => {
 					return (
 						<a className="collection-item hand" key={pillar.name} >
 							{pillar.name}
 							<div className="secondary-content" onClick={this.props.addPillar.bind(this, pillar)}>
 								<i className="material-icons">add_circle</i>
 							</div>
-							<div className="secondary-content">
+							<div className="secondary-content" onClick={this.props.editPillar.bind(this, pillar)}>
 								<i className="material-icons">mode_edit</i>
 							</div>
 						</a>
-
 					);
 			});
+		}
+
+		if (this.props.isEditing) {
+			console.log('editing');
+		} else {
+			console.log('not editing');
 		}
 
 		if(this.props.selectedPillars.length < 1) {

@@ -1,5 +1,6 @@
 export const ADD_PILLAR = 'ADD_PILLAR';
 export const REMOVE_PILLAR = 'REMOVE_PILLAR';
+export const EDIT_PILLAR = 'EDIT_PILLAR';
 
 export const ADD_PILLAR_LIST = 'ADD_PILLAR_LIST';
 export const ADD_PILLAR_LIST_SUCCEEDED = 'ADD_PILLAR_LIST_SUCCEEDED';
@@ -17,6 +18,13 @@ export function removePillar(pillar) {
 		type: REMOVE_PILLAR,
 		payload: { pillar }
 	};
+}
+
+export function editPillar(pillar) {
+	return {
+		type: EDIT_PILLAR,
+		payload: { pillar }
+	}
 }
 
 export function addPillarList(pillars) {
