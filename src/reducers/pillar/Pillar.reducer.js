@@ -23,7 +23,9 @@ const defaultState = {
 		 isSelected: false
   }],
   selectedPillars: [],
-	isEditing: false
+	isEditing: false,
+	pillarThatIsBeingEdited: null,
+	pillarThatIsBeingEditedIndex: -1
 };
 
 export default (state = defaultState, action) => {
@@ -50,7 +52,25 @@ export default (state = defaultState, action) => {
 		case ActionTypes.EDIT_PILLAR:
 			console.log('EDIT_PILLAR', action.payload.pillar);
 			state = Object.assign({}, state, {
-					isEditing: true
+					isEditing: true,
+					pillarThatIsBeingEdited: action.payload.pillar,
+					pillarThatIsBeingEditedIndex: action.payload.index
+			});
+			break;
+		case ActionTypes.EDIT_PILLAR_FINISH:
+			console.log('EDIT_PILLAR_FINISH', action.payload.pillarName);
+			const { pillarName, index } = action.payload;
+			const newPillar = Object.assign({}, state.pillars[index], {
+		 		 name: pillarName
+		  });
+			state = Object.assign({}, state, {
+					isEditing: false,
+					pillarThatIsBeingEditedIndex: -1,
+					pillars: [
+						...state.pillars.slice(0, index),
+						newPillar,
+						...state.pillars.slice(index+1)
+					]
 			});
 			break;
 		case ActionTypes.ADD_PILLAR_LIST:

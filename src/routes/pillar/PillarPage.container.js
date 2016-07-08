@@ -5,21 +5,19 @@ import CSSModules from 'react-css-modules';
 import PillarPageStyles from './PillarPage.css';
 import { Link, IndexLink } from 'react-router';
 import _ from 'lodash';
-import { addPillar, removePillar, editPillar, addPillarList } from '../../reducers/pillar/Pillar.actions';
+import { addPillar, removePillar, editPillar, editPillarFinish, addPillarList } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		// Adds a pillar to the selectedPillars array
 		addPillar: (pillar) =>
 			dispatch(addPillar(pillar)),
-		// Removes a pillar from the selectedPillars array and adds it to pillars array
 		removePillar: (pillar) =>
 		 	dispatch(removePillar(pillar)),
-		// Edit a pillar
-		editPillar: (pillar) =>
-			dispatch(editPillar(pillar)),
-		// Adds the selectedPillars list to the server
+		editPillar: (pillar, index) =>
+			dispatch(editPillar(pillar, index)),
+		editPillarFinish: (pillar, index) =>
+			dispatch(editPillarFinish(pillar, index)),
 		addPillarList: (pillars) =>
 			dispatch(addPillarList(pillars))
 	}
@@ -29,11 +27,12 @@ const mapStateToProps = (state) => {
 	return {
 		pillars: state.pillar.pillars,
 		selectedPillars: state.pillar.selectedPillars,
-		isEditing: state.pillar.isEditing
+		isEditing: state.pillar.isEditing,
+		pillarThatIsBeingEdited: state.pillar.pillarThatIsBeingEdited,
+		pillarThatIsBeingEditedIndex: state.pillar.pillarThatIsBeingEditedIndex
 	}
 }
 
-var theEditPillar = null;
 
 class PillarPage extends Component {
 
@@ -47,8 +46,9 @@ class PillarPage extends Component {
 		this.props.addPillarList(this.props.selectedPillars);
 	}
 
-	editPillar = (pillar) => {
-		theEditPillar = this.props.editPillar(pillar).payload.pillar;
+	onEditSubmit = (event) => {
+		event.preventDefault();
+		this.props.editPillarFinish(this.refs.pillarThatIsBeingEditedInput.value, this.props.pillarThatIsBeingEditedIndex);
 	}
 
 	render() {
@@ -65,38 +65,29 @@ class PillarPage extends Component {
 			);
 		} else {
 			listPillars = this.props.pillars.map((pillar, index) => {
-					return (
-						<a className="collection-item hand" key={pillar.name} >
-							{pillar.name}
-							<div className="secondary-content" onClick={this.props.addPillar.bind(this, pillar)}>
-								<i className="material-icons">add_circle</i>
-							</div>
-							<div className="secondary-content" onClick={this.editPillar.bind(this, pillar)}>
-								<i className="material-icons">mode_edit</i>
-							</div>
-						</a>
-					);
-			});
-		}
 
-		if (this.props.isEditing) {
-			console.log('editing');
-			console.log('theEditPillar', theEditPillar);
-			var theEditPillarIndex = _.findIndex(this.props.pillars, function(pillar) {
-				return pillar.name == theEditPillar.name;
+				if (this.props.isEditing && index === this.props.pillarThatIsBeingEditedIndex) {
+					return (
+						<form key={pillar.name} onSubmit={this.onEditSubmit}>
+							<div className="input-field" styleName="edit-input-field">
+				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" class="validate" />
+				   		</div>
+						</form>
+					);
+				}
+
+				return (
+					<a className="collection-item" key={pillar.name} >
+						{pillar.name}
+						<div className="secondary-content hand" onClick={this.props.addPillar.bind(this, pillar)}>
+							<i className="material-icons">add_circle</i>
+						</div>
+						<div className="secondary-content hand" onClick={this.props.editPillar.bind(this, pillar, index)}>
+							<i className="material-icons">mode_edit</i>
+						</div>
+					</a>
+				);
 			});
-			console.log('theEditPillarIndex', theEditPillarIndex);
-			console.log('listPillars', listPillars);
-			listPillars[theEditPillarIndex] = (
-				<form>
-					<div className="input-field" styleName="edit-input-field">
-		   			<input defaultValue={theEditPillar.name} type="text" class="validate" />
-		   		</div>
-				</form>
-			);
-		} else {
-			console.log('not editing');
-			inputFieldEditPillar = null;
 		}
 
 		if(this.props.selectedPillars.length < 1) {
@@ -106,7 +97,7 @@ class PillarPage extends Component {
 				</div>
 			);
 		} else {
-			listSelectedPillars = this.props.selectedPillars.map((pillar) => {
+			listSelectedPillars = this.props.selectedPillars.map( (pillar) => {
 				return (
 					<a className="collection-item hand" key={pillar.name} >
 						{pillar.name}
