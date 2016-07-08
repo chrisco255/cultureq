@@ -6,6 +6,7 @@ import CompanyPage from './company/CompanyPage.container.js';
 import DashboardPage from './dashboard/DashboardPage.container.js';
 import ProfilePage from './profile/ProfilePage.container.js';
 import PillarPage from './pillar/PillarPage.container.js';
+import ContentPage from './content/ContentPage.container.js';
 
 export default (
   <Route path="/" component={App}>
@@ -14,5 +15,6 @@ export default (
     <Route path="dashboard" component={DashboardPage} />
     <Route path="profile" component={ProfilePage} />
     <Route path="pillar" component={PillarPage} />
+    <Route path="content" component={ContentPage} />
   </Route>
 )
