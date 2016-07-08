@@ -50,7 +50,7 @@ export default (state = defaultState, action) => {
 		case ActionTypes.EDIT_PILLAR:
 			console.log('EDIT_PILLAR', action.payload.pillar);
 			state = Object.assign({}, state, {
-				isEditing: true
+					isEditing: true
 			});
 			break;
 		case ActionTypes.ADD_PILLAR_LIST:
