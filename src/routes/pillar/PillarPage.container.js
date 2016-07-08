@@ -10,12 +10,16 @@ import PillarForm from './pillar_form/PillarForm.component';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
+		// Adds a pillar to the selectedPillars array
 		addPillar: (pillar) =>
 			dispatch(addPillar(pillar)),
+		// Removes a pillar from the selectedPillars array and adds it to pillars array
 		removePillar: (pillar) =>
 		 	dispatch(removePillar(pillar)),
+		// Edit a pillar
 		editPillar: (pillar) =>
 			dispatch(editPillar(pillar)),
+		// Adds the selectedPillars list to the server
 		addPillarList: (pillars) =>
 			dispatch(addPillarList(pillars))
 	}
@@ -29,11 +33,13 @@ const mapStateToProps = (state) => {
 	}
 }
 
+var theEditPillar = null;
+
 class PillarPage extends Component {
 
 	onPillarSubmit = (values, dispatch) => {
 		console.log('ADD PILLAR', values);
-		dispatch( addPillar(values) );
+		dispatch( removePillar(values) );
 	}
 
 	submitPillarList = () => {
@@ -41,10 +47,15 @@ class PillarPage extends Component {
 		this.props.addPillarList(this.props.selectedPillars);
 	}
 
+	editPillar = (pillar) => {
+		theEditPillar = this.props.editPillar(pillar).payload.pillar;
+	}
+
 	render() {
 
 		var listPillars = null;
 		var listSelectedPillars = null;
+		var inputFieldEditPillar = null;
 
 		if(this.props.pillars.length < 1) {
 			listPillars = (
@@ -60,7 +71,7 @@ class PillarPage extends Component {
 							<div className="secondary-content" onClick={this.props.addPillar.bind(this, pillar)}>
 								<i className="material-icons">add_circle</i>
 							</div>
-							<div className="secondary-content" onClick={this.props.editPillar.bind(this, pillar)}>
+							<div className="secondary-content" onClick={this.editPillar.bind(this, pillar)}>
 								<i className="material-icons">mode_edit</i>
 							</div>
 						</a>
@@ -70,8 +81,22 @@ class PillarPage extends Component {
 
 		if (this.props.isEditing) {
 			console.log('editing');
+			console.log('theEditPillar', theEditPillar);
+			var theEditPillarIndex = _.findIndex(this.props.pillars, function(pillar) {
+				return pillar.name == theEditPillar.name;
+			});
+			console.log('theEditPillarIndex', theEditPillarIndex);
+			console.log('listPillars', listPillars);
+			listPillars[theEditPillarIndex] = (
+				<form>
+					<div className="input-field" styleName="edit-input-field">
+		   			<input defaultValue={theEditPillar.name} type="text" class="validate" />
+		   		</div>
+				</form>
+			);
 		} else {
 			console.log('not editing');
+			inputFieldEditPillar = null;
 		}
 
 		if(this.props.selectedPillars.length < 1) {
