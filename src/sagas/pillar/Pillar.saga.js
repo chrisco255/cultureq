@@ -20,7 +20,7 @@ export function* addPillarList(action) {
 		});
 		console.log('received payload from call - ', payload);
 		yield put( {type: ActionTypes.ADD_PILLAR_LIST_SUCCEEDED, payload } );
-		yield put( push('/dashboard') );
+		yield put( push('/content') );
 	} catch (error) {
 		yield put( {type: ActionTypes.ADD_PILLAR_LIST_FAILED, error} );
 	}
