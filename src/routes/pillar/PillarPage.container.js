@@ -70,7 +70,7 @@ class PillarPage extends Component {
 					return (
 						<form key={pillar.name} onSubmit={this.onEditSubmit}>
 							<div className="input-field" styleName="edit-input-field">
-				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" class="validate" />
+				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" class="validate" onBlur={this.onEditSubmit} />
 				   		</div>
 						</form>
 					);
