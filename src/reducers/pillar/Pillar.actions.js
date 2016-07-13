@@ -1,27 +1,51 @@
-export const ADD_PILLAR = 'ADD_PILLAR';
-export const REMOVE_PILLAR = 'REMOVE_PILLAR';
+export const PILLAR_CREATE_SUBMITTED = 'PILLAR_CREATE_SUBMITTED';
+export const PILLAR_CREATE_SUCCEEDED = 'PILLAR_CREATE_SUCCEEDED';
+export const PILLAR_CREATE_FAILED = 'PILLAR_CREATE_FAILED';
 
-export const ADD_PILLAR_LIST = 'ADD_PILLAR_LIST';
-export const ADD_PILLAR_LIST_SUCCEEDED = 'ADD_PILLAR_LIST_SUCCEEDED';
-export const ADD_PILLAR_LIST_FAILED = 'ADD_PILLAR_LIST_FAILED';
+export const PILLAR_DELETE_SUBMITTED = 'PILLAR_DELETE_SUBMITTED';
+export const PILLAR_DELETE_SUCCEEDED = 'PILLAR_DELETE_SUCCEEDED';
+export const PILLAR_DELETE_FAILED = 'PILLAR_DELETE_FAILED';
 
-export function addPillar(pillar) {
+export const EDIT_PILLAR = 'EDIT_PILLAR';
+export const EDIT_PILLAR_FINISH = 'EDIT_PILLAR_FINISH';
+
+/*
+	Adds a pillar to the selectedPillars array
+	Calls the saga to post to the pillar service
+	to create the pillar and mark as isSelected: true
+*/
+export function createPillar(pillar) {
 	return {
-		type: ADD_PILLAR,
+		type: PILLAR_CREATE_SUBMITTED,
 		payload: { pillar }
 	};
 }
 
-export function removePillar(pillar) {
+/*
+	 Removes a pillar from the selectedPillars array
+	 and adds it back to the pillars array
+	 Calls the saga to post to the pillar service
+	 that it isSelected: false & isDeleted: true
+*/
+export function deletePillar(pillar) {
 	return {
-		type: REMOVE_PILLAR,
+		type: PILLAR_DELETE_SUBMITTED,
 		payload: { pillar }
 	};
 }
 
-export function addPillarList(pillars) {
+// Edit a pillar
+export function editPillar(pillar, index) {
 	return {
-		type: ADD_PILLAR_LIST,
-		payload: { pillars }
-	};
+		type: EDIT_PILLAR,
+		payload: { pillar, index }
+	}
+}
+
+// Finish editing pillar
+export function editPillarFinish(pillarName, index) {
+	return {
+		type: EDIT_PILLAR_FINISH,
+		payload: { pillarName, index }
+	}
 }

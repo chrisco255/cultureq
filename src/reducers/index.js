@@ -1,8 +1,10 @@
 import user from './user/User.reducer.js';
 import companyForm from './form/company/CompanyForm.reducer';
 import pillarForm from './form/pillar/PillarForm.reducer';
+import contentForm from './form/content/ContentForm.reducer';
 import company from './company/Company.reducer';
 import pillar from './pillar/Pillar.reducer';
+import content from './content/Content.reducer';
 import socket from './socket/Socket.reducer';
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
@@ -17,9 +19,11 @@ const reducers = {
 	company,
 	socket,
 	pillar,
+	content,
 	form: formReducer.plugin({
 		company: companyForm,
-		pillar: pillarForm
+		pillar: pillarForm,
+		content: contentForm
 	})
 };
 
