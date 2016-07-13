@@ -21,7 +21,6 @@ const query = `
 }
 `;
 
-
 const mapDispatchToProps = (dispatch) => ({
 	onLoad: () => dispatch( fetchCompanies({ query }) )
 });
