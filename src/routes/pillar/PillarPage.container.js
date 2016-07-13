@@ -5,21 +5,19 @@ import CSSModules from 'react-css-modules';
 import PillarPageStyles from './PillarPage.css';
 import { Link, IndexLink } from 'react-router';
 import _ from 'lodash';
-import { addPillar, removePillar, editPillar, editPillarFinish, addPillarList } from '../../reducers/pillar/Pillar.actions';
+import { createPillar, deletePillar, editPillar, editPillarFinish } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addPillar: (pillar) =>
-			dispatch(addPillar(pillar)),
-		removePillar: (pillar) =>
-		 	dispatch(removePillar(pillar)),
+		createPillar: (pillar) =>
+			dispatch(createPillar(pillar)),
+		deletePillar: (pillar) =>
+		 	dispatch(deletePillar(pillar)),
 		editPillar: (pillar, index) =>
 			dispatch(editPillar(pillar, index)),
 		editPillarFinish: (pillar, index) =>
-			dispatch(editPillarFinish(pillar, index)),
-		addPillarList: (pillars) =>
-			dispatch(addPillarList(pillars))
+			dispatch(editPillarFinish(pillar, index))
 	}
 }
 
@@ -33,17 +31,10 @@ const mapStateToProps = (state) => {
 	}
 }
 
-
 class PillarPage extends Component {
 
 	onPillarSubmit = (values, dispatch) => {
-		console.log('ADD PILLAR', values);
-		dispatch( removePillar(values) );
-	}
-
-	submitPillarList = () => {
-		console.log('CONTINUE', this.props.selectedPillars);
-		this.props.addPillarList(this.props.selectedPillars);
+		dispatch( createPillar(values) );
 	}
 
 	onEditSubmit = (event) => {
@@ -68,7 +59,7 @@ class PillarPage extends Component {
 
 				if (this.props.isEditing && index === this.props.pillarThatIsBeingEditedIndex) {
 					return (
-						<form key={pillar.name} onSubmit={this.onEditSubmit}>
+						<form key={pillar._id} onSubmit={this.onEditSubmit}>
 							<div className="input-field" styleName="edit-input-field">
 				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" class="validate" onBlur={this.onEditSubmit} />
 				   		</div>
@@ -77,9 +68,9 @@ class PillarPage extends Component {
 				}
 
 				return (
-					<a className="collection-item" key={pillar.name} >
+					<a className="collection-item" key={pillar._id} >
 						{pillar.name}
-						<div className="secondary-content hand" onClick={this.props.addPillar.bind(this, pillar)}>
+						<div className="secondary-content hand" onClick={this.props.createPillar.bind(this, pillar)}>
 							<i className="material-icons">add_circle</i>
 						</div>
 						<div className="secondary-content hand" onClick={this.props.editPillar.bind(this, pillar, index)}>
@@ -99,9 +90,9 @@ class PillarPage extends Component {
 		} else {
 			listSelectedPillars = this.props.selectedPillars.map( (pillar) => {
 				return (
-					<a className="collection-item hand" key={pillar.name} >
+					<a className="collection-item hand" key={pillar._id} >
 						{pillar.name}
-						<div className="secondary-content" onClick={this.props.removePillar.bind(this, pillar)}>
+						<div className="secondary-content" onClick={this.props.deletePillar.bind(this, pillar)}>
 							<i className="material-icons">delete</i>
 						</div>
 					</a>
@@ -142,7 +133,7 @@ class PillarPage extends Component {
 								<Link className="waves-effect waves-light btn" to="/dashboard">Skip</Link>
 							</div>
 							<div>
-								<button className="waves-effect waves-light btn" onClick={this.submitPillarList}>Continue</button>
+								<Link className="waves-effect waves-light btn" to="/content">Continue</Link>
 							</div>
       			</div>
 			    </div>
