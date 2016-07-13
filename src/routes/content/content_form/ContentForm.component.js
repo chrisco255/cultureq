@@ -6,21 +6,23 @@ import _ from 'lodash';
 import validate from './ContentForm.validation.js';
 
 export const fields = [
-  'content[].type',
-  'content[].data',
-  'content[].data.title',
-  'content[].data.description',
-  'content[].data.url',
-  'content[].data.quote',
-  'content[].data.author',
-  'content[].data.fullname',
-  'content[].data.position'
+  'pillarId',
+  'type',
+  'data.title',
+  'data.description',
+  'data.url',
+  'data.quote',
+  'data.author',
+  'data.fullname',
+  'data.position'
 ];
 
 let ContentForm = (props) => {
   const {
     fields: {
-      content
+      pillarId,
+      type,
+      data
     }, error, handleSubmit, submitting, resetForm
   } = props;
 
@@ -34,86 +36,77 @@ let ContentForm = (props) => {
       <h1 styleName="title">Create Your Own Cultural Content</h1>
       <hr />
       <form onSubmit={handleSubmit}>
-
-        {!content.length &&
-          <div className="card">
-            <div className="card-content">
-            <p>No Content</p>
-          </div>
-        </div>}
-
-        {content.map((item, index) =>
-        <div key={index} className="card">
+        <div className="card">
           <div className="card-content">
             <div>
               <div>
-                <h6 styleName="flex-space-between">Content #{index + 1}
-                  <button className="btn-floating waves-effect waves-light red" type="button" onClick={() => {
-                    content.removeField(index)
-                  }}><i className="material-icons">delete</i>
-                  </button>
-                </h6>
+                <div>
+                  <label>Choose a Pillar for which this Content pertains to</label>
+                  <select className="browser-default" { ...pillarId } >
+                  {/*Need to get the already selected pillars and display them here*/}
+                    <option value="0" disabled hidden>Choose a Pillar</option>
+                    <option value="pillarId1">PillarName1</option>
+                    <option value="pillarId2">PillarName2</option>
+                    <option value="pillarId3">PillarName3</option>
+                  </select>
+                </div>
                 <div>
                   <label>Content Type</label>
-                  <select className="browser-default" { ...item.type } >
+                  <select className="browser-default" { ...type } >
                     <option value="0" disabled hidden>Choose content type</option>
                     <option value="video">video</option>
                     <option value="quote">quote</option>
                     <option value="lunch">lunch meeting</option>
                   </select>
                 </div>
-                { (item.type.value === 'video') &&
+                { (type.value === 'video') &&
                 <div>
                   <div>
                     <label>Video Title</label>
-                    <input type="text" placeholder="Ultimate Software TechStars" { ...item.data.title } />
+                    <input type="text" placeholder="Ultimate Software TechStars" { ...data.title } />
+                    {data.title.touched && data.title.error && <div style={{color: 'red'}}>{data.title.error[0]}</div>}
                   </div>
                   <div>
                     <label>Video Description</label>
-                    <input type="text" placeholder="Awesome video on our great intern program, check it out!" { ...item.data.description } />
+                    <input type="text" placeholder="Awesome video on our great intern program, check it out!" { ...data.description } />
+                    {data.description.touched && data.description.error && <div style={{color: 'red'}}>{data.description.error[0]}</div>}
                   </div>
                   <div>
                     <label>Video URL</label>
-                    <input type="text" placeholder="https://www.youtube.com/watch?v=JrHGFIWX2R4" { ...item.data.url } />
+                    <input type="text" placeholder="https://www.youtube.com/watch?v=JrHGFIWX2R4" { ...data.url } />
+                    {data.url.touched && data.url.error && <div style={{color: 'red'}}>{data.url.error[0]}</div>}
                   </div>
                 </div> }
-                { (item.type.value === 'quote') &&
+                { (type.value === 'quote') &&
                <div>
                  <div>
                    <label>Quote</label>
-                   <input type="text" placeholder="Take care of our peoples families, and they will take care of ours." { ...item.data.quote } />
+                   <input type="text" placeholder="Take care of our peoples families, and they will take care of ours." { ...data.quote } />
+                   {data.quote.touched && data.quote.error && <div style={{color: 'red'}}>{data.quote.error[0]}</div>}
                  </div>
                  <div>
                    <label>Quote Author</label>
-                   <input type="text" placeholder="Scott Scherr" { ...item.data.author } />
+                   <input type="text" placeholder="Scott Scherr" { ...data.author } />
+                   {data.author.touched && data.author.error && <div style={{color: 'red'}}>{data.author.error[0]}</div>}
                  </div>
                </div> }
-               { (item.type.value === 'lunch') &&
+               { (type.value === 'lunch') &&
               <div>
                 <div>
                   <label>Name</label>
-                  <input type="text" placeholder="Scott Scherr" { ...item.data.fullname } />
+                  <input type="text" placeholder="Scott Scherr" { ...data.fullname } />
+                  {data.fullname.touched && data.fullname.error && <div style={{color: 'red'}}>{data.fullname.error[0]}</div>}
                 </div>
                 <div>
                   <label>Position</label>
-                  <input type="text" placeholder="CEO" { ...item.data.position } />
+                  <input type="text" placeholder="CEO" { ...data.position } />
+                  {data.position.touched && data.position.error && <div style={{color: 'red'}}>{data.position.error[0]}</div>}
                 </div>
               </div> }
               </div>
             </div>
           </div>
-        </div>)}
-
-        <div>
-          <button className="btn waves-effect waves-light" type="button" onClick={() => {
-              content.addField({
-                type: '0'
-              })
-            }}><i/> Add Content
-          </button>
         </div>
-
-        <hr />
 
         <div styleName="flex-space-between">
           <button className="btn waves-effect waves-light" type="button" disabled={ submitting } onClick={ resetForm }>Start Over</button>
