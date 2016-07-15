@@ -34,6 +34,8 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
 
+	//TODO: create seperate functions for each of the cases
+	
 	switch(action.type) {
 
 		// PILLAR_CREATE
@@ -68,7 +70,7 @@ export default (state = defaultState, action) => {
 			console.log('PILLAR_DELETE_FAILED ❌');
 			break;
 
-		// PILLAR_EDIT
+		// PILLAR_NAME_CHANGE
 		case ActionTypes.EDIT_PILLAR:
 			console.log('EDIT_PILLAR', action.payload.pillar);
 			state = Object.assign({}, state, {
@@ -77,8 +79,8 @@ export default (state = defaultState, action) => {
 					pillarThatIsBeingEditedIndex: action.payload.index
 			});
 			break;
-		case ActionTypes.EDIT_PILLAR_FINISH:
-			console.log('EDIT_PILLAR_FINISH', action.payload.pillarName);
+		case ActionTypes.PILLAR_NAME_CHANGE_SUBMITTED:
+			console.log('PILLAR_NAME_CHANGE_SUBMITTED', action.payload.pillarName);
 			const { pillarName, index } = action.payload;
 			const newPillar = Object.assign({}, state.pillars[index], {
 		 		 name: pillarName
@@ -92,6 +94,12 @@ export default (state = defaultState, action) => {
 						...state.pillars.slice(index+1)
 					]
 			});
+			break;
+		case ActionTypes.PILLAR_NAME_CHANGE_SUCCEEDED:
+			console.log('PILLAR_NAME_CHANGE_SUCCEEDED ✅');
+			break;
+		case ActionTypes.PILLAR_NAME_CHANGE_FAILED:
+			console.log('PILLAR_NAME_CHANGE_FAILED ❌');
 			break;
 	}
 

@@ -7,7 +7,9 @@ export const PILLAR_DELETE_SUCCEEDED = 'PILLAR_DELETE_SUCCEEDED';
 export const PILLAR_DELETE_FAILED = 'PILLAR_DELETE_FAILED';
 
 export const EDIT_PILLAR = 'EDIT_PILLAR';
-export const EDIT_PILLAR_FINISH = 'EDIT_PILLAR_FINISH';
+export const PILLAR_NAME_CHANGE_SUBMITTED = 'PILLAR_NAME_CHANGE_SUBMITTED';
+export const PILLAR_NAME_CHANGE_SUCCEEDED = 'PILLAR_NAME_CHANGE_SUCCEEDED';
+export const PILLAR_NAME_CHANGE_FAILED = 'PILLAR_NAME_CHANGE_FAILED';
 
 /*
 	Adds a pillar to the selectedPillars array
@@ -34,7 +36,11 @@ export function deletePillar(pillar) {
 	};
 }
 
-// Edit a pillar
+/*
+	Edit a pillar sets the defaultState of
+	isEditing to true, to begin editing a
+	pillar and which pillar and it's index
+*/
 export function editPillar(pillar, index) {
 	return {
 		type: EDIT_PILLAR,
@@ -42,10 +48,15 @@ export function editPillar(pillar, index) {
 	}
 }
 
-// Finish editing pillar
-export function editPillarFinish(pillarName, index) {
+/*
+	Edits the name of a pillar by creating a new object
+	and assigning it the new name
+	Calls the saga to post to the pillar service
+	which will just create the name change event
+*/
+export function nameChangePillar(pillarName, index) {
 	return {
-		type: EDIT_PILLAR_FINISH,
+		type: PILLAR_NAME_CHANGE_SUBMITTED,
 		payload: { pillarName, index }
 	}
 }

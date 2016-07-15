@@ -5,7 +5,7 @@ import CSSModules from 'react-css-modules';
 import PillarPageStyles from './PillarPage.css';
 import { Link, IndexLink } from 'react-router';
 import _ from 'lodash';
-import { createPillar, deletePillar, editPillar, editPillarFinish } from '../../reducers/pillar/Pillar.actions';
+import { createPillar, deletePillar, editPillar, nameChangePillar } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
 
 const mapDispatchToProps = (dispatch) => {
@@ -16,8 +16,8 @@ const mapDispatchToProps = (dispatch) => {
 		 	dispatch(deletePillar(pillar)),
 		editPillar: (pillar, index) =>
 			dispatch(editPillar(pillar, index)),
-		editPillarFinish: (pillar, index) =>
-			dispatch(editPillarFinish(pillar, index))
+		nameChangePillar: (pillar, index) =>
+			dispatch(nameChangePillar(pillar, index))
 	}
 }
 
@@ -39,7 +39,7 @@ class PillarPage extends Component {
 
 	onEditSubmit = (event) => {
 		event.preventDefault();
-		this.props.editPillarFinish(this.refs.pillarThatIsBeingEditedInput.value, this.props.pillarThatIsBeingEditedIndex);
+		this.props.nameChangePillar(this.refs.pillarThatIsBeingEditedInput.value, this.props.pillarThatIsBeingEditedIndex);
 	}
 
 	render() {
