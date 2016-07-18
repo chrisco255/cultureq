@@ -9,7 +9,7 @@ const post = (body) => {
 	return axios.post('/api/pillar', body).then( response => response.data );
 }
 
-//fetching of pillars
+// Fetching of pillars
 const fetch = (query) => {
 	return axios.post(`/api/graphql`, { query })
 							.then( response =>  response.data.data );
@@ -58,11 +58,12 @@ export function* watchPillarDeleteSubmitted() {
 }
 
 export function* pillarNameChange(action) {
+	console.log('pillarNameChangeSAGA', action);
 	try {
 		console.log('inside saga - pillarNameChange');
 		const payload = yield call(post, {
 			type: 'command.PILLAR_NAME_CHANGE',
-			payload: action.payload.pillar
+			payload: action.payload
 		});
 		console.log('received payload from call - ', payload);
 		yield put( {type: ActionTypes.PILLAR_NAME_CHANGE_SUCCEEDED, payload } );

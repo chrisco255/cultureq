@@ -23,10 +23,10 @@ export default (state = defaultState, action) => {
 
 		// PILLAR_DELETE
 		case ActionTypes.PILLAR_DELETE_SUBMITTED:
-			console.log('PILLAR_DELETE_SUBMITTED ▶️', action.payload.pillar);
-			break;
-		case ActionTypes.PILLAR_DELETE_SUCCEEDED:
 			return deletePillar(state, state.pillars, action.payload);
+		case ActionTypes.PILLAR_DELETE_SUCCEEDED:
+			console.log('PILLAR_DELETE_SUCCEEDED ✅');
+			break;
 		case ActionTypes.PILLAR_DELETE_FAILED:
 			console.log('PILLAR_DELETE_FAILED ❌');
 			break;
@@ -35,10 +35,10 @@ export default (state = defaultState, action) => {
 		case ActionTypes.EDIT_PILLAR:
 			return editPillar(state, action.payload);
 		case ActionTypes.PILLAR_NAME_CHANGE_SUBMITTED:
-			console.log('PILLAR_NAME_CHANGE_SUBMITTED ▶️', action.payload.pillarName);
-			break;
-		case ActionTypes.PILLAR_NAME_CHANGE_SUCCEEDED:
 			return pillarNameChange(state, state.pillars, action.payload);
+		case ActionTypes.PILLAR_NAME_CHANGE_SUCCEEDED:
+			console.log('PILLAR_NAME_CHANGE_SUCCEEDED ✅');
+			break;
 		case ActionTypes.PILLAR_NAME_CHANGE_FAILED:
 			console.log('PILLAR_NAME_CHANGE_FAILED ❌');
 			break;
@@ -48,7 +48,7 @@ export default (state = defaultState, action) => {
 			console.log('FETCH_PILLARS_SUBMITTED ▶️');
 			break;
 		case ActionTypes.FETCH_PILLARS_SUCCEEDED:
-			return fetchPillars(state, state.pillars, action.payload);
+			return fetchPillars(state, action.payload);
 		case ActionTypes.FETCH_PILLARS_FAILED:
 			console.log('FETCH_PILLARS_FAILED ❌');
 			break;
@@ -58,16 +58,17 @@ export default (state = defaultState, action) => {
 };
 
 function createPillar(state, pillars, payload) {
+	console.log('PILLAR_CREATE_SUBMITTED ▶️', payload.pillar);
 	payload.pillar.tenantId = payload.pillar.tenantId || 'ulti';
 	payload.pillar.content = payload.pillar.content || [];
 	state = Object.assign({}, state, {
 		pillars: pillars.filter( pillar => pillar._id !== payload.pillar._id)
 	});
-	console.log('PILLAR_CREATE_SUBMITTED ▶️', payload.pillar);
 	return state;
 }
 
 function deletePillar(state, pillars, payload) {
+	console.log('PILLAR_DELETE_SUBMITTED ▶️', payload.pillar);
 	var pillarIndex = _.findIndex(pillars, function(pillar) {
 		return pillar._id === payload.pillar._id;
 	});
@@ -81,7 +82,6 @@ function deletePillar(state, pillars, payload) {
 			...pillars.slice(pillarIndex + 1)
 		]
 	});
-	console.log('PILLAR_DELETE_SUCCEEDED ✅');
 	return state;
 }
 
@@ -96,6 +96,7 @@ function editPillar(state, payload) {
 }
 
 function pillarNameChange(state, pillars, payload) {
+	console.log('PILLAR_NAME_CHANGE_SUBMITTED ▶️', payload);
 	const { pillarName, index } = payload;
 	const newPillar = Object.assign({}, pillars[index], {
 		 name: pillarName
@@ -109,13 +110,17 @@ function pillarNameChange(state, pillars, payload) {
 				...pillars.slice(index+1)
 			]
 	});
-	console.log('PILLAR_NAME_CHANGE_SUCCEEDED ✅');
 	return state;
 }
 
-function fetchPillars(state, pillars, payload) {
+/*
+	NOTE: Not filtering out the pillars if they are deleted or not
+	because it will mess up with the index and when
+	editing, it will edit the wrong index
+*/
+function fetchPillars(state, payload) {
 	state = Object.assign({}, state, {
-		pillars: [ ...pillars, ...payload.pillars.filter( pillar => !pillar.isDeleted) ]
+		pillars: [ ...payload.pillars ]
 	});
 	console.log('FETCH_PILLARS_SUCCEEDED ✅');
 	return state;

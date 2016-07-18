@@ -14,7 +14,6 @@ const query = `
     _id
     tenantId
     name
-    isSelected
     isDeleted
     content {
       _id
@@ -66,45 +65,46 @@ class PillarPage extends Component {
 
 		var listPillars = null;
 		var inputFieldEditPillar = null;
+    var createPillarsListClassName = null;
+    var activePillars = null;
 
-		if(this.props.pillars.length < 1) {
-			listPillars = (
-				<div className="collection-item">
-					You have no cultural pillars, create new ones!
-				</div>
-			);
-		} else {
+    console.log(this.props.pillars);
+    activePillars = this.props.pillars.filter((pillar) => !pillar.isDeleted);
+
+		if(activePillars.length > 0) {
+      createPillarsListClassName = "col s6"
 			listPillars = this.props.pillars.map((pillar, index) => {
+        if(!pillar.isDeleted) {
+          if (this.props.isEditing && index === this.props.pillarThatIsBeingEditedIndex) {
+  					return (
+  						<form key={pillar._id} onSubmit={this.onEditSubmit}>
+  							<div className="input-field" styleName="edit-input-field">
+  				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" class="validate" onBlur={this.onEditSubmit} />
+  				   		</div>
+  						</form>
+  					);
+  				}
 
-				if (this.props.isEditing && index === this.props.pillarThatIsBeingEditedIndex) {
-					return (
-						<form key={pillar._id} onSubmit={this.onEditSubmit}>
-							<div className="input-field" styleName="edit-input-field">
-				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" class="validate" onBlur={this.onEditSubmit} />
-				   		</div>
-						</form>
-					);
-				}
-
-				return (
-					<a className="collection-item hand" key={pillar._id} onClick={this.props.editPillar.bind(this, pillar, index)}>
-						{pillar.name}
-						<div className="secondary-content hand" onClick={this.props.deletePillar.bind(this, pillar)}>
-							<i className="material-icons">delete</i>
-						</div>
-						{/*<div className="secondary-content hand" onClick={this.props.editPillar.bind(this, pillar, index)}>
-							<i className="material-icons">mode_edit</i>
-						</div>*/}
-					</a>
-				);
+  				return (
+  					<a className="collection-item" key={pillar._id}>
+              <span className="hand" onClick={this.props.editPillar.bind(this, pillar, index)}>
+  						{pillar.name}
+              </span>
+  						<div className="secondary-content hand" onClick={this.props.deletePillar.bind(this, pillar)}>
+  							<i className="material-icons">delete</i>
+  						</div>
+  					</a>
+  				);
+        }
 			});
-		}
+		} else {
+      createPillarsListClassName = "col s12"
+    }
 
 		return (
       <div className="container">
 				<div className="row">
-
-          <div className="col s6">
+          <div className={createPillarsListClassName}>
             <div className="container">
               <PillarForm onSubmit={this.onPillarSubmit}/>
             </div>
@@ -119,7 +119,7 @@ class PillarPage extends Component {
             </div>
           </div>
 
-					<div className="col s6">
+					{ activePillars.length > 0 && <div className="col s6">
 						<div className="container">
 							<h1 styleName="title">Your Cultural Pillars</h1>
 							<hr/>
@@ -131,8 +131,7 @@ class PillarPage extends Component {
 						</div>
 						<br />
 						<br />
-			    </div>
-
+			    </div> }
 				</div>
       </div>
 		);
