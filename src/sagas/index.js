@@ -1,7 +1,7 @@
 import { put, call, fork } from 'redux-saga/effects';
 import { takeEvery, delay } from 'redux-saga';
 import { watchFetchCompanies, watchCompanySubmitted } from './company/Company.saga';
-import { watchPillarCreateSubmitted, watchPillarDeleteSubmitted, watchPillarNameChangeSubmitted } from './pillar/Pillar.saga';
+import { watchPillarCreateSubmitted, watchPillarDeleteSubmitted, watchPillarNameChangeSubmitted, watchFetchPillars } from './pillar/Pillar.saga';
 import watchContentListSubmitted from './content/Content.saga';
 
 export default function* rootSaga() {
@@ -11,6 +11,7 @@ export default function* rootSaga() {
     watchContentListSubmitted(),
     watchPillarCreateSubmitted(),
     watchPillarDeleteSubmitted(),
-    watchPillarNameChangeSubmitted()
+    watchPillarNameChangeSubmitted(),
+    watchFetchPillars()
   ];
 }

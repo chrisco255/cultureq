@@ -11,6 +11,18 @@ export const PILLAR_NAME_CHANGE_SUBMITTED = 'PILLAR_NAME_CHANGE_SUBMITTED';
 export const PILLAR_NAME_CHANGE_SUCCEEDED = 'PILLAR_NAME_CHANGE_SUCCEEDED';
 export const PILLAR_NAME_CHANGE_FAILED = 'PILLAR_NAME_CHANGE_FAILED';
 
+export const FETCH_PILLARS_SUBMITTED = 'FETCH_PILLARS_SUBMITTED';
+export const FETCH_PILLARS_SUCCEEDED = 'FETCH_PILLARS_SUCCEEDED';
+export const FETCH_PILLARS_FAILED = 'FETCH_PILLARS_FAILED';
+
+
+export function fetchPillars({ query }) {
+	return {
+		type: FETCH_PILLARS_SUBMITTED,
+		payload: { query }
+	};
+}
+
 /*
 	Adds a pillar to the selectedPillars array
 	Calls the saga to post to the pillar service
@@ -19,6 +31,13 @@ export const PILLAR_NAME_CHANGE_FAILED = 'PILLAR_NAME_CHANGE_FAILED';
 export function createPillar(pillar) {
 	return {
 		type: PILLAR_CREATE_SUBMITTED,
+		payload: { pillar }
+	};
+}
+
+export function selectedPillar(pillar) {
+	return {
+		type: PILLAR_SELECTED,
 		payload: { pillar }
 	};
 }

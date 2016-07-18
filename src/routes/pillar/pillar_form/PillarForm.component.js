@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import CSSModules from 'react-css-modules';
@@ -31,11 +32,9 @@ let PillarForm = (props) => {
           <input type="text" placeholder="Put people first" { ...name } />
           {name.touched && name.error && <div style={{color: 'red'}}>{name.error}</div>}
         </div>
-        
-        <div styleName="flex-space-between">
-          <button className="btn waves-effect waves-light" type="button" disabled={ submitting } onClick={ resetForm }>Start Over</button>
 
-          <button className={submitBtnClassName} type="submit" disabled={ submitting }>Add Pillar</button>
+        <div styleName="flex-end">
+          <button className={submitBtnClassName} type="submit" disabled={ submitting }>Save Pillar</button>
         </div>
       </form>
     </div>

@@ -9,6 +9,24 @@ const post = (body) => {
 	return axios.post('/api/pillar', body).then( response => response.data );
 }
 
+//fetching of pillars
+const fetch = (query) => {
+	return axios.post(`/api/graphql`, { query })
+							.then( response =>  response.data.data );
+}
+
+export function* fetchPillars(action) {
+	try {
+		const payload = yield call(fetch, action.payload.query);
+		yield put( {type: ActionTypes.FETCH_PILLARS_SUCCEEDED, payload } );
+	} catch (error) {
+		yield put( {type: ActionTypes.FETCH_PILLARS_FAILED, error} );
+	}
+}
+export function* watchFetchPillars() {
+	yield* takeEvery(ActionTypes.FETCH_PILLARS_SUBMITTED, fetchPillars);
+}
+
 export function* pillarCreate(action) {
 	try {
 		const payload = yield call(post, {
