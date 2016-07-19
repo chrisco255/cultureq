@@ -7,6 +7,21 @@ import { Link, IndexLink } from 'react-router';
 import _ from 'lodash';
 import { addContent, removeContent, editContent, addContentList } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
+import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
+
+const pillarQuery = `
+{
+  pillars {
+    _id
+    tenantId
+    name
+    isDeleted
+    content {
+      _id
+    }
+  }
+}
+`;
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -21,12 +36,15 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(editContent(content)),
 		// Adds the selectedContents list to the server
 		addContentList: (contents) =>
-			dispatch(addContentList(contents))
+			dispatch(addContentList(contents)),
+		onLoad: () =>
+			dispatch(fetchPillars({ pillarQuery }))
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
+		pillars: state.pillar.pillars,
 		contents: state.content.contents,
 		selectedContents: state.content.selectedContents,
 		isEditing: state.content.isEditing
@@ -42,6 +60,11 @@ $(document).ready(function(){
 });
 
 class ContentPage extends Component {
+
+	componentDidMount() {
+		this.props.onLoad();
+	}
+
 
 	onContentSubmit = (values, dispatch) => {
 		console.log('ADD CONTENT', values);
@@ -60,9 +83,9 @@ class ContentPage extends Component {
 		this.setState({value: event.target.value});
 	}
 
-
-
 	render() {
+
+		console.log('PILLARS', this.props.pillars);
 
 		var listContents = null;
 		var listSelectedContents = null;
