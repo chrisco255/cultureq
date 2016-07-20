@@ -3,14 +3,14 @@ import { takeEvery, delay } from 'redux-saga';
 import { watchFetchCompanies, watchCompanySubmitted } from './company/Company.saga';
 import { watchFetchAnalytics } from './analytics/Analytics.saga';
 import { watchPillarCreateSubmitted, watchPillarDeleteSubmitted, watchPillarNameChangeSubmitted, watchFetchPillars } from './pillar/Pillar.saga';
-import watchContentListSubmitted from './content/Content.saga';
+import { watchContentCreateSubmitted } from './content/Content.saga';
 
 export default function* rootSaga() {
   yield [
   	watchFetchAnalytics(),
   	watchFetchCompanies(),
     watchCompanySubmitted(),
-    watchContentListSubmitted(),
+    watchContentCreateSubmitted(),
     watchPillarCreateSubmitted(),
     watchPillarDeleteSubmitted(),
     watchPillarNameChangeSubmitted(),
