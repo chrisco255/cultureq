@@ -62,7 +62,7 @@ function createPillar(state, pillars, payload) {
 	payload.pillar.tenantId = payload.pillar.tenantId || 'ulti';
 	payload.pillar.content = payload.pillar.content || [];
 	state = Object.assign({}, state, {
-		pillars: pillars.filter( pillar => pillar._id !== payload.pillar._id)
+		pillars: pillars.filter( pillar => pillar._id !== payload.pillar._id )
 	});
 	return state;
 }
