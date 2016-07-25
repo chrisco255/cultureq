@@ -47,13 +47,16 @@ if (isDeveloping) {
     res.write(middleware.fileSystem.readFileSync(path.join(PATHS.build, 'index.html')));
     res.end();
   });
+
 } else {
+
   app.use(express.static(PATHS.build));
   app.all('/api/*', proxyTo(config.url));
   app.get('*', function response(req, res) {
     console.log('CAUGHT RETURNING INDEX');
     res.sendFile(path.join(PATHS.build, 'index.html'));
   });
+
 }
 
 proxy.on('error', function (err, req, res) {
