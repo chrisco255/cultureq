@@ -13,9 +13,21 @@ export const fields = [
   'data.url',
   'data.quote',
   'data.author',
-  'data.fullname',
-  'data.position'
+  'data.recipient',
+  'data.recipientPosition'
 ];
+
+// Data Types
+const types = [{
+  value: 'lunch',
+  name: 'Lunch Meeting'
+}, {
+  value: 'video',
+  name: 'Video'
+}, {
+  value: 'quote',
+  name: 'Quote'
+}];
 
 let ContentForm = (props) => {
   const {
@@ -43,20 +55,21 @@ let ContentForm = (props) => {
                 <div>
                   <label>Choose a Pillar for which this Content pertains to</label>
                   <select className="browser-default" { ...pillarId } >
-                  {/*Need to get the already selected pillars and display them here*/}
                     <option value="0" disabled hidden>Choose a Pillar</option>
-                    <option value="pillarId1">PillarName1</option>
-                    <option value="pillarId2">PillarName2</option>
-                    <option value="pillarId3">PillarName3</option>
+                    { props.pillars.map( pillar => {
+                      if (!pillar.isDeleted) {
+                        return <option key={pillar._id} value={pillar._id}>{pillar.name}</option>
+                      }
+                    }) }
                   </select>
                 </div>
                 <div>
                   <label>Content Type</label>
                   <select className="browser-default" { ...type } >
                     <option value="0" disabled hidden>Choose content type</option>
-                    <option value="video">video</option>
-                    <option value="quote">quote</option>
-                    <option value="lunch">lunch meeting</option>
+                    { types.map( type => {
+                      return <option key={type.value} value={type.value}>{type.name}</option>
+                    }) }
                   </select>
                 </div>
                 { (type.value === 'video') &&
@@ -94,13 +107,13 @@ let ContentForm = (props) => {
               <div>
                 <div>
                   <label>Name</label>
-                  <input type="text" placeholder="Scott Scherr" { ...data.fullname } />
-                  {data.fullname.touched && data.fullname.error && <div style={{color: 'red'}}>{data.fullname.error[0]}</div>}
+                  <input type="text" placeholder="Scott Scherr" { ...data.recipient } />
+                  {data.recipient.touched && data.recipient.error && <div style={{color: 'red'}}>{data.recipient.error[0]}</div>}
                 </div>
                 <div>
                   <label>Position</label>
-                  <input type="text" placeholder="CEO" { ...data.position } />
-                  {data.position.touched && data.position.error && <div style={{color: 'red'}}>{data.position.error[0]}</div>}
+                  <input type="text" placeholder="CEO" { ...data.recipientPosition } />
+                  {data.recipientPosition.touched && data.recipientPosition.error && <div style={{color: 'red'}}>{data.recipientPosition.error[0]}</div>}
                 </div>
               </div> }
               </div>
@@ -108,10 +121,8 @@ let ContentForm = (props) => {
           </div>
         </div>
 
-        <div styleName="flex-space-between">
-          <button className="btn waves-effect waves-light" type="button" disabled={ submitting } onClick={ resetForm }>Start Over</button>
-
-          <button className={submitBtnClassName} type="submit" disabled={ submitting }>Add Content</button>
+        <div styleName="flex-end">
+          <button className={submitBtnClassName} type="submit" disabled={ submitting }>Save Content</button>
         </div>
       </form>
     </div>

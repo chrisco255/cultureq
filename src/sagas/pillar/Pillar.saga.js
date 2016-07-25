@@ -18,7 +18,7 @@ const fetch = (query) => {
 export function* fetchPillars(action) {
 	try {
 		const payload = yield call(fetch, action.payload.query);
-		yield put( {type: ActionTypes.FETCH_PILLARS_SUCCEEDED, payload } );
+		yield put( {type: ActionTypes.FETCH_PILLARS_SUCCEEDED, payload} );
 	} catch (error) {
 		yield put( {type: ActionTypes.FETCH_PILLARS_FAILED, error} );
 	}

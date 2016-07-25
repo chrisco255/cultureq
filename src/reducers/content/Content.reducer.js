@@ -1,95 +1,68 @@
 import * as ActionTypes from './Content.actions';
 
 const defaultState = {
-    contents: [{
-        _id: 'vidContent1',
-        pillarId: '',
-        type: 'video',
-        data: {
-            // for video
-            title: 'Why UltiPeeps Think Ultimate Software Is So Great',
-            description: 'Check out this cool video of why UltiPeeps think Ultimate Software is a great place to work!',
-            url: 'https://www.youtube.com/watch?v=JrHGFIWX2R4',
-            // for quote
-            quote: undefined,
-            author: undefined,
-            // for lunch
-            fullName: undefined,
-            position: undefined
-        }
-    }, {
-        _id: 'quoteContent1',
-        pillarId: '',
-        type: 'quote',
-        data: {
-            // for video
-            title: undefined,
-            description: undefined,
-            url: undefined,
-            // for quote
-            quote: 'Take care of our peoples families, and they will take care of ours.',
-            author: 'Scott Scherr',
-            // for lunch
-            fullName: undefined,
-            position: undefined
-        }
-    }, {
-				_id: 'lunchContent1',
-        pillarId: '',
-        type: 'lunch',
-        data: {
-            // for video
-            title: undefined,
-            description: undefined,
-            url: undefined,
-            // for quote
-            quote: undefined,
-            author: undefined,
-            // for lunch
-            fullName: 'Scott Scherr',
-            position: 'CEO and Founder'
-        }
-    }],
-    selectedContents: [],
+    contents: [],
     isEditing: false
 };
 
 export default (state = defaultState, action) => {
 
     switch (action.type) {
-        case ActionTypes.ADD_CONTENT:
-            action.payload.content.pillarId = action.payload.content.pillarId || '';
-            action.payload.content.contents = action.payload.content.contents || [];
-            console.log('ADD_CONTENT', action.payload.content);
-            state = Object.assign({}, state, {
-                contents: state.contents.filter(content => content.name !== action.payload.content.name),
-                selectedContents: [...state.selectedContents, action.payload.content]
-            });
 
-            break;
-        case ActionTypes.REMOVE_CONTENT:
-            console.log('REMOVE_CONTENT', action.payload.content);
-            state = Object.assign({}, state, {
-            	contents: [...state.contents, action.payload.content],
-            	selectedContents: state.selectedContents.filter( content => content.name !== action.payload.content.name)
-            });
-            break;
-        case ActionTypes.EDIT_CONTENT:
-            console.log('EDIT_CONTENT', action.payload.content);
-            state = Object.assign({}, state, {
-            		isEditing: true
-            });
-            break;
-        case ActionTypes.ADD_CONTENT_LIST:
-            console.log('ADD_CONTENT_LIST', action.payload.contents);
-            break;
-        case ActionTypes.ADD_CONTENT_LIST_SUCCEEDED:
-            console.log('ADD_CONTENT_LIST_SUCCEEDED');
-            break;
-        case ActionTypes.ADD_CONTENT_LIST_FAILED:
-            console.log('ADD_CONTENT_LIST_FAILED');
-            break;
+        // CONTENT_CREATE
+        case ActionTypes.CONTENT_CREATE_SUBMITTED:
+          return createContent(state, state.contents, action.payload);
+          break;
+        case ActionTypes.CONTENT_CREATE_SUCCEEDED:
+          console.log('CONTENT_CREATE_SUCCEEDED ✅');
+          break;
+        case ActionTypes.CONTENT_CREATE_FAILED:
+          console.log('CONTENT_CREATE_FAILED ❌');
+          break;
+
+        // CONTENT_DELETE
+        case ActionTypes.CONTENT_DELETE_SUBMITTED:
+          console.log('CONTENT_DELETE_SUBMITTED ▶️');
+          break;
+        case ActionTypes.CONTENT_DELETE_SUCCEEDED:
+          console.log('CONTENT_DELETE_SUCCEEDED ✅');
+          break;
+        case ActionTypes.CONTENT_DELETE_FAILED:
+          console.log('CONTENT_DELETE_SUCCEEDED ❌');
+          break;
+
+        // FETCH_PILLARS
+    		case ActionTypes.FETCH_CONTENTS_SUBMITTED:
+    			console.log('FETCH_CONTENTS_SUBMITTED ▶️');
+    			break;
+    		case ActionTypes.FETCH_CONTENTS_SUCCEEDED:
+    			return fetchContents(state, action.payload);
+    		case ActionTypes.FETCH_CONTENTS_FAILED:
+    			console.log('FETCH_CONTENTS_FAILED ❌');
+    			break;
     }
 
     return state;
 };
+
+function createContent(state, contents, payload) {
+	console.log('CONTENT_CREATE_SUBMITTED ▶️', payload.content);
+  payload.content.isDeleted = false;
+  state = Object.assign({}, state, {
+		contents: contents.filter( content => content._id !== payload.content._id )
+	});
+	return state;
+}
+
+/*
+	NOTE: Not filtering out the contents if they are deleted or not
+	because it will mess up with the index and when
+	editing, it will edit the wrong index
+*/
+function fetchContents(state, payload) {
+	state = Object.assign({}, state, {
+		contents: [ ...payload.contents ]
+	});
+	console.log('FETCH_CONTENTS_SUCCEEDED ✅');
+	return state;
+}

@@ -24,9 +24,9 @@ export function fetchPillars({ query }) {
 }
 
 /*
-	Adds a pillar to the selectedPillars array
+	Adds a pillar to the pillars array
 	Calls the saga to post to the pillar service
-	to create the pillar and mark as isSelected: true
+	to create the pillar
 */
 export function createPillar(pillar) {
 	return {
@@ -35,18 +35,11 @@ export function createPillar(pillar) {
 	};
 }
 
-export function selectedPillar(pillar) {
-	return {
-		type: PILLAR_SELECTED,
-		payload: { pillar }
-	};
-}
-
 /*
-	 Removes a pillar from the selectedPillars array
+	 Removes a pillar from the pillars array
 	 and adds it back to the pillars array
 	 Calls the saga to post to the pillar service
-	 that it isSelected: false & isDeleted: true
+	 and changes property, isDeleted: true
 */
 export function deletePillar(pillar) {
 	return {

@@ -7,16 +7,15 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case ActionTypes.PILLAR_CREATE_SUCCEEDED:
-            console.log('SUCCESS!✅ Resetting form.');
+            console.log('SUCCESS!✅ Resetting pillar form.');
             const resetForm = {
                 _submitting: false,
                 name: {
                     value: ''
-                },
-                content: []
+                }
             };
             state = Object.assign({}, state, resetForm);
-            break; 
+            break;
     }
 
     return state;
