@@ -13,10 +13,13 @@ export default (state = defaultState, action) => {
 
 		// PILLAR_CREATE
 		case ActionTypes.PILLAR_CREATE_SUBMITTED:
-			return createPillar(state, state.pillars, action.payload);
-		case ActionTypes.PILLAR_CREATE_SUCCEEDED:
-			console.log('PILLAR_CREATE_SUCCEEDED ✅');
+			console.log('PILLAR_CREATE_SUBMITTED ▶️', action.payload.pillar);
+			action.payload.pillar.tenantId = action.payload.pillar.tenantId || 'ulti';
+			action.payload.pillar.content = action.payload.pillar.content || [];
+			action.payload.pillar.isDeleted = false;
 			break;
+		case ActionTypes.PILLAR_CREATE_SUCCEEDED:
+			return createPillar(state, state.pillars, action.payload);
 		case ActionTypes.PILLAR_CREATE_FAILED:
 			console.log('PILLAR_CREATE_FAILED ❌');
 			break;
@@ -58,12 +61,10 @@ export default (state = defaultState, action) => {
 };
 
 function createPillar(state, pillars, payload) {
-	console.log('PILLAR_CREATE_SUBMITTED ▶️', payload.pillar);
-	payload.pillar.tenantId = payload.pillar.tenantId || 'ulti';
-	payload.pillar.content = payload.pillar.content || [];
 	state = Object.assign({}, state, {
-		pillars: pillars.filter( pillar => pillar._id !== payload.pillar._id )
+		pillars: [...pillars, payload]
 	});
+	console.log('PILLAR_CREATE_SUCCEEDED ✅');
 	return state;
 }
 
@@ -107,7 +108,7 @@ function pillarNameChange(state, pillars, payload) {
 			pillars: [
 				...pillars.slice(0, index),
 				newPillar,
-				...pillars.slice(index+1)
+				...pillars.slice(index + 1)
 			]
 	});
 	return state;
