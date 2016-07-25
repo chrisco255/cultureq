@@ -4,11 +4,6 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import * as ActionTypes from '../../reducers/pillar/Pillar.actions';
 
-const post = (body) => {
-	console.log("Posting pillar body - ", body);
-	return axios.post('/api/pillar', body).then( response => response.data );
-}
-
 // Fetching of pillars
 const fetch = (query) => {
 	return axios.post(`/api/graphql`, { query })
@@ -29,10 +24,22 @@ export function* watchFetchPillars() {
 
 export function* pillarCreate(action) {
 	try {
-		const payload = yield call(post, {
-			type: 'command.PILLAR_CREATE',
-			payload: action.payload.pillar
-		});
+		const { name, isDeleted, tenantId } = action.payload.pillar;
+		const createResponse = yield call(fetch,  `
+			mutation {
+			  mutation: PILLAR_CREATE(
+			    name: "${name}"
+			    isDeleted: ${isDeleted}
+					tenantId: "${tenantId}"
+			  ) {
+			    _id
+					name
+					isDeleted
+					tenantId
+			  }
+			}
+		`);
+		const payload = createResponse.mutation;
 		yield put( {type: ActionTypes.PILLAR_CREATE_SUCCEEDED, payload } );
 	} catch (error) {
 		yield put( {type: ActionTypes.PILLAR_CREATE_FAILED, error} );
@@ -44,10 +51,23 @@ export function* watchPillarCreateSubmitted() {
 
 export function* pillarDelete(action) {
 	try {
-		const payload = yield call(post, {
-			type: 'command.PILLAR_DELETE',
-			payload: action.payload.pillar
-		});
+		const { _id, name, isDeleted, tenantId } = action.payload.pillar;
+		const deleteResponse = yield call(fetch,  `
+			mutation {
+			  mutation: PILLAR_DELETE(
+					_id: "${_id}"
+			    name: "${name}"
+			    isDeleted: ${isDeleted}
+					tenantId: "${tenantId}"
+			  ) {
+			    _id
+					name
+					isDeleted
+					tenantId
+			  }
+			}
+		`);
+		const payload = deleteResponse.mutation;
 		yield put( {type: ActionTypes.PILLAR_DELETE_SUCCEEDED, payload } );
 	} catch (error) {
 		yield put( {type: ActionTypes.PILLAR_DELETE_FAILED, error} );
@@ -60,12 +80,21 @@ export function* watchPillarDeleteSubmitted() {
 export function* pillarNameChange(action) {
 	console.log('pillarNameChangeSAGA', action);
 	try {
-		console.log('inside saga - pillarNameChange');
-		const payload = yield call(post, {
-			type: 'command.PILLAR_NAME_CHANGE',
-			payload: action.payload
-		});
-		console.log('received payload from call - ', payload);
+		const { pillarName, index } = action.payload;
+		const nameChangeResponse = yield call(fetch,  `
+			mutation {
+			  mutation: PILLAR_NAME_CHANGE(
+			    name: "${pillarName}"
+			    index: ${index}
+			  ) {
+					_id
+					name
+					isDeleted
+					tenantId
+			  }
+			}
+		`);
+		const payload = nameChangeResponse.mutation;
 		yield put( {type: ActionTypes.PILLAR_NAME_CHANGE_SUCCEEDED, payload } );
 	} catch (error) {
 		yield put( {type: ActionTypes.PILLAR_NAME_CHANGE_FAILED, error} );
