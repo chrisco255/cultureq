@@ -26,7 +26,7 @@ export function* fetchCompanies(action) {
 
 export function* companySubmit(action) {
 	try {
-		const { name, address, contact } = action.payload
+		const { name, address, contact } = action.payload;
 		const createResponse = yield call(fetch, `
 			mutation {
 			  mutation: TENANT_CREATE(
@@ -49,6 +49,7 @@ export function* companySubmit(action) {
 			  }
 			}
 		`);
+		debugger;
 		const mutationResponse = createResponse.mutation;
 		const tenantId = mutationResponse._id;
 
