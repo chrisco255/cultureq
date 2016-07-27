@@ -1,5 +1,17 @@
+.panel {
+  border: 1px solid #333;
+  padding: 30px;
+  margin:15px;
+  float:left;
+}
+
+.count {
+  font-size: 50px;
+  text-align: center;
+}
+
 .title {
-    font-size: 20px;
-    color: #2C2C2C;
+    font-size: 24px;
+    color: #999;
     font-weight: 700;
 }
