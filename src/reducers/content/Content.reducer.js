@@ -11,19 +11,18 @@ export default (state = defaultState, action) => {
 
         // CONTENT_CREATE
         case ActionTypes.CONTENT_CREATE_SUBMITTED:
-          return createContent(state, state.contents, action.payload);
+          action.payload.content.isDeleted = false;
+          console.log('CONTENT_CREATE_SUBMITTED ▶️', action);
           break;
         case ActionTypes.CONTENT_CREATE_SUCCEEDED:
-          console.log('CONTENT_CREATE_SUCCEEDED ✅');
-          break;
+          return createContent(state, state.contents, action.payload);
         case ActionTypes.CONTENT_CREATE_FAILED:
           console.log('CONTENT_CREATE_FAILED ❌');
           break;
 
         // CONTENT_DELETE
         case ActionTypes.CONTENT_DELETE_SUBMITTED:
-          console.log('CONTENT_DELETE_SUBMITTED ▶️');
-          break;
+          return deleteContent(state, state.contents, action.payload);
         case ActionTypes.CONTENT_DELETE_SUCCEEDED:
           console.log('CONTENT_DELETE_SUCCEEDED ✅');
           break;
@@ -46,12 +45,27 @@ export default (state = defaultState, action) => {
 };
 
 function createContent(state, contents, payload) {
-	console.log('CONTENT_CREATE_SUBMITTED ▶️', payload.content);
-  payload.content.isDeleted = false;
   state = Object.assign({}, state, {
-		contents: contents.filter( content => content._id !== payload.content._id )
+		contents: [...contents, payload]
 	});
+  console.log('CONTENT_CREATE_SUCCEEDED ✅');
 	return state;
+}
+
+function deleteContent(state, contents, payload) {
+  console.log('CONTENT_DELETE_SUBMITTED ▶️', payload.content);
+  var contentIndex = _.findIndex(contents, (content) => content._id === payload.content._id);
+  const newContent = Object.assign({}, contents[contentIndex], {
+    isDeleted: true
+  });
+  state = Object.assign({}, state, {
+    contents: [
+      ...contents.slice(0, contentIndex),
+      newContent,
+      ...contents.slice(contentIndex + 1)
+    ]
+  });
+  return state;
 }
 
 /*
