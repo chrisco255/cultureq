@@ -4,7 +4,7 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import * as ActionTypes from '../../reducers/pillar/Pillar.actions';
 
-// Fetching of pillars
+// Fetch
 const fetch = (query) => {
 	return axios.post(`/api/graphql`, { query })
 							.then( response =>  response.data.data );
@@ -18,7 +18,7 @@ export function* fetchPillars(action) {
 		yield put( {type: ActionTypes.FETCH_PILLARS_FAILED, error} );
 	}
 }
-export function* watchFetchPillars() {
+export function* watchFetchPillarsSubmitted() {
 	yield* takeEvery(ActionTypes.FETCH_PILLARS_SUBMITTED, fetchPillars);
 }
 
@@ -78,7 +78,6 @@ export function* watchPillarDeleteSubmitted() {
 }
 
 export function* pillarNameChange(action) {
-	console.log('pillarNameChangeSAGA', action);
 	try {
 		const { pillarName, index } = action.payload;
 		const nameChangeResponse = yield call(fetch,  `
