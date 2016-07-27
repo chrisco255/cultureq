@@ -4,11 +4,6 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import * as ActionTypes from '../../reducers/content/Content.actions';
 
-const post = (body) => {
-	console.log("Posting content body - ", body);
-	return axios.post('/api/content', body).then( response => response.data );
-}
-
 // Fetch
 const fetch = (query) => {
 	return axios.post(`/api/graphql`, { query })
@@ -29,18 +24,92 @@ export function* watchFetchContentsSubmitted() {
 
 export function* contentCreate(action) {
 	try {
-		console.log('in saga');
-		const payload = yield call(post, {
-			type: 'command.CONTENT_CREATE',
-			payload: action.payload.content
-		});
-		console.log('received payload from call - ', payload);
+		console.log('in content create saga', action);
+		const { type, pillarId, isDeleted, data } = action.payload.content;
+		const createResponse = yield call(fetch,  `
+			mutation {
+			  mutation: CONTENT_CREATE(
+			    type: ${type.toUpperCase()}
+					pillarId: "${pillarId}"
+					isDeleted: ${isDeleted}
+					data: {
+						title: "${data.title}"
+						description: "${data.description}"
+						url: "${data.url}"
+						quote: "${data.quote}"
+						author: "${data.author}"
+						recipient: "${data.recipient}"
+						recipientPosition: "${data.recipientPosition}"
+					}
+			  ) {
+			    _id
+					type
+					pillarId
+					isDeleted
+					data {
+						title
+						description
+						url
+						quote
+						author
+						recipient
+						recipientPosition
+					}
+			  }
+			}
+		`);
+		const payload = createResponse.mutation;
 		yield put( {type: ActionTypes.CONTENT_CREATE_SUCCEEDED, payload } );
 	} catch (error) {
-		console.log('ERROR 😡', error);
 		yield put( {type: ActionTypes.CONTENT_CREATE_FAILED, error} );
 	}
 }
 export function* watchContentCreateSubmitted() {
 	yield* takeEvery(ActionTypes.CONTENT_CREATE_SUBMITTED, contentCreate);
+}
+
+export function* contentDelete(action) {
+	try {
+		const { _id, type, pillarId, isDeleted, data } = action.payload.content;
+		const deleteResponse = yield call(fetch,  `
+			mutation {
+			  mutation: CONTENT_DELETE(
+					_id: "${_id}"
+			    type: ${type.toUpperCase()}
+					pillarId: "${pillarId}"
+					isDeleted: ${isDeleted}
+					data: {
+						title: "${data.title}"
+						description: "${data.description}"
+						url: "${data.url}"
+						quote: "${data.quote}"
+						author: "${data.author}"
+						recipient: "${data.recipient}"
+						recipientPosition: "${data.recipientPosition}"
+					}
+			  ) {
+			    _id
+					type
+					pillarId
+					isDeleted
+					data {
+						title
+						description
+						url
+						quote
+						author
+						recipient
+						recipientPosition
+					}
+			  }
+			}
+		`);
+		const payload = deleteResponse.mutation;
+		yield put( {type: ActionTypes.CONTENT_DELETE_SUCCEEDED, payload } );
+	} catch (error) {
+		yield put( {type: ActionTypes.CONTENT_DELETE_FAILED, error} );
+	}
+}
+export function* watchContentDeleteSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_DELETE_SUBMITTED, contentDelete);
 }
