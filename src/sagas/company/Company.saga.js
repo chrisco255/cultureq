@@ -73,7 +73,7 @@ export function* companySubmit(action) {
 		}
 
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_SUCCEEDED, payload: mutationResponse} );
-		yield put( push('/pillars') );
+		yield put( push('/pillar') );
 	} catch (error) {
 		yield put( {type: ActionTypes.COMPANY_SUBMIT_FAILED, error} );
 	}
