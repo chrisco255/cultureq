@@ -8,6 +8,9 @@ import _ from 'lodash';
 import { createContent, deleteContent, fetchContents } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
+import Quote from '../../components/cards/quote.component';
+import Video from '../../components/cards/video.component';
+import Action from '../../components/cards/action.component';
 
 const pillarQuery = `
 {
@@ -68,16 +71,11 @@ class ContentPage extends Component {
 	}
 
 	onContentSubmit = (values, dispatch) => {
-    console.log('CREATE CONTENT', values);
 		dispatch( createContent(values) );
 	}
 
 	editContent = (content) => {
 		theEditContent = this.props.editContent(content).payload.content;
-	}
-
-	handleChange = (event) => {
-		this.setState({value: event.target.value});
 	}
 
 	render() {
@@ -94,34 +92,21 @@ class ContentPage extends Component {
     if(activeContents.length > 0) {
       createContentListClassName = "col s6";
       listContents = this.props.contents.map((content, index) => {
+        var pillarName = this.props.pillars[_.findIndex(this.props.pillars, (pillar) => pillar._id === content.pillarId)].name;
+
         if(!content.isDeleted) {
           return (
-              <div className="card blue-grey darken-1" key={content._id}>
-                <div className="card-content white-text">
-                  <span className="card-title">Content #{index + 1}</span>
-                  <p>Linked to Pillar: {this.props.pillars[_.findIndex(this.props.pillars, (pillar) => pillar._id === content.pillarId)].name}</p>
-                  {content.type === 'QUOTE' &&
-                  <div>
-                    <p>Quote: {content.data.quote}</p>
-                    <p>Author: {content.data.author}</p>
-                  </div>}
-                  {content.type === 'VIDEO' &&
-                  <div>
-                    <p>Title: {content.data.title}</p>
-                    <p>Description: {content.data.description}</p>
-                    <p>URL: {content.data.url}</p>
-                  </div>}
-                  {content.type === 'LUNCH' &&
-                  <div>
-                    <p>Recipient: {content.data.recipient}</p>
-                    <p>Position: {content.data.recipientPosition}</p>
-                  </div>}
-                </div>
-                <div className="card-action" styleName="flex-space-between">
-                  <a className="hand">Edit</a>
-                  <a className="hand" onClick={this.props.deleteContent.bind(this, content)}><i className="material-icons">delete</i></a>
-                </div>
+              <div>
+                { content.type === 'QUOTE' &&
+                  <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
+                { content.type === 'VIDEO' &&
+                  <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
+                { content.type === 'LUNCH' &&
+                  <Action key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
               </div>
+
+
+
   				);
         }
 			});
