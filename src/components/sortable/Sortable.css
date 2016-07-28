@@ -1,6 +1,23 @@
+.sortable-grid {
+  display: flex;
+  flex: 1;
+  overflow-y: auto;
+  margin: 20px;
+}
+
 .sortable-container {
   display: flex;
   flex: 1;
+}
+
+.sortable-group {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.sortable-group > div {
+  margin: 5px;
 }
 
 .no-sortable-items {

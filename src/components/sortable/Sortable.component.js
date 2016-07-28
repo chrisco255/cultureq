@@ -44,7 +44,7 @@ class Sortable extends Component {
     let topLevelElement;
     if (elements.length > 0) {
       topLevelElement = (
-        <div ref={this.sortableContainersDecorator}>
+        <div ref={this.sortableContainersDecorator} styleName="sortable-container">
           <div ref={this.sortableGroupDecorator} styleName="sortable-group">
             {elements}
           </div>
@@ -56,7 +56,7 @@ class Sortable extends Component {
       );
     }
     return (
-      <div styleName="sortable-container">
+      <div styleName="sortable-grid">
         {topLevelElement}
       </div>
     );

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import QuestPageStyles from './QuestPage.css';
 import Sortable from '../../components/sortable/Sortable.component';
-// import { createPillar, deletePillar, editPillar, nameChangePillar, fetchPillars } from '../../reducers/pillar/Pillar.actions';
+import { addContent } from '../../reducers/quest/Quest.actions';
 
 // const query = `
 // {
@@ -21,12 +21,16 @@ import Sortable from '../../components/sortable/Sortable.component';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
+		addContent: (content) => {
+			dispatch(addContent({ content }));
+		}
     // onLoad: () =>
 		// 	dispatch(fetchPillars({ query }))
 	};
 };
 
 const mapStateToProps = (state) => {
+	console.log('New Quest - ', state.quest);
 	return {
     newQuest: state.quest.newQuest,
     contentPool: state.quest.contentPool
@@ -41,18 +45,29 @@ class QuestPage extends Component {
 	}
 
 	render() {
-    const convertContentToThumbnail = (content, index) => {
+    const convertContentToCard = (content, index) => {
       return (
         <div className="card" key={index}>
           <div className="card-content">
-            <a className="btn-floating waves-effect waves-light red" styleName="add-content-button"><i className="material-icons">add</i></a>
             <div className="card-title">{content.title}</div>
             <div>{content.description}</div>
           </div>
         </div>
       );
     };
-    const contentPoolElements = this.props.contentPool.map(convertContentToThumbnail);
+    const contentPoolElements = this.props.contentPool.map((content, index) => {
+      return (
+        <div className="card" key={index}>
+          <div className="card-content">
+            <a className="btn-floating waves-effect waves-light red" styleName="add-content-button" onClick={() => {this.props.addContent(content);}}>
+							<i className="material-icons">add</i>
+						</a>
+            <div className="card-title">{content.title}</div>
+            <div>{content.description}</div>
+          </div>
+        </div>
+      );
+    });
 
     return (
       <div styleName="quest-create-container">
@@ -60,7 +75,7 @@ class QuestPage extends Component {
           {contentPoolElements}
         </div>
         <div styleName="quest-content">
-          <Sortable items={this.props.newQuest.content} mapFunction={convertContentToThumbnail} noItemsMessage="Please add a card" />
+          <Sortable items={this.props.newQuest.content} mapFunction={convertContentToCard} noItemsMessage="Please add a card" />
         </div>
       </div>
     );

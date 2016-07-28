@@ -128,8 +128,9 @@ export default (state = defaultState, action) => {
 };
 
 function contentAddSubmitted(state, { content }) {
+	const modifiedQuest = {...state.newQuest, content:state.newQuest.content.concat(content)};
 	state = Object.assign({}, state, {
-		newQuest: state.newQuest.content.concat(concat)
+		newQuest: modifiedQuest
 	});
 	return state;
 }
