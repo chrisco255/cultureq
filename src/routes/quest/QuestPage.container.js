@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
 	return {
-    // contentPool: state.newQuest.contentPool
+    contentPool: state.quest.contentPool
 	};
 };
 
@@ -40,13 +40,26 @@ class QuestPage extends Component {
 	}
 
 	render() {
-    return (
-      <div styleName="quest-create-container">
-        <div styleName="content-pool">
+    const contentPoolElements = this.props.contentPool.map((content, index) => {
 
+      return (
+        <div className="card" key={index}>
+          <div className="card-content">
+            <div className="card-title">{content.title}</div>
+            <div>{content.description}</div>
+          </div>
         </div>
-        <div styleName="quest-content">
+      );
+    });
+    return (
+      <div styleName="layout-container">
+        <div styleName="quest-create-container">
+          <div styleName="content-pool">
+            {contentPoolElements}
+          </div>
+          <div styleName="quest-content">
 
+          </div>
         </div>
       </div>
     );

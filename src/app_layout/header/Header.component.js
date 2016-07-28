@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import CSSModules from 'react-css-modules';
+import HeaderStyles from './Header.css';
 import { logout, login } from '../../reducers/user/User.actions';
 
 const mapStateToProps = (state) => ({
@@ -65,4 +67,5 @@ class Header extends Component {
 }
 
 Header = connect(mapStateToProps, mapDispatchToProps)(Header);
+Header = CSSModules(Header, HeaderStyles);
 export default Header;

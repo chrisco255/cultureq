@@ -107,10 +107,10 @@ const defaultState = {
 export default (state = defaultState, action) => {
 	switch(action.type) {
 		case ActionTypes.USER_LOGIN:
-			state = Object.assign({}, state, {
-				token: action.payload.token,
-				profile: action.payload.profile
-			});
+			// state = Object.assign({}, state, {
+			// 	token: action.payload.token,
+			// 	profile: action.payload.profile
+			// });
 			return state;
     default:
       return state;

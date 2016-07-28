@@ -1,6 +1,8 @@
 import Header from './header/Header.component';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import CSSModules from 'react-css-modules';
+import AppStyles from './App.css';
 import { login } from '../reducers/user/User.actions';
 
 const mapDispatchToProps = dispatch => ({
@@ -34,10 +36,13 @@ class App extends Component {
 		return (
 			<div>
 				<Header />
-				{this.props.children}
+				<div styleName="main-container">
+					{this.props.children}
+				</div>
 			</div>
 		);
 	}
 }
 
+App = CSSModules(App, AppStyles);
 export default connect(null, mapDispatchToProps)(App);
