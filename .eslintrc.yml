@@ -4,7 +4,11 @@ env:
   es6: true
   node: true
   mocha: true
-extends: 'eslint:recommended'
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+plugins:
+  - react
 parser: babel-eslint
 parserOptions:
   ecmaVersion: 7
@@ -12,6 +16,11 @@ parserOptions:
   ecmaFeatures:
     impliedStrict: true
     experimentalObjectRestSpread: true
+    jsx: true
+settings:
+  react:
+    pragma: React
+    version: '15.0'
 rules:
   linebreak-style:
     - error
@@ -105,4 +114,6 @@ rules:
   require-yield:
     - off
   no-class-assign:
+    - off
+  react/prop-types:
     - off
