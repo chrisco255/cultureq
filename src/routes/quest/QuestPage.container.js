@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import QuestPageStyles from './QuestPage.css';
-import _ from 'lodash';
+import Sortable from '../../components/sortable/Sortable.component';
 // import { createPillar, deletePillar, editPillar, nameChangePillar, fetchPillars } from '../../reducers/pillar/Pillar.actions';
 
 // const query = `
@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
 	return {
+    newQuest: state.quest.newQuest,
     contentPool: state.quest.contentPool
 	};
 };
@@ -40,26 +41,26 @@ class QuestPage extends Component {
 	}
 
 	render() {
-    const contentPoolElements = this.props.contentPool.map((content, index) => {
-
+    const convertContentToThumbnail = (content, index) => {
       return (
         <div className="card" key={index}>
           <div className="card-content">
+            <a className="btn-floating waves-effect waves-light red" styleName="add-content-button"><i className="material-icons">add</i></a>
             <div className="card-title">{content.title}</div>
             <div>{content.description}</div>
           </div>
         </div>
       );
-    });
-    return (
-      <div styleName="layout-container">
-        <div styleName="quest-create-container">
-          <div styleName="content-pool">
-            {contentPoolElements}
-          </div>
-          <div styleName="quest-content">
+    };
+    const contentPoolElements = this.props.contentPool.map(convertContentToThumbnail);
 
-          </div>
+    return (
+      <div styleName="quest-create-container">
+        <div styleName="content-pool">
+          {contentPoolElements}
+        </div>
+        <div styleName="quest-content">
+          <Sortable items={this.props.newQuest.content} mapFunction={convertContentToThumbnail} noItemsMessage="Please add a card" />
         </div>
       </div>
     );

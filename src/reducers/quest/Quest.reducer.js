@@ -1,8 +1,12 @@
-import * as ActionTypes from './Quest.actions';
+import {
+	CONTENT_ADD_SUBMITTED,
+	CONTENT_ADD_FAILED
+} from './Quest.actions';
 
 const defaultState = {
 	contentPool: [
     {
+			_id: 'a',
       title: 'Content Title 1',
       description: 'This is a description for content 1',
       data: {
@@ -13,6 +17,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'b',
       title: 'Content Title 2',
       description: 'This is a description for content 2',
       data: {
@@ -23,6 +28,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'c',
       title: 'Content Title 3',
       description: 'This is a description for content 3',
       data: {
@@ -33,6 +39,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'd',
       title: 'Content Title 4',
       description: 'This is a description for content 4',
       data: {
@@ -43,6 +50,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'e',
       title: 'Content Title 5',
       description: 'This is a description for content 5',
       data: {
@@ -52,6 +60,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'f',
       title: 'Content Title 6',
       description: 'This is a description for content 6',
       data: {
@@ -61,6 +70,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'g',
       title: 'Content Title 7',
       description: 'This is a description for content 7',
       data: {
@@ -70,6 +80,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'h',
       title: 'Content Title 8',
       description: 'This is a description for content 8',
       data: {
@@ -79,6 +90,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'i',
       title: 'Content Title 9',
       description: 'This is a description for content 9',
       data: {
@@ -88,6 +100,7 @@ const defaultState = {
       }
     },
     {
+			_id: 'j',
       title: 'Content Title 10',
       description: 'This is a description for content 10',
       data: {
@@ -105,14 +118,18 @@ const defaultState = {
 };
 
 export default (state = defaultState, action) => {
+	const { payload } = action;
 	switch(action.type) {
-		case ActionTypes.USER_LOGIN:
-			// state = Object.assign({}, state, {
-			// 	token: action.payload.token,
-			// 	profile: action.payload.profile
-			// });
-			return state;
+		case CONTENT_ADD_SUBMITTED:
+			return contentAddSubmitted(state, payload);
     default:
       return state;
 	}
 };
+
+function contentAddSubmitted(state, { content }) {
+	state = Object.assign({}, state, {
+		newQuest: state.newQuest.content.concat(concat)
+	});
+	return state;
+}
