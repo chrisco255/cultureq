@@ -40,7 +40,7 @@ rules:
   no-multi-str:
     - error
   no-param-reassign:
-    - error
+    - off
   no-self-compare:
     - error
   no-useless-escape:
@@ -103,4 +103,6 @@ rules:
   indent:
     - off
   require-yield:
+    - off
+  no-class-assign:
     - off
