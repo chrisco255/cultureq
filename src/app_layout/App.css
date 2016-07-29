@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: none;
+  overflow: hidden;
 }
 
 /*must match up with MaterializeCSS's responsive nav heights*/

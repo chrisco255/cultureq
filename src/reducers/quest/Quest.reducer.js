@@ -130,7 +130,8 @@ export default (state = defaultState, action) => {
 function contentAddSubmitted(state, { content }) {
 	const modifiedQuest = {...state.newQuest, content:state.newQuest.content.concat(content)};
 	state = Object.assign({}, state, {
-		newQuest: modifiedQuest
+		newQuest: modifiedQuest,
+		contentPool: state.contentPool.filter(poolContent => poolContent._id !== content._id)
 	});
 	return state;
 }

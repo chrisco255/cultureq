@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import SortableLibrary from 'sortablejs';
 import CSSModules from 'react-css-modules';
@@ -20,14 +20,7 @@ class Sortable extends Component {
 
   sortableGroupDecorator = (componentBackingInstance) => {
     if (componentBackingInstance) {
-      const options = {
-        sort: true,
-        group: 'shared',
-        onStart: () => {
-          console.log('dragging started');
-        }
-      };
-      SortableLibrary.create(componentBackingInstance, options);
+      SortableLibrary.create(componentBackingInstance, this.props.options);
     }
   };
 
@@ -64,5 +57,12 @@ class Sortable extends Component {
 
 }
 
-Sortable = CSSModules(Sortable, SortableStyles);
+Sortable.propTypes = {
+  mapFunction: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  noItemsMessage: PropTypes.string.isRequired,
+  options: PropTypes.object.isRequired
+};
+
+Sortable = CSSModules(Sortable, SortableStyles, { allowMultiple: true });
 export default Sortable;

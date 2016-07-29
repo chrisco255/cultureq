@@ -6,18 +6,17 @@
 }
 
 .sortable-container {
-  display: flex;
   flex: 1;
 }
 
 .sortable-group {
   display: flex;
-  flex: 1;
   flex-wrap: wrap;
 }
 
 .sortable-group > div {
-  margin: 5px;
+  margin: .5%;
+  width: 32%
 }
 
 .no-sortable-items {
