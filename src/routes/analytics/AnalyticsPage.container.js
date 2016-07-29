@@ -29,7 +29,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log("Analytics:", state);
 	return {
 		analytics: state.analytics
 	}
@@ -42,41 +41,40 @@ class Page extends Component {
 	}
 
 	render() {
-    console.log('ANALYTICS', this.props.analytics);
+
     if(this.props.analytics) {
-      return (
-  			<div styleName="panel">
-  				<div styleName="title">Daily Active Users </div>
-          <div styleName="count"> {this.props.analytics.userCount} </div>
-  			</div>
-      );
-    } else {
       return (
         <div>
           <div styleName="panel">
     				<div styleName="title">Daily Active Users </div>
-            <div styleName="count"> 0 </div>
+            <div styleName="count"> {this.props.analytics.userCount} </div>
     			</div>
           <div styleName="panel">
     				<div styleName="title">Pillars </div>
-            <div styleName="count"> 0 </div>
+            <div styleName="count"> {this.props.analytics.pillarCount} </div>
     			</div>
           <div styleName="panel">
     				<div styleName="title">Total Points </div>
-            <div styleName="count"> 0 </div>
+            <div styleName="count"> {this.props.analytics.totalPoints} </div>
     			</div>
           <div styleName="panel">
     				<div styleName="title">Content </div>
-            <div styleName="count"> 0 </div>
+            <div styleName="count"> {this.props.analytics.contentCount} </div>
     			</div>
           <div styleName="panel">
     				<div styleName="title">Managers </div>
-            <div styleName="count"> 0 </div>
+            <div styleName="count"> {this.props.analytics.managerCount} </div>
     			</div>
           <div styleName="panel">
     				<div styleName="title">Tenants </div>
-            <div styleName="count"> 0 </div>
+            <div styleName="count"> {this.props.analytics.tenantCount} </div>
     			</div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>naw.</h1>
         </div>
       );
     }
@@ -85,4 +83,4 @@ class Page extends Component {
 }
 
 Page = CSSModules(Page, styles);
-export default connect(null, mapDispatchToProps)(Page);
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
