@@ -53,5 +53,5 @@ export function editContent(content, index) {
 	return {
 		type: EDIT_CONTENT,
 		payload: { content, index }
-	}
+	};
 }
