@@ -35,6 +35,26 @@ export default (state = defaultState, action) => {
 
         case ActionTypes.EDIT_CONTENT:
           return editContent(state, action.payload);
+        case ActionTypes.FINISH_EDIT:
+          return finishEdit(state);
+
+        case ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED:
+          return contentTitleChange(state, state.contents, action.payload);
+        case ActionTypes.CONTENT_TITLE_CHANGE_SUCCEEDED:
+    			console.log('CONTENT_TITLE_CHANGE_SUCCEEDED ✅');
+    			break;
+    		case ActionTypes.CONTENT_TITLE_CHANGE_FAILED:
+    			console.log('CONTENT_TITLE_CHANGE_FAILED ❌');
+    			break;
+
+        case ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUBMITTED:
+          return contentDescriptionChange(state, state.contents, action.payload);
+        case ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUCCEEDED:
+    			console.log('CONTENT_DESCRIPTION_CHANGE_SUCCEEDED ✅');
+    			break;
+    		case ActionTypes.CONTENT_DESCRIPTION_CHANGE_FAILED:
+    			console.log('CONTENT_DESCRIPTION_CHANGE_FAILED ❌');
+    			break;
 
         // FETCH_PILLARS
     		case ActionTypes.FETCH_CONTENTS_SUBMITTED:
@@ -55,11 +75,10 @@ export default (state = defaultState, action) => {
 };
 
 function createContent(state, contents, payload) {
-  const newState = Object.assign({}, state, {
+  console.log('CONTENT_CREATE_SUCCEEDED ✅');
+  return Object.assign({}, state, {
 		contents: [...contents, payload]
 	});
-  console.log('CONTENT_CREATE_SUCCEEDED ✅');
-	return newState;
 }
 
 function deleteContent(state, contents, payload) {
@@ -86,15 +105,60 @@ function editContent(state, payload) {
 	});
 }
 
+function finishEdit(state) {
+  console.log('FINISH_EDIT ✏️✅');
+  return Object.assign({}, state, {
+    isEditing: false,
+    contentThatIsBeingEditedIndex: -1,
+  });
+}
+
+function contentTitleChange(state, contents, payload) {
+  console.log('CONTENT_TITLE_CHANGE_SUBMITTED ▶️', payload);
+  const { contentTitle, index } = payload;
+	const newContent = Object.assign({}, contents[index], {
+		 data: {
+       ...Object.assign({}, contents[index].data, {
+         title: contentTitle
+       })
+     }
+	});
+	return Object.assign({}, state, {
+			contents: [
+				...contents.slice(0, index),
+				newContent,
+				...contents.slice(index + 1)
+			]
+	});
+}
+
+function contentDescriptionChange(state, contents, payload) {
+  console.log('CONTENT_DESCRIPTION_CHANGE_SUBMITTED ▶️', payload);
+  const { contentDescription, index } = payload;
+	const newContent = Object.assign({}, contents[index], {
+		 data: {
+       ...Object.assign({}, contents[index].data, {
+         description: contentDescription
+       })
+     }
+	});
+	return Object.assign({}, state, {
+			contents: [
+				...contents.slice(0, index),
+				newContent,
+				...contents.slice(index + 1)
+			]
+	});
+}
+
 /*
 	NOTE: Not filtering out the contents if they are deleted or not
 	because it will mess up with the index and when
 	editing, it will edit the wrong index
 */
 function fetchContents(state, payload) {
-	const newState = Object.assign({}, state, {
+  console.log('FETCH_CONTENTS_SUCCEEDED ✅');
+	return Object.assign({}, state, {
 		contents: [ ...payload.contents ]
 	});
-	console.log('FETCH_CONTENTS_SUCCEEDED ✅');
-	return newState;
 }
