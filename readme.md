@@ -11,4 +11,4 @@
 	Ctrl+M moves redux tools
 
 :+1::+1::+1:
-:boom:
+:boom: goes the :dynamite:
