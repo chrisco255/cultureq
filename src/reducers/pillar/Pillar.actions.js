@@ -57,7 +57,7 @@ export function editPillar(pillar, index) {
 	return {
 		type: EDIT_PILLAR,
 		payload: { pillar, index }
-	}
+	};
 }
 
 /*
@@ -70,5 +70,5 @@ export function nameChangePillar(pillarName, index) {
 	return {
 		type: PILLAR_NAME_CHANGE_SUBMITTED,
 		payload: { pillarName, index }
-	}
+	};
 }
