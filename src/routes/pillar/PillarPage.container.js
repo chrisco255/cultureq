@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import PillarPageStyles from './PillarPage.css';
-import { Link, IndexLink } from 'react-router';
-import _ from 'lodash';
+import { Link } from 'react-router';
 import { createPillar, deletePillar, editPillar, nameChangePillar, fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
 
@@ -34,8 +32,8 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(nameChangePillar(pillar, index)),
 		onLoad: () =>
 			dispatch(fetchPillars({ query }))
-	}
-}
+	};
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -43,8 +41,8 @@ const mapStateToProps = (state) => {
 		isEditing: state.pillar.isEditing,
 		pillarThatIsBeingEdited: state.pillar.pillarThatIsBeingEdited,
 		pillarThatIsBeingEditedIndex: state.pillar.pillarThatIsBeingEditedIndex
-	}
-}
+	};
+};
 
 class PillarPage extends Component {
 
@@ -63,23 +61,21 @@ class PillarPage extends Component {
 
 	render() {
 
-		var listPillars = null;
-		var inputFieldEditPillar = null;
-    var createPillarsListClassName = null;
-    var activePillars = null;
+		let listPillars = null;
+    let createPillarsListClassName = null;
+    let activePillars = null;
 
-    console.log(this.props.pillars);
     activePillars = this.props.pillars.filter((pillar) => !pillar.isDeleted);
 
 		if(activePillars.length > 0) {
-      createPillarsListClassName = "col s6"
+      createPillarsListClassName = 'col s6';
 			listPillars = this.props.pillars.map((pillar, index) => {
         if(!pillar.isDeleted) {
           if (this.props.isEditing && index === this.props.pillarThatIsBeingEditedIndex) {
   					return (
   						<form key={pillar._id} onSubmit={this.onEditSubmit}>
   							<div className="input-field" styleName="edit-input-field">
-  				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" class="validate" onBlur={this.onEditSubmit} />
+  				   			<input ref="pillarThatIsBeingEditedInput" defaultValue={pillar.name} type="text" className="validate" onBlur={this.onEditSubmit} />
   				   		</div>
   						</form>
   					);
@@ -98,7 +94,7 @@ class PillarPage extends Component {
         }
 			});
 		} else {
-      createPillarsListClassName = "col s12"
+      createPillarsListClassName = 'col s12';
     }
 
 		return (
