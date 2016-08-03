@@ -8,6 +8,7 @@ import ProfilePage from './profile/ProfilePage.container.js';
 import PillarPage from './pillar/PillarPage.container.js';
 import AnalyticsPage from './analytics/AnalyticsPage.container.js';
 import ContentPage from './content/ContentPage.container.js';
+import TextEditorPage from './editor/TextEditor.container.js';
 
 export default (
   <Route path="/" component={App}>
@@ -18,5 +19,6 @@ export default (
     <Route path="profile" component={ProfilePage} />
     <Route path="pillar" component={PillarPage} />
     <Route path="content" component={ContentPage} />
+    <Route path="editor" component={TextEditorPage} />
   </Route>
-)
+);

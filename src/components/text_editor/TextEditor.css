@@ -1,0 +1,26 @@
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editor {
+  border: 1px solid black;
+}
+
+:global(.editor ul) {
+  list-style-type: disc;
+  padding: 0 0 0 40px;
+}
+
+:global(.editor ul li) {
+  list-style-type: disc;
+}
+
+.style-button {
+  margin: 4px 2px;
+  padding: 0 1rem;
+}
+
+:global(.editor-container i) {
+  font-size: 24px;
+}

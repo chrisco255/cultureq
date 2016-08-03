@@ -106,7 +106,7 @@ rules:
     - error
     - after
   no-console:
-    - warn
+    - off
   no-mixed-spaces-and-tabs:
     - off
   indent:
@@ -117,3 +117,5 @@ rules:
     - off
   react/prop-types:
     - off
+  react/no-danger:
+    - warn
