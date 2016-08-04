@@ -5,7 +5,8 @@ import {
   Editor,
   EditorState,
   RichUtils,
-  convertToRaw
+  convertToRaw,
+  convertFromRaw
 } from 'draft-js';
 import _ from 'lodash';
 import InlineStyleControls from './InlineStyleControls.component';
@@ -13,7 +14,7 @@ import BlockStyleControls from './BlockStyleControls.component';
 
 const BLOCK_TYPES = [
   {label: 'title', style: 'header-two'},
-  {label: 'text_format', style: 'header-four'},
+  {label: 'subtitles', style: 'header-four'},
   {label: 'format_quote', style: 'blockquote'},
   {label: 'format_list_bulleted', style: 'unordered-list-item'},
   {label: 'format_list_numbered', style: 'ordered-list-item'},
@@ -29,7 +30,7 @@ class TextEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: this.props.editorState || EditorState.createEmpty(),
+      editorState: EditorState.createEmpty()
     };
     this.debouncedSave = null;
   }
@@ -38,11 +39,11 @@ class TextEditor extends Component {
   focus = () => this.refs.editor.focus();
 
   onSave = (editorState) => {
-    if(this.props.onSave) {
+    if(this.props.onAutosave) {
       if(!this.debouncedSave) { // Check this to only created the debounced function once.
         this.debouncedSave = _.debounce( (editorState) => {
-          this.props.onSave(convertToRaw(editorState.getCurrentContent()));
-        }, 2 * 1000);
+          this.props.onAutosave(convertToRaw(editorState.getCurrentContent()));
+        }, this.props.autosaveTimeout || 2000 );
       }
 
       // Only call this if onSave prop has been passed in.
@@ -75,29 +76,37 @@ class TextEditor extends Component {
 
   render() {
     const { editorState } = this.state;
+    const { readOnly, createButtons, startingEditorState } = this.props;
+
+    const currentState = startingEditorState
+                  ? EditorState.createWithContent( convertFromRaw(startingEditorState) )
+                  : editorState;
 
     return (
       <div className="editor-container">
-        <div styleName="flex">
-          <BlockStyleControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-            blockTypes={BLOCK_TYPES}
-          />
-          <InlineStyleControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-            inlineStyles={INLINE_STYLES}
-          />
-          {this.props.createButtons( convertToRaw(editorState.getCurrentContent()) )}
-        </div>
+        { !readOnly &&
+          <div styleName="flex">
+            <BlockStyleControls
+              editorState={editorState}
+              onToggle={this.toggleBlockType}
+              blockTypes={BLOCK_TYPES}
+            />
+            <InlineStyleControls
+              editorState={editorState}
+              onToggle={this.toggleInlineStyle}
+              inlineStyles={INLINE_STYLES}
+            />
+            { createButtons && createButtons( convertToRaw(editorState.getCurrentContent()) ) }
+          </div>
+        }
         <div className="editor-content" styleName="editor-content" onClick={this.focus}>
           <Editor
-            editorState={editorState}
+            editorState={currentState}
             onChange={this.onChange}
             placeholder="Text Goes Here 😀 "
             ref="editor"
             spellCheck={true}
+            readOnly={readOnly}
           />
         </div>
       </div>
@@ -106,9 +115,11 @@ class TextEditor extends Component {
 }
 
 TextEditor.propTypes = {
-  createButtons: React.PropTypes.func.isRequired,
-  onSave: React.PropTypes.func,
-  editorState: React.PropTypes.any
+  createButtons: React.PropTypes.func,
+  onAutosave: React.PropTypes.func,
+  autosaveTimeout: React.PropTypes.number,
+  startingEditorState: React.PropTypes.any, // Really this is a rawContentState
+  readOnly: React.PropTypes.bool
 };
 
 TextEditor = CSSModules(TextEditor, styles);

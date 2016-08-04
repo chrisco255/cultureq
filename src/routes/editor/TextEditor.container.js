@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import TextEditor from '../../components/text_editor/TextEditor.component';
-import RenderTextEditorContent from '../../components/text_editor/RenderTextEditorContent.component';
-import { stateToHTML } from 'draft-js-export-html';
-import { convertFromRaw } from 'draft-js';
 
 function createButtons(contentState) {
 	return (
 		<div>
-			<button styleName="style-button" className="btn waves-effect waves-light green" type="button" onClick={ () => { console.log(stateToHTML(convertFromRaw(contentState))); }}>HTML</button>
 			<button styleName="style-button" className="btn waves-effect waves-light green" type="button" onClick={ () => { console.log(contentState); }}>RAW</button>
 		</div>
 	);
@@ -22,17 +18,22 @@ class TextEditorPage extends Component {
 		};
 	}
 
-	onChange = (rawState) => this.setState({rawState});
+	onChange = (rawState) => {
+		console.log(rawState);
+		this.setState({rawState});
+	};
 
 	render() {
+		console.log('render');
+		console.log('state', this.state);
 		return (
 			<div className="container">
-				<TextEditor createButtons={createButtons} onSave={ (rawContent) => this.onChange(rawContent) } />
+				<TextEditor createButtons={createButtons} onAutosave={ (rawContent) => this.onChange(rawContent) } />
 				<br />
 				<br />
 				<br />
 				<br />
-				{ this.state.rawState && <RenderTextEditorContent rawState={this.state.rawState} /> }
+				{ this.state.rawState && <TextEditor className="boom" readOnly={true} startingEditorState={this.state.rawState} /> }
 			</div>
 		);
 	}
