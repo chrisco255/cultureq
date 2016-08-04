@@ -6,9 +6,9 @@ import * as ActionTypes from '../../reducers/content/Content.actions';
 
 // Fetch
 const fetch = (query) => {
-	return axios.post(`/api/graphql`, { query })
-							.then( response =>  response.data.data );
-}
+	return axios.post('/api/graphql', { query })
+							.then( response => response.data.data );
+};
 
 export function* fetchContents(action) {
 	try {
@@ -24,9 +24,8 @@ export function* watchFetchContentsSubmitted() {
 
 export function* contentCreate(action) {
 	try {
-		console.log('in content create saga', action);
 		const { type, pillarId, isDeleted, data } = action.payload.content;
-		const createResponse = yield call(fetch,  `
+		const createResponse = yield call(fetch, `
 			mutation {
 			  mutation: CONTENT_CREATE(
 			    type: ${type.toUpperCase()}
@@ -71,7 +70,7 @@ export function* watchContentCreateSubmitted() {
 export function* contentDelete(action) {
 	try {
 		const { _id, type, pillarId, isDeleted, data } = action.payload.content;
-		const deleteResponse = yield call(fetch,  `
+		const deleteResponse = yield call(fetch, `
 			mutation {
 			  mutation: CONTENT_DELETE(
 					_id: "${_id}"
@@ -112,4 +111,76 @@ export function* contentDelete(action) {
 }
 export function* watchContentDeleteSubmitted() {
 	yield* takeEvery(ActionTypes.CONTENT_DELETE_SUBMITTED, contentDelete);
+}
+
+export function* contentTitleChange(action) {
+	try {
+		const { contentTitle, index } = action.payload;
+		const titleChangeResponse = yield call(fetch, `
+			mutation {
+				mutation: CONTENT_DATA_CHANGE(
+					data: {
+						title: "${contentTitle}"
+					}
+					index: ${index}
+				) {
+			    _id
+					type
+					pillarId
+					isDeleted
+					data {
+						title
+						description
+						url
+						quote
+						author
+						recipient
+						recipientPosition
+					}
+			  }
+			}`);
+		const payload = titleChangeResponse.mutation;
+		yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_SUCCEEDED, payload } );
+	} catch (error) {
+		yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_FAILED, error} );
+	}
+}
+export function* watchContentTitleChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED, contentTitleChange);
+}
+
+export function* contentDescriptionChange(action) {
+	try {
+		const { contentDescription, index } = action.payload;
+		const descriptionChangeResponse = yield call(fetch, `
+			mutation {
+				mutation: CONTENT_DATA_CHANGE(
+					data: {
+						description: "${contentDescription}"
+					}
+					index: ${index}
+				) {
+			    _id
+					type
+					pillarId
+					isDeleted
+					data {
+						title
+						description
+						url
+						quote
+						author
+						recipient
+						recipientPosition
+					}
+			  }
+			}`);
+		const payload = descriptionChangeResponse.mutation;
+		yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUCCEEDED, payload } );
+	} catch (error) {
+		yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_FAILED, error} );
+	}
+}
+export function* watchContentDescriptionChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUBMITTED, contentDescriptionChange);
 }

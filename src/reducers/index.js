@@ -6,15 +6,18 @@ import company from './company/Company.reducer';
 import pillar from './pillar/Pillar.reducer';
 import content from './content/Content.reducer';
 import socket from './socket/Socket.reducer';
+import analytics from './analytics/Analytics.reducer';
+
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 
 /*
 	NOTE: The hierarchy of the reducers folder should reflect the structure of the reducers object below
- */
+*/
 const reducers = {
 	user,
+	analytics,
 	routing,
 	company,
 	socket,

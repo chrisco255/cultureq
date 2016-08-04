@@ -7,6 +7,15 @@ export const CONTENT_DELETE_SUCCEEDED = 'CONTENT_DELETE_SUCCEEDED';
 export const CONTENT_DELETE_FAILED = 'CONTENT_DELETE_FAILED';
 
 export const EDIT_CONTENT = 'EDIT_CONTENT';
+export const FINISH_EDIT = 'FINISH_EDIT';
+
+export const CONTENT_TITLE_CHANGE_SUBMITTED = 'CONTENT_TITLE_CHANGE_SUBMITTED';
+export const CONTENT_TITLE_CHANGE_SUCCEEDED = 'CONTENT_TITLE_CHANGE_SUCCEEDED';
+export const CONTENT_TITLE_CHANGE_FAILED = 'CONTENT_TITLE_CHANGE_FAILED';
+
+export const CONTENT_DESCRIPTION_CHANGE_SUBMITTED = 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED';
+export const CONTENT_DESCRIPTION_CHANGE_SUCCEEDED = 'CONTENT_DESCRIPTION_CHANGE_SUCCEEDED';
+export const CONTENT_DESCRIPTION_CHANGE_FAILED = 'CONTENT_DESCRIPTION_CHANGE_FAILED';
 
 export const FETCH_CONTENTS_SUBMITTED = 'FETCH_CONTENTS_SUBMITTED';
 export const FETCH_CONTENTS_SUCCEEDED = 'FETCH_CONTENTS_SUCCEEDED';
@@ -53,5 +62,26 @@ export function editContent(content, index) {
 	return {
 		type: EDIT_CONTENT,
 		payload: { content, index }
-	}
+	};
+}
+
+export function finishEdit() {
+	return {
+		type: FINISH_EDIT,
+		payload: {}
+	};
+}
+
+export function titleChangeContent(contentTitle, index) {
+	return {
+		type: CONTENT_TITLE_CHANGE_SUBMITTED,
+		payload: { contentTitle, index }
+	};
+}
+
+export function descriptionChangeContent(contentDescription, index) {
+	return {
+		type: CONTENT_DESCRIPTION_CHANGE_SUBMITTED,
+		payload: { contentDescription, index }
+	};
 }

@@ -38,7 +38,7 @@ let ContentForm = (props) => {
     }, error, handleSubmit, submitting, resetForm
   } = props;
 
-  var submitBtnClassName = 'btn waves-effect waves-light';
+  let submitBtnClassName = 'btn waves-effect waves-light';
   if(submitting) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
@@ -127,7 +127,7 @@ let ContentForm = (props) => {
       </form>
     </div>
   );
-}
+};
 
 ContentForm = CSSModules(ContentForm, ContentPageStyles);
 

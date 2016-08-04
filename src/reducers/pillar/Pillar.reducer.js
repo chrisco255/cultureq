@@ -1,4 +1,5 @@
 import * as ActionTypes from './Pillar.actions';
+import _ from 'lodash';
 
 const defaultState = {
 	pillars: [],
@@ -55,45 +56,47 @@ export default (state = defaultState, action) => {
 		case ActionTypes.FETCH_PILLARS_FAILED:
 			console.log('FETCH_PILLARS_FAILED ❌');
 			break;
+
+		default:
+			console.log('Genius is one percent inspiration and ninety-nine percent perspiration. - Thomas A. Edison');
+			break;
 	}
 
 	return state;
 };
 
 function createPillar(state, pillars, payload) {
-	state = Object.assign({}, state, {
+	const newState = Object.assign({}, state, {
 		pillars: [...pillars, payload]
 	});
 	console.log('PILLAR_CREATE_SUCCEEDED ✅');
-	return state;
+	return newState;
 }
 
 function deletePillar(state, pillars, payload) {
 	console.log('PILLAR_DELETE_SUBMITTED ▶️', payload.pillar);
-	var pillarIndex = _.findIndex(pillars, function(pillar) {
+	const pillarIndex = _.findIndex(pillars, function(pillar) {
 		return pillar._id === payload.pillar._id;
 	});
 	const newPillar = Object.assign({}, pillars[pillarIndex], {
 		 isDeleted: true
 	});
-	state = Object.assign({}, state, {
+	return Object.assign({}, state, {
 		pillars: [
 			...pillars.slice(0, pillarIndex),
 			newPillar,
 			...pillars.slice(pillarIndex + 1)
 		]
 	});
-	return state;
 }
 
 function editPillar(state, payload) {
 	console.log('EDIT_PILLAR ✏️', payload.pillar);
-	state = Object.assign({}, state, {
+	return Object.assign({}, state, {
 			isEditing: true,
 			pillarThatIsBeingEdited: payload.pillar,
 			pillarThatIsBeingEditedIndex: payload.index
 	});
-	return state;
 }
 
 function pillarNameChange(state, pillars, payload) {
@@ -102,7 +105,7 @@ function pillarNameChange(state, pillars, payload) {
 	const newPillar = Object.assign({}, pillars[index], {
 		 name: pillarName
 	});
-	state = Object.assign({}, state, {
+	return Object.assign({}, state, {
 			isEditing: false,
 			pillarThatIsBeingEditedIndex: -1,
 			pillars: [
@@ -111,7 +114,6 @@ function pillarNameChange(state, pillars, payload) {
 				...pillars.slice(index + 1)
 			]
 	});
-	return state;
 }
 
 /*
@@ -120,9 +122,9 @@ function pillarNameChange(state, pillars, payload) {
 	editing, it will edit the wrong index
 */
 function fetchPillars(state, payload) {
-	state = Object.assign({}, state, {
+	const newState = Object.assign({}, state, {
 		pillars: [ ...payload.pillars ]
 	});
 	console.log('FETCH_PILLARS_SUCCEEDED ✅');
-	return state;
+	return newState;
 }

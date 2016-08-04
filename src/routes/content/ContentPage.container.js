@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import ContentPageStyles from './ContentPage.css';
-import { Link, IndexLink } from 'react-router';
+import { Link } from 'react-router';
 import _ from 'lodash';
-import { createContent, deleteContent, fetchContents } from '../../reducers/content/Content.actions';
+import { createContent, deleteContent, editContent, finishEdit, fetchContents, titleChangeContent, descriptionChangeContent } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/quote.component';
@@ -48,21 +47,31 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(createContent(content)),
     deleteContent: (content) =>
       dispatch(deleteContent(content)),
+    editContent: (content, index) =>
+      dispatch(editContent(content, index)),
+    finishEdit: () =>
+      dispatch(finishEdit()),
+    titleChangeContent: (content, index) =>
+      dispatch(titleChangeContent(content, index)),
+    descriptionChangeContent: (content, index) =>
+      dispatch(descriptionChangeContent(content, index)),
 		onLoad: () =>
     {
-      dispatch(fetchPillars({ query:pillarQuery }))
-      dispatch(fetchContents({ query:contentQuery }))
+      dispatch(fetchPillars({ query:pillarQuery }));
+      dispatch(fetchContents({ query:contentQuery }));
     }
-	}
-}
+	};
+};
 
 const mapStateToProps = (state) => {
 	return {
 		pillars: state.pillar.pillars,
 		contents: state.content.contents,
-		isEditing: state.content.isEditing
-	}
-}
+		isEditing: state.content.isEditing,
+		contentThatIsBeingEdited: state.content.contentThatIsBeingEdited,
+		contentThatIsBeingEditedIndex: state.content.contentThatIsBeingEditedIndex
+	};
+};
 
 class ContentPage extends Component {
 
@@ -74,44 +83,34 @@ class ContentPage extends Component {
 		dispatch( createContent(values) );
 	}
 
-	editContent = (content) => {
-		theEditContent = this.props.editContent(content).payload.content;
-	}
-
 	render() {
 
-    console.log('PILLARS', this.props.pillars);
-		console.log('CONTENTS', this.props.contents);
-
-		var listContents = null;
-    var createContentListClassName = null;
-    var activeContents = null;
+		let listContents = null;
+    let createContentListClassName = null;
+    let activeContents = null;
 
     activeContents = this.props.contents.filter((content) => !content.isDeleted);
 
     if(activeContents.length > 0) {
-      createContentListClassName = "col s6";
+      createContentListClassName = 'col s6';
       listContents = this.props.contents.map((content, index) => {
-        var pillarName = this.props.pillars[_.findIndex(this.props.pillars, (pillar) => pillar._id === content.pillarId)].name;
+        let pillarName = this.props.pillars[_.findIndex(this.props.pillars, (pillar) => pillar._id === content.pillarId)].name;
 
         if(!content.isDeleted) {
           return (
               <div>
                 { content.type === 'QUOTE' &&
-                  <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
+                  <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} /> }
                 { content.type === 'VIDEO' &&
-                  <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
+                  <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} titleChangeContent={this.props.titleChangeContent} descriptionChangeContent={this.props.descriptionChangeContent} finishEdit={this.props.finishEdit} /> }
                 { content.type === 'LUNCH' &&
                   <Action key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
               </div>
-
-
-
   				);
         }
 			});
     } else {
-      createContentListClassName = "col s12";
+      createContentListClassName = 'col s12';
     }
 
 		return (

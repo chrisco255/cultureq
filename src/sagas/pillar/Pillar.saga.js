@@ -94,7 +94,7 @@ export function* pillarNameChange(action) {
 			}
 		`);
 		const payload = nameChangeResponse.mutation;
-		yield put( {type: ActionTypes.PILLAR_NAME_CHANGE_SUCCEEDED, payload } );
+		yield put( {type: ActionTypes.PILLAR_NAME_CHANGE_SUCCEEDED, payload} );
 	} catch (error) {
 		yield put( {type: ActionTypes.PILLAR_NAME_CHANGE_FAILED, error} );
 	}

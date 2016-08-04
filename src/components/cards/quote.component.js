@@ -4,48 +4,59 @@ import styles from './card.css';
 import _ from 'lodash';
 
 class Quote extends Component {
-  render() {
-    let { key, data, content, index, pillarName, deleteContent } = this.props;
 
-    var quoteIcon = {
+  onQuoteEditSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.refs.contentThatIsBeingEditedInput.value);
+  }
+
+  render() {
+    const { key, data, content, index, pillarName, deleteContent, editContent, isEditing, contentThatIsBeingEdited, contentThatIsBeingEditedIndex } = this.props;
+
+    const quoteIcon = {
       fontSize: '-webkit-xxx-large'
     };
 
-    var iconContainer = {
+    const iconContainer = {
       display: 'flex',
       justifyContent: 'flex-end'
-    }
+    };
 
-    var quoteText = {
+    const quoteText = {
       marginTop: 0
-    }
+    };
 
-    var quoteContainer = {
+    const quoteContainer = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-end',
       marginLeft: '40px',
       marginRight: '40px'
-    }
+    };
 
-    var pillarBadge = {
-      borderRadius: '2px',
-      backgroundColor: '#f06292',
-      color: 'white',
-      fontWeight: 300,
-      fontSize: '0.8rem',
-      minWidth: '3rem',
-      padding: '0 6px',
-      textAlign: 'center',
-      fontSize: '1rem',
-      lineHeight: 'inherit',
-      boxSizing: 'border-box'
+    if(isEditing && index === contentThatIsBeingEditedIndex) {
+      return (
+        <div className="card blue-grey darken-1" key={key}>
+          <div className="card-content white-text">
+            <div styleName="pillar-badge">EDITING</div>
+            <form>
+              <div className="input-field">
+                <input ref="contentThatIsBeingEditedInput" id="quote" defaultValue={data.quote} type="text" className="validate" onBlur={this.onQuoteEditSubmit} />
+                <label for="quote">Quote</label>
+              </div>
+            </form>
+          </div>
+          <div className="card-action" styleName="flex-space-between">
+            <a className="hand" onClick={editContent.bind(this, content, index)}>DONE</a>
+          </div>
+        </div>
+      );
     }
 
     return (
       <div className="card blue-grey darken-1" key={key}>
         <div className="card-content white-text">
-          <div style={pillarBadge}>{pillarName}</div>
+          <div styleName="pillar-badge">{pillarName}</div>
           <div style={iconContainer}>
             <i className="material-icons" style={quoteIcon}>format_quote</i>
           </div>
@@ -55,7 +66,7 @@ class Quote extends Component {
           </div>
         </div>
         <div className="card-action" styleName="flex-space-between">
-          <a className="hand">Edit</a>
+          <a className="hand" onClick={editContent.bind(this, content, index)}>Edit</a>
           <a className="hand" onClick={deleteContent.bind(this, content)}><i className="material-icons">delete</i></a>
         </div>
       </div>
@@ -69,8 +80,12 @@ Quote.propTypes = {
   content: PropTypes.object,
   index: PropTypes.number,
   pillarName: PropTypes.string,
-  deleteContent: PropTypes.func
-}
+  deleteContent: PropTypes.func,
+  editContent: PropTypes.func,
+  isEditing: PropTypes.bool,
+  contentThatIsBeingEdited: PropTypes.object,
+  contentThatIsBeingEditedIndex: PropTypes.number
+};
 
 Quote = CSSModules(Quote, styles);
 export default Quote;
