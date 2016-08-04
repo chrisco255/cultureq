@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextEditor from '../../components/text_editor/TextEditor.component';
-import RenderDraftJsContent from '../../components/text_editor/RenderDraftJSContent.component';
+import RenderTextEditorContent from '../../components/text_editor/RenderTextEditorContent.component';
 import { stateToHTML } from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js';
 
@@ -32,7 +32,7 @@ class TextEditorPage extends Component {
 				<br />
 				<br />
 				<br />
-				{ this.state.rawState && <RenderDraftJsContent rawState={this.state.rawState} /> }
+				{ this.state.rawState && <RenderTextEditorContent rawState={this.state.rawState} /> }
 			</div>
 		);
 	}
