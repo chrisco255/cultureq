@@ -41,8 +41,7 @@ const contentQuery = `
 }
 `;
 
-const mapDispatchToProps = (dispatch) => {
-	return {
+const mapDispatchToProps = (dispatch) => ({
 		createContent: (content) =>
 			dispatch(createContent(content)),
     deleteContent: (content) =>
@@ -55,13 +54,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(titleChangeContent(content, index)),
     descriptionChangeContent: (content, index) =>
       dispatch(descriptionChangeContent(content, index)),
-		onLoad: () =>
-    {
+		onLoad: () => {
       dispatch(fetchPillars({ query:pillarQuery }));
       dispatch(fetchContents({ query:contentQuery }));
     }
-	};
-};
+	});
 
 const mapStateToProps = (state) => {
 	return {
@@ -86,13 +83,9 @@ class ContentPage extends Component {
 	render() {
 
 		let listContents = null;
-    let createContentListClassName = null;
-    let activeContents = null;
-
-    activeContents = this.props.contents.filter((content) => !content.isDeleted);
+    const activeContents = this.props.contents.filter((content) => !content.isDeleted);
 
     if(activeContents.length > 0) {
-      createContentListClassName = 'col s6';
       listContents = this.props.contents.map((content, index) => {
         let pillarName = this.props.pillars[_.findIndex(this.props.pillars, (pillar) => pillar._id === content.pillarId)].name;
 
@@ -102,22 +95,21 @@ class ContentPage extends Component {
                 { content.type === 'QUOTE' &&
                   <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} /> }
                 { content.type === 'VIDEO' &&
-                  <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} titleChangeContent={this.props.titleChangeContent} descriptionChangeContent={this.props.descriptionChangeContent} finishEdit={this.props.finishEdit} /> }
+                  <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} titleChangeContent={this.props.titleChangeContent}
+                         descriptionChangeContent={this.props.descriptionChangeContent} finishEdit={this.props.finishEdit} /> }
                 { content.type === 'LUNCH' &&
                   <Action key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
               </div>
   				);
         }
 			});
-    } else {
-      createContentListClassName = 'col s12';
     }
 
 		return (
       <div className="container">
 				<div className="row">
 
-					<div className={createContentListClassName}>
+					<div className={(activeContents.length > 0) ? 'col s6' : 'col s12'}>
 						<div className="container">
 	      			<ContentForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} />
       			</div>
