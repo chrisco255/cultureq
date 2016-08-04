@@ -12,33 +12,33 @@ import Video from '../../components/cards/video.component';
 import Action from '../../components/cards/action.component';
 
 const pillarQuery = `
-{
-  pillars {
-    _id
-    name
-    isDeleted
+  {
+    pillars {
+      _id
+      name
+      isDeleted
+    }
   }
-}
 `;
 
 const contentQuery = `
-{
-  contents {
-    _id
-    pillarId
-    type
-    isDeleted
-    data {
-      title
-      description
-      url
-      quote
-      author
-      recipient
-      recipientPosition
+  {
+    contents {
+      _id
+      pillarId
+      type
+      isDeleted
+      data {
+        title
+        description
+        url
+        quote
+        author
+        recipient
+        recipientPosition
+      }
     }
   }
-}
 `;
 
 const mapDispatchToProps = (dispatch) => ({
