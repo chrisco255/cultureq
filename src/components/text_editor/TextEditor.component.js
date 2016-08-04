@@ -91,7 +91,7 @@ class TextEditor extends Component {
           />
           {this.props.createButtons( convertToRaw(editorState.getCurrentContent()) )}
         </div>
-        <div className="editor" styleName="editor" onClick={this.focus}>
+        <div className="editor-content" styleName="editor-content" onClick={this.focus}>
           <Editor
             editorState={editorState}
             onChange={this.onChange}

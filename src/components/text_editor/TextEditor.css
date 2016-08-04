@@ -3,16 +3,16 @@
   justify-content: space-between;
 }
 
-.editor {
+.editor-content {
   border: 1px solid black;
 }
 
-:global(.editor ul) {
+:global(.editor-content ul) {
   list-style-type: disc;
   padding: 0 0 0 40px;
 }
 
-:global(.editor ul li) {
+:global(.editor-content ul li) {
   list-style-type: disc;
 }
 

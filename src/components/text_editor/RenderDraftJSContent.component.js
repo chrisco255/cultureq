@@ -7,7 +7,7 @@ import { stateToHTML } from 'draft-js-export-html';
 let RenderDraftJSContent = (props) => {
   const __html = stateToHTML( convertFromRaw(props.rawState) );
   return (
-    <div>
+    <div className="editor-content" styleName="editor-content">
       <div dangerouslySetInnerHTML={ { __html } } />
     </div>
   );
