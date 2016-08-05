@@ -3,8 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const validate = require('webpack-validator');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PATHS = require('./paths');
 // const pkg = require('./package.json');
 
@@ -82,8 +80,16 @@ var config = {
       include: PATHS.app
     }, {
       test: /\.css$/,
-      loaders: ['style?sourceMap','css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'],
+      loaders: ['style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'],
       include: PATHS.app
+    },
+    {
+      test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)(\?.*)?$/,
+      include: [PATHS.app],
+      loader: 'file-loader',
+      query: {
+        name: 'static/media/[name].[ext]'
+      }
     }]
   }
 };
