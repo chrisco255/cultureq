@@ -184,3 +184,39 @@ export function* contentDescriptionChange(action) {
 export function* watchContentDescriptionChangeSubmitted() {
 	yield* takeEvery(ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUBMITTED, contentDescriptionChange);
 }
+
+export function* contentUrlChange(action) {
+	try {
+		const { contentUrl, index } = action.payload;
+		const urlChangeResponse = yield call(fetch, `
+			mutation {
+				mutation: CONTENT_DATA_CHANGE(
+					data: {
+						url: "${contentUrl}"
+					}
+					index: ${index}
+				) {
+			    _id
+					type
+					pillarId
+					isDeleted
+					data {
+						title
+						description
+						url
+						quote
+						author
+						recipient
+						recipientPosition
+					}
+			  }
+			}`);
+		const payload = urlChangeResponse.mutation;
+		yield put( {type: ActionTypes.CONTENT_URL_CHANGE_SUCCEEDED, payload } );
+	} catch (error) {
+		yield put( {type: ActionTypes.CONTENT_URL_CHANGE_FAILED, error} );
+	}
+}
+export function* watchContentUrlChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_URL_CHANGE_SUBMITTED, contentUrlChange);
+}

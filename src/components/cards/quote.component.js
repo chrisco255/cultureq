@@ -42,7 +42,7 @@ class Quote extends Component {
             <form>
               <div className="input-field">
                 <input ref="contentThatIsBeingEditedInput" id="quote" defaultValue={data.quote} type="text" className="validate" onBlur={this.onQuoteEditSubmit} />
-                <label for="quote">Quote</label>
+                <label htmlFor="quote">Quote</label>
               </div>
             </form>
           </div>

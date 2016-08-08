@@ -30,7 +30,7 @@ Action.propTypes = {
   index: PropTypes.number,
   pillarName: PropTypes.string,
   deleteContent: PropTypes.func
-}
+};
 
 Action = CSSModules(Action, styles);
 export default Action;

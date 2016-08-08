@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules';
 import ContentPageStyles from './ContentPage.css';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import { createContent, deleteContent, editContent, finishEdit, fetchContents, titleChangeContent, descriptionChangeContent } from '../../reducers/content/Content.actions';
+import { createContent, deleteContent, editContent, finishEdit, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/quote.component';
@@ -54,6 +54,8 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(titleChangeContent(content, index)),
     descriptionChangeContent: (content, index) =>
       dispatch(descriptionChangeContent(content, index)),
+    urlChangeContent: (content, index) =>
+      dispatch(urlChangeContent(content, index)),
 		onLoad: () => {
       dispatch(fetchPillars({ query:pillarQuery }));
       dispatch(fetchContents({ query:contentQuery }));
@@ -96,7 +98,9 @@ class ContentPage extends Component {
                   <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} /> }
                 { content.type === 'VIDEO' &&
                   <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} titleChangeContent={this.props.titleChangeContent}
-                         descriptionChangeContent={this.props.descriptionChangeContent} finishEdit={this.props.finishEdit} /> }
+                         descriptionChangeContent={this.props.descriptionChangeContent}
+                         finishEdit={this.props.finishEdit}
+                         urlChangeContent={this.props.urlChangeContent} /> }
                 { content.type === 'LUNCH' &&
                   <Action key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }
               </div>

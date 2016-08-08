@@ -19,10 +19,11 @@ class Video extends Component {
   onUrlEditSubmit = (event) => {
     event.preventDefault();
     console.log(this.refs.urlThatIsBeingEditedInput.value);
+    this.props.urlChangeContent(this.refs.urlThatIsBeingEditedInput.value, this.props.contentThatIsBeingEditedIndex);
   }
 
   render() {
-    const { key, index, data, content, pillarName, deleteContent, editContent, isEditing, contentThatIsBeingEdited, contentThatIsBeingEditedIndex, titleChangeContent, descriptionChangeContent, finishEdit } = this.props;
+    const { key, index, data, content, pillarName, deleteContent, editContent, isEditing, contentThatIsBeingEdited, contentThatIsBeingEditedIndex, titleChangeContent, descriptionChangeContent, urlChangeContent, finishEdit } = this.props;
     let urlEmbeddedLink = `https://www.youtube.com/embed/${data.url.split('=')[1]}`;
 
     if(isEditing && index === contentThatIsBeingEditedIndex) {
@@ -33,15 +34,15 @@ class Video extends Component {
               <div className="row">
                 <div className="input-field">
                   <input ref="titleThatIsBeingEditedInput" id="title" defaultValue={data.title} type="text" className="validate" onBlur={this.onTitleEditSubmit} />
-                  <label className="active">Title</label>
+                  <label htmlFor="title" className="active">Title</label>
                 </div>
                 <div className="input-field">
                   <input ref="descriptionThatIsBeingEditedInput" id="description" defaultValue={data.description} type="text" className="validate" onBlur={this.onDescriptionEditSubmit} />
-                  <label className="active">Description</label>
+                  <label htmlFor="description" className="active">Description</label>
                 </div>
                 <div className="input-field">
                   <input ref="urlThatIsBeingEditedInput" id="url" defaultValue={data.url} type="text" className="validate" onBlur={this.onUrlEditSubmit} />
-                  <label className="active">URL</label>
+                  <label htmlFor="url" className="active">URL</label>
                 </div>
               </div>
             </form>
@@ -86,6 +87,7 @@ Video.propTypes = {
   contentThatIsBeingEditedIndex: PropTypes.number,
   titleChangeContent: PropTypes.func,
   descriptionChangeContent: PropTypes.func,
+  urlChangeContent: PropTypes.func,
   finishEdit: PropTypes.func
 };
 
