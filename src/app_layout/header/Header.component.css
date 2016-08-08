@@ -1,0 +1,67 @@
+.top-navbar {
+  padding: 0 35px;
+  composes: black-background from '../../styles/colors.css';
+  box-shadow: none;
+}
+
+.bottom-navbar {
+  composes: primary-background from '../../styles/colors.css';
+  height: 50px;
+}
+
+.bottom-navbar-fixed {
+  line-height: 50px;
+  height: 50px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-container {
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  color: black;
+}
+
+.brand-title {
+  composes: ubuntu from '../../styles/fonts.css';
+  composes: white-text from '../../styles/colors.css';
+  font-size: 24px;
+}
+
+.welcome-message {
+  composes: lato from '../../styles/fonts.css';
+  composes: divider-color from '../../styles/colors.css';
+}
+
+.nav-items {
+  font-size: 14px;
+  text-transform: uppercase;
+  composes: white-semi-transparent-text from '../../styles/colors.css';
+  letter-spacing: 0.5px;
+}
+
+.nav-items li {
+  padding: 0 10px;
+}
+
+.active-item {
+  height: 50px;
+  border-bottom: solid 3px #FFFFFF;
+  composes: white-text from '../../styles/colors.css';
+}
+
+:global(nav ul a:hover) {
+  background-color: rgba(0,0,0,0) !important;
+}
+
+:global(nav ul li:hover) {
+  background-color: rgba(0,0,0,0.1);
+}

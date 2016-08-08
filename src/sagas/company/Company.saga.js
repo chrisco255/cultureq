@@ -1,19 +1,17 @@
-import { put, call, fork } from 'redux-saga/effects';
-import { takeEvery, delay } from 'redux-saga';
+import { put, call } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
 import { push } from 'react-router-redux';
 import axios from 'axios';
 import * as ActionTypes from '../../reducers/company/Company.actions';
 
 //fetching of companies
-const fetch = (query) => {
-	return axios.post(`/api/graphql`, { query })
-							.then( response =>  response.data.data );
-}
+const fetch = (query) =>
+	axios.post('/api/graphql', { query })
+		   .then( response => response.data.data );
 
-const fetchWithFile = (query, data) => {
-	return axios.post(`/api/graphql?query=${encodeURIComponent(query)}`, data)
-							.then( response => response.data.data );
-}
+const fetchWithFile = (query, data) =>
+ 	axios.post(`/api/graphql?query=${encodeURIComponent(query)}`, data)
+			 .then( response => response.data.data );
 
 export function* fetchCompanies(action) {
 	try {
@@ -49,7 +47,6 @@ export function* companySubmit(action) {
 			  }
 			}
 		`);
-		debugger;
 		const mutationResponse = createResponse.mutation;
 		const tenantId = mutationResponse._id;
 
@@ -61,13 +58,13 @@ export function* companySubmit(action) {
 			csvPostBody.append('tenantId', tenantId);
 
 			const query = `
-			mutation {
-				mutation: EMPLOYEE_IMPORT_SAGA {
-					employeesCreated
-					errorCount
+				mutation {
+					mutation: EMPLOYEE_IMPORT_SAGA {
+						employeesCreated
+						errorCount
+					}
 				}
-			}
-			`
+			`;
 
 			const importResponse = yield call(fetchWithFile, query, csvPostBody);
 			console.log(importResponse.mutation);

@@ -50,7 +50,7 @@ rules:
   no-multi-str:
     - error
   no-param-reassign:
-    - error
+    - off
   no-self-compare:
     - error
   no-useless-escape:

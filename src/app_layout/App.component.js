@@ -31,9 +31,10 @@ class App extends Component {
 	}
 
 	render() {
+		const { location } = this.props;
 		return (
 			<div>
-				<Header />
+				<Header location={location}/>
 				{this.props.children}
 			</div>
 		);

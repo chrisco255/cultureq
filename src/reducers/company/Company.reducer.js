@@ -29,7 +29,7 @@ export default (state = defaultState, action) => {
       //     phone: action.payload.contact.phone
       //   }
       // });
-      const newTenant = {
+      return {
         _id: action.payload._id,
         name: action.payload.name,
         address: action.payload.address,
@@ -40,17 +40,14 @@ export default (state = defaultState, action) => {
           phone: action.payload.contact.phone
         }
       };
-      state = [...state, newTenant];
-			break;
     case ActionTypes.FETCH_COMPANIES_SUCCEEDED:
+			// TODO: THIS IS SUPA BROKEN
+			return state;
       //state = action.payload.tenants;
       //console.log("New state - ", state);
-
-      break;
     case UserActionTypes.USER_LOGOUT:
-      state = {};
-      break;
+      return {};
+		default:
+			return state;
 	}
-
-	return state;
-}
+};
