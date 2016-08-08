@@ -10,17 +10,17 @@ const mapStateToProps = (state) => ({
 		companyName: state.company.name
 });
 
-let mapDispatchToProps = dispatch => ({
-  onLogIn(payload) { dispatch( login(payload) )},
-	onLogOut() { dispatch( logout() )},
-	redirect(url) { dispatch( push(url) ) }
+const mapDispatchToProps = dispatch => ({
+  onLogIn(payload) { dispatch( login(payload) );},
+	onLogOut() { dispatch( logout() ); },
+	redirect(url) { dispatch( push(url) ); }
 });
 
 class Header extends Component {
 	logIn = () => {
 		this.props.lock.show( (err, profile, token) => {
       if(err) {
-        console.log('Login Failed: ',err);
+        console.log('Login Failed: ', err);
         return;
       }
 
@@ -39,7 +39,7 @@ class Header extends Component {
 		this.props.redirect('/');
 	}
 	render = () => {
-		let { loggedIn, companyName } = this.props;
+		const { loggedIn, companyName } = this.props;
 
 		return (
 			<nav>
