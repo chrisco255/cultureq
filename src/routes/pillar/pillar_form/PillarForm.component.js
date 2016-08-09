@@ -3,7 +3,6 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import CSSModules from 'react-css-modules';
 import PillarPageStyles from '../PillarPage.css';
-import _ from 'lodash';
 import validate from './PillarForm.validation.js';
 
 export const fields = [
@@ -14,10 +13,10 @@ let PillarForm = (props) => {
   const {
     fields: {
       name
-    }, error, handleSubmit, submitting, resetForm
+    }, handleSubmit, submitting
   } = props;
 
-  var submitBtnClassName = 'btn waves-effect waves-light';
+  let submitBtnClassName = 'btn waves-effect waves-light';
   if(submitting) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
@@ -39,7 +38,7 @@ let PillarForm = (props) => {
       </form>
     </div>
   );
-}
+};
 
 PillarForm = CSSModules(PillarForm, PillarPageStyles);
 

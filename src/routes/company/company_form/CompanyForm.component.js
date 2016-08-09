@@ -1,6 +1,8 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import validate from './CompanyForm.validation';
+import CSSModules from 'react-css-modules';
+import styles from '../CompanyPage.css';
 
 export const fields = [
   'name',
@@ -21,9 +23,14 @@ let CompanyForm = (props) => {
     }, error, handleSubmit, submitting
   } = props;
 
-  var submitBtnClassName = 'btn waves-effect waves-light';
+  let submitBtnStyleName = {
+    backgroundColor: '#FF9800'
+  };
+
+  let submitBtnClassName = 'btn waves-effect waves-light';
   if(submitting || !name.value || !address.value || !contact.name.value || !contact.email.value || !contact.phone.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
+    submitBtnStyleName = {backgroundColor: ''};
   }
 
   return (
@@ -61,7 +68,7 @@ let CompanyForm = (props) => {
         <br/>
         <div>
           <div className="file-field input-field">
-            <div className="btn">
+            <div className="btn" style={{backgroundColor: '#FF9800'}}>
               <span>Import Employees</span>
               <input type="file" { ...csvFile } value={ undefined } />
               {csvFile.touched && csvFile.error && <div style={{color: 'red'}}>{csvFile.error[0]}</div>}
@@ -74,11 +81,13 @@ let CompanyForm = (props) => {
         <br/>
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
-        <button className={submitBtnClassName} type="submit" disabled={submitting}>Submit</button>
+        <button className={submitBtnClassName} style={submitBtnStyleName} type="submit" disabled={submitting}>Save Details</button>
       </form>
     </div>
   );
-}
+};
+
+CompanyForm = CSSModules(CompanyForm, styles);
 
 // Composition FTW!
 CompanyForm = reduxForm({
