@@ -59,14 +59,17 @@ class QuestPage extends Component {
 
 	render() {
     return (
-			<QuestCreateContainer
-				contentPool={this.props.contentPool}
-				newQuest={this.props.newQuest}
-				addContent={this.props.addContent}
-				selectContent={this.props.selectContent}
-				deselectContent={this.props.deselectContent}
-				removeContent={this.props.removeContent}
-				changeContentOrder={this.props.changeContentOrder}/>
+			<div styleName="quest-page">
+				<QuestCreateContainer
+					styleName="quest-page"
+					contentPool={this.props.contentPool}
+					newQuest={this.props.newQuest}
+					addContent={this.props.addContent}
+					selectContent={this.props.selectContent}
+					deselectContent={this.props.deselectContent}
+					removeContent={this.props.removeContent}
+					changeContentOrder={this.props.changeContentOrder}/>
+			</div>
     );
 	}
 

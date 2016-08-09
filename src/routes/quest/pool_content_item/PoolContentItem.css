@@ -1,12 +1,27 @@
 .content-card {
   display: flex;
   flex-direction: row;
-  min-height: min-content;
+  /*min-height: min-content;*/
   justify-content: space-between;
+  height: 140px;
+  min-height: 140px; /*for some reason, height by itself is not sufficient*/
+  margin: 0;
+}
+
+.content-card:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.card-content .card-title {
+  font-size: 14px;
 }
 
 .card-content {
   flex: 1 0 1;
+}
+
+.card-text {
+  font-size: 12px;
 }
 
 .side-buttons {

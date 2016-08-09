@@ -57,8 +57,11 @@ class PoolContentItem extends Component {
       connectDragSource(
         <div className="card" styleName="content-card" style={styles} onClick={() => {selectToggle(content);}}>
           <div className="card-content" styleName="card-content">
-            <div className="card-title">{content.title}</div>
-            <div>{content.description}</div>
+            <div className="card-title" styleName="card-title">{content.title}</div>
+            <div styleName="card-text">{content.description}</div>
+            {/* <div styleName="buttons">
+               <a className="waves-effect waves-teal btn-flat">edit</a>
+            </div> */}
           </div>
           <div styleName="side-buttons">
             <img styleName="button" src={RightArrow} alt="right arrow" onClick={(event) => {addContentWrapper(event, content);}}/>
