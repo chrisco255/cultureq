@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 import CSSModules from 'react-css-modules';
 import QuestContentAreaStyles from './QuestContentArea.css';
 import QuestContentItem from '../quest_content_item/QuestContentItem.component';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { POOL_CONTENT_ITEM, QUEST_CONTENT_AREA } from '../ItemTypes';
 
 const spec = {
@@ -37,17 +37,19 @@ class QuestContentArea extends Component {
 			);
 		});
 
-    let questContentElement = null;
     let noItemsMessage = null;
     if (questContentElements.length === 0) {
       noItemsMessage = <div styleName="no-items-message">Please add a card</div>;
-    } else {
-      questContentElement = (
-        <div styleName="quest-content">
-          {questContentElements}
-        </div>
-      );
     }
+    let questContentElement = (
+      <ReactCSSTransitionGroup component="div"
+                                styleName="quest-content"
+                                transitionName="quest-content-item-transition"
+                                transitionEnterTimeout={500}
+                                transitionLeaveTimeout={60000}>
+        {questContentElements}
+      </ReactCSSTransitionGroup>
+    );
 
     return (
       connectDropTarget(

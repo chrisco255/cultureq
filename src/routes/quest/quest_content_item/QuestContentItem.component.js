@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
-// import CSSModules from 'react-css-modules';
-// import PoolContentStyles from './PoolContentItem.css';
+import CSSModules from 'react-css-modules';
+import styles from './QuestContentItem.css';
 import { QUEST_CONTENT_ITEM, CONTENT_POOL } from '../ItemTypes';
 
 const dragSourceSpec = {
@@ -78,7 +78,7 @@ class QuestContentItem extends Component {
 
     return (
       connectDragSource(connectDropTarget(
-        <div className="card" style={styles}>
+        <div className="card" style={styles} styleName="quest-content-item">
           <div className="card-content">
             <div className="card-title">{content.title}</div>
             <div>{content.description}</div>
@@ -90,7 +90,7 @@ class QuestContentItem extends Component {
 
 }
 
-// QuestContentItem = CSSModules(QuestContentItem, PoolContentStyles);
+QuestContentItem = CSSModules(QuestContentItem, styles);
 QuestContentItem = DragSource(QUEST_CONTENT_ITEM, dragSourceSpec, dragSourceCollect)(QuestContentItem);
 QuestContentItem = DropTarget(QUEST_CONTENT_ITEM, dropTargetSpec, dropTargetCollect)(QuestContentItem);
 export default QuestContentItem;

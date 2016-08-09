@@ -10,10 +10,8 @@
 
 .content-pool {
   overflow-y: auto;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  flex: 1;
   padding: 10px;
 }
 
@@ -33,4 +31,21 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
+}
+
+:global(.content-pool-item-transition-enter) {
+  transform: scale(0);
+  opacity: 0;
+}
+
+:global(.content-pool-item-transition-enter.content-pool-item-transition-enter-active) {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.5s
+}
+
+:global(.content-pool-item-transition-leave.content-pool-item-transition-leave-active) {
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.5s
 }

@@ -5,6 +5,7 @@ import CSSModules from 'react-css-modules';
 import ContentPoolStyles from './ContentPool.css';
 import PoolContentItem from '../pool_content_item/PoolContentItem.component';
 import { QUEST_CONTENT_ITEM, CONTENT_POOL } from '../ItemTypes';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import RightArrow from '../../../assets/images/right_arrow_white.svg';
 
 const spec = {
@@ -41,14 +42,15 @@ class ContentPool extends Component {
           deselectContent={deselectContent}/>
 			);
 		});
-    let contentPool = null;
-    if (contentPoolElements.length > 0) {
-      contentPool = (
-        <div styleName="content-pool">
-          {contentPoolElements}
-        </div>
-      );
-    }
+    let contentPool = (
+      <ReactCSSTransitionGroup component="div"
+                                styleName="content-pool"
+                                transitionName="content-pool-item-transition"
+                                transitionEnterTimeout={500}
+                                transitionLeaveTimeout={500}>
+                                {contentPoolElements}
+      </ReactCSSTransitionGroup>
+    );
 
     let addAllContentButton = null;
     if (selectedContent.length > 0) {
