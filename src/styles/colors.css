@@ -68,7 +68,7 @@
 	color: #FF9800 !important;
 }
 
-.accent-background {
+:global(.accent-background) {
 	background-color: #FF9800 !important;
 }
 
