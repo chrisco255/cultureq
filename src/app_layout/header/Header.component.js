@@ -65,7 +65,8 @@ class Header extends Component {
 									</div>
 								</div>
 								<div styleName="welcome-message">
-									{`Welcome '${THECompanyName}'`}
+									{loggedIn && `Welcome '${THECompanyName}'`}
+									{!loggedIn && <button className="btn-flat white-semi-transparent-text" onClick={this.logIn}>LOGIN</button>}
 								</div>
 							</div>
 						</div>
@@ -87,12 +88,8 @@ class Header extends Component {
 												}
 										})}
 									</ul>
-									{/*{ !companyName && loggedIn && <li><Link to="/company">Getting Started</Link></li> }
-									{ companyName && loggedIn && <li><Link to="/dashboard">Dashboard</Link></li> }
-									{ companyName && loggedIn && <li><Link to="/profile">Profile</Link></li> }
-									{ loggedIn && <li><a onClick={this.logOut}>Logout</a></li> }
-									{ !loggedIn && <li><a onClick={this.logIn}>Login</a></li> }*/}
 								</div>
+								{loggedIn && <div><button className="btn-flat white-semi-transparent-text" onClick={this.logOut}>LOGOUT</button></div>}
 							</div>
 						</div>
 					</nav>
