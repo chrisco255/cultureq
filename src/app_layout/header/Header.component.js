@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import CSSModules from 'react-css-modules';
 import { logout, login } from '../../reducers/user/User.actions';
 import styles from './Header.component.css';
-import CSSModules from 'react-css-modules';
 import KometLogo from '../../assets/images/komet-logo.svg';
 
 const mapStateToProps = (state) => ({
