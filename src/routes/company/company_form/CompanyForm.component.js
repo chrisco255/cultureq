@@ -23,14 +23,9 @@ let CompanyForm = (props) => {
     }, error, handleSubmit, submitting
   } = props;
 
-  let submitBtnStyleName = {
-    backgroundColor: '#FF9800'
-  };
-
-  let submitBtnClassName = 'btn waves-effect waves-light';
+  let submitBtnClassName = 'btn waves-effect waves-light accent-background';
   if(submitting || !name.value || !address.value || !contact.name.value || !contact.email.value || !contact.phone.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
-    submitBtnStyleName = {backgroundColor: ''};
   }
 
   return (
@@ -68,7 +63,7 @@ let CompanyForm = (props) => {
         <br/>
         <div>
           <div className="file-field input-field">
-            <div className="btn" style={{backgroundColor: '#FF9800'}}>
+            <div className="btn accent-background">
               <span>Import Employees</span>
               <input type="file" { ...csvFile } value={ undefined } />
               {csvFile.touched && csvFile.error && <div style={{color: 'red'}}>{csvFile.error[0]}</div>}
@@ -81,7 +76,7 @@ let CompanyForm = (props) => {
         <br/>
         {error && <div style={{color: 'red'}}>{error}</div>}
         <br/>
-        <button className={submitBtnClassName} style={submitBtnStyleName} type="submit" disabled={submitting}>Save Details</button>
+        <button className={submitBtnClassName} type="submit" disabled={submitting}>Save Details</button>
       </form>
     </div>
   );

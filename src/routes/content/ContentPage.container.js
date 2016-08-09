@@ -120,17 +120,17 @@ class ContentPage extends Component {
 						<br />
 						<div className="container" styleName="flex-space-between">
 							<div>
-								<Link className="waves-effect waves-light btn red" to="/dashboard">Skip</Link>
+								<Link className="waves-effect btn white black-text" to="/dashboard">Skip</Link>
 							</div>
 							<div>
-								<Link className="waves-effect waves-light btn green" to="/dashboard">Finish</Link>
+								<Link className="waves-effect waves-light btn accent-background" to="/dashboard"><i className="material-icons right">play_arrow</i>Finish</Link>
 							</div>
       			</div>
 			    </div>
 
           { activeContents.length > 0 && <div className="col s6">
             <div className="container">
-              <h1 styleName="title">Your Content</h1>
+              <h1>Your Content</h1>
               <hr/>
               <div>{listContents}</div>
             </div>
