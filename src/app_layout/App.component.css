@@ -1,5 +1,4 @@
 .main-container {
-  /*position: fixed;*/
   top: 56px; /*must match up with MaterializeCSS's nav height*/
   left: 0;
   right: 0;
