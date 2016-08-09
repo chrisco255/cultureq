@@ -14,3 +14,7 @@ input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]),
     border-bottom: 2px solid #9013FE !important;
     box-shadow: none !important;
 }
+
+.btn, .btn-large, .btn-flat {
+    text-transform: capitalize !important;
+}

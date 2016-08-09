@@ -2,7 +2,7 @@ import Header from './header/Header.component';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
-import AppStyles from './App.css';
+import AppStyles from './App.component.css';
 import { login } from '../reducers/user/User.actions';
 
 const mapDispatchToProps = dispatch => ({
