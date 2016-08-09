@@ -1,3 +1,10 @@
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 .top-navbar {
   padding: 0 35px;
   composes: black-background from '../../styles/colors.css';
