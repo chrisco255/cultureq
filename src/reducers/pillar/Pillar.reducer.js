@@ -58,8 +58,7 @@ export default (state = defaultState, action) => {
 			break;
 
 		default:
-			console.log('Genius is one percent inspiration and ninety-nine percent perspiration. - Thomas A. Edison');
-			break;
+			return state;
 	}
 
 	return state;

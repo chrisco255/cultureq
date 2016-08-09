@@ -112,8 +112,7 @@ export default (state = defaultState, action) => {
             break;
 
         default:
-            console.log('What we think, we become. - Buddha');
-            break;
+            return state;
     }
 
     return state;
