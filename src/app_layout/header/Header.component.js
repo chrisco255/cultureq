@@ -47,52 +47,56 @@ class Header extends Component {
 		this.props.onLogOut();
 		this.props.redirect('/');
 	}
+
 	render() {
 		const { loggedIn, location, companyName } = this.props;
-
 		const THECompanyName = companyName || 'Ultimate Software';
 
 		return (
 			<div>
-				<nav styleName="top-navbar">
-					<div className="nav-fixed">
-						<div styleName="flex-container">
-							<div styleName="logo-container">
-	     					<img styleName="brand-logo" src={KometLogo} />
-								<div styleName="brand-title">
-									<IndexLink to="/">Komet</IndexLink>
+				<div className="navbar-fixed">
+					<nav styleName="top-navbar">
+						<div>
+							<div styleName="flex-container">
+								<div styleName="logo-container">
+		     					<img styleName="brand-logo" src={KometLogo} />
+									<div styleName="brand-title">
+										<IndexLink to="/">CultureQ</IndexLink>
+									</div>
+								</div>
+								<div styleName="welcome-message">
+									{`Welcome '${THECompanyName}'`}
 								</div>
 							</div>
-							<div styleName="welcome-message">
-								{`Welcome '${THECompanyName}'`}
+						</div>
+					</nav>
+				</div>
+				<div className="navbar-fixed">
+					<nav styleName="bottom-navbar">
+						<div styleName="bottom-navbar-fixed">
+							<div styleName="flex-container">
+								<div styleName="nav-items">
+									<ul>
+										{loggedIn && routes.map( route => {
+												const isActive = (location.pathname === route.path);
+												const className = isActive ? 'active-item' : '';
+												if(route.isIndex) {
+													return (<li key={route.path} styleName={className}><IndexLink to={route.path}>{route.label}</IndexLink></li>);
+												} else {
+													return (<li key={route.path} styleName={className}><Link to={route.path}>{route.label}</Link></li>);
+												}
+										})}
+									</ul>
+									{/*{ !companyName && loggedIn && <li><Link to="/company">Getting Started</Link></li> }
+									{ companyName && loggedIn && <li><Link to="/dashboard">Dashboard</Link></li> }
+									{ companyName && loggedIn && <li><Link to="/profile">Profile</Link></li> }
+									{ loggedIn && <li><a onClick={this.logOut}>Logout</a></li> }
+									{ !loggedIn && <li><a onClick={this.logIn}>Login</a></li> }*/}
+								</div>
 							</div>
 						</div>
-					</div>
-				</nav>
-				<nav styleName="bottom-navbar">
-					<div className="nav-fixed" styleName="bottom-navbar-fixed">
-						<div styleName="flex-container">
-							<div styleName="nav-items">
-								<ul>
-									{loggedIn && routes.map( route => {
-											const isActive = (location.pathname === route.path);
-											const className = isActive ? 'active-item' : '';
-											if(route.isIndex) {
-												return (<li key={route.path} styleName={className}><IndexLink to={route.path}>{route.label}</IndexLink></li>);
-											} else {
-												return (<li key={route.path} styleName={className}><Link to={route.path}>{route.label}</Link></li>);
-											}
-									})}
-								</ul>
-								{/* { !companyName && loggedIn && <li><Link to="/company">Getting Started</Link></li> }
-								{ companyName && loggedIn && <li><Link to="/dashboard">Dashboard</Link></li> }
-								{ companyName && loggedIn && <li><Link to="/profile">Profile</Link></li> }
-								{ loggedIn && <li><a onClick={this.logOut}>Logout</a></li> }
-								{ !loggedIn && <li><a onClick={this.logIn}>Login</a></li> } */}
-							</div>
-						</div>
-					</div>
-				</nav>
+					</nav>
+    		</div>
 			</div>
 		);
 	}
