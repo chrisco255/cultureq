@@ -1,0 +1,6 @@
+.quest-create-container {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: nowrap;
+  height: 100%;
+}

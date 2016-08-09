@@ -5,6 +5,7 @@ import contentForm from './form/content/ContentForm.reducer';
 import company from './company/Company.reducer';
 import pillar from './pillar/Pillar.reducer';
 import content from './content/Content.reducer';
+import quest from './quest/Quest.reducer';
 import socket from './socket/Socket.reducer';
 import analytics from './analytics/Analytics.reducer';
 
@@ -23,6 +24,7 @@ const reducers = {
 	socket,
 	pillar,
 	content,
+	quest,
 	form: formReducer.plugin({
 		company: companyForm,
 		pillar: pillarForm,

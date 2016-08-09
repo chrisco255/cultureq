@@ -1,0 +1,20 @@
+.content-card {
+  display: flex;
+  flex-direction: row;
+  min-height: min-content;
+  justify-content: space-between;
+}
+
+.card-content {
+  flex: 1 0 1;
+}
+
+.side-buttons {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.side-buttons .button {
+  cursor: pointer;
+}
