@@ -35,17 +35,19 @@ let ContentForm = (props) => {
       pillarId,
       type,
       data
-    }, error, handleSubmit, submitting, resetForm
+    }, handleSubmit, submitting
   } = props;
 
-  let submitBtnClassName = 'btn waves-effect waves-light';
-  if(submitting) {
+  let submitBtnClassName = 'btn waves-effect waves-light accent-background';
+  if(submitting || !pillarId.value || !type.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
+  console.log(pillarId.value);
+  console.log(type.value);
 
   return (
     <div>
-      <h1 styleName="title">Create Your Own Cultural Content</h1>
+      <h1>Create Your Own Cultural Content</h1>
       <hr />
       <form onSubmit={handleSubmit}>
         <div className="card">
@@ -58,7 +60,7 @@ let ContentForm = (props) => {
                     <option value="0" disabled hidden>Choose a Pillar</option>
                     { props.pillars.map( pillar => {
                       if (!pillar.isDeleted) {
-                        return <option key={pillar._id} value={pillar._id}>{pillar.name}</option>
+                        return (<option key={pillar._id} value={pillar._id}>{pillar.name}</option>);
                       }
                     }) }
                   </select>
@@ -68,7 +70,7 @@ let ContentForm = (props) => {
                   <select className="browser-default" { ...type } >
                     <option value="0" disabled hidden>Choose content type</option>
                     { types.map( type => {
-                      return <option key={type.value} value={type.value}>{type.name}</option>
+                      return (<option key={type.value} value={type.value}>{type.name}</option>);
                     }) }
                   </select>
                 </div>

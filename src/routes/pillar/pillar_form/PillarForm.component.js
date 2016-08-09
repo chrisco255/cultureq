@@ -16,14 +16,14 @@ let PillarForm = (props) => {
     }, handleSubmit, submitting
   } = props;
 
-  let submitBtnClassName = 'btn waves-effect waves-light';
-  if(submitting) {
+  let submitBtnClassName = 'btn waves-effect waves-light accent-background';
+  if(submitting || !name.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
 
   return (
     <div>
-      <h1 styleName="title">Create Your Own Cultural Pillar</h1>
+      <h1>Create Your Own Cultural Pillar</h1>
       <hr />
       <form onSubmit={handleSubmit}>
         <div>

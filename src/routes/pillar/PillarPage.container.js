@@ -82,11 +82,11 @@ class PillarPage extends Component {
   				}
 
   				return (
-  					<a className="collection-item" key={pillar._id}>
+  					<a className="collection-item black-text" key={pillar._id}>
               <span className="hand" onClick={this.props.editPillar.bind(this, pillar, index)}>
   						{pillar.name}
               </span>
-  						<div className="secondary-content hand" onClick={this.props.deletePillar.bind(this, pillar)}>
+  						<div className="secondary-content hand primary-dark-text" onClick={this.props.deletePillar.bind(this, pillar)}>
   							<i className="material-icons">delete</i>
   						</div>
   					</a>
@@ -107,17 +107,17 @@ class PillarPage extends Component {
             <br/>
             <div className="container" styleName="flex-space-between">
               <div>
-                <Link className="waves-effect waves-light btn red" to="/dashboard">Skip</Link>
+                <Link className="btn waves-effect white black-text" to="/dashboard">Skip</Link>
               </div>
               <div>
-                <Link className="waves-effect waves-light btn green" to="/content">Continue</Link>
+                <Link className="waves-effect waves-light btn accent-background" to="/content"><i className="material-icons right">play_arrow</i>Continue</Link>
               </div>
             </div>
           </div>
 
 					{ activePillars.length > 0 && <div className="col s6">
 						<div className="container">
-							<h1 styleName="title">Your Cultural Pillars</h1>
+							<h1>Your Cultural Pillars</h1>
 							<hr/>
 							<div>
 					 			<div className="collection">

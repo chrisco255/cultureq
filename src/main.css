@@ -15,8 +15,14 @@ input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]),
     box-shadow: none !important;
 }
 
-.btn,
-.btn-large,
-.btn-flat {
+:global(.btn) {
     text-transform: capitalize !important;
+}
+
+h1 {
+  font-family: 'lato' !important;
+  font-size: 24px !important;
+  color: #4A4A4A !important;
+  line-height: 32px !important;
+  font-weight: 700  !important;
 }

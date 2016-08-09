@@ -7,7 +7,7 @@ class HomePage extends Component {
 	render() {
 		return (
 			<div className="container">
-				<h1 styleName="title">Culture Shock</h1>
+				<h1>Culture Shock</h1>
 				<p>
 					What do you want to know? Culture Shock is the best app since Pandr.
 				</p>
