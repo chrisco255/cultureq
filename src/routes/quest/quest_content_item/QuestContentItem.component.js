@@ -79,9 +79,13 @@ class QuestContentItem extends Component {
     return (
       connectDragSource(connectDropTarget(
         <div className="card" style={styles} styleName="quest-content-item">
-          <div className="card-content">
-            <div className="card-title">{content.title}</div>
-            <div>{content.description}</div>
+          <div className="card-content" styleName="card-content">
+            <div className="card-title" styleName="card-title">{content.title}</div>
+            <div styleName="card-description">{content.description}</div>
+          </div>
+          <div styleName="buttons">
+            <a className="waves-effect waves-default btn-flat" styleName="button">edit</a>
+            <a className="waves-effect waves-default btn-flat" styleName="button">remove</a>
           </div>
         </div>
       )

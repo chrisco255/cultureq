@@ -46,7 +46,7 @@ class QuestContentArea extends Component {
                                 styleName="quest-content"
                                 transitionName="quest-content-item-transition"
                                 transitionEnterTimeout={500}
-                                transitionLeaveTimeout={60000}>
+                                transitionLeaveTimeout={500}>
         {questContentElements}
       </ReactCSSTransitionGroup>
     );

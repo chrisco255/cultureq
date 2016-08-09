@@ -1,4 +1,4 @@
-:global(.hand) {
+ :global(.hand) {
     cursor: pointer;
 }
 input:not([type]):focus:not([readonly]),

@@ -23,6 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgb(253, 151, 39) !important;
 }
 
 .no-items-message {

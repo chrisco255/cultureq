@@ -5,3 +5,8 @@
 .lato {
   font-family: 'Lato', sans-serif !important;
 }
+
+.lato-bold {
+  font-family: 'Lato', sans-serif !important;
+  font-weight: 700 !important;
+}

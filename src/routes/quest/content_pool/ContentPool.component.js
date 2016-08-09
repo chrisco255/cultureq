@@ -68,7 +68,7 @@ class ContentPool extends Component {
 
     let noItemsMessage = null;
     if (contentPoolElements.length === 0) {
-      noItemsMessage = <div styleName="no-items-message">No Content Found</div>;
+      noItemsMessage = <div styleName="no-items-message">All cards used</div>;
     }
 
     return (

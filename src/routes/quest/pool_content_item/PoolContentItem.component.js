@@ -5,6 +5,7 @@ import CSSModules from 'react-css-modules';
 import PoolContentStyles from './PoolContentItem.css';
 import { POOL_CONTENT_ITEM, QUEST_CONTENT_AREA } from '../ItemTypes';
 import RightArrow from '../../../assets/images/right_arrow_gray.svg';
+import EditIcon from '../../../assets/images/icon-edit.svg';
 
 const spec = {
   beginDrag(props) {
@@ -53,18 +54,29 @@ class PoolContentItem extends Component {
       addContent(content);
     };
 
+    const onEdit = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
     return (
       connectDragSource(
         <div className="card" styleName="content-card" style={styles} onClick={() => {selectToggle(content);}}>
           <div className="card-content" styleName="card-content">
-            <div className="card-title" styleName="card-title">{content.title}</div>
-            <div styleName="card-text">{content.description}</div>
-            {/* <div styleName="buttons">
-               <a className="waves-effect waves-teal btn-flat">edit</a>
-            </div> */}
-          </div>
-          <div styleName="side-buttons">
-            <img styleName="button" src={RightArrow} alt="right arrow" onClick={(event) => {addContentWrapper(event, content);}}/>
+            <div styleName="card-column">
+              <div styleName="card-text">
+                <div className="card-title" styleName="card-title">{content.title}</div>
+                <div styleName="card-description">{content.description}</div>
+              </div>
+              <div styleName="bottom-buttons">
+                 <a className="waves-effect waves-default btn-flat" styleName="button" onClick={onEdit}><img src={EditIcon} alt="Edit Icon" />edit</a>
+              </div>
+            </div>
+            <div styleName="card-column">
+              <div styleName="side-buttons">
+                <img styleName="button" src={RightArrow} alt="right arrow" onClick={(event) => {addContentWrapper(event, content);}}/>
+              </div>
+            </div>
           </div>
         </div>
       )

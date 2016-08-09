@@ -6,30 +6,57 @@
   height: 140px;
   min-height: 140px; /*for some reason, height by itself is not sufficient*/
   margin: 0;
-}
-
-.content-card:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-.card-content .card-title {
-  font-size: 14px;
+  background-color: #FFF;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.10);
 }
 
 .card-content {
-  flex: 1 0 1;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.content-card:not(:last-child) {
+  margin-bottom: 8px;
 }
 
 .card-text {
-  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.card-title {
+  font-size: 1.1rem !important;
+  line-height: initial !important;
+  margin-bottom: 8px;
+  composes: lato-bold from '../../../styles/fonts.css';
+}
+
+.card-description {
+  font-size: 1rem;
+}
+
+.card-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .side-buttons {
   justify-content: center;
   align-items: center;
   display: flex;
+  flex: 1;
 }
 
 .side-buttons .button {
   cursor: pointer;
+}
+
+.bottom-buttons {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.bottom-buttons .button img {
+  margin-right: 5px;
 }
