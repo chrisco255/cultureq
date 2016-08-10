@@ -12,6 +12,8 @@ export const CONTENT_DESELECT_SUBMITTED = 'CONTENT_DESELECT_SUBMITTED';
 
 export const CONTENT_ORDER_CHANGE_SUBMITTED = 'CONTENT_ORDER_CHANGE_SUBMITTED';
 
+export const FILTER_TEXT_CHANGE_SUBMITTED = 'FILTER_TEXT_CHANGE_SUBMITTED';
+
 export function addContent ({ content }) {
   return {
     type: CONTENT_ADD_SUBMITTED,
@@ -54,6 +56,15 @@ export function changeContentOrder(oldIndex, newIndex) {
     payload: {
       oldIndex,
       newIndex
+    }
+  };
+}
+
+export function changeFilterText(text) {
+  return {
+    type: FILTER_TEXT_CHANGE_SUBMITTED,
+    payload: {
+      text
     }
   };
 }

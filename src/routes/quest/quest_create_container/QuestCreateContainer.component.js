@@ -13,11 +13,13 @@ class QuestCreateContainer extends Component {
     const {
 			newQuest,
 			contentPool,
+			filterText,
 			addContent,
 			removeContent,
 			selectContent,
 			deselectContent,
-			changeContentOrder
+			changeContentOrder,
+			changeFilterText
 		} = this.props;
 
     return (
@@ -25,13 +27,17 @@ class QuestCreateContainer extends Component {
 				<ContentPool
 					pool={contentPool}
 					questContent={newQuest.content}
+					filterText={filterText}
 					addContent={addContent}
 					selectContent={selectContent}
-					deselectContent={deselectContent} />
+					deselectContent={deselectContent}
+					changeFilterText={changeFilterText} />
 				<QuestContentArea
 					questContent={newQuest.content}
 					removeContent={removeContent}
-					changeContentOrder={changeContentOrder} />
+					changeContentOrder={changeContentOrder}
+					selectContent={selectContent}
+					deselectContent={deselectContent} />
       </div>
     );
 	}

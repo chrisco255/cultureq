@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import QuestPageStyles from './QuestPage.css';
 import {
-	addContent, removeContent, selectContent, deselectContent, changeContentOrder
+	addContent,
+	removeContent,
+	selectContent,
+	deselectContent,
+	changeContentOrder,
+	changeFilterText
 } from '../../reducers/quest/Quest.actions';
 import QuestCreateContainer from './quest_create_container/QuestCreateContainer.component';
 
@@ -37,6 +42,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		changeContentOrder: (oldIndex, newIndex) => {
 			dispatch(changeContentOrder(oldIndex, newIndex));
+		},
+		changeFilterText: (text) => {
+			dispatch(changeFilterText(text));
 		}
     // onLoad: () =>
 		// 	dispatch(fetchPillars({ query }))
@@ -46,7 +54,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
 	return {
     newQuest: state.quest.newQuest,
-    contentPool: state.quest.contentPool
+    contentPool: state.quest.contentPool,
+		filterText: state.quest.filterText
 	};
 };
 
@@ -64,11 +73,13 @@ class QuestPage extends Component {
 					styleName="quest-page"
 					contentPool={this.props.contentPool}
 					newQuest={this.props.newQuest}
+					filterText={this.props.filterText}
 					addContent={this.props.addContent}
 					selectContent={this.props.selectContent}
 					deselectContent={this.props.deselectContent}
 					removeContent={this.props.removeContent}
-					changeContentOrder={this.props.changeContentOrder}/>
+					changeContentOrder={this.props.changeContentOrder}
+					changeFilterText={this.props.changeFilterText}/>
 			</div>
     );
 	}

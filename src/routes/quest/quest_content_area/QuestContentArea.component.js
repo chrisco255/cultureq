@@ -24,7 +24,7 @@ const collect = (connect, monitor) => {
 class QuestContentArea extends Component {
 
 	render() {
-    const { questContent, connectDropTarget, removeContent, changeContentOrder } = this.props;
+    const { questContent, connectDropTarget, removeContent, changeContentOrder, selectContent, deselectContent } = this.props;
 
     const questContentElements = questContent.map((content, index) => {
 			return (
@@ -33,7 +33,9 @@ class QuestContentArea extends Component {
           content={content}
           removeContent={removeContent}
           index={index}
-					changeContentOrder={changeContentOrder} />
+					changeContentOrder={changeContentOrder}
+          selectContent={selectContent}
+          deselectContent={deselectContent} />
 			);
 		});
 
@@ -41,9 +43,17 @@ class QuestContentArea extends Component {
     if (questContentElements.length === 0) {
       noItemsMessage = <div styleName="no-items-message">Please add a card</div>;
     }
+    //TODO use a JS based animation library to make it so the last removed
+    //element does not just dissapear - it should animate out instead
+    //temporary half-fix
+    const questContentStyles = {};
+    if (questContentElements.length === 0) {
+      questContentStyles.display = 'none';
+    }
     let questContentElement = (
       <ReactCSSTransitionGroup component="div"
-                                styleName="quest-content"
+                                style={questContentStyles}
+                                styleName="quest-content-items"
                                 transitionName="quest-content-item-transition"
                                 transitionEnterTimeout={500}
                                 transitionLeaveTimeout={500}>
@@ -51,10 +61,35 @@ class QuestContentArea extends Component {
       </ReactCSSTransitionGroup>
     );
 
+    let questContentActions = null;
+    const selectedQuestContent = questContent.filter((content) => {
+      return content.isSelected;
+    });
+    if (questContentElements.length > 0) {
+      const removeAllContent = () => {
+        selectedQuestContent.map((content) => {
+          removeContent(content);
+        });
+      };
+      const styles = {};
+      if (selectedQuestContent.length === 0) {
+        styles.visibility = 'hidden';
+      }
+      questContentActions = (
+        <div styleName="content-actions" style={styles}>
+          <a
+            className="waves-effect waves-default btn-flat"
+            styleName="action"
+            onClick={removeAllContent}>Remove Selected</a>
+        </div>
+      );
+    }
+
     return (
       connectDropTarget(
         <div styleName="quest-content-container">
           {noItemsMessage}
+          {questContentActions}
           {questContentElement}
         </div>
       )
