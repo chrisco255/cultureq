@@ -35,6 +35,6 @@ export default (
     <Route path="pillar"      component={PillarPage} />
     <Route path="content"     component={ContentPage} />
     <Route path="editor"      component={TextEditorPage} />
-    <Route path="curvedfire"  component={QuestPage} />
+    <Route path="quests"  component={QuestPage} />
   </Route>
 );

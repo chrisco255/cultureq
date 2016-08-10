@@ -7,9 +7,9 @@ import _ from 'lodash';
 import { createContent, deleteContent, editContent, finishEdit, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent, quoteChangeContent, authorChangeContent } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
-import Quote from '../../components/cards/quote.component';
-import Video from '../../components/cards/video.component';
-import Action from '../../components/cards/action.component';
+import Quote from '../../components/cards/Quote.component';
+import Video from '../../components/cards/Video.component';
+import Action from '../../components/cards/Action.component';
 
 const pillarQuery = `
   {

@@ -3,7 +3,7 @@ import CSSModules from 'react-css-modules';
 import styles from './AnalyticsPage.css';
 import { connect } from 'react-redux';
 import { fetchAnalytics } from '../../reducers/analytics/Analytics.actions';
-import AnalyticCard from '../../components/cards/AnalyticCard.component';
+import AnalyticCard from '../../components/cards/Analytic.component';
 
 const query = `
   {
