@@ -18,7 +18,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
-  devtool: 'cheap-module-source-map'
+  devtool: 'cheap-module-source-map',
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
@@ -58,9 +58,9 @@ module.exports = {
       include: PATHS.app
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style?sourceMap','css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'),
+      loader: ExtractTextPlugin.extract('style?sourceMap', 'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'autoprefixer?browsers=last 2 versions'),
       include: PATHS.app
-    },{
+    }, {
       test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)(\?.*)?$/,
       loader: 'file-loader',
       include: [PATHS.app],
