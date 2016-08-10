@@ -1,5 +1,5 @@
 import { applyMiddleware, createStore, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware, { END } from 'redux-saga';
 import reducer from '../reducers/index';
 import DevTools from '../root/DevTools.component.js';
 import { browserHistory } from 'react-router';
@@ -36,7 +36,7 @@ function configureStore(initialState) {
 	store.runSaga = sagaMiddleware.run;
 	store.close = () => store.dispatch(END);
 	return store;
-};
+}
 
 function getLogin () {
 	let token = null;
