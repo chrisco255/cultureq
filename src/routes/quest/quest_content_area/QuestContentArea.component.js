@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import CSSModules from 'react-css-modules';
 import QuestContentAreaStyles from './QuestContentArea.css';

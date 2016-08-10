@@ -2,7 +2,6 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import CSSModules from 'react-css-modules';
 import ContentPageStyles from '../ContentPage.css';
-import _ from 'lodash';
 import validate from './ContentForm.validation.js';
 
 export const fields = [
@@ -42,7 +41,7 @@ let ContentForm = (props) => {
   if(submitting || !pillarId.value || !type.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
-  
+
   return (
     <div>
       <h1>Create Your Own Cultural Content</h1>

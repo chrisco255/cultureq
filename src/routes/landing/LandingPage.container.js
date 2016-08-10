@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './LandingPage.css';
-import { Link, IndexLink } from 'react-router';
 
 class LandingPage extends Component {
 	render() {
