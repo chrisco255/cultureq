@@ -1,25 +1,21 @@
 import * as ActionTypes from './Analytics.actions';
 
-const defaultState = {
-};
+const defaultState = {};
 
 export default (state = defaultState, action) => {
 	switch(action.type) {
 		case ActionTypes.FETCH_ANALYTICS:
-			console.log('FETCH_ANALYTICS is happening...');
-			break;
+			// console.log('FETCH_ANALYTICS is happening...');
+			return state;
 		case ActionTypes.FETCH_ANALYTICS_SUCCEEDED:
-			return fetchAnalytics(state, action.payload);
+			return {
+				...state,
+				...action.payload.analytics,
+			};
 		case ActionTypes.FETCH_ANALYTICS_FAILED:
 			console.log('FETCH_ANALYTICS_FAILED ❌');
-			break;
+			return state;
+		default:
+			return state;
 	}
-
-	return state;
 };
-
-function fetchAnalytics(state, payload) {
-	state = Object.assign({}, state, payload.analytics);
-	console.log('GOT THOSE ANALTICS. ✅', state);
-	return state;
-}
