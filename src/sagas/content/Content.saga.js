@@ -1,7 +1,6 @@
-import { put, call, fork } from 'redux-saga/effects';
-import { takeEvery, delay } from 'redux-saga';
+import { put, call } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
 import axios from 'axios';
-import { push } from 'react-router-redux';
 import * as ActionTypes from '../../reducers/content/Content.actions';
 
 // Fetch
@@ -113,14 +112,40 @@ export function* watchContentDeleteSubmitted() {
 	yield* takeEvery(ActionTypes.CONTENT_DELETE_SUBMITTED, contentDelete);
 }
 
-export function* contentTitleChange(action) {
+export function* contentDataChange(action) {
 	try {
-		const { contentTitle, index } = action.payload;
-		const titleChangeResponse = yield call(fetch, `
+		const { index } = action.payload;
+		let contentData = '';
+		let dataType = '';
+		if (action.type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
+			contentData = action.payload.contentAuthor;
+			dataType = 'author';
+		} else if (action.type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
+			contentData = action.payload.contentQuote;
+			dataType = 'quote';
+		} else if (action.type === 'CONTENT_URL_CHANGE_SUBMITTED') {
+			contentData = action.payload.contentUrl;
+			dataType = 'url';
+		} else if (action.type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
+			contentData = action.payload.contentDescription;
+			dataType = 'description';
+		} else if (action.type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
+			contentData = action.payload.contentTitle;
+			dataType = 'title';
+		} else if (action.type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
+			contentData = action.payload.contentRecipient;
+			dataType = 'recipient';
+		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
+			contentData = action.payload.contentRecipientPosition;
+			dataType = 'recipientPosition';
+		} else {
+			console.log('😳');
+		}
+		const dataChangeResponse = yield call(fetch, `
 			mutation {
 				mutation: CONTENT_DATA_CHANGE(
 					data: {
-						title: "${contentTitle}"
+						${dataType}: "${contentData}"
 					}
 					index: ${index}
 				) {
@@ -139,84 +164,62 @@ export function* contentTitleChange(action) {
 					}
 			  }
 			}`);
-		const payload = titleChangeResponse.mutation;
-		yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_SUCCEEDED, payload } );
+		const payload = dataChangeResponse.mutation;
+		if (action.type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_AUTHOR_CHANGE_SUCCEEDED, payload } );
+		} else if (action.type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_QUOTE_CHANGE_SUCCEEDED, payload } );
+		} else if (action.type === 'CONTENT_URL_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_URL_CHANGE_SUCCEEDED, payload } );
+		} else if (action.type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUCCEEDED, payload } );
+		} else if (action.type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_SUCCEEDED, payload } );
+		} else if (action.type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_SUCCEEDED, payload } );
+		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED, payload } );
+		}else {
+			console.log('😳');
+		}
 	} catch (error) {
-		yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_FAILED, error} );
+		if (action.type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_AUTHOR_CHANGE_FAILED, error} );
+		} else if (action.type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_QUOTE_CHANGE_FAILED, error} );
+		} else if (action.type === 'CONTENT_URL_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_URL_CHANGE_FAILED, error} );
+		} else if (action.type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_FAILED, error} );
+		} else if (action.type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_FAILED, error} );
+		} else if (action.type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_FAILED, error} );
+		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_FAILED, error} );
+		} else {
+			console.log(error);
+		}
 	}
 }
-export function* watchContentTitleChangeSubmitted() {
-	yield* takeEvery(ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED, contentTitleChange);
+export function* watchContentAuthorChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_AUTHOR_CHANGE_SUBMITTED, contentDataChange);
 }
-
-export function* contentDescriptionChange(action) {
-	try {
-		const { contentDescription, index } = action.payload;
-		const descriptionChangeResponse = yield call(fetch, `
-			mutation {
-				mutation: CONTENT_DATA_CHANGE(
-					data: {
-						description: "${contentDescription}"
-					}
-					index: ${index}
-				) {
-			    _id
-					type
-					pillarId
-					isDeleted
-					data {
-						title
-						description
-						url
-						quote
-						author
-						recipient
-						recipientPosition
-					}
-			  }
-			}`);
-		const payload = descriptionChangeResponse.mutation;
-		yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUCCEEDED, payload } );
-	} catch (error) {
-		yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_FAILED, error} );
-	}
-}
-export function* watchContentDescriptionChangeSubmitted() {
-	yield* takeEvery(ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUBMITTED, contentDescriptionChange);
-}
-
-export function* contentUrlChange(action) {
-	try {
-		const { contentUrl, index } = action.payload;
-		const urlChangeResponse = yield call(fetch, `
-			mutation {
-				mutation: CONTENT_DATA_CHANGE(
-					data: {
-						url: "${contentUrl}"
-					}
-					index: ${index}
-				) {
-			    _id
-					type
-					pillarId
-					isDeleted
-					data {
-						title
-						description
-						url
-						quote
-						author
-						recipient
-						recipientPosition
-					}
-			  }
-			}`);
-		const payload = urlChangeResponse.mutation;
-		yield put( {type: ActionTypes.CONTENT_URL_CHANGE_SUCCEEDED, payload } );
-	} catch (error) {
-		yield put( {type: ActionTypes.CONTENT_URL_CHANGE_FAILED, error} );
-	}
+export function* watchContentQuoteChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_QUOTE_CHANGE_SUBMITTED, contentDataChange);
 }
 export function* watchContentUrlChangeSubmitted() {
-	yield* takeEvery(ActionTypes.CONTENT_URL_CHANGE_SUBMITTED, contentUrlChange);
+	yield* takeEvery(ActionTypes.CONTENT_URL_CHANGE_SUBMITTED, contentDataChange);
+}
+export function* watchContentDescriptionChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUBMITTED, contentDataChange);
+}
+export function* watchContentTitleChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED, contentDataChange);
+}
+export function* watchContentRecipientChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_RECIPIENT_CHANGE_SUBMITTED, contentDataChange);
+}
+export function* watchContentRecipientPositionChangeSubmitted() {
+	yield* takeEvery(ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED, contentDataChange);
 }
