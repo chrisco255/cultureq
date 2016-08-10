@@ -4,21 +4,20 @@ import { connect } from 'react-redux';
 import CompanyForm from './company_form/CompanyForm.component';
 import { fetchCompanies, companySubmitted } from '../../reducers/company/Company.actions';
 import styles from './CompanyPage.css';
-import axios from 'axios';
 
 const query = `
-{
-  tenants {
-    _id
-    name
-    address
-    contact {
+  {
+    tenants {
+      _id
       name
-      email
-      phone
+      address
+      contact {
+        name
+        email
+        phone
+      }
     }
   }
-}
 `;
 
 const mapDispatchToProps = (dispatch) => ({

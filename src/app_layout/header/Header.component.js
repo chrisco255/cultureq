@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import { logout, login } from '../../reducers/user/User.actions';
 import styles from './Header.component.css';
-import KometLogo from '../../assets/images/komet-logo.svg';
+import CultureLogo from '../../assets/images/culture-logo.svg';
 
 const mapStateToProps = (state) => ({
 		lock: state.user.lock,
@@ -59,7 +59,7 @@ class Header extends Component {
 						<div>
 							<div styleName="flex-container">
 								<div styleName="logo-container">
-		     					<img styleName="brand-logo" src={KometLogo} />
+		     					<img styleName="brand-logo" src={CultureLogo} />
 									<div styleName="brand-title">
 										<IndexLink to="/">CultureQ</IndexLink>
 									</div>

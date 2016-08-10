@@ -1,73 +1,60 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from './card.css';
-import _ from 'lodash';
+import styles from './card.component.css';
+import QuestContentItemStyles from '../../routes/quest/quest_content_item/QuestContentItem.css';
 
 class Quote extends Component {
 
   onQuoteEditSubmit = (event) => {
     event.preventDefault();
-    console.log(this.refs.contentThatIsBeingEditedInput.value);
+    this.props.quoteChangeContent(this.refs.quoteThatIsBeingEditedInput.value, this.props.contentThatIsBeingEditedIndex);
+  }
+
+  onAuthorEditSubmit = (event) => {
+    event.preventDefault();
+    this.props.authorChangeContent(this.refs.authorThatIsBeingEditedInput.value, this.props.contentThatIsBeingEditedIndex);
   }
 
   render() {
-    const { key, data, content, index, pillarName, deleteContent, editContent, isEditing, contentThatIsBeingEdited, contentThatIsBeingEditedIndex } = this.props;
-
-    const quoteIcon = {
-      fontSize: '-webkit-xxx-large'
-    };
-
-    const iconContainer = {
-      display: 'flex',
-      justifyContent: 'flex-end'
-    };
-
-    const quoteText = {
-      marginTop: 0
-    };
-
-    const quoteContainer = {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-end',
-      marginLeft: '40px',
-      marginRight: '40px'
-    };
+    const { key, data, content, index, deleteContent, editContent, isEditing, contentThatIsBeingEditedIndex, finishEdit } = this.props;
 
     if(isEditing && index === contentThatIsBeingEditedIndex) {
       return (
-        <div className="card blue-grey darken-1" key={key}>
-          <div className="card-content white-text">
-            <div styleName="pillar-badge">EDITING</div>
-            <form>
-              <div className="input-field">
-                <input ref="contentThatIsBeingEditedInput" id="quote" defaultValue={data.quote} type="text" className="validate" onBlur={this.onQuoteEditSubmit} />
-                <label htmlFor="quote">Quote</label>
-              </div>
-            </form>
+        <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item">
+          <div className="card-content" styleName="card-content">
+          <form>
+            <div className="input-field">
+              <input ref="quoteThatIsBeingEditedInput" id="quote" defaultValue={data.quote} type="text" className="validate" onBlur={this.onQuoteEditSubmit} />
+              <label htmlFor="quote" className="active">Quote</label>
+            </div>
+            <div className="input-field">
+              <input ref="authorThatIsBeingEditedInput" id="author" defaultValue={data.author} type="text" className="validate" onBlur={this.onAuthorEditSubmit} />
+              <label htmlFor="author" className="active">Author</label>
+            </div>
+          </form>
           </div>
-          <div className="card-action" styleName="flex-space-between">
-            <a className="hand" onClick={editContent.bind(this, content, index)}>DONE</a>
+          <div styleName="buttons">
+            <a className="waves-effect waves-default btn-flat right" styleName="button" onClick={finishEdit.bind(this)}>done</a>
           </div>
         </div>
       );
     }
 
     return (
-      <div className="card blue-grey darken-1" key={key}>
-        <div className="card-content white-text">
-          <div styleName="pillar-badge">{pillarName}</div>
-          <div style={iconContainer}>
-            <i className="material-icons" style={quoteIcon}>format_quote</i>
-          </div>
-          <div style={quoteContainer}>
-            <h4 style={quoteText}><em>{data.quote}</em></h4>
-            <p>- {data.author}</p>
+      <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item">
+        <div className="card-content" styleName="card-content">
+          {/*<div className="card-title" styleName="card-title">Content #{index + 1}</div>*/}
+           <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+             <i className="material-icons" style={{fontSize: '-webkit-xxx-large'}}>format_quote</i>
+           </div>
+          <div>
+            <div styleName="card-description">{data.quote}</div>
+            <p style={{textAlign: 'right'}} className="accent-text"><em>- {data.author}</em></p>
           </div>
         </div>
-        <div className="card-action" styleName="flex-space-between">
-          <a className="hand" onClick={editContent.bind(this, content, index)}>Edit</a>
-          <a className="hand" onClick={deleteContent.bind(this, content)}><i className="material-icons">delete</i></a>
+        <div styleName="buttons">
+          <a className="waves-effect waves-default btn-flat" styleName="button" onClick={editContent.bind(this, content, index)}>edit</a>
+          <a className="waves-effect waves-default btn-flat" styleName="button" onClick={deleteContent.bind(this, content)}>remove</a>
         </div>
       </div>
     );
@@ -84,8 +71,11 @@ Quote.propTypes = {
   editContent: PropTypes.func,
   isEditing: PropTypes.bool,
   contentThatIsBeingEdited: PropTypes.object,
-  contentThatIsBeingEditedIndex: PropTypes.number
+  contentThatIsBeingEditedIndex: PropTypes.number,
+  finishEdit: PropTypes.func,
+  authorChangeContent: PropTypes.func,
+  quoteChangeContent: PropTypes.func
 };
 
-Quote = CSSModules(Quote, styles);
+Quote = CSSModules(Quote, QuestContentItemStyles);
 export default Quote;

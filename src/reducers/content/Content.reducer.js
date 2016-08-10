@@ -162,14 +162,16 @@ function contentDataChanged(actionType, state, contents, index, payloadDataType,
     console.log(`${actionType} ▶️`, payloadDataType);
     const newContent = Object.assign({}, contents[index], {
         data: Object.assign({}, contents[index].data, {
-                [keyType]: payloadDataType
-            })
+            [keyType]: payloadDataType
+        })
     });
-    return [
-        ...contents.slice(0, index),
-        newContent,
-        ...contents.slice(index + 1)
-    ];
+    return Object.assign({}, state, {
+        contents: [
+            ...contents.slice(0, index),
+            newContent,
+            ...contents.slice(index + 1)
+        ]
+    });
 }
 
 /*

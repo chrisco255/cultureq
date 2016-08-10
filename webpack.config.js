@@ -84,8 +84,8 @@ var config = {
       include: PATHS.app
     }, {
       test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)(\?.*)?$/,
-      include: [PATHS.app],
       loader: 'file-loader',
+      include: [PATHS.app],
       query: {
         name: 'static/media/[name].[ext]'
       }
