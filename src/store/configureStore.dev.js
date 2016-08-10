@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, composes } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducer from '../reducers/index';
 import DevTools from '../root/DevTools.component.js';
@@ -15,7 +15,7 @@ function configureStore(initialState) {
 	const store = createStore(
 		reducer,
 		 initialState,
-		composes(
+		compose(
 			applyMiddleware(sagaMiddleware, officalRouterMiddleware),
 
 			window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()
