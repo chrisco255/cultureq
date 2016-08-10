@@ -71,21 +71,42 @@ const dropTargetCollect = (connect, monitor) => {
 class QuestContentItem extends Component {
 
 	render() {
-    const { content, connectDragSource, connectDropTarget, isDragging } = this.props;
+    const { content, connectDragSource, connectDropTarget, isDragging, removeContent, selectContent, deselectContent } = this.props;
 
     const styles = {};
     if (isDragging) styles.opacity = 0;
+    if (content.isSelected) styles.backgroundColor = '#f1f1f1';
+
+    const selectToggle = content.isSelected ? deselectContent : selectContent;
+
+    const removeContentWrapper = (event, content) => {
+      event.preventDefault();
+      event.stopPropagation();
+      removeContent(content);
+    };
+
+    const editContentWrapper = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      //edit here
+    };
 
     return (
       connectDragSource(connectDropTarget(
-        <div className="card" style={styles} styleName="quest-content-item">
+        <div className="card" style={styles} styleName="quest-content-item" onClick={() => {selectToggle(content);}}>
           <div className="card-content" styleName="card-content">
             <div className="card-title" styleName="card-title">{content.title}</div>
             <div styleName="card-description">{content.description}</div>
           </div>
           <div styleName="buttons">
-            <a className="waves-effect waves-default btn-flat" styleName="button">edit</a>
-            <a className="waves-effect waves-default btn-flat" styleName="button">remove</a>
+            <a
+              className="waves-effect waves-default btn-flat"
+              styleName="button"
+              onClick={(event) => {editContentWrapper(event);}}>edit</a>
+            <a
+              className="waves-effect waves-default btn-flat"
+              styleName="button"
+              onClick={(event) => {removeContentWrapper(event, content);}}>remove</a>
           </div>
         </div>
       )

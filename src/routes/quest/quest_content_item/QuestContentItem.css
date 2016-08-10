@@ -29,6 +29,8 @@
 .card-title {
   font-size: 1.5rem;
   color: #646464;
+  line-height: 30px !important;
+  margin-bottom: 8px;
   composes: lato-bold from '../../../styles/fonts.css';
 }
 

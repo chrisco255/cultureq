@@ -5,7 +5,8 @@ import {
 	CONTENT_REMOVE_FAILED,
 	CONTENT_SELECT_SUBMITTED,
 	CONTENT_DESELECT_SUBMITTED,
-	CONTENT_ORDER_CHANGE_SUBMITTED
+	CONTENT_ORDER_CHANGE_SUBMITTED,
+	FILTER_TEXT_CHANGE_SUBMITTED
 } from './Quest.actions';
 
 const defaultState = {
@@ -13,8 +14,8 @@ const defaultState = {
     {
 			_id: 'a',
 			selected: false,
-      title: 'Content Title 1',
-      description: 'This is a description for content 1',
+      title: 'Fierce Conversations I',
+      description: 'One must transform everyday conversations employing effective ways to get the message across.',
       data: {
         type: 'VIDEO',
         title: 'This is a video',
@@ -25,8 +26,8 @@ const defaultState = {
     {
 			_id: 'b',
 			selected: false,
-      title: 'Content Title 2',
-      description: 'This is a description for content 2',
+      title: 'Fierce Conversations II',
+      description: 'Includes exercises and tools to take you step by step through the Seven Principles of Fierce Conversations.',
       data: {
         type: 'VIDEO',
         title: 'This is a video',
@@ -37,8 +38,8 @@ const defaultState = {
     {
 			_id: 'c',
 			selected: false,
-      title: 'Content Title 3',
-      description: 'This is a description for content 3',
+      title: 'Servant Leadership I',
+      description: 'Philosophy and set of practices that enriches the lives of individuals, builds better organizations and ultimately creates a more just and caring world.',
       data: {
         type: 'VIDEO',
         title: 'This is a video',
@@ -49,8 +50,8 @@ const defaultState = {
     {
 			_id: 'd',
 			selected: false,
-      title: 'Content Title 4',
-      description: 'This is a description for content 4',
+      title: 'Trivia Pack',
+      description: 'HR fun facts',
       data: {
         type: 'VIDEO',
         title: 'This is a video',
@@ -61,8 +62,8 @@ const defaultState = {
     {
 			_id: 'e',
 			selected: false,
-      title: 'Content Title 5',
-      description: 'This is a description for content 5',
+      title: 'Aspirations Survey',
+      description: 'Survey to assess the future goals and desires of our employees.',
       data: {
         type: 'QUOTE',
         quote: 'Abraham Lincoln probably said this at one point',
@@ -72,8 +73,8 @@ const defaultState = {
     {
 			_id: 'f',
 			selected: false,
-      title: 'Content Title 6',
-      description: 'This is a description for content 6',
+      title: 'Community Service Video',
+      description: 'Working at a local recycling facility.',
       data: {
         type: 'QUOTE',
         quote: 'Einstein probably said this at one point',
@@ -83,8 +84,8 @@ const defaultState = {
     {
 			_id: 'g',
 			selected: false,
-      title: 'Content Title 7',
-      description: 'This is a description for content 7',
+      title: 'Inspirational Note',
+      description: 'Random quote to inspire employees.',
       data: {
         type: 'QUOTE',
         quote: 'Some president probably said this at one point',
@@ -94,8 +95,8 @@ const defaultState = {
     {
 			_id: 'h',
 			selected: false,
-      title: 'Content Title 8',
-      description: 'This is a description for content 8',
+      title: 'How to Give Tough Feedback',
+      description: 'Giving developmental feedback that sparks growth is a critical challenge to master.',
       data: {
         type: 'LUNCH',
         recipient: 'Madam Curie',
@@ -105,19 +106,41 @@ const defaultState = {
     {
 			_id: 'i',
 			selected: false,
-      title: 'Content Title 9',
-      description: 'This is a description for content 9',
+      title: 'How to Hold a Retrospective',
+      description: 'Setting the context at the beginning of any meeting is the first step you can take to ensure that the meeting is effective.',
       data: {
         type: 'LUNCH',
         recipient: 'Brent Spiner',
         recipientPosition: 'Lt. Commander'
       }
     },
-    {
+		{
 			_id: 'j',
 			selected: false,
-      title: 'Content Title 10',
-      description: 'This is a description for content 10',
+      title: 'Founding Principles',
+      description: 'Helps to instill the key values of our company in its employees.',
+      data: {
+        type: 'LUNCH',
+        recipient: 'Patrick Stewart',
+        recipientPosition: 'Captain'
+      }
+    },
+		{
+			_id: 'k',
+			selected: false,
+      title: 'Selfie Challenge',
+      description: 'Challenge employees to meet key figures within the organization.',
+      data: {
+        type: 'LUNCH',
+        recipient: 'Patrick Stewart',
+        recipientPosition: 'Captain'
+      }
+    },
+		{
+			_id: 'l',
+			selected: false,
+      title: 'Traditions',
+      description: 'Overview of company meet-ups, outings, and events.',
       data: {
         type: 'LUNCH',
         recipient: 'Patrick Stewart',
@@ -129,7 +152,8 @@ const defaultState = {
     title: null,
     description: null,
 		content: []
-  }
+  },
+	filterText: ''
 };
 
 export default (state = defaultState, action) => {
@@ -145,6 +169,8 @@ export default (state = defaultState, action) => {
 			return contentDeselectSubmitted(state, payload);
 		case CONTENT_ORDER_CHANGE_SUBMITTED:
 			return contentOrderChangeSubmitted(state, payload);
+		case FILTER_TEXT_CHANGE_SUBMITTED:
+			return filterTextChangeSubmitted(state, payload);
     default:
       return state;
 	}
@@ -161,6 +187,7 @@ function contentAddSubmitted(state, { content }) {
 }
 
 function contentRemoveSubmitted(state, { content }) {
+	content = { ...content, isSelected: false};
 	const modifiedQuest = { ...state.newQuest, content:state.newQuest.content.filter(questContent => questContent._id !== content._id) };
 	state = { ...state,
 						newQuest: modifiedQuest,
@@ -169,34 +196,44 @@ function contentRemoveSubmitted(state, { content }) {
 	return state;
 }
 
-function contentSelectSubmitted(state, { content }) {
-	const contentIndex = state.contentPool.findIndex((poolContent) => {
+function contentSelectStateChanged(state, content, selected) {
+	const modifiedContent = { ...content, isSelected: selected };
+	//content could either be in quest content or content pool
+	const contentPoolIndex = state.contentPool.findIndex((poolContent) => {
 		return poolContent._id === content._id;
 	});
-	const modifiedContent = { ...content, isSelected: true };
-	state = { ...state,
-						contentPool: [
-							...state.contentPool.slice(0, contentIndex),
-							modifiedContent,
-							...state.contentPool.slice(contentIndex + 1)
-						]
-					};
+	if (contentPoolIndex > -1) {
+		state = { ...state,
+							contentPool: [
+								...state.contentPool.slice(0, contentPoolIndex),
+								modifiedContent,
+								...state.contentPool.slice(contentPoolIndex + 1)
+							]
+						};
+	} else {
+		const questContentIndex = state.newQuest.content.findIndex((questContent) => {
+			return questContent._id === content._id;
+		});
+		const modifiedQuest = { ...state.newQuest,
+														content: [
+															...state.newQuest.content.slice(0, questContentIndex),
+															modifiedContent,
+															...state.newQuest.content.slice(questContentIndex + 1)
+														]
+													};
+		state = { ...state,
+							newQuest: modifiedQuest,
+						};
+	}
 	return state;
 }
 
+function contentSelectSubmitted(state, { content }) {
+	return contentSelectStateChanged(state, content, true);
+}
+
 function contentDeselectSubmitted(state, { content }) {
-	const contentIndex = state.contentPool.findIndex((poolContent) => {
-		return poolContent._id === content._id;
-	});
-	const modifiedContent = { ...content, isSelected: false };
-	state = { ...state,
-						contentPool: [
-							...state.contentPool.slice(0, contentIndex),
-							modifiedContent,
-							...state.contentPool.slice(contentIndex + 1)
-						]
-					};
-	return state;
+	return contentSelectStateChanged(state, content, false);
 }
 
 function contentOrderChangeSubmitted(state, { oldIndex, newIndex }) {
@@ -210,5 +247,10 @@ function contentOrderChangeSubmitted(state, { oldIndex, newIndex }) {
 		newQuest: modifiedQuest
 	};
 	console.log('new modified quest content - ', modifiedQuest.content);
+	return state;
+}
+
+function filterTextChangeSubmitted(state, { text }) {
+	state = { ...state, filterText:text };
 	return state;
 }

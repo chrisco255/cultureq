@@ -3,18 +3,25 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
+  background-image: url('../../../assets/images/checkerboard.svg');
+  padding: 20px;
 }
 
-.quest-content {
+.content-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content-actions .action:not(:last-child) {
+  margin-right: 10px;
+}
+
+.quest-content-items {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  overflow-y: auto;
 }
-
-/*.quest-content > div {
-  margin: .5%;
-  width: 32%
-}*/
 
 .no-items-message {
   flex: 1;

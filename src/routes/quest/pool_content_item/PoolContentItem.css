@@ -14,6 +14,8 @@
   display: flex;
   flex-direction: row;
   position: relative;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .content-card:not(:last-child) {
@@ -33,6 +35,10 @@
 
 .card-description {
   font-size: 1rem;
+  white-space: nowrap;
+  width: 170px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .card-column {
@@ -59,4 +65,6 @@
 
 .bottom-buttons .button img {
   margin-right: 5px;
+  position: relative;
+  top: 9px;
 }

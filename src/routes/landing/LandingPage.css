@@ -1,0 +1,19 @@
+.app-title {
+	composes: ubuntu from '../../styles/fonts.css';
+	font-size: 48px;
+	margin-bottom: 16px;
+}
+
+.app-description {
+	font-size: 28px;
+}
+
+.app-header {
+	composes: primary-background from '../../styles/colors.css';
+	composes: white-text from '../../styles/colors.css';
+	composes: lato from '../../styles/fonts.css';
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

@@ -41,8 +41,10 @@ class Header extends Component {
       }
 
       this.props.onLogIn({ token, profile });
+			this.props.redirect('/');
     });
 	}
+
 	logOut = () => {
 		this.props.onLogOut();
 		this.props.redirect('/');
@@ -72,13 +74,13 @@ class Header extends Component {
 						</div>
 					</nav>
 				</div>
-				<div className="navbar-fixed">
+				{loggedIn && <div className="navbar-fixed">
 					<nav styleName="bottom-navbar">
 						<div styleName="bottom-navbar-fixed">
 							<div styleName="flex-container">
 								<div styleName="nav-items">
 									<ul>
-										{loggedIn && routes.map( route => {
+										{routes.map( route => {
 												const isActive = (location.pathname === route.path);
 												const className = isActive ? 'active-item' : '';
 												if(route.isIndex) {
@@ -93,7 +95,7 @@ class Header extends Component {
 							</div>
 						</div>
 					</nav>
-    		</div>
+    		</div>}
 			</div>
 		);
 	}

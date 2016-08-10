@@ -1,11 +1,6 @@
 import * as ActionTypes from './User.actions';
-import Auth0Lock from 'auth0-lock';
 
-const defaultState = {
-	lock: new Auth0Lock('Ty9ofoTxjYJqOlCSnqKhaSDWPurI3DzU', 'ultilabs.auth0.com'),
-	token: null,
-	profile: null
-};
+const defaultState = {};
 
 export default (state = defaultState, action) => {
 
