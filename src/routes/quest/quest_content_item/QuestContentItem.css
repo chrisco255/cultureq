@@ -7,6 +7,19 @@
   margin: 8px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.quest-content-item-video {
+  background-color: #FFF;
+  border-radius: 6px;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.10);
+  width: 20rem;
+  height: 21rem;
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .card-content {

@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules';
 import ContentPageStyles from './ContentPage.css';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import { createContent, deleteContent, editContent, finishEdit, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent } from '../../reducers/content/Content.actions';
+import { createContent, deleteContent, editContent, finishEdit, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent, quoteChangeContent, authorChangeContent } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/quote.component';
@@ -56,6 +56,10 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(descriptionChangeContent(content, index)),
     urlChangeContent: (content, index) =>
       dispatch(urlChangeContent(content, index)),
+    quoteChangeContent: (content, index) =>
+      dispatch(quoteChangeContent(content, index)),
+    authorChangeContent: (content, index) =>
+      dispatch(authorChangeContent(content, index)),
 		onLoad: () => {
       dispatch(fetchPillars({ query:pillarQuery }));
       dispatch(fetchContents({ query:contentQuery }));
@@ -85,6 +89,7 @@ class ContentPage extends Component {
 	render() {
 
 		let listContents = null;
+
     const activeContents = this.props.contents.filter((content) => !content.isDeleted);
 
     if(activeContents.length > 0) {
@@ -95,7 +100,8 @@ class ContentPage extends Component {
           return (
               <div>
                 { content.type === 'QUOTE' &&
-                  <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} /> }
+                  <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} finishEdit={this.props.finishEdit}
+                  authorChangeContent={this.props.authorChangeContent} quoteChangeContent={this.props.quoteChangeContent} /> }
                 { content.type === 'VIDEO' &&
                   <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} titleChangeContent={this.props.titleChangeContent}
                          descriptionChangeContent={this.props.descriptionChangeContent}
@@ -132,7 +138,7 @@ class ContentPage extends Component {
             <div className="container">
               <h1>Your Content</h1>
               <hr/>
-              <div>{listContents}</div>
+              <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>{listContents}</div>
             </div>
           </div> }
 

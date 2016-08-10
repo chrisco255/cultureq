@@ -42,9 +42,7 @@ let ContentForm = (props) => {
   if(submitting || !pillarId.value || !type.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
-  console.log(pillarId.value);
-  console.log(type.value);
-
+  
   return (
     <div>
       <h1>Create Your Own Cultural Content</h1>

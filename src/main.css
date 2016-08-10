@@ -26,3 +26,12 @@ h1 {
   line-height: 32px !important;
   font-weight: 700  !important;
 }
+
+input[type=text]:focus:not([readonly])+label {
+    color: #757575 !important;
+}
+
+input[type=text]:focus.valid {
+  border-bottom: 2px solid #FF9800 !important;
+  box-shadow: none !important;
+}
