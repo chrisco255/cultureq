@@ -9,5 +9,5 @@
 }
 
 .accent-background {
-  composes: accent-background from "../../styles/colors.css";
+  compose: accent-background from "../../styles/compose.css";
 }

@@ -1,5 +1,5 @@
 .app-title {
-	composes: ubuntu from '../../styles/fonts.css';
+	compose: ubuntu from '../../styles/compose.css';
 	font-size: 48px;
 	margin-bottom: 16px;
 }
@@ -9,9 +9,8 @@
 }
 
 .app-header {
-	composes: primary-background from '../../styles/colors.css';
-	composes: white-text from '../../styles/colors.css';
-	composes: lato from '../../styles/fonts.css';
+	compose: primary-background from '../../styles/compose.css';
+	compose: white-text from '../../styles/compose.css';
 	height: 400px;
 	display: flex;
 	align-items: center;

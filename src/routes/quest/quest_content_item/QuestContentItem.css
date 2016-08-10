@@ -31,7 +31,7 @@
   color: #646464;
   line-height: 30px !important;
   margin-bottom: 8px;
-  composes: lato-bold from '../../../styles/fonts.css';
+  compose: lato-bold from '../../../styles/compose.css';
 }
 
 .card-description {

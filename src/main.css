@@ -1,4 +1,4 @@
- :global(.hand) {
+.hand {
     cursor: pointer;
 }
 input:not([type]):focus:not([readonly]),
@@ -15,7 +15,7 @@ input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]),
     box-shadow: none !important;
 }
 
-:global(.btn) {
+.btn {
     text-transform: capitalize !important;
 }
 
