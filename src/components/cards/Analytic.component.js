@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from './card.component.css';
+import styles from './Card.component.css';
 
 let AnalyticCard = (props) => {
   const { isGood, isPercentage, title, value, valueChange, valueOutOf, valueUnits, } = props;
