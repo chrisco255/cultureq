@@ -1,6 +1,6 @@
 const config = {
-  url: 'https://54.149.240.106:8000',
-  socketUrl: 'https://54.149.240.106:8004',
+  url: 'http://54.149.240.106:8000',
+  socketUrl: 'http://54.149.240.106:8004',
   useSockets: false,
   port: 80
 };
