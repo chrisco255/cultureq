@@ -39,10 +39,10 @@ class QuestContentArea extends Component {
 			);
 		});
 
-    let noItemsMessage = null;
-    if (questContentElements.length === 0) {
-      noItemsMessage = <div styleName="no-items-message">Please add a card</div>;
-    }
+    // let noItemsMessage = null;
+    // if (questContentElements.length === 0) {
+    //   noItemsMessage = <div styleName="no-items-message">Please add a card</div>;
+    // }
     //TODO use a JS based animation library to make it so the last removed
     //element does not just dissapear - it should animate out instead
     //temporary half-fix
@@ -88,7 +88,7 @@ class QuestContentArea extends Component {
     return (
       connectDropTarget(
         <div styleName="quest-content-container">
-          {noItemsMessage}
+          {/* {noItemsMessage} */}
           {questContentActions}
           {questContentElement}
         </div>
