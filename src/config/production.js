@@ -1,8 +1,8 @@
 const config = {
-  url: 'http://0.0.0.0:8003',
+  url: 'http://54.149.240.106:8000',
   socketUrl: 'http://54.149.240.106:8004',
   useSockets: false,
-  port: 3000
+  port: 80
 };
 
 module.exports = config;
