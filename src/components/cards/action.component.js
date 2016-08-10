@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './card.css';
-import _ from 'lodash';
+import QuestContentItemStyles from '../../routes/quest/quest_content_item/QuestContentItem.css';
 
 class Action extends Component {
   render() {
-    let { key, data, content, index, pillarName, deleteContent } = this.props;
+    const { key, data, content, index, pillarName, deleteContent } = this.props;
 
     return (
       <div className="card blue-grey darken-1" key={key}>
