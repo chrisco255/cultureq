@@ -89,7 +89,6 @@
     "redux-saga": "0.11.0",
     "rimraf": "^2.5.4",
     "socket.io-client": "^1.4.6",
-    "sortablejs": "^1.4.2",
     "validations": "bitbucket:ultilabs/validations#HEAD"
   }
 }
