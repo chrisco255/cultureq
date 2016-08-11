@@ -1,7 +1,7 @@
-import { createValidator, required, minLength, uuid } from 'validations';
+import { createValidator, required, minLength } from 'validations';
 
 const contentValidation = createValidator({
-  pillarId: [required, uuid],
+  pillarId: [required],
   type: [required],
   data: {
     title: [minLength(3)],

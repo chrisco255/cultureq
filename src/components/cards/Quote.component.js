@@ -16,7 +16,9 @@ class Quote extends Component {
   }
 
   render() {
-    const { key, data, content, index, deleteContent, editContent, isEditing, contentThatIsBeingEditedIndex, finishEdit } = this.props;
+    const { key, data, content, index, deleteContent, editContent, isEditing, contentThatIsBeingEditedIndex, finishEdit, pillarName } = this.props;
+
+    console.log(pillarName);
 
     if(isEditing && index === contentThatIsBeingEditedIndex) {
       return (
@@ -40,9 +42,17 @@ class Quote extends Component {
       );
     }
 
+    let contentPaddingTop = {};
+    if (pillarName !== 'noPillar') {
+      contentPaddingTop.paddingTop = '10px';
+    } else {
+      delete contentPaddingTop.paddingTop;
+    }
+
     return (
       <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item">
-        <div className="card-content" styleName="card-content">
+        { pillarName !== 'noPillar' && <div className="accent-background white-text" style={{textAlign: 'center'}}>{pillarName}</div>}
+        <div className="card-content" styleName="card-content" style={contentPaddingTop}>
           {/*<div className="card-title" styleName="card-title">Content #{index + 1}</div>*/}
            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
              <i className="material-icons" style={{fontSize: '-webkit-xxx-large'}}>format_quote</i>

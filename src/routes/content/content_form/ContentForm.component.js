@@ -18,8 +18,8 @@ export const fields = [
 
 // Data Types
 const types = [{
-  value: 'lunch',
-  name: 'Lunch Meeting'
+  value: 'richtext',
+  name: 'Rich Text'
 }, {
   value: 'video',
   name: 'Video'
@@ -44,8 +44,7 @@ let ContentForm = (props) => {
 
   return (
     <div>
-      <h1>Create Your Own Cultural Content</h1>
-      <hr />
+      <h1>Create Content</h1>
       <form onSubmit={handleSubmit}>
         <div className="card">
           <div className="card-content">
@@ -60,6 +59,7 @@ let ContentForm = (props) => {
                         return (<option key={pillar._id} value={pillar._id}>{pillar.name}</option>);
                       }
                     }) }
+                    <option key='noPillar' value='noPillar'>No Pillar Assigned</option>
                   </select>
                 </div>
                 <div>

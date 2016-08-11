@@ -4,6 +4,7 @@ import _ from 'lodash';
 const defaultState = {
     contents: [],
     isEditing: false,
+    isCreatingContent: false,
     contentThatIsBeingEdited: null,
     contentThatIsBeingEditedIndex: -1
 };
@@ -37,6 +38,8 @@ export default (state = defaultState, action) => {
             return editContent(state, action.payload);
         case ActionTypes.FINISH_EDIT:
             return finishEdit(state);
+        case ActionTypes.FORM_ENABLE:
+            return formEnable(state, action.payload);
 
         case ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED:
             return contentDataChanged('CONTENT_TITLE_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentTitle, 'title');
@@ -156,6 +159,12 @@ function finishEdit(state) {
         contentThatIsBeingEdited: 'NOTHING',
         contentThatIsBeingEditedIndex: -1,
     });
+}
+
+function formEnable(state, payload) {
+  return Object.assign({}, state, {
+      isCreatingContent: !payload.isCreatingContent
+  });
 }
 
 function contentDataChanged(actionType, state, contents, index, payloadDataType, keyType) {
