@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
 import CSSModules from 'react-css-modules';
 import styles from './QuestContentItem.css';
-import { QUEST_CONTENT_ITEM, CONTENT_POOL } from '../ItemTypes';
+import { QUEST_CONTENT_ITEM, CONTENT_POOL, POOL_CONTENT_ITEM } from '../ItemTypes';
 
 const dragSourceSpec = {
   beginDrag(props) {
     console.log('beginning drag - ', props.index);
     return {
-      id: props.content._id,
+      content: props.content,
       index: props.index,
       type: QUEST_CONTENT_ITEM
     };
@@ -40,9 +40,9 @@ const dropTargetSpec = {
       const yInside = yOffset >= 0 && yOffset <= rect.height;
       return xInside && yInside;
     };
+    const draggedItem = monitor.getItem();
     const draggedIndex = monitor.getItem().index;
     const hoverIndex = props.index;
-    console.log('Hover with indeces - ', draggedIndex, hoverIndex);
 
     if (draggedIndex !== hoverIndex) {
       const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
@@ -54,9 +54,19 @@ const dropTargetSpec = {
       };
       const clientOffset = monitor.getClientOffset();
       if (isPointInsideRect(clientOffset, dropZone)) {
-        console.log('Changing order of content cards - ', draggedIndex, hoverIndex);
-        props.changeContentOrder(draggedIndex, hoverIndex);
-        monitor.getItem().index = hoverIndex;
+        if (draggedItem.type === QUEST_CONTENT_ITEM) {
+          console.log('Changing order of content cards - ', draggedIndex, hoverIndex);
+          props.changeContentOrder(draggedIndex, hoverIndex);
+        } else if (draggedItem.type === POOL_CONTENT_ITEM) {
+          if (draggedItem.hasOwnProperty('index')) {
+            console.log('changing content order');
+            props.changeContentOrder(draggedIndex, hoverIndex);
+          } else {
+            console.log('adding content');
+            props.addContent(draggedItem.content, hoverIndex);
+          }
+        }
+        draggedItem.index = hoverIndex;
       }
     }
   }
@@ -74,7 +84,7 @@ class QuestContentItem extends Component {
     const { content, connectDragSource, connectDropTarget, isDragging, removeContent, selectContent, deselectContent } = this.props;
 
     const styles = {};
-    if (isDragging) styles.opacity = 0;
+    if (isDragging) styles.opacity = .2;
     if (content.isSelected) styles.backgroundColor = '#f1f1f1';
 
     const selectToggle = content.isSelected ? deselectContent : selectContent;
@@ -117,5 +127,5 @@ class QuestContentItem extends Component {
 
 QuestContentItem = CSSModules(QuestContentItem, styles);
 QuestContentItem = DragSource(QUEST_CONTENT_ITEM, dragSourceSpec, dragSourceCollect)(QuestContentItem);
-QuestContentItem = DropTarget(QUEST_CONTENT_ITEM, dropTargetSpec, dropTargetCollect)(QuestContentItem);
+QuestContentItem = DropTarget([QUEST_CONTENT_ITEM, POOL_CONTENT_ITEM], dropTargetSpec, dropTargetCollect)(QuestContentItem);
 export default QuestContentItem;

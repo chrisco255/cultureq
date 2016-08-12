@@ -1,0 +1,25 @@
+.quest-content-placeholder {
+  border: 3px dashed #DFDFDF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.46);
+  /* same as quest content item */
+  width: 20rem;
+  height: 15rem;
+  margin: 8px;
+}
+
+.placeholder-content {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.17);
+}
+
+.icon {
+  margin-bottom: 15px;
+  font-size: 36px;
+}
+
+.text {
+  font-size: 24px;
+}

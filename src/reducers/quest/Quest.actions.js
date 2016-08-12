@@ -14,11 +14,12 @@ export const CONTENT_ORDER_CHANGE_SUBMITTED = 'CONTENT_ORDER_CHANGE_SUBMITTED';
 
 export const FILTER_TEXT_CHANGE_SUBMITTED = 'FILTER_TEXT_CHANGE_SUBMITTED';
 
-export function addContent ({ content }) {
+export function addContent ({ content, index }) {
   return {
     type: CONTENT_ADD_SUBMITTED,
     payload: {
-      content
+      content,
+      index
     }
   };
 }

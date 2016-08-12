@@ -10,14 +10,15 @@ import EditIcon from '../../../assets/images/icon-edit.svg';
 const spec = {
   beginDrag(props) {
     return {
-      id: props.content._id,
-      type: POOL_CONTENT_ITEM
+      content: props.content,
+      type: POOL_CONTENT_ITEM,
+      tempData: {} //used for drag and drop interactions where temporary data needs to be stored
     };
   },
   endDrag(props, monitor) {
     if (monitor.didDrop() && monitor.getDropResult().type === QUEST_CONTENT_AREA) {
       console.log(`Pool content with name ${props.content.title} dropped`);
-      props.addContent(props.content);
+      // props.addContent(props.content);
     }
   }
 };
@@ -25,6 +26,7 @@ const spec = {
 const collect = (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
   };
 };
@@ -38,7 +40,8 @@ class PoolContentItem extends Component {
       addContent,
       selectContent,
       deselectContent,
-      isDragging
+      isDragging,
+      connectDragPreview
     } = this.props;
 
     const styles = {};
@@ -60,8 +63,9 @@ class PoolContentItem extends Component {
     };
 
     return (
-      connectDragSource(
-        <div className="card" styleName="content-card" style={styles} onClick={() => {selectToggle(content);}}>
+      connectDragSource(<div>
+        {connectDragPreview(
+        <div className="card" styleName="content-card">
           <div className="card-content" styleName="card-content">
             <div styleName="card-column">
               <div styleName="card-text">
@@ -79,6 +83,7 @@ class PoolContentItem extends Component {
             </div>
           </div>
         </div>
+      )}</div>
       )
     );
 	}

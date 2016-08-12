@@ -28,8 +28,8 @@ import QuestCreateContainer from './quest_create_container/QuestCreateContainer.
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addContent: (content) => {
-			dispatch(addContent({ content }));
+		addContent: (content, index) => {
+			dispatch(addContent({ content, index }));
 		},
 		removeContent: (content) => {
 			dispatch(removeContent({ content }));

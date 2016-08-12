@@ -8,6 +8,11 @@ import {
 	CONTENT_ORDER_CHANGE_SUBMITTED,
 	FILTER_TEXT_CHANGE_SUBMITTED
 } from './Quest.actions';
+import {
+	immutablyAddElementToArray,
+	immutablyReplaceElementInArray,
+	immutablyRemoveIndexFromArray
+} from '../../utils';
 
 const defaultState = {
 	contentPool: [
@@ -176,9 +181,12 @@ export default (state = defaultState, action) => {
 	}
 };
 
-function contentAddSubmitted(state, { content }) {
+function contentAddSubmitted(state, { content, index }) {
 	content = { ...content, isSelected: false};
-	const modifiedQuest = { ...state.newQuest, content:state.newQuest.content.concat(content) };
+	console.log('info - ', content, ' - ', index);
+	console.log('quest before - ', state.newQuest.content);
+	const modifiedQuest = { ...state.newQuest, content:immutablyAddElementToArray(state.newQuest.content, content, index) };
+	console.log('quest after - ', modifiedQuest);
 	state = { ...state,
 						newQuest: modifiedQuest,
 						contentPool: state.contentPool.filter(poolContent => poolContent._id !== content._id)
@@ -204,22 +212,14 @@ function contentSelectStateChanged(state, content, selected) {
 	});
 	if (contentPoolIndex > -1) {
 		state = { ...state,
-							contentPool: [
-								...state.contentPool.slice(0, contentPoolIndex),
-								modifiedContent,
-								...state.contentPool.slice(contentPoolIndex + 1)
-							]
+							contentPool: immutablyReplaceElementInArray(state.contentPool, modifiedContent, contentPoolIndex)
 						};
 	} else {
 		const questContentIndex = state.newQuest.content.findIndex((questContent) => {
 			return questContent._id === content._id;
 		});
 		const modifiedQuest = { ...state.newQuest,
-														content: [
-															...state.newQuest.content.slice(0, questContentIndex),
-															modifiedContent,
-															...state.newQuest.content.slice(questContentIndex + 1)
-														]
+														content: immutablyReplaceElementInArray(state.newQuest.content, modifiedContent, questContentIndex)
 													};
 		state = { ...state,
 							newQuest: modifiedQuest,
@@ -239,8 +239,8 @@ function contentDeselectSubmitted(state, { content }) {
 function contentOrderChangeSubmitted(state, { oldIndex, newIndex }) {
 	let questContent = state.newQuest.content;
 	const content = questContent[oldIndex];
-	questContent = [...questContent.slice(0, oldIndex), ...questContent.slice(oldIndex + 1)];
-	questContent = [...questContent.slice(0, newIndex), content, ...questContent.slice(newIndex)];
+	questContent = immutablyRemoveIndexFromArray(questContent, oldIndex);
+	questContent = immutablyAddElementToArray(questContent, content, newIndex);
 	const modifiedQuest = { ...state.newQuest, content: questContent };
 	state = {
 		...state,

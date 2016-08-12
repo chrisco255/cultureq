@@ -34,6 +34,7 @@ class QuestCreateContainer extends Component {
 					changeFilterText={changeFilterText} />
 				<QuestContentArea
 					questContent={newQuest.content}
+					addContent={addContent}
 					removeContent={removeContent}
 					changeContentOrder={changeContentOrder}
 					selectContent={selectContent}
