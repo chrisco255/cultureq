@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import CSSModules from 'react-css-modules';
 import styles from './AnalyticsPage.css';
 import { connect } from 'react-redux';
@@ -48,6 +49,7 @@ class Page extends Component {
         const { analytics, pointData } = this.props;
 
         if(this.props.analytics) {
+            analytics.pointsByDate = analytics.pointsByDate || []
             const config = {
                 title: {
                     text: "Culture Points",
@@ -64,11 +66,13 @@ class Page extends Component {
                     }
                 },
                 series: [{
-                    type: 'line',
+                    // type: 'line',
                     name: 'All',
-                    data: analytics.pointsByDate ? analytics.pointsByDate.map((x) => {
-                                return [new Date(x.date).getTime(), x.count]
-                            }) : []
+                    data: _.sortBy(analytics.pointsByDate,(x) => {
+                        return parseInt(x.date)
+                    }).map((x) => {
+                        return [parseInt(x.date), x.count]
+                    })
                 }]
             };
           return (
