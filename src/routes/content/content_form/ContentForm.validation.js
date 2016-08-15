@@ -1,7 +1,7 @@
-import { createValidator, required, minLength, uuid } from 'validations';
+import { createValidator, required, minLength } from 'validations';
 
 const contentValidation = createValidator({
-  pillarId: [required, uuid],
+  pillarId: [required],
   type: [required],
   data: {
     title: [minLength(3)],
@@ -10,7 +10,8 @@ const contentValidation = createValidator({
     quote: [minLength(5)],
     author: [minLength(3)],
     recipient: [minLength(3)],
-    recipientPosition: [minLength(3)]
+    recipientPosition: [minLength(3)],
+    richtext: []
   }
 });
 

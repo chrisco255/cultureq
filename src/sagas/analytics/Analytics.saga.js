@@ -1,14 +1,11 @@
-import { put, call, fork } from 'redux-saga/effects';
-import { takeEvery, delay } from 'redux-saga';
-import { push } from 'react-router-redux';
+import { put, call } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
 import axios from 'axios';
 import * as ActionTypes from '../../reducers/analytics/Analytics.actions';
 
 //fetching of companies
-const fetch = (query) => {
-	return axios.post(`/api/graphql`, { query })
-							.then( response =>  response.data.data );
-}
+const fetch = (query) => axios.post('/api/graphql', { query })
+															.then( response => response.data.data );
 
 export function* fetchAnalytics(action) {
 	try {

@@ -20,7 +20,7 @@
     "start": "npm run start:dev",
     "build": "rimraf build && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
     "start:prod": "cross-env NODE_ENV=production node server.js",
-    "lint": "eslint src/**"
+    "lint": "eslint src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -81,6 +81,7 @@
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "15.3.0",
+    "react-highcharts": "^10.0.0",
     "react-redux": "4.4.5",
     "react-router": "2.6.1",
     "react-router-redux": "4.0.5",

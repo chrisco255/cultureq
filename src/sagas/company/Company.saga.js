@@ -5,9 +5,8 @@ import axios from 'axios';
 import * as ActionTypes from '../../reducers/company/Company.actions';
 
 //fetching of companies
-const fetch = (query) =>
-	axios.post('/api/graphql', { query })
-		   .then( response => response.data.data );
+const fetch = (query) => axios.post('/api/graphql', { query })
+	   													.then( response => response.data.data );
 
 const fetchWithFile = (query, data) =>
  	axios.post(`/api/graphql?query=${encodeURIComponent(query)}`, data)

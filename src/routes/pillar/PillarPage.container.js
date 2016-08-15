@@ -105,14 +105,14 @@ class PillarPage extends Component {
               <PillarForm onSubmit={this.onPillarSubmit}/>
             </div>
             <br/>
-            <div className="container" styleName="flex-space-between">
+            {/*<div className="container" styleName="flex-space-between">
               <div>
                 <Link className="btn waves-effect white black-text" to="/dashboard">Skip</Link>
               </div>
               <div>
                 <Link className="waves-effect waves-light btn accent-background" to="/content"><i className="material-icons right">play_arrow</i>Continue</Link>
               </div>
-            </div>
+            </div>*/}
           </div>
 
 					{ activePillars.length > 0 && <div className="col s6">

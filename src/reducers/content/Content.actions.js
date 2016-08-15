@@ -8,6 +8,7 @@ export const CONTENT_DELETE_FAILED = 'CONTENT_DELETE_FAILED';
 
 export const EDIT_CONTENT = 'EDIT_CONTENT';
 export const FINISH_EDIT = 'FINISH_EDIT';
+export const FORM_ENABLE = 'FORM_ENABLE';
 
 export const CONTENT_TITLE_CHANGE_SUBMITTED = 'CONTENT_TITLE_CHANGE_SUBMITTED';
 export const CONTENT_TITLE_CHANGE_SUCCEEDED = 'CONTENT_TITLE_CHANGE_SUCCEEDED';
@@ -36,6 +37,10 @@ export const CONTENT_RECIPIENT_CHANGE_FAILED = 'CONTENT_RECIPIENT_CHANGE_FAILED'
 export const CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED = 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED';
 export const CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED = 'CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED';
 export const CONTENT_RECIPIENT_POSITION_CHANGE_FAILED = 'CONTENT_RECIPIENT_POSITION_CHANGE_FAILED';
+
+export const CONTENT_RICHTEXT_CHANGE_SUBMITTED = 'CONTENT_RICHTEXT_CHANGE_SUBMITTED';
+export const CONTENT_RICHTEXT_CHANGE_SUCCEEDED = 'CONTENT_RICHTEXT_CHANGE_SUCCEEDED';
+export const CONTENT_RICHTEXT_CHANGE_FAILED = 'CONTENT_RICHTEXT_CHANGE_FAILED';
 
 export const FETCH_CONTENTS_SUBMITTED = 'FETCH_CONTENTS_SUBMITTED';
 export const FETCH_CONTENTS_SUCCEEDED = 'FETCH_CONTENTS_SUCCEEDED';
@@ -92,6 +97,13 @@ export function finishEdit() {
 	};
 }
 
+export function formEnable(isCreatingContent) {
+	return {
+		type: FORM_ENABLE,
+		payload: { isCreatingContent }
+	};
+}
+
 export function titleChangeContent(contentTitle, index) {
 	return {
 		type: CONTENT_TITLE_CHANGE_SUBMITTED,
@@ -138,5 +150,12 @@ export function recipientPositionChangeContent(contentRecipientPosition, index) 
 	return {
 		type: CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED,
 		payload: { contentRecipientPosition, index }
+	};
+}
+
+export function richTextChangeContent(contentRichtext, index) {
+	return {
+		type: CONTENT_RICHTEXT_CHANGE_SUBMITTED,
+		payload: { contentRichtext, index }
 	};
 }

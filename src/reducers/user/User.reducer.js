@@ -6,17 +6,24 @@ export default (state = defaultState, action) => {
 
 	switch(action.type) {
 		case ActionTypes.USER_LOGIN:
-			state = Object.assign({}, state, {
-				token: action.payload.token,
-				profile: action.payload.profile
-			});
-			break;
+			return {
+				...state,
+				...{
+					token: action.payload.token,
+					profile: action.payload.profile
+				}
+			};
 		case ActionTypes.USER_LOGOUT:
 			localStorage.removeItem('userToken');
 			localStorage.removeItem('userProfile');
-			state = Object.assign({}, state, { token: null, profile: null });
-			break;
+			return {
+				...state,
+				...{
+					token: null,
+					profile: null
+				}
+			};
+		default:
+			return state;
 	}
-
-	return state;
 };

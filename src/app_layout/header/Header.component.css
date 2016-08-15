@@ -1,18 +1,11 @@
-/*nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}*/
-
 .top-navbar {
   padding: 0 35px;
-  composes: black-background from '../../styles/colors.css';
+  composes: black-background from '../../styles/compose_from.css';
   box-shadow: none;
 }
 
 .bottom-navbar {
-  composes: primary-background from '../../styles/colors.css';
+  composes: primary-background from '../../styles/compose_from.css';
   height: 50px;
 }
 
@@ -38,20 +31,19 @@
 }
 
 .brand-title {
-  composes: ubuntu from '../../styles/fonts.css';
-  composes: white-text from '../../styles/colors.css';
+  composes: white-text from '../../styles/compose_from.css';
+  composes: ubuntu from '../../styles/compose_from.css';
   font-size: 24px;
 }
 
 .welcome-message {
-  composes: lato from '../../styles/fonts.css';
-  composes: divider-color from '../../styles/colors.css';
+  composes: divider-color from '../../styles/compose_from.css';
 }
 
 .nav-items {
   font-size: 14px;
   text-transform: uppercase;
-  composes: white-semi-transparent-text from '../../styles/colors.css';
+  composes: white-semi-transparent-text from '../../styles/compose_from.css';
   letter-spacing: 0.5px;
 }
 
@@ -62,7 +54,7 @@
 .active-item {
   height: 50px;
   border-bottom: solid 3px #FFFFFF;
-  composes: white-text from '../../styles/colors.css';
+  composes: white-text from '../../styles/compose_from.css';
 }
 
 :global(nav ul a:hover) {

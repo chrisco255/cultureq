@@ -8,4 +8,4 @@ module.exports = {
     path.join(__dirname, 'src', 'main.css')
   ],
   build: path.join(__dirname, 'build')
-}
+};

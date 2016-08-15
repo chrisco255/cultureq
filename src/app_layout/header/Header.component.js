@@ -23,6 +23,8 @@ const routes = [
 	{ path: '/', label: 'home', isIndex: true},
 	{ path: 'analytics', label: 'analytics'},
 	{ path: 'content', label: 'content management'},
+	{ path: 'pillar', label: 'pillar management'},
+	{ path: 'quests', label: 'Quest Creation'},
 ];
 
 class Header extends Component {

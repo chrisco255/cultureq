@@ -18,7 +18,7 @@ const PATHS = require('./paths');
 //   ]
 // },
 
-var config = {
+const config = {
   devtool: 'eval-source-map',
   entry: {
     app: [

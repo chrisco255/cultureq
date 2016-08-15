@@ -1,7 +1,7 @@
 import { watchFetchCompanies, watchCompanySubmitted } from './company/Company.saga';
 import { watchFetchAnalytics } from './analytics/Analytics.saga';
 import { watchPillarCreateSubmitted, watchPillarDeleteSubmitted, watchPillarNameChangeSubmitted, watchFetchPillarsSubmitted } from './pillar/Pillar.saga';
-import { watchContentCreateSubmitted, watchFetchContentsSubmitted, watchContentDeleteSubmitted, watchContentTitleChangeSubmitted, watchContentDescriptionChangeSubmitted, watchContentUrlChangeSubmitted, watchContentQuoteChangeSubmitted, watchContentAuthorChangeSubmitted, watchContentRecipientChangeSubmitted, watchContentRecipientPositionChangeSubmitted } from './content/Content.saga';
+import { watchContentCreateSubmitted, watchFetchContentsSubmitted, watchContentDeleteSubmitted, watchContentTitleChangeSubmitted, watchContentDescriptionChangeSubmitted, watchContentUrlChangeSubmitted, watchContentQuoteChangeSubmitted, watchContentAuthorChangeSubmitted, watchContentRecipientChangeSubmitted, watchContentRecipientPositionChangeSubmitted, watchContentRichtextChangeSubmitted } from './content/Content.saga';
 
 export default function* rootSaga() {
   yield [
@@ -21,6 +21,7 @@ export default function* rootSaga() {
     watchContentQuoteChangeSubmitted(),
     watchContentAuthorChangeSubmitted(),
     watchContentRecipientChangeSubmitted(),
-    watchContentRecipientPositionChangeSubmitted()
+    watchContentRecipientPositionChangeSubmitted(),
+    watchContentRichtextChangeSubmitted()
   ];
 }

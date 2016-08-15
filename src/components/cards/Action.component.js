@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from './card.component.css';
-import QuestContentItemStyles from '../../routes/quest/quest_content_item/QuestContentItem.css';
+import styles from './Card.component.css';
 
 class Action extends Component {
   render() {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './HomePage.css';
-import { Link, IndexLink } from 'react-router';
 
 class HomePage extends Component {
 	render() {

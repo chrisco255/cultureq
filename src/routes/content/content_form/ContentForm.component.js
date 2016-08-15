@@ -2,8 +2,8 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import CSSModules from 'react-css-modules';
 import ContentPageStyles from '../ContentPage.css';
-import _ from 'lodash';
 import validate from './ContentForm.validation.js';
+import TextEditor from '../../../components/text_editor/TextEditor.component';
 
 export const fields = [
   'pillarId',
@@ -14,13 +14,14 @@ export const fields = [
   'data.quote',
   'data.author',
   'data.recipient',
-  'data.recipientPosition'
+  'data.recipientPosition',
+  'data.richtext'
 ];
 
 // Data Types
 const types = [{
-  value: 'lunch',
-  name: 'Lunch Meeting'
+  value: 'richtext',
+  name: 'Rich Text'
 }, {
   value: 'video',
   name: 'Video'
@@ -42,11 +43,30 @@ let ContentForm = (props) => {
   if(submitting || !pillarId.value || !type.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
-  
+
+  // let editorData = '';
+  // function onChange(rawState) {
+  //   editorData = rawState;
+  //   // console.log(editorData);
+  //   data.richtext.value = rawState;
+  //   // Object.assign({}, data.richtext.value, {
+  //   //   entityMap: editorData.entityMap,
+  //   //   blocks: editorData.blocks
+  //   // });
+  //   data.title.value = 'holy moly';
+  //   console.log(data.richtext);
+  //   console.log(data.title);
+  //   // return rawState;
+  // }
+  // function getEditorData() {
+  //   return editorData;
+  // }
+
+  console.log(data);
+
   return (
     <div>
-      <h1>Create Your Own Cultural Content</h1>
-      <hr />
+      <h1>Create Content</h1>
       <form onSubmit={handleSubmit}>
         <div className="card">
           <div className="card-content">
@@ -61,6 +81,7 @@ let ContentForm = (props) => {
                         return (<option key={pillar._id} value={pillar._id}>{pillar.name}</option>);
                       }
                     }) }
+                    <option key='noPillar' value='noPillar'>No Pillar Assigned</option>
                   </select>
                 </div>
                 <div>
@@ -116,6 +137,8 @@ let ContentForm = (props) => {
                   {data.recipientPosition.touched && data.recipientPosition.error && <div style={{color: 'red'}}>{data.recipientPosition.error[0]}</div>}
                 </div>
               </div> }
+              { (type.value === 'richtext') &&
+            <TextEditor {...data.richtext} /> }
               </div>
             </div>
           </div>

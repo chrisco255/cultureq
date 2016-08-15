@@ -23,8 +23,8 @@ const proxyTo = (origin) => {
     return proxy.web(req, res, {
       target: origin
     });
-  }
-}
+  };
+};
 
 if (isDeveloping) {
   const compiler = webpack(wbpckConfig);

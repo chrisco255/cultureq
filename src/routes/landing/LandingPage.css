@@ -1,5 +1,5 @@
 .app-title {
-	composes: ubuntu from '../../styles/fonts.css';
+	composes: ubuntu from '../../styles/compose_from.css';
 	font-size: 48px;
 	margin-bottom: 16px;
 }
@@ -9,9 +9,9 @@
 }
 
 .app-header {
-	composes: primary-background from '../../styles/colors.css';
-	composes: white-text from '../../styles/colors.css';
-	composes: lato from '../../styles/fonts.css';
+	composes: primary-background from '../../styles/compose_from.css';
+	composes: white-text from '../../styles/compose_from.css';
+	composes: lato from '../../styles/compose_from.css';
 	height: 400px;
 	display: flex;
 	align-items: center;
@@ -63,7 +63,7 @@
 .selling-point-header-text {
 	margin-top: 24px;
 	margin-bottom: 18px;
-	composes: ubuntu from '../../styles/fonts.css';
+	composes: ubuntu from '../../styles/compose_from.css';
 	font-size: 24px;
 }
 
