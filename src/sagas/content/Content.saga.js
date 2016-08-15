@@ -24,6 +24,7 @@ export function* watchFetchContentsSubmitted() {
 export function* contentCreate(action) {
 	try {
 		const { type, pillarId, isDeleted, data } = action.payload.content;
+		console.log(data);
 		const createResponse = yield call(fetch, `
 			mutation {
 			  mutation: CONTENT_CREATE(
@@ -52,6 +53,18 @@ export function* contentCreate(action) {
 						author
 						recipient
 						recipientPosition
+						richtext {
+		          blocks {
+		            key
+		            text
+		            type
+		            depth
+		          }
+		          entityMap {
+		            type
+		            mutability
+		          }
+		        }
 					}
 			  }
 			}
@@ -84,6 +97,7 @@ export function* contentDelete(action) {
 						author: "${data.author}"
 						recipient: "${data.recipient}"
 						recipientPosition: "${data.recipientPosition}"
+						richtext: ${data.richtext}
 					}
 			  ) {
 			    _id
@@ -98,6 +112,18 @@ export function* contentDelete(action) {
 						author
 						recipient
 						recipientPosition
+						richtext {
+		          blocks {
+		            key
+		            text
+		            type
+		            depth
+		          }
+		          entityMap {
+		            type
+		            mutability
+		          }
+		        }
 					}
 			  }
 			}
@@ -164,6 +190,18 @@ export function* contentDataChange(action) {
 						author
 						recipient
 						recipientPosition
+						richtext {
+		          blocks {
+		            key
+		            text
+		            type
+		            depth
+		          }
+		          entityMap {
+		            type
+		            mutability
+		          }
+		        }
 					}
 			  }
 			}`);

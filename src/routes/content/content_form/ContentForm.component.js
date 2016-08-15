@@ -14,7 +14,8 @@ export const fields = [
   'data.quote',
   'data.author',
   'data.recipient',
-  'data.recipientPosition'
+  'data.recipientPosition',
+  'data.richtext'
 ];
 
 // Data Types
@@ -42,6 +43,26 @@ let ContentForm = (props) => {
   if(submitting || !pillarId.value || !type.value) {
     submitBtnClassName = 'btn waves-effect waves-light disabled';
   }
+
+  // let editorData = '';
+  // function onChange(rawState) {
+  //   editorData = rawState;
+  //   // console.log(editorData);
+  //   data.richtext.value = rawState;
+  //   // Object.assign({}, data.richtext.value, {
+  //   //   entityMap: editorData.entityMap,
+  //   //   blocks: editorData.blocks
+  //   // });
+  //   data.title.value = 'holy moly';
+  //   console.log(data.richtext);
+  //   console.log(data.title);
+  //   // return rawState;
+  // }
+  // function getEditorData() {
+  //   return editorData;
+  // }
+
+  console.log(data);
 
   return (
     <div>
@@ -117,7 +138,7 @@ let ContentForm = (props) => {
                 </div>
               </div> }
               { (type.value === 'richtext') &&
-            <TextEditor /> }
+            <TextEditor {...data.richtext} /> }
               </div>
             </div>
           </div>
