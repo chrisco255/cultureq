@@ -3,6 +3,7 @@ import { reduxForm } from 'redux-form';
 import CSSModules from 'react-css-modules';
 import ContentPageStyles from '../ContentPage.css';
 import validate from './ContentForm.validation.js';
+import TextEditor from '../../../components/text_editor/TextEditor.component';
 
 export const fields = [
   'pillarId',
@@ -115,6 +116,8 @@ let ContentForm = (props) => {
                   {data.recipientPosition.touched && data.recipientPosition.error && <div style={{color: 'red'}}>{data.recipientPosition.error[0]}</div>}
                 </div>
               </div> }
+              { (type.value === 'richtext') &&
+            <TextEditor /> }
               </div>
             </div>
           </div>

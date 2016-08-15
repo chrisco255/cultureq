@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from './Card.component.css';
 import QuestContentItemStyles from '../../routes/quest/quest_content_item/QuestContentItem.css';
 
 class Quote extends Component {
@@ -23,7 +22,7 @@ class Quote extends Component {
     if(isEditing && index === contentThatIsBeingEditedIndex) {
       return (
         <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item">
-          <div className="card-content" styleName="card-content">
+          <div className="card-content">
           <form>
             <div className="input-field">
               <input ref="quoteThatIsBeingEditedInput" id="quote" defaultValue={data.quote} type="text" className="validate" onBlur={this.onQuoteEditSubmit} />
@@ -52,7 +51,7 @@ class Quote extends Component {
     return (
       <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item">
         { pillarName !== 'noPillar' && <div className="accent-background white-text" style={{textAlign: 'center'}}>{pillarName}</div>}
-        <div className="card-content" styleName="card-content" style={contentPaddingTop}>
+        <div className="card-content" style={contentPaddingTop}>
           {/*<div className="card-title" styleName="card-title">Content #{index + 1}</div>*/}
            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
              <i className="material-icons" style={{fontSize: '-webkit-xxx-large'}}>format_quote</i>

@@ -10,7 +10,6 @@ import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/Quote.component';
 import Video from '../../components/cards/Video.component';
 import Action from '../../components/cards/Action.component';
-// import $ from 'jquery';
 
 const pillarQuery = `
   {
@@ -136,10 +135,10 @@ class ContentPage extends Component {
       <div className="container">
 				<div className="row">
 
-					{ this.props.isCreatingContent && <div className={(activeContents.length > 0) ? 'col s6' : 'col s12'}>
-						<div className="container">
+					{ this.props.isCreatingContent && <div className="col s12">
+						{/*<div className="container">*/}
 	      			<ContentForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} />
-      			</div>
+      			{/*</div>*/}
 						<br />
 						{/*<div className="container" styleName="flex-space-between">
 							<div>
@@ -151,7 +150,7 @@ class ContentPage extends Component {
       			</div>*/}
 			    </div>}
 
-          { activeContents.length > 0 && <div className={(this.props.isCreatingContent) ? 'col s6' : 'col s12'}>
+          { activeContents.length > 0 && <div style={(this.props.isCreatingContent) ? {display: 'none'} : {}}>
             <div className="container">
               {this.props.isCreatingContent && <h1>Content Preview</h1>}
               {!this.props.isCreatingContent && <div className="row">

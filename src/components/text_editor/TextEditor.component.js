@@ -83,7 +83,7 @@ class TextEditor extends Component {
                   : editorState;
 
     return (
-      <div className="editor-container">
+      <div className="editor-container" style={{marginTop: '25px'}}>
         { !readOnly &&
           <div styleName="flex">
             <BlockStyleControls
@@ -103,7 +103,7 @@ class TextEditor extends Component {
           <Editor
             editorState={currentState}
             onChange={this.onChange}
-            placeholder="Text Goes Here 😀 "
+            placeholder="Text Goes Here 😀 💥 🎉 🌸"
             ref="editor"
             spellCheck={true}
             readOnly={readOnly}
