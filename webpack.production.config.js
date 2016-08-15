@@ -18,7 +18,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
-  devtool: 'cheap-module-source-map'
+  devtool: 'cheap-module-source-map',
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({

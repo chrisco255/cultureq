@@ -17,3 +17,56 @@
 	align-items: center;
 	justify-content: center;
 }
+
+.selling-point-header {
+	padding: 100px 100px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.selling-point-header:last-of-type {
+	padding-bottom: 100px;
+}
+
+.selling-point-header-img {
+	height: 70px;
+	width: 70px;
+	border-radius: 5px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 80% 80%;
+}
+
+.fire {
+	composes: selling-point-header-img;
+	background-image: url('../../assets/images/icon-fire.svg');
+}
+
+.feedback {
+	composes: selling-point-header-img;
+	background-image: url('../../assets/images/icon-feedback.svg');
+}
+
+.alignment {
+	composes: selling-point-header-img;
+	background-image: url('../../assets/images/icon-alignment.svg');
+}
+
+.analytics {
+	composes: selling-point-header-img;
+	background-image: url('../../assets/images/icon-analytics.svg');
+}
+
+.selling-point-header-text {
+	margin-top: 24px;
+	margin-bottom: 18px;
+	composes: ubuntu from '../../styles/fonts.css';
+	font-size: 24px;
+}
+
+.selling-point-header-subtext {
+	font-size: 18px;
+}
