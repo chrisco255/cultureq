@@ -24,7 +24,6 @@ export function* watchFetchContentsSubmitted() {
 export function* contentCreate(action) {
 	try {
 		const { type, pillarId, isDeleted, data } = action.payload.content;
-		console.log(data);
 		const createResponse = yield call(fetch, `
 			mutation {
 			  mutation: CONTENT_CREATE(

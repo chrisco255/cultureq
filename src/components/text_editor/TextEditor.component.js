@@ -43,9 +43,6 @@ class TextEditor extends Component {
       if(!this.debouncedSave) { // Check this to only created the debounced function once.
         this.debouncedSave = _.debounce( (editorState) => {
           this.props.onAutosave(convertToRaw(editorState.getCurrentContent()));
-          console.log(this.props.onAutosave);
-          this.props.value = convertToRaw(editorState.getCurrentContent());
-
         }, this.props.autosaveTimeout || 2000 );
       }
 
@@ -56,7 +53,6 @@ class TextEditor extends Component {
 
   onChange = (editorState) => {
     this.setState({ editorState });
-    console.log({editorState});
     this.onSave(editorState);
   }
 
@@ -123,8 +119,7 @@ TextEditor.propTypes = {
   onAutosave: React.PropTypes.func,
   autosaveTimeout: React.PropTypes.number,
   startingEditorState: React.PropTypes.any, // Really this is a rawContentState
-  readOnly: React.PropTypes.bool,
-  value: React.PropTypes.any
+  readOnly: React.PropTypes.bool
 };
 
 TextEditor = CSSModules(TextEditor, styles);

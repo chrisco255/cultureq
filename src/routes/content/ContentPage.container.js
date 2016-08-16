@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import ContentPageStyles from './ContentPage.css';
+import { Link } from 'react-router';
 import _ from 'lodash';
 import { createContent, deleteContent, editContent, finishEdit, formEnable, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent, quoteChangeContent, authorChangeContent } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/Quote.component';
 import Video from '../../components/cards/Video.component';
+import Action from '../../components/cards/Action.component';
 
 const pillarQuery = `
   {
@@ -34,18 +36,6 @@ const contentQuery = `
         author
         recipient
         recipientPosition
-        richtext {
-          blocks {
-            key
-            text
-            type
-            depth
-          }
-          entityMap {
-            type
-            mutability
-          }
-        }
       }
     }
   }
@@ -96,7 +86,6 @@ class ContentPage extends Component {
 	}
 
 	onContentSubmit = (values, dispatch) => {
-    console.log(values);
 		dispatch( createContent(values) );
 	}
 
@@ -144,12 +133,22 @@ class ContentPage extends Component {
 
 		return (
       <div className="container">
-
 				<div className="row">
-					{ (this.props.isCreatingContent || activeContents.length === 0) && <div className="col s12">
+
+					{ this.props.isCreatingContent && <div className="col s12">
+						{/*<div className="container">*/}
 	      			<ContentForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} />
-			        <br />
-			    </div> }
+      			{/*</div>*/}
+						<br />
+						{/*<div className="container" styleName="flex-space-between">
+							<div>
+								<Link className="waves-effect btn white black-text" to="/dashboard">Skip</Link>
+							</div>
+							<div>
+								<Link className="waves-effect waves-light btn accent-background" to="/dashboard"><i className="material-icons right">play_arrow</i>Finish</Link>
+							</div>
+      			</div>*/}
+			    </div>}
 
           { activeContents.length > 0 && <div style={(this.props.isCreatingContent) ? {display: 'none'} : {}}>
             <div className="container">
@@ -168,6 +167,7 @@ class ContentPage extends Component {
               <div style={contentViewOrder}>{listContents}</div>
             </div>
           </div> }
+
 				</div>
 
         <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>

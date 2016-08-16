@@ -10,8 +10,7 @@ const contentValidation = createValidator({
     quote: [minLength(5)],
     author: [minLength(3)],
     recipient: [minLength(3)],
-    recipientPosition: [minLength(3)],
-    richtext: []
+    recipientPosition: [minLength(3)]
   }
 });
 
