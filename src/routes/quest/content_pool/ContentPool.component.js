@@ -62,14 +62,16 @@ class ContentPool extends Component {
       contentPoolStyles.display = 'none';
     }
     let contentPool = (
-      <ReactCSSTransitionGroup component="div"
-                                style={contentPoolStyles}
-                                styleName="content-pool"
-                                transitionName="content-pool-item-transition"
-                                transitionEnterTimeout={500}
-                                transitionLeaveTimeout={500}>
+      // <ReactCSSTransitionGroup component="div"
+      //                           style={contentPoolStyles}
+      //                           styleName="content-pool"
+      //                           transitionName="content-pool-item-transition"
+      //                           transitionEnterTimeout={500}
+      //                           transitionLeaveTimeout={500}>
+      <div>
                                 {contentPoolElements}
-      </ReactCSSTransitionGroup>
+      </div>
+      // </ReactCSSTransitionGroup>
     );
 
     let addAllContentButton = null;

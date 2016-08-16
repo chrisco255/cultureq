@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { DragSource } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import CSSModules from 'react-css-modules';
 import PoolContentStyles from './PoolContentItem.css';
 import { POOL_CONTENT_ITEM, QUEST_CONTENT_AREA } from '../ItemTypes';
@@ -12,7 +13,6 @@ const spec = {
     return {
       content: props.content,
       type: POOL_CONTENT_ITEM,
-      tempData: {} //used for drag and drop interactions where temporary data needs to be stored
     };
   },
   endDrag(props, monitor) {
@@ -33,6 +33,12 @@ const collect = (connect, monitor) => {
 
 class PoolContentItem extends Component {
 
+  componentDidMount () {
+    this.props.connectDragPreview(getEmptyImage(), {
+      captureDraggingState: true
+    });
+  }
+
 	render() {
     const {
       content,
@@ -46,7 +52,7 @@ class PoolContentItem extends Component {
 
     const styles = {};
     if (content.isSelected) styles.backgroundColor = '#f1f1f1';
-    if (isDragging) styles.opacity = 0;
+    if (isDragging) styles.opacity = 0.2;
     const selectToggle = content.isSelected ? deselectContent : selectContent;
 
     const addContentWrapper = (event, content) => {
@@ -63,9 +69,8 @@ class PoolContentItem extends Component {
     };
 
     return (
-      connectDragSource(<div>
-        {connectDragPreview(
-        <div className="card" styleName="content-card">
+      connectDragSource(
+        <div className="card" styleName="content-card" style={styles} onClick={() => {selectToggle(content);}}>
           <div className="card-content" styleName="card-content">
             <div styleName="card-column">
               <div styleName="card-text">
@@ -83,7 +88,6 @@ class PoolContentItem extends Component {
             </div>
           </div>
         </div>
-      )}</div>
       )
     );
 	}

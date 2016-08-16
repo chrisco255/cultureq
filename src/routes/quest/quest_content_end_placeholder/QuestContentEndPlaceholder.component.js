@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from './QuestContentPlaceholder.css';
+import styles from './QuestContentEndPlaceholder.css';
 
-class QuestContentPlaceholder extends Component {
+class QuestContentEndPlaceholder extends Component {
 
 	render() {
     const {
@@ -10,7 +10,7 @@ class QuestContentPlaceholder extends Component {
 		} = this.props;
 
     return (
-      <div styleName="quest-content-placeholder">
+      <div styleName="quest-content-end-placeholder">
         <div styleName="placeholder-content">
           <i styleName="icon" className="material-icons">add</i>
           <div styleName="text">{text}</div>
@@ -20,9 +20,9 @@ class QuestContentPlaceholder extends Component {
 	}
 }
 
-QuestContentPlaceholder.propTypes = {
+QuestContentEndPlaceholder.propTypes = {
   text: PropTypes.string.isRequired
 };
 
-QuestContentPlaceholder = CSSModules(QuestContentPlaceholder, styles);
-export default QuestContentPlaceholder;
+QuestContentEndPlaceholder = CSSModules(QuestContentEndPlaceholder, styles);
+export default QuestContentEndPlaceholder;

@@ -1,0 +1,8 @@
+.quest-content-drag-placeholder {
+  /* same as quest content item */
+  width: 20rem;
+  height: 15rem;
+  margin: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px dashed #DFDFDF;
+}

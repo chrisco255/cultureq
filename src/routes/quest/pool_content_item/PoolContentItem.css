@@ -1,5 +1,5 @@
 .content-card {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   /*min-height: min-content;*/
   justify-content: space-between;

@@ -6,6 +6,7 @@ import CSSModules from 'react-css-modules';
 import QuestCreateContainerStyles from './QuestCreateContainer.css';
 import ContentPool from '../content_pool/ContentPool.component';
 import QuestContentArea from '../quest_content_area/QuestContentArea.component';
+import QuestDragLayer from '../quest_drag_layer/QuestDragLayer.component';
 
 class QuestCreateContainer extends Component {
 
@@ -14,16 +15,21 @@ class QuestCreateContainer extends Component {
 			newQuest,
 			contentPool,
 			filterText,
+			placeholder,
 			addContent,
 			removeContent,
 			selectContent,
 			deselectContent,
 			changeContentOrder,
-			changeFilterText
+			changeFilterText,
+			movePlaceholder,
+			commitDragMove,
+			commitAddMove
 		} = this.props;
 
     return (
       <div styleName="quest-create-container">
+				<QuestDragLayer />
 				<ContentPool
 					pool={contentPool}
 					questContent={newQuest.content}
@@ -34,11 +40,15 @@ class QuestCreateContainer extends Component {
 					changeFilterText={changeFilterText} />
 				<QuestContentArea
 					questContent={newQuest.content}
+					placeholder={placeholder}
 					addContent={addContent}
 					removeContent={removeContent}
 					changeContentOrder={changeContentOrder}
 					selectContent={selectContent}
-					deselectContent={deselectContent} />
+					deselectContent={deselectContent}
+					movePlaceholder={movePlaceholder}
+					commitDragMove={commitDragMove}
+					commitAddMove={commitAddMove} />
       </div>
     );
 	}

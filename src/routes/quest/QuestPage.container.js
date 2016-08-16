@@ -8,7 +8,10 @@ import {
 	selectContent,
 	deselectContent,
 	changeContentOrder,
-	changeFilterText
+	changeFilterText,
+	movePlaceholder,
+	commitDragMove,
+	commitAddMove
 } from '../../reducers/quest/Quest.actions';
 import QuestCreateContainer from './quest_create_container/QuestCreateContainer.component';
 
@@ -45,6 +48,15 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		changeFilterText: (text) => {
 			dispatch(changeFilterText(text));
+		},
+		movePlaceholder: (index, content) => {
+			dispatch(movePlaceholder(index, content));
+		},
+		commitDragMove: (oldIndex, newIndex) => {
+			dispatch(commitDragMove(oldIndex, newIndex));
+		},
+		commitAddMove: (index, content) => {
+			dispatch(commitAddMove(index, content));
 		}
     // onLoad: () =>
 		// 	dispatch(fetchPillars({ query }))
@@ -55,7 +67,8 @@ const mapStateToProps = (state) => {
 	return {
     newQuest: state.quest.newQuest,
     contentPool: state.quest.contentPool,
-		filterText: state.quest.filterText
+		filterText: state.quest.filterText,
+		placeholder: state.quest.placeholder
 	};
 };
 
@@ -74,12 +87,16 @@ class QuestPage extends Component {
 					contentPool={this.props.contentPool}
 					newQuest={this.props.newQuest}
 					filterText={this.props.filterText}
+					placeholder={this.props.placeholder}
 					addContent={this.props.addContent}
 					selectContent={this.props.selectContent}
 					deselectContent={this.props.deselectContent}
 					removeContent={this.props.removeContent}
 					changeContentOrder={this.props.changeContentOrder}
-					changeFilterText={this.props.changeFilterText}/>
+					changeFilterText={this.props.changeFilterText}
+					movePlaceholder={this.props.movePlaceholder}
+					commitDragMove={this.props.commitDragMove}
+					commitAddMove={this.props.commitAddMove}/>
 			</div>
     );
 	}
