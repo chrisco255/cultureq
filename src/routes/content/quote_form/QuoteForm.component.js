@@ -6,7 +6,6 @@ import validate from './QuoteForm.validation.js';
 
 export const fields = [
   'pillarId',
-  'type',
   'data.quote',
   'data.author'
 ];
@@ -21,14 +20,13 @@ class QuoteForm extends Component {
     const {
       fields: {
         pillarId,
-        type,
         data
       }, handleSubmit, submitting
     } = this.props;
 
-    let submitBtnClassName = 'btn waves-effect waves-light accent-background';
-    if(submitting || !pillarId.value || !type.value || !data.quote || !data.author) {
-      submitBtnClassName = 'btn waves-effect waves-light disabled';
+    let submitBtnClassName = 'btn-floating btn-large waves-effect waves-light green';
+    if(submitting || !data.quote.value || !data.author.value) {
+      submitBtnClassName = 'btn-floating btn-large disabled';
     }
 
     return (
@@ -52,19 +50,21 @@ class QuoteForm extends Component {
              <div style={{margin: '25px 0 25px 0'}}>
                <label>Choose a Pillar for which this Content pertains to</label>
                <select className="browser-default" { ...pillarId } >
-                 <option value="0" disabled hidden>Choose a Pillar</option>
+                 <option value="noPillar" disabled hidden>Choose a Pillar</option>
                  { this.props.pillars.map( pillar => {
                    if (!pillar.isDeleted) {
                      return (<option key={pillar._id} value={pillar._id}>{pillar.name}</option>);
                    }
                  }) }
-                 <option key='noPillar' value='noPillar'>No Pillar Assigned</option>
+                 <option key="noPillar" value="noPillar">No Pillar Assigned</option>
                </select>
              </div>
             </div>
           </div>
-          <div styleName="flex-end">
-            <button className={submitBtnClassName} type="submit" disabled={ submitting }>Save Content</button>
+          <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
+            <button className={submitBtnClassName} type="submit" disabled={ submitting }>
+              <i className="large material-icons">check</i>
+            </button>
           </div>
         </form>
       </div>
@@ -77,7 +77,7 @@ QuoteForm = CSSModules(QuoteForm, ContentPageStyles);
 
 // Composition FTW!
 QuoteForm = reduxForm({
-	form: 'quote_content',
+	form: 'quote',
 	fields,
   validate
 })(QuoteForm);

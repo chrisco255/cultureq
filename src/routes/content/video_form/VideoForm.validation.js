@@ -1,8 +1,7 @@
-import { createValidator, required, minLength } from 'validations';
+import { createValidator, minLength } from 'validations';
 
 const videoValidation = createValidator({
-  pillarId: [required],
-  type: [required],
+  pillarId: [],
   data: {
     title: [minLength(3)],
     description: [minLength(10)],

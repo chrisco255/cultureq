@@ -1,8 +1,8 @@
 import user from './user/User.reducer.js';
 import companyForm from './form/company/CompanyForm.reducer';
 import pillarForm from './form/pillar/PillarForm.reducer';
-import videoForm from './form/content/VideoForm.reducer';
-import quoteForm from './form/content/QuoteForm.reducer';
+import videoForm from './form/video/VideoForm.reducer';
+import quoteForm from './form/quote/QuoteForm.reducer';
 import company from './company/Company.reducer';
 import pillar from './pillar/Pillar.reducer';
 import content from './content/Content.reducer';
@@ -29,8 +29,8 @@ const reducers = {
 	form: formReducer.plugin({
 		company: companyForm,
 		pillar: pillarForm,
-		videoContent: videoForm,
-		quoteContent: quoteForm
+		quote: quoteForm,
+		video: videoForm
 	})
 };
 

@@ -1,8 +1,7 @@
-import { createValidator, required, minLength } from 'validations';
+import { createValidator, minLength } from 'validations';
 
 const quoteValidation = createValidator({
-  pillarId: [required],
-  type: [required],
+  pillarId: [],
   data: {
     quote: [minLength(5)],
     author: [minLength(3)],
