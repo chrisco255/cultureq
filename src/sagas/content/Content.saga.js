@@ -138,9 +138,6 @@ export function* contentDataChange(action) {
 		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
 			contentData = action.payload.contentRecipientPosition;
 			dataType = 'recipientPosition';
-		} else if (action.type === 'CONTENT_RICHTEXT_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentRichtext;
-			dataType = 'richtext';
 		} else {
 			console.log('😳');
 		}
@@ -182,9 +179,7 @@ export function* contentDataChange(action) {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_SUCCEEDED, payload } );
 		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED, payload } );
-		} else if (action.type === 'CONTENT_RICHTEXT_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_RICHTEXT_CHANGE_SUCCEEDED, payload } );
-		} else {
+		}else {
 			console.log('😳');
 		}
 	} catch (error) {
@@ -202,8 +197,6 @@ export function* contentDataChange(action) {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_FAILED, error} );
 		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_FAILED, error} );
-		} else if (action.type === 'CONTENT_RICHTEXT_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_RICHTEXT_CHANGE_FAILED, error} );
 		} else {
 			console.log(error);
 		}
@@ -229,7 +222,4 @@ export function* watchContentRecipientChangeSubmitted() {
 }
 export function* watchContentRecipientPositionChangeSubmitted() {
 	yield* takeEvery(ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED, contentDataChange);
-}
-export function* watchContentRichtextChangeSubmitted() {
-	yield* takeEvery(ActionTypes.CONTENT_RICHTEXT_CHANGE_SUBMITTED, contentDataChange);
 }

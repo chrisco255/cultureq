@@ -104,15 +104,6 @@ export default (state = defaultState, action) => {
             console.log('CONTENT_RECIPIENT_POSITION_CHANGE_FAILED ❌');
             break;
 
-        case ActionTypes.CONTENT_RICHTEXT_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_RICHTEXT_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentRichtext, 'richtext');
-        case ActionTypes.CONTENT_RICHTEXT_CHANGE_SUCCEEDED:
-            console.log('CONTENT_RICHTEXT_CHANGE_SUCCEEDED ✅');
-            break;
-        case ActionTypes.CONTENT_RICHTEXT_CHANGE_FAILED:
-            console.log('CONTENT_RICHTEXT_CHANGE_FAILED ❌');
-            break;
-
             // FETCH_PILLARS
         case ActionTypes.FETCH_CONTENTS_SUBMITTED:
             console.log('FETCH_CONTENTS_SUBMITTED ▶️');
