@@ -6,7 +6,8 @@ const defaultState = {
     isEditing: false,
     isCreatingContent: false,
     contentThatIsBeingEdited: null,
-    contentThatIsBeingEditedIndex: -1
+    contentThatIsBeingEditedIndex: -1,
+    currentContentType: ''
 };
 
 export default (state = defaultState, action) => {
@@ -162,8 +163,12 @@ function finishEdit(state) {
 }
 
 function formEnable(state, payload) {
+  // if (payload.isCreatingContent === false) {
+  //   payload.currentContentType = '';
+  // }
   return Object.assign({}, state, {
-      isCreatingContent: !payload.isCreatingContent
+      isCreatingContent: !payload.isCreatingContent,
+      currentContentType: payload.currentContentType
   });
 }
 

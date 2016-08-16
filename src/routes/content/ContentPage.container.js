@@ -6,11 +6,13 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import { createContent, deleteContent, editContent, finishEdit, formEnable, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent, quoteChangeContent, authorChangeContent } from '../../reducers/content/Content.actions';
 import ContentForm from './content_form/ContentForm.component';
+import VideoForm from './video_form/VideoForm.component';
+import QuoteForm from './quote_form/QuoteForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/Quote.component';
 import Video from '../../components/cards/Video.component';
 import Action from '../../components/cards/Action.component';
-// import $ from 'jquery';
+import TextEditor from '../../components/text_editor/TextEditor.component';
 
 const pillarQuery = `
   {
@@ -51,8 +53,8 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(editContent(content, index)),
     finishEdit: () =>
       dispatch(finishEdit()),
-    formEnable: (isCreatingContent) =>
-      dispatch(formEnable(isCreatingContent)),
+    formEnable: (isCreatingContent, currentContentType) =>
+      dispatch(formEnable(isCreatingContent, currentContentType)),
     titleChangeContent: (content, index) =>
       dispatch(titleChangeContent(content, index)),
     descriptionChangeContent: (content, index) =>
@@ -76,7 +78,8 @@ const mapStateToProps = (state) => {
 		isEditing: state.content.isEditing,
 		contentThatIsBeingEdited: state.content.contentThatIsBeingEdited,
 		contentThatIsBeingEditedIndex: state.content.contentThatIsBeingEditedIndex,
-    isCreatingContent: state.content.isCreatingContent
+    isCreatingContent: state.content.isCreatingContent,
+    currentContentType: state.content.currentContentType
 	};
 };
 
@@ -87,12 +90,27 @@ class ContentPage extends Component {
 	}
 
 	onContentSubmit = (values, dispatch) => {
+    console.log(values);
 		dispatch( createContent(values) );
 	}
 
 	render() {
 
 		let listContents = null;
+
+    const types = [{
+      value: 'richtext',
+      name: 'Article',
+      description: 'A text editor where you can write in any format you want.'
+    }, {
+      value: 'video',
+      name: 'Video',
+      description: 'Displays a video with a title and description.'
+    }, {
+      value: 'quote',
+      name: 'Quote',
+      description: 'Displays a quote with the accredited author'
+    }];
 
     const activeContents = this.props.contents.filter((content) => !content.isDeleted);
     let contentViewOrder = {display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'};
@@ -133,6 +151,7 @@ class ContentPage extends Component {
     }
 
 		return (
+
       <div className="container">
 				<div className="row">
 
@@ -174,7 +193,6 @@ class ContentPage extends Component {
         <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
           <a className="btn-floating btn-large waves-effect waves-light accent-background" onClick={this.props.formEnable.bind(this, this.props.isCreatingContent)}>{(!this.props.isCreatingContent) ? <i className="material-icons">add</i> : <i className="material-icons">arrow_back</i>}</a>
         </div>
-
       </div>
 		);
 	}

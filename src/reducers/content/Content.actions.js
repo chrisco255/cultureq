@@ -93,10 +93,10 @@ export function finishEdit() {
 	};
 }
 
-export function formEnable(isCreatingContent) {
+export function formEnable(isCreatingContent, currentContentType) {
 	return {
 		type: FORM_ENABLE,
-		payload: { isCreatingContent }
+		payload: { isCreatingContent, currentContentType }
 	};
 }
 

@@ -7,15 +7,12 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case ActionTypes.CONTENT_CREATE_SUCCEEDED:
-      console.log('SUCCESS!✅ Resetting content form.');
+      console.log('SUCCESS!✅ Resetting video form.');
       return {
         ...state,
         ...{
           _submitting: false,
           pillarId: {
-            value: ''
-          },
-          type: {
             value: ''
           },
           data: {
@@ -26,18 +23,6 @@ export default (state = defaultState, action) => {
               value: ''
             },
             url: {
-              value: ''
-            },
-            quote: {
-              value: ''
-            },
-            author: {
-              value: ''
-            },
-            recipient: {
-              value: ''
-            },
-            recipientPosition: {
               value: ''
             }
           }
