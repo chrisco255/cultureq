@@ -21,7 +21,7 @@ class Video extends Component {
   }
 
   render() {
-    const { key, index, data, content, deleteContent, editContent, isEditing, contentThatIsBeingEditedIndex, finishEdit } = this.props;
+    const { key, index, data, content, deleteContent, editContent, isEditing, contentThatIsBeingEditedIndex, finishEdit, pillarName } = this.props;
     let urlEmbeddedLink = `https://www.youtube.com/embed/${data.url.split('=')[1]}`;
 
     if(isEditing && index === contentThatIsBeingEditedIndex) {
@@ -50,9 +50,20 @@ class Video extends Component {
       );
     }
 
+    let contentAlignment = {
+      display: 'flex',
+      flexDirection: 'column'
+    };
+    if(pillarName !== 'noPillar') {
+      contentAlignment.paddingTop = '10px';
+    } else {
+      delete contentAlignment.paddingTop;
+    }
+
     return (
       <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item-video">
-        <div className="card-content" styleName="card-content" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        { pillarName !== 'noPillar' && <div className="accent-background white-text" style={{textAlign: 'center'}}>{pillarName}</div>}
+        <div className="card-content" styleName="card-content" style={contentAlignment}>
           {/*<div className="card-title" styleName="card-title">Content #{index + 1}</div>*/}
           <div><iframe style={{border: 'solid #BDBDBD 2px', width: '260px'}} src={urlEmbeddedLink}></iframe></div>
           <div>

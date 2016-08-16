@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import CSSModules from 'react-css-modules';
 import ContentPoolStyles from './ContentPool.css';

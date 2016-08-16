@@ -1,14 +1,11 @@
-import { put, call, fork } from 'redux-saga/effects';
-import { takeEvery, delay } from 'redux-saga';
+import { put, call } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
 import axios from 'axios';
-import { push } from 'react-router-redux';
 import * as ActionTypes from '../../reducers/pillar/Pillar.actions';
 
 // Fetch
-const fetch = (query) => {
-	return axios.post(`/api/graphql`, { query })
-							.then( response =>  response.data.data );
-}
+const fetch = (query) => axios.post('/api/graphql', { query })
+															.then( response => response.data.data );
 
 export function* fetchPillars(action) {
 	try {
@@ -25,7 +22,7 @@ export function* watchFetchPillarsSubmitted() {
 export function* pillarCreate(action) {
 	try {
 		const { name, isDeleted, tenantId } = action.payload.pillar;
-		const createResponse = yield call(fetch,  `
+		const createResponse = yield call(fetch, `
 			mutation {
 			  mutation: PILLAR_CREATE(
 			    name: "${name}"
@@ -52,7 +49,7 @@ export function* watchPillarCreateSubmitted() {
 export function* pillarDelete(action) {
 	try {
 		const { _id, name, isDeleted, tenantId } = action.payload.pillar;
-		const deleteResponse = yield call(fetch,  `
+		const deleteResponse = yield call(fetch, `
 			mutation {
 			  mutation: PILLAR_DELETE(
 					_id: "${_id}"
@@ -80,7 +77,7 @@ export function* watchPillarDeleteSubmitted() {
 export function* pillarNameChange(action) {
 	try {
 		const { pillarName, index } = action.payload;
-		const nameChangeResponse = yield call(fetch,  `
+		const nameChangeResponse = yield call(fetch, `
 			mutation {
 			  mutation: PILLAR_NAME_CHANGE(
 			    name: "${pillarName}"

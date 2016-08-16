@@ -12,9 +12,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	dispatchLeaveRoom: (roomName) => {
 		leaveRoom(roomName);
-		dispatch( socketLeaveRoom(roomName) )
+		dispatch( socketLeaveRoom(roomName) );
  	}
-})
+});
 
 export class DashboardPage extends Component {
 	componentDidMount() {

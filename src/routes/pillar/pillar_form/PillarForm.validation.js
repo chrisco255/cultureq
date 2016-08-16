@@ -1,4 +1,4 @@
-import { createValidator, required, minLength, integer } from 'validations';
+import { createValidator, required } from 'validations';
 
 const pillarValidation = createValidator({
   name: [required]

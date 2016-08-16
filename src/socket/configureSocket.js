@@ -6,7 +6,7 @@ var socket;
 
 export default function configureSocket(store) {
   if(!config.useSockets) return;
-  if(!store) { throw new Error('configureSocket requires store to be passed in') }
+  if(!store) { throw new Error('configureSocket requires store to be passed in'); }
 
   socket = io(config.socketUrl);
 

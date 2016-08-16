@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import { connect } from 'react-redux';
 import { DragSource, DropTarget } from 'react-dnd';
 import CSSModules from 'react-css-modules';
 import styles from './QuestContentItem.css';

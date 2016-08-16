@@ -14,7 +14,7 @@ import QuestPage from './quest/QuestPage.container';
 import store from '../store/configureStore';
 
 function IndexComponent(nextState, cb) {
-	let loggedIn = store.getState().user.token;
+	const loggedIn = store.getState().user.token;
 	console.log(`LoggedIn: ${loggedIn}`);
 
 	if(loggedIn) {
@@ -27,14 +27,14 @@ function IndexComponent(nextState, cb) {
 
 export default (
   <Route path="/" component={App}>
-	  <IndexRoute    getComponent={IndexComponent} />
-    <Route path="company"     component={CompanyPage} />
-    <Route path="analytics"   component={AnalyticsPage} />
-    <Route path="dashboard"   component={DashboardPage} />
-    <Route path="profile"     component={ProfilePage} />
-    <Route path="pillar"      component={PillarPage} />
-    <Route path="content"     component={ContentPage} />
-    <Route path="editor"      component={TextEditorPage} />
-    <Route path="quests"  component={QuestPage} />
+	  <IndexRoute getComponent={IndexComponent} />
+    <Route path="company" component={CompanyPage} />
+    <Route path="analytics" component={AnalyticsPage} />
+    <Route path="dashboard" component={DashboardPage} />
+    <Route path="profile" component={ProfilePage} />
+    <Route path="pillar" component={PillarPage} />
+    <Route path="content" component={ContentPage} />
+    <Route path="editor" component={TextEditorPage} />
+    <Route path="quests" component={QuestPage} />
   </Route>
 );
