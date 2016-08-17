@@ -30,6 +30,7 @@ export function fetchContentPool({ query }) {
 		payload: { query }
 	};
 }
+
 export function addContent ({ content, index }) {
   return {
     type: CONTENT_ADD_SUBMITTED,

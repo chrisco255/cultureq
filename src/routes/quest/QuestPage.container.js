@@ -11,23 +11,42 @@ import {
 	changeFilterText,
 	movePlaceholder,
 	commitDragMove,
-	commitAddMove
+	commitAddMove,
+	fetchContentPool
 } from '../../reducers/quest/Quest.actions';
 import QuestCreateContainer from './quest_create_container/QuestCreateContainer.component';
 
-// const query = `
-// {
-//   pillars {
-//     _id
-//     tenantId
-//     name
-//     isDeleted
-//     content {
-//       _id
-//     }
-//   }
-// }
-// `;
+const query = `
+{
+	contents {
+    _id
+    pillarId
+    type
+    isDeleted
+    data {
+      title
+      description
+      url
+      quote
+      author
+      recipient
+      recipientPosition
+      richtext {
+        blocks {
+          key
+          text
+          type
+          depth
+        }
+        entityMap {
+          type
+          mutability
+        }
+      }
+    }
+  }
+}
+`;
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -57,9 +76,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		commitAddMove: (index, content) => {
 			dispatch(commitAddMove(index, content));
-		}
-    // onLoad: () =>
-		// 	dispatch(fetchPillars({ query }))
+		},
+    onLoad: () =>
+			dispatch(fetchContentPool({ query }))
 	};
 };
 
@@ -75,8 +94,7 @@ const mapStateToProps = (state) => {
 class QuestPage extends Component {
 
 	componentDidMount() {
-    //onload would fetch the current content pool from the server
-		// this.props.onLoad()
+		this.props.onLoad();
 	}
 
 	render() {

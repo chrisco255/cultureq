@@ -1,8 +1,7 @@
 import {
+	FETCH_CONTENT_POOL_SUCCEEDED,
 	CONTENT_ADD_SUBMITTED,
-	CONTENT_ADD_FAILED,
 	CONTENT_REMOVE_SUBMITTED,
-	CONTENT_REMOVE_FAILED,
 	CONTENT_SELECT_SUBMITTED,
 	CONTENT_DESELECT_SUBMITTED,
 	CONTENT_ORDER_CHANGE_SUBMITTED,
@@ -168,6 +167,8 @@ const defaultState = {
 export default (state = defaultState, action) => {
 	const { payload } = action;
 	switch(action.type) {
+		case FETCH_CONTENT_POOL_SUCCEEDED:
+			return contentPoolFetchSucceeded(state, payload);
 		case CONTENT_ADD_SUBMITTED:
 			return contentAddSubmitted(state, payload);
 		case CONTENT_REMOVE_SUBMITTED:
@@ -190,6 +191,12 @@ export default (state = defaultState, action) => {
       return state;
 	}
 };
+
+function contentPoolFetchSucceeded(state, { contents }) {
+	state = { ...state, contentPool:contents };
+	console.log('pool fetched');
+	return state;
+}
 
 function contentAddSubmitted(state, { content, index }) {
 	content = { ...content, isSelected: false};

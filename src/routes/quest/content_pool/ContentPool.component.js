@@ -30,17 +30,20 @@ class ContentPool extends Component {
 
 	render() {
     const { pool, filterText, connectDropTarget, addContent, selectContent, deselectContent, changeFilterText } = this.props;
+    // debugger;
 
     const selectedContent = pool.filter((content) => {
       return content.isSelected;
     });
 
     const filteredPool = pool.filter((content) => {
-      const text = content.title + content.description;
-      const rawText = text.toLowerCase().replace(/\s+/g, '');
-      const rawFilterText = filterText.toLowerCase().replace(/\s+/g, '');
-      return !rawText || rawText.includes(rawFilterText);
+      return true;
+      // const text = content.title + content.description;
+      // const rawText = text.toLowerCase().replace(/\s+/g, '');
+      // const rawFilterText = filterText.toLowerCase().replace(/\s+/g, '');
+      // return !rawText || rawText.includes(rawFilterText);
     });
+    console.log(filteredPool);
 
     const contentPoolElements = filteredPool.map((content) => {
 			return (
