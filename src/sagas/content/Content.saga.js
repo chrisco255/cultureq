@@ -24,6 +24,7 @@ export function* watchFetchContentsSubmitted() {
 export function* contentCreate(action) {
 	try {
 		const { type, pillarId, isDeleted, data } = action.payload.content;
+		console.log(action.payload.content);
 		const createResponse = yield call(fetch, `
 			mutation {
 			  mutation: CONTENT_CREATE(
@@ -38,6 +39,52 @@ export function* contentCreate(action) {
 						author: "${data.author}"
 						recipient: "${data.recipient}"
 						recipientPosition: "${data.recipientPosition}"
+						richtext: {
+							blocks: [${data.richtext.blocks.map((block) => {
+								return (
+									`
+										{
+											inlineStyleRanges: [${block.inlineStyleRanges.map((inlineStyleRange) => {
+												return (
+													`
+														{
+															style: "${inlineStyleRange.style}"
+															offset: ${inlineStyleRange.offset}
+															length: ${inlineStyleRange.length}
+														}
+													`
+												);
+											})}]
+										  entityRanges: [${block.entityRanges.map((entityRange) => {
+												return (
+													`
+														{
+															key: ${entityRange.key}
+															offset: ${entityRange.offset}
+															length: ${entityRange.length}
+														}
+													`
+												);
+											})}]
+											key: "${block.key}"
+											text: "${block.text}"
+											type: "${block.type}"
+											depth: ${block.depth}
+										}
+									`
+								);
+							})}]
+							entityMap: [${data.richtext.entityMap.map((entity) => {
+								return (
+									`
+										{
+											type: "${entity.type}"
+											mutability: "${entity.mutability}"
+										}
+									`
+								);
+							})}]
+						}
 					}
 			  ) {
 			    _id
@@ -52,6 +99,28 @@ export function* contentCreate(action) {
 						author
 						recipient
 						recipientPosition
+						richtext {
+			        blocks {
+			          inlineStyleRanges {
+			            style
+			            offset
+			            length
+			          }
+			          entityRanges {
+			            key
+			            offset
+			            length
+			          }
+			          key
+			          text
+			          type
+			          depth
+			        }
+			        entityMap {
+			          type
+			          mutability
+			        }
+			      }
 					}
 			  }
 			}

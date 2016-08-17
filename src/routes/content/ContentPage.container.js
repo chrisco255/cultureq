@@ -37,6 +37,28 @@ const contentQuery = `
         author
         recipient
         recipientPosition
+        richtext {
+          blocks {
+            inlineStyleRanges {
+              style
+              offset
+              length
+            }
+            entityRanges {
+              key
+              offset
+              length
+            }
+            key
+            text
+            type
+            depth
+          }
+          entityMap {
+            type
+            mutability
+          }
+        }
       }
     }
   }
@@ -101,15 +123,17 @@ class ContentPage extends Component {
 		dispatch( createContent(values) );
 	}
 
-  onRichtextSubmit = (dispatch) => {
+  onRichtextSubmit = () => {
     const richtextContent = {
       type: 'richtext',
-      pillarId: 'noPillar'
+      pillarId: 'noPillar',
+      data: {
+        richtext: {...this.state.rawState}
+      }
     };
-    richtextContent.data = this.state.rawState;
     console.log(this.state.rawState);
     console.log(richtextContent);
-    dispatch( createContent(richtextContent) );
+    this.props.createContent(richtextContent);
   }
 
   onChange = (rawState) => {
@@ -130,6 +154,8 @@ class ContentPage extends Component {
       contentViewOrder.alignItems = 'center';
       contentViewOrder.flexDirection = 'column';
     }
+
+    console.log(this.props.contents);
 
     if(activeContents.length > 0) {
       listContents = this.props.contents.map((content, index) => {
@@ -152,7 +178,7 @@ class ContentPage extends Component {
                          finishEdit={this.props.finishEdit}
                          urlChangeContent={this.props.urlChangeContent} /> }
                 {/*{ content.type === 'LUNCH' &&
-                  <Action key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> }*/}
+                  <Action key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} /> } */}
               </div>
   				);
         }
