@@ -4,8 +4,7 @@
 }
 
 .editor-content {
-  border: 2px dashed #757575;
-  margin-top: 12px;
+  border: 1px solid black;
 }
 
 :global(.editor-content ul) {

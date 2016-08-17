@@ -6,7 +6,8 @@ const defaultState = {
     isEditing: false,
     isCreatingContent: false,
     contentThatIsBeingEdited: null,
-    contentThatIsBeingEditedIndex: -1
+    contentThatIsBeingEditedIndex: -1,
+    currentContentType: ''
 };
 
 export default (state = defaultState, action) => {
@@ -104,15 +105,6 @@ export default (state = defaultState, action) => {
             console.log('CONTENT_RECIPIENT_POSITION_CHANGE_FAILED ❌');
             break;
 
-        case ActionTypes.CONTENT_RICHTEXT_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_RICHTEXT_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentRichtext, 'richtext');
-        case ActionTypes.CONTENT_RICHTEXT_CHANGE_SUCCEEDED:
-            console.log('CONTENT_RICHTEXT_CHANGE_SUCCEEDED ✅');
-            break;
-        case ActionTypes.CONTENT_RICHTEXT_CHANGE_FAILED:
-            console.log('CONTENT_RICHTEXT_CHANGE_FAILED ❌');
-            break;
-
             // FETCH_PILLARS
         case ActionTypes.FETCH_CONTENTS_SUBMITTED:
             console.log('FETCH_CONTENTS_SUBMITTED ▶️');
@@ -171,8 +163,12 @@ function finishEdit(state) {
 }
 
 function formEnable(state, payload) {
+  // if (payload.isCreatingContent === false) {
+  //   payload.currentContentType = '';
+  // }
   return Object.assign({}, state, {
-      isCreatingContent: !payload.isCreatingContent
+      isCreatingContent: !payload.isCreatingContent,
+      currentContentType: payload.currentContentType
   });
 }
 

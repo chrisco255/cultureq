@@ -4,10 +4,12 @@ import CSSModules from 'react-css-modules';
 import ContentPageStyles from './ContentPage.css';
 import _ from 'lodash';
 import { createContent, deleteContent, editContent, finishEdit, formEnable, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent, quoteChangeContent, authorChangeContent } from '../../reducers/content/Content.actions';
-import ContentForm from './content_form/ContentForm.component';
+import VideoForm from './video_form/VideoForm.component';
+import QuoteForm from './quote_form/QuoteForm.component';
 import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/Quote.component';
 import Video from '../../components/cards/Video.component';
+import TextEditor from '../../components/text_editor/TextEditor.component';
 
 const pillarQuery = `
   {
@@ -34,18 +36,6 @@ const contentQuery = `
         author
         recipient
         recipientPosition
-        richtext {
-          blocks {
-            key
-            text
-            type
-            depth
-          }
-          entityMap {
-            type
-            mutability
-          }
-        }
       }
     }
   }
@@ -60,8 +50,8 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(editContent(content, index)),
     finishEdit: () =>
       dispatch(finishEdit()),
-    formEnable: (isCreatingContent) =>
-      dispatch(formEnable(isCreatingContent)),
+    formEnable: (isCreatingContent, currentContentType) =>
+      dispatch(formEnable(isCreatingContent, currentContentType)),
     titleChangeContent: (content, index) =>
       dispatch(titleChangeContent(content, index)),
     descriptionChangeContent: (content, index) =>
@@ -85,27 +75,67 @@ const mapStateToProps = (state) => {
 		isEditing: state.content.isEditing,
 		contentThatIsBeingEdited: state.content.contentThatIsBeingEdited,
 		contentThatIsBeingEditedIndex: state.content.contentThatIsBeingEditedIndex,
-    isCreatingContent: state.content.isCreatingContent
+    isCreatingContent: state.content.isCreatingContent,
+    currentContentType: state.content.currentContentType
 	};
 };
 
 class ContentPage extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      rawState: null
+    };
+  }
 
 	componentDidMount() {
 		this.props.onLoad();
 	}
 
 	onContentSubmit = (values, dispatch) => {
+    values.type = this.props.currentContentType;
     console.log(values);
 		dispatch( createContent(values) );
 	}
 
+  onRichtextSubmit = (dispatch) => {
+    const richtextContent = {
+      type: 'richtext',
+      pillarId: 'noPillar'
+    };
+    richtextContent.data = this.state.rawState;
+    console.log(this.state.rawState);
+    console.log(richtextContent);
+    dispatch( createContent(richtextContent) );
+  }
+
+  onChange = (rawState) => {
+		console.log(rawState);
+		this.setState({rawState});
+	};
+
 	render() {
 
-		let listContents = null;
+    let listContents;
+
+    const types = [{
+      value: 'richtext',
+      name: 'Article',
+      description: 'A text editor where you can write in any format you want.'
+    }, {
+      value: 'video',
+      name: 'Video',
+      description: 'Displays a video with a title and description.'
+    }, {
+      value: 'quote',
+      name: 'Quote',
+      description: 'Displays a quote with the accredited author.'
+    }];
 
     const activeContents = this.props.contents.filter((content) => !content.isDeleted);
-    let contentViewOrder = {display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'};
+    const contentViewOrder = {display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'};
 
     if (this.props.isCreatingContent) {
       delete contentViewOrder.flexWrap;
@@ -142,39 +172,48 @@ class ContentPage extends Component {
 			});
     }
 
+    let submitBtnClassName = 'btn-floating btn-large waves-effect waves-light green';
+    if(!this.state.rawState) {
+      submitBtnClassName = 'btn-floating btn-large disabled';
+    }
+
 		return (
-      <div className="container">
+      <div style={{display: 'flex'}}>
 
-				<div className="row">
-					{ (this.props.isCreatingContent || activeContents.length === 0) && <div className="col s12">
-	      			<ContentForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} />
-			        <br />
-			    </div> }
-
-          { activeContents.length > 0 && <div style={(this.props.isCreatingContent) ? {display: 'none'} : {}}>
-            <div className="container">
-              {this.props.isCreatingContent && <h1>Content Preview</h1>}
-              {!this.props.isCreatingContent && <div className="row">
-                  <form className="col s12">
-                    <div className="row">
-                      <div className="input-field col s12">
-                        <i className="material-icons prefix" style={{color: '#757575'}}>search</i>
-                        <input id="icon_prefix" type="text" className="validate" placeholder="search" />
-                        {/*<label htmlFor="icon_prefix">Search</label>*/}
-                      </div>
-                    </div>
-                  </form>
-                </div>}
-              <div style={contentViewOrder}>{listContents}</div>
-            </div>
-          </div> }
-				</div>
-
-        <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
-          <a className="btn-floating btn-large waves-effect waves-light accent-background" onClick={this.props.formEnable.bind(this, this.props.isCreatingContent)}>{(!this.props.isCreatingContent) ? <i className="material-icons">add</i> : <i className="material-icons">arrow_back</i>}</a>
+      <div style={{backgroundColor: 'rgba(117, 117, 117, 0.04)', height: '100em', width: '23%'}}>
+        <div>
+          <h1 style={{padding: '2.1rem 0 1.68rem 15px', margin: 'auto'}}>Select Content Type</h1>
         </div>
-
+        { types.map( type => {
+          const isActive = (type.value === this.props.currentContentType);
+          return(
+            <div key={type.value} style={isActive ? {padding: '15px 15px 15px 15px', backgroundColor: 'white', borderBottom: 'solid rgba(117, 117, 117, 0.06) 1px'} : {padding: '15px 15px 15px 15px'}} onClick={this.props.formEnable.bind(this, this.props.isCreatingContent, type.value)}>
+              <h5 style={{marginBottom: '2px'}}>{type.name}</h5>
+              <p style={{marginTop: '0px'}}>{type.description}</p>
+            </div>
+          ); }) }
       </div>
+
+      <div style={{width: '77%', paddingTop: '2.1rem'}}>
+        <div className="container">
+          { (this.props.currentContentType === 'video') && <VideoForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} type={this.props.currentContentType} /> }
+          { (this.props.currentContentType === 'quote') && <QuoteForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} type={this.props.currentContentType} /> }
+          { (this.props.currentContentType === 'richtext') &&
+          <div>
+            <h1>Write an Article</h1>
+            <TextEditor onAutosave={ (rawContent) => this.onChange(rawContent) } />
+            <h1>Preview</h1>
+            { this.state.rawState && <TextEditor readOnly={true} startingEditorState={this.state.rawState} /> }
+          </div> }
+          { (this.props.currentContentType === 'richtext') && <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
+            <a className={submitBtnClassName} onClick={this.onRichtextSubmit}>
+              <i className="large material-icons">check</i>
+            </a>
+          </div> }
+        </div>
+      </div>
+
+    </div>
 		);
 	}
 

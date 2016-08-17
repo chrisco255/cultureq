@@ -38,10 +38,6 @@ export const CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED = 'CONTENT_RECIPIENT_PO
 export const CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED = 'CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED';
 export const CONTENT_RECIPIENT_POSITION_CHANGE_FAILED = 'CONTENT_RECIPIENT_POSITION_CHANGE_FAILED';
 
-export const CONTENT_RICHTEXT_CHANGE_SUBMITTED = 'CONTENT_RICHTEXT_CHANGE_SUBMITTED';
-export const CONTENT_RICHTEXT_CHANGE_SUCCEEDED = 'CONTENT_RICHTEXT_CHANGE_SUCCEEDED';
-export const CONTENT_RICHTEXT_CHANGE_FAILED = 'CONTENT_RICHTEXT_CHANGE_FAILED';
-
 export const FETCH_CONTENTS_SUBMITTED = 'FETCH_CONTENTS_SUBMITTED';
 export const FETCH_CONTENTS_SUCCEEDED = 'FETCH_CONTENTS_SUCCEEDED';
 export const FETCH_CONTENTS_FAILED = 'FETCH_CONTENTS_FAILED';
@@ -97,10 +93,10 @@ export function finishEdit() {
 	};
 }
 
-export function formEnable(isCreatingContent) {
+export function formEnable(isCreatingContent, currentContentType) {
 	return {
 		type: FORM_ENABLE,
-		payload: { isCreatingContent }
+		payload: { isCreatingContent, currentContentType }
 	};
 }
 
@@ -150,12 +146,5 @@ export function recipientPositionChangeContent(contentRecipientPosition, index) 
 	return {
 		type: CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED,
 		payload: { contentRecipientPosition, index }
-	};
-}
-
-export function richTextChangeContent(contentRichtext, index) {
-	return {
-		type: CONTENT_RICHTEXT_CHANGE_SUBMITTED,
-		payload: { contentRichtext, index }
 	};
 }

@@ -16,8 +16,7 @@ import {
   watchContentQuoteChangeSubmitted,
   watchContentAuthorChangeSubmitted,
   watchContentRecipientChangeSubmitted,
-  watchContentRecipientPositionChangeSubmitted,
-  watchContentRichtextChangeSubmitted
+  watchContentRecipientPositionChangeSubmitted
 } from './content/Content.saga';
 import { watchFetchContentPool } from './quest/Quest.saga';
 
@@ -40,7 +39,6 @@ export default function* rootSaga() {
     watchContentAuthorChangeSubmitted(),
     watchContentRecipientChangeSubmitted(),
     watchContentRecipientPositionChangeSubmitted(),
-    watchContentRichtextChangeSubmitted(),
     watchFetchContentPool()
   ];
 }
