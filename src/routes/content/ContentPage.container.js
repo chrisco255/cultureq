@@ -164,10 +164,6 @@ class ContentPage extends Component {
       submitBtnClassName = 'btn-floating btn-large disabled';
     }
 
-    Object.keys(ContentTypes.properties).map( type => {
-      console.log(type);
-      console.log(ContentTypes.properties[type]);
-    });
 		return (
       <div style={{display: 'flex'}}>
 
