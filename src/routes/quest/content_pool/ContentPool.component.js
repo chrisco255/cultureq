@@ -37,11 +37,15 @@ class ContentPool extends Component {
     });
 
     const filteredPool = pool.filter((content) => {
-      return true;
-      // const text = content.title + content.description;
-      // const rawText = text.toLowerCase().replace(/\s+/g, '');
-      // const rawFilterText = filterText.toLowerCase().replace(/\s+/g, '');
-      // return !rawText || rawText.includes(rawFilterText);
+      let text = '';
+      if (content.type === 'QUOTE') {
+        text = content.data.quote + content.data.author;
+      } else if (content.type === 'VIDEO') {
+        text = content.data.title + content.data.url + content.data.description;
+      }
+      const rawText = text.toLowerCase().replace(/\s+/g, '');
+      const rawFilterText = filterText.toLowerCase().replace(/\s+/g, '');
+      return !rawText || rawText.includes(rawFilterText);
     });
     console.log(filteredPool);
 
