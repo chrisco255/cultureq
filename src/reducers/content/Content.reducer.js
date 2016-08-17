@@ -168,7 +168,7 @@ function formEnable(state, payload) {
   // }
   return Object.assign({}, state, {
       isCreatingContent: !payload.isCreatingContent,
-      currentContentType: payload.currentContentType
+      currentContentType: payload.currentContentType.toUpperCase()
   });
 }
 

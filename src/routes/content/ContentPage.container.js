@@ -10,6 +10,7 @@ import { fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import Quote from '../../components/cards/Quote.component';
 import Video from '../../components/cards/Video.component';
 import TextEditor from '../../components/text_editor/TextEditor.component';
+import ContentTypes from './ContentTypes';
 
 const pillarQuery = `
   {
@@ -120,20 +121,6 @@ class ContentPage extends Component {
 
     let listContents;
 
-    const types = [{
-      value: 'richtext',
-      name: 'Article',
-      description: 'A text editor where you can write in any format you want.'
-    }, {
-      value: 'video',
-      name: 'Video',
-      description: 'Displays a video with a title and description.'
-    }, {
-      value: 'quote',
-      name: 'Quote',
-      description: 'Displays a quote with the accredited author.'
-    }];
-
     const activeContents = this.props.contents.filter((content) => !content.isDeleted);
     const contentViewOrder = {display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'};
 
@@ -156,10 +143,10 @@ class ContentPage extends Component {
         if(!content.isDeleted) {
           return (
               <div>
-                { content.type === 'QUOTE' &&
+                { content.type === ContentTypes.QUOTE &&
                   <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} finishEdit={this.props.finishEdit}
                   authorChangeContent={this.props.authorChangeContent} quoteChangeContent={this.props.quoteChangeContent} /> }
-                { content.type === 'VIDEO' &&
+                { content.type === ContentTypes.VIDEO &&
                   <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} titleChangeContent={this.props.titleChangeContent}
                          descriptionChangeContent={this.props.descriptionChangeContent}
                          finishEdit={this.props.finishEdit}
@@ -177,6 +164,10 @@ class ContentPage extends Component {
       submitBtnClassName = 'btn-floating btn-large disabled';
     }
 
+    Object.keys(ContentTypes.properties).map( type => {
+      console.log(type);
+      console.log(ContentTypes.properties[type]);
+    });
 		return (
       <div style={{display: 'flex'}}>
 
@@ -184,28 +175,35 @@ class ContentPage extends Component {
         <div>
           <h1 style={{padding: '2.1rem 0 1.68rem 15px', margin: 'auto'}}>Select Content Type</h1>
         </div>
-        { types.map( type => {
-          const isActive = (type.value === this.props.currentContentType);
-          return(
-            <div key={type.value} style={isActive ? {padding: '15px 15px 15px 15px', backgroundColor: 'white', borderBottom: 'solid rgba(117, 117, 117, 0.06) 1px'} : {padding: '15px 15px 15px 15px'}} onClick={this.props.formEnable.bind(this, this.props.isCreatingContent, type.value)}>
-              <h5 style={{marginBottom: '2px'}}>{type.name}</h5>
-              <p style={{marginTop: '0px'}}>{type.description}</p>
-            </div>
-          ); }) }
+          {
+            Object.keys(ContentTypes.properties).map( type => {
+              const isActive = (type === this.props.currentContentType);
+              const value = ContentTypes.properties[type].value;
+              const name = ContentTypes.properties[type].name;
+              const description = ContentTypes.properties[type].description;
+
+              return (
+                <div key={value} style={isActive ? {padding: '15px 15px 15px 15px', backgroundColor: 'white', borderBottom: 'solid rgba(117, 117, 117, 0.06) 1px'} : {padding: '15px 15px 15px 15px'}} onClick={this.props.formEnable.bind(this, this.props.isCreatingContent, value)}>
+                  <h5 style={{marginBottom: '2px'}}>{name}</h5>
+                  <p style={{marginTop: '0px'}}>{description}</p>
+                </div>
+              );
+            })
+          }
       </div>
 
       <div style={{width: '77%', paddingTop: '2.1rem'}}>
         <div className="container">
-          { (this.props.currentContentType === 'video') && <VideoForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} type={this.props.currentContentType} /> }
-          { (this.props.currentContentType === 'quote') && <QuoteForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} type={this.props.currentContentType} /> }
-          { (this.props.currentContentType === 'richtext') &&
+          { (this.props.currentContentType === ContentTypes.VIDEO) && <VideoForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} type={this.props.currentContentType} /> }
+          { (this.props.currentContentType === ContentTypes.QUOTE) && <QuoteForm onSubmit={this.onContentSubmit} pillars={this.props.pillars} type={this.props.currentContentType} /> }
+          { (this.props.currentContentType === ContentTypes.RICHTEXT) &&
           <div>
             <h1>Write an Article</h1>
             <TextEditor onAutosave={ (rawContent) => this.onChange(rawContent) } />
             <h1>Preview</h1>
             { this.state.rawState && <TextEditor readOnly={true} startingEditorState={this.state.rawState} /> }
           </div> }
-          { (this.props.currentContentType === 'richtext') && <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
+          { (this.props.currentContentType === ContentTypes.RICHTEXT) && <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
             <a className={submitBtnClassName} onClick={this.onRichtextSubmit}>
               <i className="large material-icons">check</i>
             </a>
