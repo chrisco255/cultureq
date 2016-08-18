@@ -2,129 +2,39 @@ import { put, call } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import axios from 'axios';
 import * as ActionTypes from '../../reducers/content/Content.actions';
+import getCreateContentMutationString from './ContentCreateMutationString';
 
 // Fetch
 const fetch = (query) => {
-	return axios.post('/api/graphql', { query })
-							.then( response => response.data.data );
+    return axios.post('/api/graphql', {
+            query
+        })
+        .then(response => response.data.data);
 };
 
 export function* fetchContents(action) {
-	try {
-		const payload = yield call(fetch, action.payload.query);
-		yield put( {type: ActionTypes.FETCH_CONTENTS_SUCCEEDED, payload} );
-	} catch (error) {
-		yield put( {type: ActionTypes.FETCH_CONTENTS_FAILED, error } );
-	}
+    try {
+        const payload = yield call(fetch, action.payload.query);
+        yield put({
+            type: ActionTypes.FETCH_CONTENTS_SUCCEEDED,
+            payload
+        });
+    } catch (error) {
+        yield put({
+            type: ActionTypes.FETCH_CONTENTS_FAILED,
+            error
+        });
+    }
 }
 export function* watchFetchContentsSubmitted() {
-	yield* takeEvery(ActionTypes.FETCH_CONTENTS_SUBMITTED, fetchContents);
+    yield* takeEvery(ActionTypes.FETCH_CONTENTS_SUBMITTED, fetchContents);
 }
 
 export function* contentCreate(action) {
 	try {
 		const { type, pillarId, isDeleted, data } = action.payload.content;
-		console.log(action.payload.content);
-		const createResponse = yield call(fetch, `
-			mutation {
-			  mutation: CONTENT_CREATE(
-			    type: ${type.toUpperCase()}
-					pillarId: "${pillarId}"
-					isDeleted: ${isDeleted}
-					data: {
-						title: "${data.title}"
-						description: "${data.description}"
-						url: "${data.url}"
-						quote: "${data.quote}"
-						author: "${data.author}"
-						recipient: "${data.recipient}"
-						recipientPosition: "${data.recipientPosition}"
-						richtext: {
-							blocks: [${data.richtext.blocks.map((block) => {
-								return (
-									`
-										{
-											inlineStyleRanges: [${block.inlineStyleRanges.map((inlineStyleRange) => {
-												return (
-													`
-														{
-															style: "${inlineStyleRange.style}"
-															offset: ${inlineStyleRange.offset}
-															length: ${inlineStyleRange.length}
-														}
-													`
-												);
-											})}]
-										  entityRanges: [${block.entityRanges.map((entityRange) => {
-												return (
-													`
-														{
-															key: ${entityRange.key}
-															offset: ${entityRange.offset}
-															length: ${entityRange.length}
-														}
-													`
-												);
-											})}]
-											key: "${block.key}"
-											text: "${block.text}"
-											type: "${block.type}"
-											depth: ${block.depth}
-										}
-									`
-								);
-							})}]
-							entityMap: [${data.richtext.entityMap.map((entity) => {
-								return (
-									`
-										{
-											type: "${entity.type}"
-											mutability: "${entity.mutability}"
-										}
-									`
-								);
-							})}]
-						}
-					}
-			  ) {
-			    _id
-					type
-					pillarId
-					isDeleted
-					data {
-						title
-						description
-						url
-						quote
-						author
-						recipient
-						recipientPosition
-						richtext {
-			        blocks {
-			          inlineStyleRanges {
-			            style
-			            offset
-			            length
-			          }
-			          entityRanges {
-			            key
-			            offset
-			            length
-			          }
-			          key
-			          text
-			          type
-			          depth
-			        }
-			        entityMap {
-			          type
-			          mutability
-			        }
-			      }
-					}
-			  }
-			}
-		`);
+		const createContentMutation = getCreateContentMutationString(type.toUpperCase(), pillarId, isDeleted, data);
+		const createResponse = yield call(fetch, createContentMutation);
 		const payload = createResponse.mutation;
 		yield put( {type: ActionTypes.CONTENT_CREATE_SUCCEEDED, payload } );
 	} catch (error) {
