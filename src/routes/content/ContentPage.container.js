@@ -119,7 +119,6 @@ class ContentPage extends Component {
 
 	onContentSubmit = (values, dispatch) => {
     values.type = this.props.currentContentType;
-    console.log(values);
 		dispatch( createContent(values) );
 	}
 
@@ -131,13 +130,10 @@ class ContentPage extends Component {
         richtext: {...this.state.rawState}
       }
     };
-    console.log(this.state.rawState);
-    console.log(richtextContent);
     this.props.createContent(richtextContent);
   }
 
   onChange = (rawState) => {
-		console.log(rawState);
 		this.setState({rawState});
 	};
 
@@ -154,8 +150,6 @@ class ContentPage extends Component {
       contentViewOrder.alignItems = 'center';
       contentViewOrder.flexDirection = 'column';
     }
-
-    console.log(this.props.contents);
 
     if(activeContents.length > 0) {
       listContents = this.props.contents.map((content, index) => {
