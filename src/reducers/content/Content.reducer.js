@@ -17,6 +17,9 @@ export default (state = defaultState, action) => {
         // CONTENT_CREATE
         case ActionTypes.CONTENT_CREATE_SUBMITTED:
             action.payload.content.isDeleted = false;
+            if(!action.payload.content.pillarId) {
+              action.payload.content.pillarId = 'noPillar';
+            }
             console.log('CONTENT_CREATE_SUBMITTED ▶️', action);
             break;
         case ActionTypes.CONTENT_CREATE_SUCCEEDED:
@@ -163,9 +166,6 @@ function finishEdit(state) {
 }
 
 function formEnable(state, payload) {
-  // if (payload.isCreatingContent === false) {
-  //   payload.currentContentType = '';
-  // }
   return Object.assign({}, state, {
       isCreatingContent: !payload.isCreatingContent,
       currentContentType: payload.currentContentType.toUpperCase()
