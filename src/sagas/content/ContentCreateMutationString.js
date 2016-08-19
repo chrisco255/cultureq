@@ -3,7 +3,7 @@ import _ from 'lodash';
 function getCreateContentMutationString(type, pillarId, isDeleted, data) {
     let dataObject = '';
     if (data.richtext) {
-        const blocksArray = `[${data.richtext.blocks.map((block) => {
+      const blocksArray = `[${data.richtext.blocks.map((block) => {
 			let inlineStyleRangesArray = '';
 			let entityRangesArray = '';
 			const blockObject = `
