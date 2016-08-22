@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
 const routes = [
 	{ path: '/', label: 'home', isIndex: true},
 	{ path: 'analytics', label: 'analytics'},
-	{ path: 'content', label: 'content management'},
+	{ path: 'mycontent', label: 'my content'},
 	{ path: 'pillar', label: 'pillar management'},
 	{ path: 'quests', label: 'Quest Creation'},
 ];

@@ -8,7 +8,8 @@ import DashboardPage from './dashboard/DashboardPage.container.js';
 import ProfilePage from './profile/ProfilePage.container.js';
 import PillarPage from './pillar/PillarPage.container.js';
 import AnalyticsPage from './analytics/AnalyticsPage.container.js';
-import ContentPage from './content/ContentPage.container.js';
+import AddContentPage from './content/AddContentPage.container.js';
+import MyContentPage from './content/MyContentPage.container.js';
 import TextEditorPage from './editor/TextEditor.container.js';
 import QuestPage from './quest/QuestPage.container';
 import store from '../store/configureStore';
@@ -33,7 +34,8 @@ export default (
     <Route path="dashboard" component={DashboardPage} />
     <Route path="profile" component={ProfilePage} />
     <Route path="pillar" component={PillarPage} />
-    <Route path="content" component={ContentPage} />
+		<Route path="addcontent" component={AddContentPage} />
+    <Route path="mycontent" component={MyContentPage} />
     <Route path="editor" component={TextEditorPage} />
     <Route path="quests" component={QuestPage} />
   </Route>
