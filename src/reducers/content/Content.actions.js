@@ -9,6 +9,7 @@ export const CONTENT_DELETE_FAILED = 'CONTENT_DELETE_FAILED';
 export const EDIT_CONTENT = 'EDIT_CONTENT';
 export const FINISH_EDIT = 'FINISH_EDIT';
 export const FORM_ENABLE = 'FORM_ENABLE';
+export const FILTER_CONTENT = 'FILTER_CONTENT';
 
 export const CONTENT_TITLE_CHANGE_SUBMITTED = 'CONTENT_TITLE_CHANGE_SUBMITTED';
 export const CONTENT_TITLE_CHANGE_SUCCEEDED = 'CONTENT_TITLE_CHANGE_SUCCEEDED';
@@ -97,6 +98,13 @@ export function formEnable(isCreatingContent, currentContentType) {
 	return {
 		type: FORM_ENABLE,
 		payload: { isCreatingContent, currentContentType }
+	};
+}
+
+export function setFilteredContents(filteredContents) {
+	return {
+		type: FILTER_CONTENT,
+		payload: { filteredContents }
 	};
 }
 

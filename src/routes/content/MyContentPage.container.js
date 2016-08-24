@@ -4,7 +4,7 @@ import CSSModules from 'react-css-modules';
 import ContentPageStyles from './ContentPage.css';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import { fetchContents } from '../../reducers/content/Content.actions';
+import { fetchContents, setFilteredContents } from '../../reducers/content/Content.actions';
 import ContentTypes from './ContentTypes';
 
 const contentQuery = `
@@ -50,6 +50,8 @@ const contentQuery = `
 `;
 
 const mapDispatchToProps = (dispatch) => ({
+    setFilteredContents: (filteredContents) =>
+      dispatch(setFilteredContents(filteredContents)),
 		onLoad: () => {
       dispatch(fetchContents({ query:contentQuery }));
     }
@@ -62,7 +64,8 @@ const mapStateToProps = (state) => {
 		contentThatIsBeingEdited: state.content.contentThatIsBeingEdited,
 		contentThatIsBeingEditedIndex: state.content.contentThatIsBeingEditedIndex,
     isCreatingContent: state.content.isCreatingContent,
-    currentContentType: state.content.currentContentType
+    currentContentType: state.content.currentContentType,
+    filteredContents: state.content.filteredContents
 	};
 };
 
@@ -95,22 +98,29 @@ class MyContentPage extends Component {
 		this.setState({rawState});
 	};
 
-
+  filterBy = (type) => {
+    this.props.setFilteredContents(this.props.contents.filter((content) => content.type === type));
+  };
 
 	render() {
 
     $('.dropdown-button').dropdown({
        inDuration: 300,
        outDuration: 225,
-       constrain_width: false, // Does not change width of dropdown to that of the activator
-       hover: true, // Activate on hover
-       gutter: 0, // Spacing from edge
-       belowOrigin: false, // Displays dropdown below the button
-       alignment: 'left' // Displays dropdown with edge aligned to the left of button
+       constrain_width: false,
+       hover: false,
+       gutter: 0,
+       belowOrigin: false
      }
     );
 
-    const activeContents = this.props.contents.filter((content) => !content.isDeleted);
+    let activeContents;
+
+    if(!_.isEmpty(this.props.filteredContents)) {
+      activeContents = this.props.filteredContents.filter((content) => !content.isDeleted);
+    } else {
+      activeContents = this.props.contents.filter((content) => !content.isDeleted);
+    }
 
     console.log(activeContents);
 
@@ -143,7 +153,7 @@ class MyContentPage extends Component {
             <div style={{width: '375px', marginRight: '50px'}}>
               {/*Quote or Video Title*/}
               <div>
-                <div style={{whiteSpace: 'nowrap', overflow: 'hidden', fontSize: '18px', textOverflow: 'ellipsis'}}>{currentItemTitle}</div>
+                <div style={{whiteSpace: 'nowrap', overflow: 'hidden', fontSize: '18px', textOverflow: 'ellipsis'}}><Link to="addcontent">{currentItemTitle}</Link></div>
               </div>
 
               {/*Tags*/}
@@ -168,11 +178,11 @@ class MyContentPage extends Component {
     });
 
 		return (
-      <div className="row" style={{marginTop: '40'}}>
+      <div className="row" style={{marginTop: '40px'}}>
         <div className="container" style={{width: '90%'}}>
 
           <div className="col s12">
-            <Link className="white-text" to="addcontent"><a className="waves-effect waves-light btn accent-background" style={{padding: '0 20px 0 20px', textTransform: 'capitalize'}}><i className="material-icons left" style={{marginRight: '10px'}}>add</i>Add Content</a></Link>
+            <Link className="white-text waves-effect waves-light btn accent-background" style={{padding: '0 20px 0 20px', textTransform: 'capitalize'}} to="addcontent"><i className="material-icons left" style={{marginRight: '10px'}}>add</i>Add Content</Link>
             <div className="row">
               <div className="input-field col s4">
                 <i className="material-icons left" style={{position: 'absolute', bottom: '26px'}}>search</i>
@@ -188,16 +198,19 @@ class MyContentPage extends Component {
               <p className="divider-color" style={{display: 'flex', alignItems: 'center', fontSize: '13px', paddingTop: '6px', margin: '2.1rem 0px 0px 8px'}}>({activeContents.length})</p>
             </div>
             <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '1.68rem', color: '#4a4a4a'}}>
-              <div style={{display: 'flex', justifyContent: 'center', width: '115px', margin: '0px 50px'}}>
-                <a className='dropdown-button btn' href='#' data-activates='dropdown1'>Type<i className="material-icons">arrow_drop_down</i></a>
-                <ul id='dropdown1' className='dropdown-content'>
-                  <li><a href="#!">one</a></li>
-                  <li><a href="#!">two</a></li>
+              <div style={{display: 'flex', justifyContent: 'center', width: '165px', paddingLeft: '17px'}}>
+                <a className='dropdown-button' data-activates='type-dropdown' style={{display: 'flex', color: '#4a4a4a'}}>Type<i className="material-icons">arrow_drop_down</i></a>
+                <ul id='type-dropdown' className='dropdown-content' style={{top: '343.5px !important', left: '609.359px !important', boxShadow: '0 6px 28px 0 rgba(0, 0, 0, 0.25),0 6px 24px 0 rgba(0,0,0,0.12)', backgroundColor: '#f5f5f5'}}>
+                  <li onClick={this.filterBy.bind(this, '')} ><a style={{display: 'flex', justifyContent: 'space-between', fontSize: '15px', color: '#4a4a4a'}}>Type<i className="material-icons">arrow_drop_up</i></a></li>
                   <li className="divider"></li>
-                  <li><a href="#!">three</a></li>
+                  {Object.keys(ContentTypes.properties).map((type) => {
+                    return (
+                      <li key={type} onClick={this.filterBy.bind(this, type)} style={{minHeight: '35px'}}><a style={{textTransform: 'capitalize', lineHeight: '13px', padding: '11px 16px', fontSize: '15px', color: '#4a4a4a'}}>{type.toLowerCase()}</a></li>
+                    );
+                  })}
                 </ul>
               </div>
-              <div style={{display: 'flex', justifyContent: 'center', width: '75px', margin: '0px 50px'}}>Modified<i className="material-icons">arrow_drop_down</i></div>
+              <div style={{display: 'flex', justifyContent: 'flex-end', width: '165px', paddingRight: '5px'}}>Modified<i className="material-icons">arrow_drop_down</i></div>
             </div>
             {/*List Items*/}
             {(_.isEmpty(contentItems)) ? <div>You have no content. <Link to="addcontent">Create content!</Link></div> : contentItems.reverse()}

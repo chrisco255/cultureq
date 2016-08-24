@@ -7,7 +7,8 @@ const defaultState = {
     isCreatingContent: false,
     contentThatIsBeingEdited: null,
     contentThatIsBeingEditedIndex: -1,
-    currentContentType: ''
+    currentContentType: '',
+    filteredContents: []
 };
 
 export default (state = defaultState, action) => {
@@ -44,6 +45,8 @@ export default (state = defaultState, action) => {
             return finishEdit(state);
         case ActionTypes.FORM_ENABLE:
             return formEnable(state, action.payload);
+        case ActionTypes.FILTER_CONTENT:
+            return setFilteredContents(state, action.payload);
 
         case ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED:
             return contentDataChanged('CONTENT_TITLE_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentTitle, 'title');
@@ -169,6 +172,12 @@ function formEnable(state, payload) {
   return Object.assign({}, state, {
       isCreatingContent: !payload.isCreatingContent,
       currentContentType: payload.currentContentType.toUpperCase()
+  });
+}
+
+function setFilteredContents(state, payload) {
+  return Object.assign({}, state, {
+    filteredContents: payload.filteredContents
   });
 }
 
