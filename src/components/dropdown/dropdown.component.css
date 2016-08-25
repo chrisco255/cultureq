@@ -1,0 +1,30 @@
+.dropdown-container {
+  display: inline-block;
+}
+
+.main-button {
+  height: auto;
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: row;
+  background-color: #ff9800;
+}
+
+.main-button:hover {
+  background-color: #ff9800;
+}
+
+.main-button-text {
+  padding: 5px 0 5px 10px;
+}
+
+.trigger {
+  padding: 0 10px 0 14px;
+  display: flex;
+  align-items: center;
+}
+
+.drop-button > * {
+  color: #ff9800 !important
+}

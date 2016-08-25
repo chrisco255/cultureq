@@ -23,14 +23,14 @@ const spec = {
 				});
 				const newIndex = props.placeholder.index;
 				if (newIndex !== oldIndex) {
-					props.commitDragMove(oldIndex, newIndex);
+					props.moveContent(oldIndex, newIndex);
 				}
 			}
 		} else if (droppedType === POOL_CONTENT_ITEM) {
 			console.log(`Pool content with name ${monitor.getItem().content.title} dropped in quest content area`);
 			if (props.placeholder) {
 				const newIndex = props.placeholder.index;
-				props.commitAddMove(newIndex, monitor.getItem().content);
+				props.addContent(monitor.getItem().content, newIndex);
 			}
 		}
     console.log(`Component ${component} dropped into the quest content area`);
@@ -64,10 +64,8 @@ class QuestContentArea extends Component {
       placeholder,
       connectDropTarget,
       removeContent,
-      changeContentOrder,
       selectContent,
       deselectContent,
-      addContent,
       movePlaceholder,
     } = this.props;
 
@@ -99,10 +97,8 @@ class QuestContentArea extends Component {
 				<QuestContentItem
           key={content._id}
           content={content}
-          addContent={addContent}
           removeContent={removeContent}
           index={realIndex}
-					changeContentOrder={changeContentOrder}
           selectContent={selectContent}
           deselectContent={deselectContent}
           movePlaceholder={movePlaceholder}

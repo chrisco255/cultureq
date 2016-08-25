@@ -7,14 +7,13 @@ import {
 	removeContent,
 	selectContent,
 	deselectContent,
-	changeContentOrder,
 	changeFilterText,
 	movePlaceholder,
-	commitDragMove,
-	commitAddMove,
+	moveContent,
 	fetchContentPool
 } from '../../reducers/quest/Quest.actions';
 import QuestCreateContainer from './quest_create_container/QuestCreateContainer.component';
+import QuestNavBar from './quest_nav_bar/QuestNavBar.component';
 
 const query = `
 {
@@ -62,20 +61,14 @@ const mapDispatchToProps = (dispatch) => {
 		deselectContent: (content) => {
 			dispatch(deselectContent({ content }));
 		},
-		changeContentOrder: (oldIndex, newIndex) => {
-			dispatch(changeContentOrder(oldIndex, newIndex));
-		},
 		changeFilterText: (text) => {
 			dispatch(changeFilterText(text));
 		},
 		movePlaceholder: (index, content) => {
 			dispatch(movePlaceholder(index, content));
 		},
-		commitDragMove: (oldIndex, newIndex) => {
-			dispatch(commitDragMove(oldIndex, newIndex));
-		},
-		commitAddMove: (index, content) => {
-			dispatch(commitAddMove(index, content));
+		moveContent: (oldIndex, newIndex) => {
+			dispatch(moveContent(oldIndex, newIndex));
 		},
     onLoad: () =>
 			dispatch(fetchContentPool({ query }))
@@ -98,8 +91,17 @@ class QuestPage extends Component {
 	}
 
 	render() {
+		const onSave = () => {
+			console.log('quest saved');
+		};
+
+		const onLaunch = () => {
+			console.log('quest launched');
+		};
+
     return (
 			<div styleName="quest-page">
+				<QuestNavBar quest={this.props.newQuest} onSave={onSave} onLaunch={onLaunch} />
 				<QuestCreateContainer
 					styleName="quest-page"
 					contentPool={this.props.contentPool}
@@ -110,11 +112,9 @@ class QuestPage extends Component {
 					selectContent={this.props.selectContent}
 					deselectContent={this.props.deselectContent}
 					removeContent={this.props.removeContent}
-					changeContentOrder={this.props.changeContentOrder}
 					changeFilterText={this.props.changeFilterText}
 					movePlaceholder={this.props.movePlaceholder}
-					commitDragMove={this.props.commitDragMove}
-					commitAddMove={this.props.commitAddMove}/>
+					moveContent={this.props.moveContent}/>
 			</div>
     );
 	}

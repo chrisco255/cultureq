@@ -32,11 +32,11 @@ const collect = (connect, monitor) => {
 
 class PoolContentItem extends Component {
 
-  componentDidMount () {
-    this.props.connectDragPreview(getEmptyImage(), {
-      captureDraggingState: true
-    });
-  }
+  // componentDidMount () {
+  //   this.props.connectDragPreview(getEmptyImage(), {
+  //     captureDraggingState: true
+  //   });
+  // }
 
 	render() {
     const {
@@ -70,6 +70,7 @@ class PoolContentItem extends Component {
     return (
       connectDragSource(
         <div className="card" styleName="content-card" style={styles} onClick={() => {selectToggle(content);}}>
+          {connectDragPreview(
           <div className="card-content" styleName="card-content">
             <div styleName="card-column">
               <div styleName="card-text">
@@ -86,6 +87,7 @@ class PoolContentItem extends Component {
               </div>
             </div>
           </div>
+        )}
         </div>
       )
     );

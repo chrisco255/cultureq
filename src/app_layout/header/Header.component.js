@@ -76,7 +76,7 @@ class Header extends Component {
 						</div>
 					</nav>
 				</div>
-				{loggedIn && <div className="navbar-fixed" style={{height: '50px'}}>
+				{loggedIn && <div className="navbar-fixed menu-navbar" style={{height: '50px'}}>
 					<nav styleName="bottom-navbar">
 						<div styleName="bottom-navbar-fixed">
 							<div styleName="flex-container">

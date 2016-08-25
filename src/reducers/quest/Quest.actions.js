@@ -14,15 +14,13 @@ export const CONTENT_SELECT_SUBMITTED = 'CONTENT_SELECT_SUBMITTED';
 
 export const CONTENT_DESELECT_SUBMITTED = 'CONTENT_DESELECT_SUBMITTED';
 
-export const CONTENT_ORDER_CHANGE_SUBMITTED = 'CONTENT_ORDER_CHANGE_SUBMITTED';
-
 export const FILTER_TEXT_CHANGE_SUBMITTED = 'FILTER_TEXT_CHANGE_SUBMITTED';
 
 export const PLACEHOLDER_MOVE_SUBMITTED = 'PLACEHOLDER_MOVE_SUBMITTED';
 
-export const COMMIT_DRAG_MOVE_SUBMITTED = 'COMMIT_DRAG_MOVE_SUBMITTED';
-
-export const COMMIT_ADD_MOVE_SUBMITTED = 'COMMIT_ADD_MOVE_SUBMITTED';
+export const CONTENT_MOVE_SUBMITTED = 'CONTENT_MOVE_SUBMITTED';
+export const CONTENT_MOVE_SUCCEEDED = 'CONTENT_MOVE_SUCCEEDED';
+export const CONTENT_MOVE_FAILED = 'CONTENT_MOVE_FAILED';
 
 export function fetchContentPool({ query }) {
 	return {
@@ -68,16 +66,6 @@ export function deselectContent({ content }) {
   };
 }
 
-export function changeContentOrder(oldIndex, newIndex) {
-  return {
-    type: CONTENT_ORDER_CHANGE_SUBMITTED,
-    payload: {
-      oldIndex,
-      newIndex
-    }
-  };
-}
-
 export function changeFilterText(text) {
   return {
     type: FILTER_TEXT_CHANGE_SUBMITTED,
@@ -97,22 +85,12 @@ export function movePlaceholder(index, content) {
   };
 }
 
-export function commitDragMove(oldIndex, newIndex) {
+export function moveContent(oldIndex, newIndex) {
   return {
-    type: COMMIT_DRAG_MOVE_SUBMITTED,
+    type: CONTENT_MOVE_SUBMITTED,
     payload: {
       oldIndex,
       newIndex
-    }
-  };
-}
-
-export function commitAddMove(index, content) {
-  return {
-    type: COMMIT_ADD_MOVE_SUBMITTED,
-    payload: {
-      index,
-      content
     }
   };
 }

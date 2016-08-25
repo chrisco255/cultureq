@@ -1,7 +1,11 @@
 .quest-page {
   position: fixed;
-  top: 114px; /*must be the sum of the top navigvation bars' heights*/
+  top: 64px; /*must be equal to the topmost navigation bar's height*/
   right: 0px;
   bottom: 0px;
   left: 0px;
+}
+
+:global(.menu-navbar) {
+  display: none;
 }
