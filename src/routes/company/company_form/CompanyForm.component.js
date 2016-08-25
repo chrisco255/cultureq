@@ -84,7 +84,6 @@ let CompanyForm = (props) => {
 
 CompanyForm = CSSModules(CompanyForm, styles);
 
-// Composition FTW!
 CompanyForm = reduxForm({
 	form: 'company',
 	fields,

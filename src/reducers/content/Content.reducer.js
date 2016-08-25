@@ -7,7 +7,8 @@ const defaultState = {
     isCreatingContent: false,
     contentThatIsBeingEdited: null,
     contentThatIsBeingEditedIndex: -1,
-    currentContentType: ''
+    currentContentType: '',
+    filteredContents: []
 };
 
 export default (state = defaultState, action) => {
@@ -17,6 +18,9 @@ export default (state = defaultState, action) => {
         // CONTENT_CREATE
         case ActionTypes.CONTENT_CREATE_SUBMITTED:
             action.payload.content.isDeleted = false;
+            if(!action.payload.content.pillarId) {
+              action.payload.content.pillarId = 'noPillar';
+            }
             console.log('CONTENT_CREATE_SUBMITTED ▶️', action);
             break;
         case ActionTypes.CONTENT_CREATE_SUCCEEDED:
@@ -41,6 +45,8 @@ export default (state = defaultState, action) => {
             return finishEdit(state);
         case ActionTypes.FORM_ENABLE:
             return formEnable(state, action.payload);
+        case ActionTypes.FILTER_CONTENT:
+            return setFilteredContents(state, action.payload);
 
         case ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED:
             return contentDataChanged('CONTENT_TITLE_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentTitle, 'title');
@@ -163,12 +169,15 @@ function finishEdit(state) {
 }
 
 function formEnable(state, payload) {
-  // if (payload.isCreatingContent === false) {
-  //   payload.currentContentType = '';
-  // }
   return Object.assign({}, state, {
       isCreatingContent: !payload.isCreatingContent,
       currentContentType: payload.currentContentType.toUpperCase()
+  });
+}
+
+function setFilteredContents(state, payload) {
+  return Object.assign({}, state, {
+    filteredContents: payload.filteredContents
   });
 }
 

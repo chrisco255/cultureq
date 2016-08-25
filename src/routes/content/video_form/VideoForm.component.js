@@ -23,13 +23,15 @@ render() {
       fields: {
         pillarId,
         data
-      }, handleSubmit, submitting
+      }, error, handleSubmit, submitting
     } = this.props;
 
     let submitBtnClassName = 'btn-floating btn-large waves-effect waves-light green';
     if(submitting || !data.title.value || !data.description.value || !data.url.value) {
       submitBtnClassName = 'btn-floating btn-large disabled';
     }
+
+    const errorStyle = {color: '#F44336', fontSize: '14'};
 
     return (
       <div>
@@ -39,19 +41,18 @@ render() {
             <div>
               <div>
                 <div>
-                  <label>Title</label>
+                  {(data.title.touched && data.title.error) ? <div style={errorStyle}>{data.title.error[0]}</div> : <label>Title</label>}
                   <input id="title" type="text" placeholder="Ultimate Software TechStars" { ...data.title } />
-                  {data.title.touched && data.title.error && <div style={{color: 'red'}}>{data.title.error[0]}</div>}
                 </div>
+                <br/>
                 <div>
-                  <label>Description</label>
+                  {(data.description.touched && data.description.error) ? <div style={errorStyle}>{data.description.error[0]}</div> : <label>Description</label>}
                   <input type="text" placeholder="Awesome video on our great intern program, check it out!" { ...data.description } />
-                  {data.description.touched && data.description.error && <div style={{color: 'red'}}>{data.description.error[0]}</div>}
                 </div>
+                <br/>
                 <div>
-                  <label>URL</label>
+                  {(data.url.touched && data.url.error) ? <div style={errorStyle}>{data.url.error[0]}</div> : <label>URL</label>}
                   <input type="text" placeholder="https://www.youtube.com/watch?v=JrHGFIWX2R4" { ...data.url } />
-                  {data.url.touched && data.url.error && <div style={{color: 'red'}}>{data.url.error[0]}</div>}
                 </div>
               </div>
               <div style={{margin: '25px 0 25px 0'}}>
@@ -67,6 +68,7 @@ render() {
                 </select>
               </div>
             </div>
+            {error && <div style={{color: '#F44336'}}>{error}</div>}
           </div>
           <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
             <button className={submitBtnClassName} type="submit" disabled={ submitting }>
