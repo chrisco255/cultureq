@@ -139,11 +139,16 @@ class AddContentPage extends Component {
 
 	render() {
 
+    //TODO: have one array with all contents and then filter in render
     const listQuoteContents = [];
     const listVideoContents = [];
 
     const activeContents = this.props.contents.filter((content) => !content.isDeleted);
     const contentViewOrder = {display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'};
+
+    if(this.props.params.currentContentType) {
+      this.props.currentContentType = this.props.params.currentContentType;
+    }
 
     if (this.props.isCreatingContent) {
       delete contentViewOrder.flexWrap;
@@ -232,11 +237,11 @@ class AddContentPage extends Component {
         </div>
       </div>
 
-      { (this.props.currentContentType === ContentTypes.VIDEO) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
+      { (this.props.currentContentType === ContentTypes.VIDEO && !_.isEmpty(listVideoContents)) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
         <h1>Video Content</h1>
         {listVideoContents.reverse()}
       </div> }
-      { (this.props.currentContentType === ContentTypes.QUOTE) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
+      { (this.props.currentContentType === ContentTypes.QUOTE && !_.isEmpty(listQuoteContents)) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
         <h1>Quote Content</h1>
         {listQuoteContents.reverse()}
       </div> }
