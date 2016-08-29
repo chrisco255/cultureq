@@ -6,34 +6,34 @@ const defaultState = {
     isEditing: false,
     isCreatingContent: false,
     contentThatIsBeingEdited: null,
-    contentThatIsBeingEditedIndex: -1,
     currentContentType: '',
     filteredContents: []
 };
 
 export default (state = defaultState, action) => {
 
-    //TODO: DESTRUCTURE
+    const { contents } = state;
+    const { type, payload } = action;
 
-    switch (action.type) {
+    switch (type) {
 
         // CONTENT_CREATE
         case ActionTypes.CONTENT_CREATE_SUBMITTED:
-            action.payload.content.isDeleted = false;
-            if(!action.payload.content.pillarId) {
-              action.payload.content.pillarId = 'noPillar';
+            payload.content.isDeleted = false;
+            if(!payload.content.pillarId) {
+              payload.content.pillarId = 'noPillar';
             }
             console.log('CONTENT_CREATE_SUBMITTED ▶️', action);
             break;
         case ActionTypes.CONTENT_CREATE_SUCCEEDED:
-            return createContent(state, state.contents, action.payload);
+            return createContent(state, contents, payload);
         case ActionTypes.CONTENT_CREATE_FAILED:
             console.log('CONTENT_CREATE_FAILED ❌');
             break;
 
             // CONTENT_DELETE
         case ActionTypes.CONTENT_DELETE_SUBMITTED:
-            return deleteContent(state, state.contents, action.payload);
+            return deleteContent(state, contents, payload);
         case ActionTypes.CONTENT_DELETE_SUCCEEDED:
             console.log('CONTENT_DELETE_SUCCEEDED ✅');
             break;
@@ -42,16 +42,16 @@ export default (state = defaultState, action) => {
             break;
 
         case ActionTypes.EDIT_CONTENT:
-            return editContent(state, action.payload);
+            return editContent(state, payload);
         case ActionTypes.FINISH_EDIT:
             return finishEdit(state);
         case ActionTypes.FORM_ENABLE:
-            return formEnable(state, action.payload);
+            return formEnable(state, payload);
         case ActionTypes.FILTER_CONTENT:
-            return setFilteredContents(state, action.payload);
+            return setFilteredContents(state, payload);
 
         case ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_TITLE_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentTitle, 'title');
+            return contentDataChanged('CONTENT_TITLE_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentTitle, 'title');
         case ActionTypes.CONTENT_TITLE_CHANGE_SUCCEEDED:
             console.log('CONTENT_TITLE_CHANGE_SUCCEEDED ✅');
             break;
@@ -60,7 +60,7 @@ export default (state = defaultState, action) => {
             break;
 
         case ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_DESCRIPTION_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentDescription, 'description');
+            return contentDataChanged('CONTENT_DESCRIPTION_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentDescription, 'description');
         case ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUCCEEDED:
             console.log('CONTENT_DESCRIPTION_CHANGE_SUCCEEDED ✅');
             break;
@@ -69,7 +69,7 @@ export default (state = defaultState, action) => {
             break;
 
         case ActionTypes.CONTENT_URL_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_URL_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentUrl, 'url');
+            return contentDataChanged('CONTENT_URL_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentUrl, 'url');
         case ActionTypes.CONTENT_URL_CHANGE_SUCCEEDED:
             console.log('CONTENT_URL_CHANGE_SUCCEEDED ✅');
             break;
@@ -78,7 +78,7 @@ export default (state = defaultState, action) => {
             break;
 
         case ActionTypes.CONTENT_QUOTE_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_QUOTE_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentQuote, 'quote');
+            return contentDataChanged('CONTENT_QUOTE_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentQuote, 'quote');
         case ActionTypes.CONTENT_QUOTE_CHANGE_SUCCEEDED:
             console.log('CONTENT_QUOTE_CHANGE_SUCCEEDED ✅');
             break;
@@ -87,7 +87,7 @@ export default (state = defaultState, action) => {
             break;
 
         case ActionTypes.CONTENT_AUTHOR_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_AUTHOR_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentAuthor, 'author');
+            return contentDataChanged('CONTENT_AUTHOR_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentAuthor, 'author');
         case ActionTypes.CONTENT_AUTHOR_CHANGE_SUCCEEDED:
             console.log('CONTENT_AUTHOR_CHANGE_SUCCEEDED ✅');
             break;
@@ -96,7 +96,7 @@ export default (state = defaultState, action) => {
             break;
 
         case ActionTypes.CONTENT_RECIPIENT_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_RECIPIENT_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentRecipient, 'recipient');
+            return contentDataChanged('CONTENT_RECIPIENT_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentRecipient, 'recipient');
         case ActionTypes.CONTENT_RECIPIENT_CHANGE_SUCCEEDED:
             console.log('CONTENT_RECIPIENT_CHANGE_SUCCEEDED ✅');
             break;
@@ -105,7 +105,7 @@ export default (state = defaultState, action) => {
             break;
 
         case ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED:
-            return contentDataChanged('CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED', state, state.contents, action.payload.index, action.payload.contentRecipientPosition, 'recipientPosition');
+            return contentDataChanged('CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentRecipientPosition, 'recipientPosition');
         case ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED:
             console.log('CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED ✅');
             break;
@@ -118,7 +118,7 @@ export default (state = defaultState, action) => {
             console.log('FETCH_CONTENTS_SUBMITTED ▶️');
             break;
         case ActionTypes.FETCH_CONTENTS_SUCCEEDED:
-            return fetchContents(state, action.payload);
+            return fetchContents(state, payload);
         case ActionTypes.FETCH_CONTENTS_FAILED:
             console.log('FETCH_CONTENTS_FAILED ❌');
             break;
@@ -156,8 +156,7 @@ function editContent(state, payload) {
     console.log('EDIT_CONTENT ✏️', payload.content);
     return Object.assign({}, state, {
         isEditing: true,
-        contentThatIsBeingEdited: payload.content,
-        contentThatIsBeingEditedIndex: payload.index
+        contentThatIsBeingEdited: payload.content
     });
 }
 
@@ -165,8 +164,7 @@ function finishEdit(state) {
     console.log('FINISH_EDIT ✏️✅');
     return Object.assign({}, state, {
         isEditing: false,
-        contentThatIsBeingEdited: 'NOTHING',
-        contentThatIsBeingEditedIndex: -1,
+        contentThatIsBeingEdited: 'NOTHING'
     });
 }
 
@@ -183,30 +181,28 @@ function setFilteredContents(state, payload) {
   });
 }
 
-function contentDataChanged(actionType, state, contents, index, payloadDataType, keyType) {
-    console.log(`${actionType} ▶️`, payloadDataType);
-    const newContent = Object.assign({}, contents[index], {
-        data: Object.assign({}, contents[index].data, {
-            [keyType]: payloadDataType
+function contentDataChanged(actionType, state, contents, _id, payloadData, keyType) {
+    console.log(`${actionType} ▶️`, payloadData);
+    const contentIndex = _.findIndex(contents, (content) => content._id === _id);
+    const newContent = Object.assign({}, contents[contentIndex], {
+        data: Object.assign({}, contents[contentIndex].data, {
+            [keyType]: payloadData
         })
     });
     return Object.assign({}, state, {
         contents: [
-            ...contents.slice(0, index),
+            ...contents.slice(0, contentIndex),
             newContent,
-            ...contents.slice(index + 1)
+            ...contents.slice(contentIndex + 1)
         ]
     });
 }
 
-/*
-	NOTE: Not filtering out the contents if they are deleted or not
-	because it will mess up with the index and when
-	editing, it will edit the wrong index
-*/
 function fetchContents(state, payload) {
     console.log('FETCH_CONTENTS_SUCCEEDED ✅');
+    let { contents } = payload;
+    contents = contents.filter((content) => !content.isDeleted);
     return Object.assign({}, state, {
-        contents: [...payload.contents]
+        contents: [ ...contents ]
     });
 }

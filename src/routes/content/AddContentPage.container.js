@@ -69,22 +69,22 @@ const mapDispatchToProps = (dispatch) => ({
 			dispatch(createContent(content)),
     deleteContent: (content) =>
       dispatch(deleteContent(content)),
-    editContent: (content, index) =>
-      dispatch(editContent(content, index)),
+    editContent: (content) =>
+      dispatch(editContent(content)),
     finishEdit: () =>
       dispatch(finishEdit()),
     formEnable: (isCreatingContent, currentContentType) =>
       dispatch(formEnable(isCreatingContent, currentContentType)),
-    titleChangeContent: (content, index) =>
-      dispatch(titleChangeContent(content, index)),
-    descriptionChangeContent: (content, index) =>
-      dispatch(descriptionChangeContent(content, index)),
-    urlChangeContent: (content, index) =>
-      dispatch(urlChangeContent(content, index)),
-    quoteChangeContent: (content, index) =>
-      dispatch(quoteChangeContent(content, index)),
-    authorChangeContent: (content, index) =>
-      dispatch(authorChangeContent(content, index)),
+    titleChangeContent: (content, _id) =>
+      dispatch(titleChangeContent(content, _id)),
+    descriptionChangeContent: (content, _id) =>
+      dispatch(descriptionChangeContent(content, _id)),
+    urlChangeContent: (content, _id) =>
+      dispatch(urlChangeContent(content, _id)),
+    quoteChangeContent: (content, _id) =>
+      dispatch(quoteChangeContent(content, _id)),
+    authorChangeContent: (content, _id) =>
+      dispatch(authorChangeContent(content, _id)),
 		onLoad: () => {
       dispatch(fetchPillars({ query:pillarQuery }));
       dispatch(fetchContents({ query:contentQuery }));
@@ -97,7 +97,6 @@ const mapStateToProps = (state) => {
 		contents: state.content.contents,
 		isEditing: state.content.isEditing,
 		contentThatIsBeingEdited: state.content.contentThatIsBeingEdited,
-		contentThatIsBeingEditedIndex: state.content.contentThatIsBeingEditedIndex,
     isCreatingContent: state.content.isCreatingContent,
     currentContentType: state.content.currentContentType
 	};
@@ -143,7 +142,6 @@ class AddContentPage extends Component {
     const listQuoteContents = [];
     const listVideoContents = [];
 
-    const activeContents = this.props.contents.filter((content) => !content.isDeleted);
     const contentViewOrder = {display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'};
 
     if(this.props.params.currentContentType) {
@@ -157,8 +155,8 @@ class AddContentPage extends Component {
       contentViewOrder.flexDirection = 'column';
     }
 
-    if(activeContents.length > 0) {
-      this.props.contents.forEach((content, index) => {
+    if(this.props.contents.length > 0) {
+      this.props.contents.forEach((content) => {
 
         let pillarName = content.pillarId;
         const pillarNameIndex = _.findIndex(this.props.pillars, (pillar) => pillar._id === content.pillarId);
@@ -170,7 +168,7 @@ class AddContentPage extends Component {
           listQuoteContents.push(
               <div>
                 { content.type === ContentTypes.QUOTE &&
-                  <Quote key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} finishEdit={this.props.finishEdit}
+                  <Quote pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} finishEdit={this.props.finishEdit}
                   authorChangeContent={this.props.authorChangeContent} quoteChangeContent={this.props.quoteChangeContent} /> }
               </div>
   				);
@@ -178,7 +176,7 @@ class AddContentPage extends Component {
           listVideoContents.push(
               <div>
                 { content.type === ContentTypes.VIDEO &&
-                  <Video key={content._id} data={content.data} index={index} pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} contentThatIsBeingEditedIndex={this.props.contentThatIsBeingEditedIndex} titleChangeContent={this.props.titleChangeContent}
+                  <Video pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} titleChangeContent={this.props.titleChangeContent}
                          descriptionChangeContent={this.props.descriptionChangeContent}
                          finishEdit={this.props.finishEdit}
                          urlChangeContent={this.props.urlChangeContent} /> }
@@ -204,9 +202,7 @@ class AddContentPage extends Component {
           {
             Object.keys(ContentTypes.properties).map( type => {
               const isActive = (type === this.props.currentContentType);
-              const value = ContentTypes.properties[type].value;
-              const name = ContentTypes.properties[type].name;
-              const description = ContentTypes.properties[type].description;
+              const { value, name, description } = ContentTypes.properties[type];
 
               return (
                 <div key={value} style={isActive ? {padding: '15px 15px 15px 15px', backgroundColor: 'white', borderBottom: 'solid rgba(117, 117, 117, 0.06) 1px'} : {padding: '15px 15px 15px 15px'}} onClick={this.props.formEnable.bind(this, this.props.isCreatingContent, value)}>

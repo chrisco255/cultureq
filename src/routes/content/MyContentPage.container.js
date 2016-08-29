@@ -62,7 +62,6 @@ const mapStateToProps = (state) => {
 		contents: state.content.contents,
 		isEditing: state.content.isEditing,
 		contentThatIsBeingEdited: state.content.contentThatIsBeingEdited,
-		contentThatIsBeingEditedIndex: state.content.contentThatIsBeingEditedIndex,
     isCreatingContent: state.content.isCreatingContent,
     currentContentType: state.content.currentContentType,
     filteredContents: state.content.filteredContents
@@ -199,7 +198,7 @@ class MyContentPage extends Component {
           <div className="col s8" style={{marginRight: '95px'}}>
             <div style={styles.displayFlex}>
               <h1 style={{margin: '2.1rem 0px 0px 0px'}}>My Content</h1>
-              <p className="divider-color" style={{display: 'flex', alignItems: 'center', fontSize: '13px', paddingTop: '6px', margin: '2.1rem 0px 0px 8px'}}>({activeContents.length})</p>
+              <p className="divider-color" style={{display: 'flex', alignItems: 'center', fontSize: '13px', paddingTop: '6px', margin: '2.1rem 0px 0px 8px'}}>({this.props.contents.length})</p>
             </div>
             <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '1.68rem', color: '#4a4a4a'}}>
               <div style={{display: 'flex', justifyContent: 'center', width: '165px', paddingLeft: '17px'}}>
