@@ -114,6 +114,12 @@ class MyContentPage extends Component {
      }
     );
 
+    const styles = {
+      displayFlex: {
+        display: 'flex'
+      }
+    };
+
     let activeContents;
 
     if(!_.isEmpty(this.props.filteredContents)) {
@@ -121,8 +127,6 @@ class MyContentPage extends Component {
     } else {
       activeContents = this.props.contents.filter((content) => !content.isDeleted);
     }
-
-    console.log(activeContents);
 
     const contentItems = activeContents.map((content, index) => {
       let currentItemType = '';
@@ -138,7 +142,7 @@ class MyContentPage extends Component {
       if (ContentTypes.VIDEO === content.type) {
         currentItemType = ContentTypes.VIDEO;
         currentItemTitle = content.data.title;
-        currentItemInfo = '1:59"';
+        currentItemInfo = '01:59';
         contentItemIcon = (<i className="material-icons">{ContentTypes.properties[currentItemType].icon}</i>);
       }
       let itemStyle = {display: 'flex', borderBottom: 'dashed .5px #bdbdbd', justifyContent: 'space-between', marginTop: '20px'};
@@ -147,15 +151,14 @@ class MyContentPage extends Component {
       }
       return (
         <div key={content._id} style={itemStyle}>
-          <div style={{display: 'flex'}}>
+          <div style={styles.displayFlex}>
             {/*Icon symbol according to type of content*/}
             <div style={{marginRight: '15px', color: '#757575'}}>{contentItemIcon}</div>
             <div style={{width: '375px', marginRight: '50px'}}>
               {/*Quote or Video Title*/}
               <div>
-                <div style={{whiteSpace: 'nowrap', overflow: 'hidden', fontSize: '18px', textOverflow: 'ellipsis'}}><Link to="addcontent">{currentItemTitle}</Link></div>
+                <div styleName="currentItem"><Link styleName="currentItemLink" to={`addcontent/${currentItemType}`}>{currentItemTitle}</Link></div>
               </div>
-
               {/*Tags*/}
               <div>
                 <p style={{color: '#757575', fontSize: '14px', margin: '5px 0 20px 0'}}><em>No tags, add some</em></p>
@@ -169,6 +172,7 @@ class MyContentPage extends Component {
               <p style={{marginTop: '0px', textTransform: 'capitalize'}}>{currentItemType.toLowerCase()}</p>
             </div>
 
+            {/*TODO: Get real created/modified times/dates*/}
             <div style={{display: 'flex', alignItems: 'center', margin: '0 50px 0 50px', color: '#757575', width: '75px', justifyContent: 'center'}}>
               <p style={{marginTop: '0px'}}>56 min ago</p>
             </div>
@@ -193,19 +197,22 @@ class MyContentPage extends Component {
 
           <div>
           <div className="col s8" style={{marginRight: '95px'}}>
-            <div style={{display: 'flex'}}>
+            <div style={styles.displayFlex}>
               <h1 style={{margin: '2.1rem 0px 0px 0px'}}>My Content</h1>
               <p className="divider-color" style={{display: 'flex', alignItems: 'center', fontSize: '13px', paddingTop: '6px', margin: '2.1rem 0px 0px 8px'}}>({activeContents.length})</p>
             </div>
             <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '1.68rem', color: '#4a4a4a'}}>
               <div style={{display: 'flex', justifyContent: 'center', width: '165px', paddingLeft: '17px'}}>
                 <a className='dropdown-button' data-activates='type-dropdown' style={{display: 'flex', color: '#4a4a4a'}}>Type<i className="material-icons">arrow_drop_down</i></a>
-                <ul id='type-dropdown' className='dropdown-content' style={{top: '343.5px !important', left: '609.359px !important', boxShadow: '0 6px 28px 0 rgba(0, 0, 0, 0.25),0 6px 24px 0 rgba(0,0,0,0.12)', backgroundColor: '#f5f5f5'}}>
+                <ul id='type-dropdown' className='dropdown-content' style={{boxShadow: '0 6px 28px 0 rgba(0, 0, 0, 0.25),0 6px 24px 0 rgba(0,0,0,0.12)', backgroundColor: '#f5f5f5'}}>
                   <li onClick={this.filterBy.bind(this, '')} ><a style={{display: 'flex', justifyContent: 'space-between', fontSize: '15px', color: '#4a4a4a'}}>Type<i className="material-icons">arrow_drop_up</i></a></li>
                   <li className="divider"></li>
                   {Object.keys(ContentTypes.properties).map((type) => {
                     return (
-                      <li key={type} onClick={this.filterBy.bind(this, type)} style={{minHeight: '35px'}}><a style={{textTransform: 'capitalize', lineHeight: '13px', padding: '11px 16px', fontSize: '15px', color: '#4a4a4a'}}>{type.toLowerCase()}</a></li>
+                      <li key={type} onClick={this.filterBy.bind(this, type)} style={{minHeight: '35px'}}>
+                        {/*TODO: change name of richtext to article*/}
+                        <a styleName="typeItem">{type.toLowerCase()}</a>
+                      </li>
                     );
                   })}
                 </ul>
