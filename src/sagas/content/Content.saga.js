@@ -158,7 +158,7 @@ export function* contentDataChange(action) {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_SUCCEEDED, payload } );
 		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED, payload } );
-		}else {
+		} else {
 			console.log('😳');
 		}
 	} catch (error) {
