@@ -53,10 +53,10 @@ export function deletePillar(pillar) {
 	isEditing to true, to begin editing a
 	pillar and which pillar and it's index
 */
-export function editPillar(pillar, index) {
+export function editPillar(pillar) {
 	return {
 		type: EDIT_PILLAR,
-		payload: { pillar, index }
+		payload: { pillar }
 	};
 }
 
@@ -66,9 +66,9 @@ export function editPillar(pillar, index) {
 	Calls the saga to post to the pillar service
 	which will just create the name change event
 */
-export function nameChangePillar(pillarName, index) {
+export function nameChangePillar(_id, pillarName) {
 	return {
 		type: PILLAR_NAME_CHANGE_SUBMITTED,
-		payload: { pillarName, index }
+		payload: { _id, pillarName }
 	};
 }
