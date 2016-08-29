@@ -13,6 +13,8 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
 
+    //TODO: DESTRUCTURE
+
     switch (action.type) {
 
         // CONTENT_CREATE
