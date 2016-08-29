@@ -35,6 +35,7 @@ export default (
     <Route path="profile" component={ProfilePage} />
     <Route path="pillar" component={PillarPage} />
 		<Route path="addcontent" component={AddContentPage} />
+		<Route path="addcontent/:currentContentType" component={AddContentPage} />
     <Route path="mycontent" component={MyContentPage} />
     <Route path="editor" component={TextEditorPage} />
     <Route path="quests" component={QuestPage} />
