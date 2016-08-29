@@ -10,9 +10,9 @@ const defaultState = {
 export default (state = defaultState, action) => {
 
 	const { pillars } = state;
-	const { payload } = action;
+	const { type, payload } = action;
 
-	switch(action.type) {
+	switch(type) {
 
 		// PILLAR_CREATE
 		case ActionTypes.PILLAR_CREATE_SUBMITTED:
@@ -67,11 +67,10 @@ export default (state = defaultState, action) => {
 };
 
 function createPillar(state, pillars, payload) {
-	const newState = Object.assign({}, state, {
+	console.log('PILLAR_CREATE_SUCCEEDED ✅');
+	return Object.assign({}, state, {
 		pillars: [...pillars, payload]
 	});
-	console.log('PILLAR_CREATE_SUCCEEDED ✅');
-	return newState;
 }
 
 function deletePillar(state, pillars, payload) {
@@ -115,11 +114,10 @@ function pillarNameChange(state, pillars, payload) {
 }
 
 function fetchPillars(state, payload) {
+	console.log('FETCH_PILLARS_SUCCEEDED ✅');
 	let { pillars } = payload;
 	pillars = pillars.filter((pillar) => !pillar.isDeleted);
-	const newState = Object.assign({}, state, {
+	return Object.assign({}, state, {
 		pillars: [ ...pillars ]
 	});
-	console.log('FETCH_PILLARS_SUCCEEDED ✅');
-	return newState;
 }
