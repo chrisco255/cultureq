@@ -51,3 +51,6 @@
 .typeItem:hover {
   color: #039be5 !important;
 }
+.displayFlex {
+  display: flex;
+}

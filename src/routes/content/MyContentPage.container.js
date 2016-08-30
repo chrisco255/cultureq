@@ -209,8 +209,7 @@ class MyContentPage extends Component {
                   {Object.keys(ContentTypes.properties).map((type) => {
                     return (
                       <li key={type} onClick={this.filterBy.bind(this, type)} style={{minHeight: '35px'}}>
-                        {/*TODO: change name of richtext to article*/}
-                        <a styleName="typeItem">{type.toLowerCase()}</a>
+                        <a styleName="typeItem">{ContentTypes.properties[type].name}</a>
                       </li>
                     );
                   })}

@@ -12,7 +12,9 @@ const query = `
     tenantId
     name
     isDeleted
-    content
+    content {
+      _id
+    }
   }
 }
 `;

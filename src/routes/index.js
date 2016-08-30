@@ -8,7 +8,7 @@ import DashboardPage from './dashboard/DashboardPage.container.js';
 import ProfilePage from './profile/ProfilePage.container.js';
 import PillarPage from './pillar/PillarPage.container.js';
 import AnalyticsPage from './analytics/AnalyticsPage.container.js';
-import AddContentPage from './content/AddContentPage.container.js';
+import AddContentPage from './content/add/AddContentPage.container.js';
 import MyContentPage from './content/MyContentPage.container.js';
 import TextEditorPage from './editor/TextEditor.container.js';
 import QuestPage from './quest/QuestPage.container';
