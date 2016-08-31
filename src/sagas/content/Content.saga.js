@@ -93,29 +93,29 @@ export function* watchContentDeleteSubmitted() {
 
 export function* contentDataChange(action) {
 	try {
-		const { index } = action.payload;
+    const { type, payload } = action;
 		let contentData = '';
 		let dataType = '';
-		if (action.type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentAuthor;
+		if (type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
+			contentData = payload.contentAuthor;
 			dataType = 'author';
-		} else if (action.type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentQuote;
+		} else if (type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
+			contentData = payload.contentQuote;
 			dataType = 'quote';
-		} else if (action.type === 'CONTENT_URL_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentUrl;
+		} else if (type === 'CONTENT_URL_CHANGE_SUBMITTED') {
+			contentData = payload.contentUrl;
 			dataType = 'url';
-		} else if (action.type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentDescription;
+		} else if (type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
+			contentData = payload.contentDescription;
 			dataType = 'description';
-		} else if (action.type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentTitle;
+		} else if (type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
+			contentData = payload.contentTitle;
 			dataType = 'title';
-		} else if (action.type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentRecipient;
+		} else if (type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
+			contentData = payload.contentRecipient;
 			dataType = 'recipient';
-		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
-			contentData = action.payload.contentRecipientPosition;
+		} else if (type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
+			contentData = payload.contentRecipientPosition;
 			dataType = 'recipientPosition';
 		} else {
 			console.log('😳');
@@ -123,10 +123,10 @@ export function* contentDataChange(action) {
 		const dataChangeResponse = yield call(fetch, `
 			mutation {
 				mutation: CONTENT_DATA_CHANGE(
+          _id: "${payload._id}"
 					data: {
 						${dataType}: "${contentData}"
 					}
-					index: ${index}
 				) {
 			    _id
 					type
@@ -143,38 +143,39 @@ export function* contentDataChange(action) {
 					}
 			  }
 			}`);
-		const payload = dataChangeResponse.mutation;
-		if (action.type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_AUTHOR_CHANGE_SUCCEEDED, payload } );
-		} else if (action.type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_QUOTE_CHANGE_SUCCEEDED, payload } );
-		} else if (action.type === 'CONTENT_URL_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_URL_CHANGE_SUCCEEDED, payload } );
-		} else if (action.type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUCCEEDED, payload } );
-		} else if (action.type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_SUCCEEDED, payload } );
-		} else if (action.type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_SUCCEEDED, payload } );
-		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
-			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED, payload } );
-		}else {
+		const { mutation } = dataChangeResponse;
+		if (type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_AUTHOR_CHANGE_SUCCEEDED, mutation } );
+		} else if (type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_QUOTE_CHANGE_SUCCEEDED, mutation } );
+		} else if (type === 'CONTENT_URL_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_URL_CHANGE_SUCCEEDED, mutation } );
+		} else if (type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_SUCCEEDED, mutation } );
+		} else if (type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_SUCCEEDED, mutation } );
+		} else if (type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_SUCCEEDED, mutation } );
+		} else if (type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
+			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_SUCCEEDED, mutation } );
+		} else {
 			console.log('😳');
 		}
 	} catch (error) {
-		if (action.type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
+    const { type } = action;
+		if (type === 'CONTENT_AUTHOR_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_AUTHOR_CHANGE_FAILED, error} );
-		} else if (action.type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
+		} else if (type === 'CONTENT_QUOTE_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_QUOTE_CHANGE_FAILED, error} );
-		} else if (action.type === 'CONTENT_URL_CHANGE_SUBMITTED') {
+		} else if (type === 'CONTENT_URL_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_URL_CHANGE_FAILED, error} );
-		} else if (action.type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
+		} else if (type === 'CONTENT_DESCRIPTION_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_DESCRIPTION_CHANGE_FAILED, error} );
-		} else if (action.type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
+		} else if (type === 'CONTENT_TITLE_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_TITLE_CHANGE_FAILED, error} );
-		} else if (action.type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
+		} else if (type === 'CONTENT_RECIPIENT_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_CHANGE_FAILED, error} );
-		} else if (action.type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
+		} else if (type === 'CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED') {
 			yield put( {type: ActionTypes.CONTENT_RECIPIENT_POSITION_CHANGE_FAILED, error} );
 		} else {
 			console.log(error);

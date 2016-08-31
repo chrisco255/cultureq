@@ -8,7 +8,7 @@ import DashboardPage from './dashboard/DashboardPage.container.js';
 import ProfilePage from './profile/ProfilePage.container.js';
 import PillarPage from './pillar/PillarPage.container.js';
 import AnalyticsPage from './analytics/AnalyticsPage.container.js';
-import AddContentPage from './content/AddContentPage.container.js';
+import AddContentPage from './content/add/AddContentPage.container.js';
 import MyContentPage from './content/MyContentPage.container.js';
 import TextEditorPage from './editor/TextEditor.container.js';
 import CreateQuestPage from './quest/CreateQuestPage.container';
@@ -36,6 +36,7 @@ export default (
     <Route path="profile" component={ProfilePage} />
     <Route path="pillar" component={PillarPage} />
 		<Route path="addcontent" component={AddContentPage} />
+		<Route path="addcontent/:currentContentType" component={AddContentPage} />
     <Route path="mycontent" component={MyContentPage} />
     <Route path="editor" component={TextEditorPage} />
 		<Route path="createquest" component={CreateQuestPage} />

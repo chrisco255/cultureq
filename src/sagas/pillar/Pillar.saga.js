@@ -76,12 +76,12 @@ export function* watchPillarDeleteSubmitted() {
 
 export function* pillarNameChange(action) {
 	try {
-		const { pillarName, index } = action.payload;
+		const { _id, pillarName } = action.payload;
 		const nameChangeResponse = yield call(fetch, `
 			mutation {
 			  mutation: PILLAR_NAME_CHANGE(
+					_id: "${_id}"
 			    name: "${pillarName}"
-			    index: ${index}
 			  ) {
 					_id
 					name

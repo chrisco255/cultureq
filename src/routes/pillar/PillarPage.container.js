@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
 import PillarPageStyles from './PillarPage.css';
-import { Link } from 'react-router';
 import { createPillar, deletePillar, editPillar, nameChangePillar, fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
 
@@ -26,10 +25,10 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(createPillar(pillar)),
 		deletePillar: (pillar) =>
 		 	dispatch(deletePillar(pillar)),
-		editPillar: (pillar, index) =>
-			dispatch(editPillar(pillar, index)),
-		nameChangePillar: (pillar, index) =>
-			dispatch(nameChangePillar(pillar, index)),
+		editPillar: (pillar) =>
+			dispatch(editPillar(pillar)),
+		nameChangePillar: (_id, pillarName) =>
+			dispatch(nameChangePillar(_id, pillarName)),
 		onLoad: () =>
 			dispatch(fetchPillars({ query }))
 	};
@@ -39,8 +38,7 @@ const mapStateToProps = (state) => {
 	return {
 		pillars: state.pillar.pillars,
 		isEditing: state.pillar.isEditing,
-		pillarThatIsBeingEdited: state.pillar.pillarThatIsBeingEdited,
-		pillarThatIsBeingEditedIndex: state.pillar.pillarThatIsBeingEditedIndex
+		pillarThatIsBeingEdited: state.pillar.pillarThatIsBeingEdited
 	};
 };
 
@@ -56,22 +54,18 @@ class PillarPage extends Component {
 
 	onEditSubmit = (event) => {
 		event.preventDefault();
-		this.props.nameChangePillar(this.refs.pillarThatIsBeingEditedInput.value, this.props.pillarThatIsBeingEditedIndex);
+		this.props.nameChangePillar(this.props.pillarThatIsBeingEdited._id, this.refs.pillarThatIsBeingEditedInput.value);
 	}
 
 	render() {
 
 		let listPillars = null;
     let createPillarsListClassName = null;
-    let activePillars = null;
 
-    activePillars = this.props.pillars.filter((pillar) => !pillar.isDeleted);
-
-		if(activePillars.length > 0) {
+		if(this.props.pillars.length > 0) {
       createPillarsListClassName = 'col s6';
-			listPillars = this.props.pillars.map((pillar, index) => {
-        if(!pillar.isDeleted) {
-          if (this.props.isEditing && index === this.props.pillarThatIsBeingEditedIndex) {
+			listPillars = this.props.pillars.map((pillar) => {
+          if (this.props.isEditing && pillar._id === this.props.pillarThatIsBeingEdited._id) {
   					return (
   						<form key={pillar._id} onSubmit={this.onEditSubmit}>
   							<div className="input-field" styleName="edit-input-field">
@@ -83,7 +77,7 @@ class PillarPage extends Component {
 
   				return (
   					<a className="collection-item black-text" key={pillar._id}>
-              <span className="hand" onClick={this.props.editPillar.bind(this, pillar, index)}>
+              <span className="hand" onClick={this.props.editPillar.bind(this, pillar)}>
   						{pillar.name}
               </span>
   						<div className="secondary-content hand primary-dark-text" onClick={this.props.deletePillar.bind(this, pillar)}>
@@ -91,7 +85,6 @@ class PillarPage extends Component {
   						</div>
   					</a>
   				);
-        }
 			});
 		} else {
       createPillarsListClassName = 'col s12';
@@ -105,17 +98,9 @@ class PillarPage extends Component {
               <PillarForm onSubmit={this.onPillarSubmit}/>
             </div>
             <br/>
-            {/*<div className="container" styleName="flex-space-between">
-              <div>
-                <Link className="btn waves-effect white black-text" to="/dashboard">Skip</Link>
-              </div>
-              <div>
-                <Link className="waves-effect waves-light btn accent-background" to="/content"><i className="material-icons right">play_arrow</i>Continue</Link>
-              </div>
-            </div>*/}
           </div>
 
-					{ activePillars.length > 0 && <div className="col s6">
+					{ this.props.pillars.length > 0 && <div className="col s6">
 						<div className="container">
 							<h1>Your Cultural Pillars</h1>
 							<hr/>

@@ -78,12 +78,12 @@ export function deleteContent(content) {
 /*
 	Edit a content sets the defaultState of
 	isEditing to true, to begin editing a
-	content and which content and it's index
+	content and which content
 */
-export function editContent(content, index) {
+export function editContent(content) {
 	return {
 		type: EDIT_CONTENT,
-		payload: { content, index }
+		payload: { content }
 	};
 }
 
@@ -108,51 +108,51 @@ export function setFilteredContents(filteredContents) {
 	};
 }
 
-export function titleChangeContent(contentTitle, index) {
+export function titleChangeContent(contentTitle, _id) {
 	return {
 		type: CONTENT_TITLE_CHANGE_SUBMITTED,
-		payload: { contentTitle, index }
+		payload: { contentTitle, _id }
 	};
 }
 
-export function descriptionChangeContent(contentDescription, index) {
+export function descriptionChangeContent(contentDescription, _id) {
 	return {
 		type: CONTENT_DESCRIPTION_CHANGE_SUBMITTED,
-		payload: { contentDescription, index }
+		payload: { contentDescription, _id }
 	};
 }
 
-export function urlChangeContent(contentUrl, index) {
+export function urlChangeContent(contentUrl, _id) {
 	return {
 		type: CONTENT_URL_CHANGE_SUBMITTED,
-		payload: { contentUrl, index }
+		payload: { contentUrl, _id }
 	};
 }
 
-export function quoteChangeContent(contentQuote, index) {
+export function quoteChangeContent(contentQuote, _id) {
 	return {
 		type: CONTENT_QUOTE_CHANGE_SUBMITTED,
-		payload: { contentQuote, index }
+		payload: { contentQuote, _id }
 	};
 }
 
-export function authorChangeContent(contentAuthor, index) {
+export function authorChangeContent(contentAuthor, _id) {
 	return {
 		type: CONTENT_AUTHOR_CHANGE_SUBMITTED,
-		payload: { contentAuthor, index }
+		payload: { contentAuthor, _id }
 	};
 }
 
-export function recipientChangeContent(contentRecipient, index) {
+export function recipientChangeContent(contentRecipient, _id) {
 	return {
 		type: CONTENT_RECIPIENT_CHANGE_SUBMITTED,
-		payload: { contentRecipient, index }
+		payload: { contentRecipient, _id }
 	};
 }
 
-export function recipientPositionChangeContent(contentRecipientPosition, index) {
+export function recipientPositionChangeContent(contentRecipientPosition, _id) {
 	return {
 		type: CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED,
-		payload: { contentRecipientPosition, index }
+		payload: { contentRecipientPosition, _id }
 	};
 }
