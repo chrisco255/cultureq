@@ -14,13 +14,15 @@ export const CONTENT_SELECT_SUBMITTED = 'CONTENT_SELECT_SUBMITTED';
 
 export const CONTENT_DESELECT_SUBMITTED = 'CONTENT_DESELECT_SUBMITTED';
 
-export const FILTER_TEXT_CHANGE_SUBMITTED = 'FILTER_TEXT_CHANGE_SUBMITTED';
+export const CONTENT_FILTER_TEXT_CHANGE_SUBMITTED = 'CONTENT_FILTER_TEXT_CHANGE_SUBMITTED';
 
 export const PLACEHOLDER_MOVE_SUBMITTED = 'PLACEHOLDER_MOVE_SUBMITTED';
 
 export const CONTENT_MOVE_SUBMITTED = 'CONTENT_MOVE_SUBMITTED';
 export const CONTENT_MOVE_SUCCEEDED = 'CONTENT_MOVE_SUCCEEDED';
 export const CONTENT_MOVE_FAILED = 'CONTENT_MOVE_FAILED';
+
+export const QUEST_FILTER_TEXT_CHANGE_SUBMITTED = 'QUEST_FILTER_TEXT_CHANGE_SUBMITTED';
 
 export function fetchContentPool({ query }) {
 	return {
@@ -66,9 +68,9 @@ export function deselectContent({ content }) {
   };
 }
 
-export function changeFilterText(text) {
+export function changeContentFilterText(text) {
   return {
-    type: FILTER_TEXT_CHANGE_SUBMITTED,
+    type: CONTENT_FILTER_TEXT_CHANGE_SUBMITTED,
     payload: {
       text
     }
@@ -91,6 +93,15 @@ export function moveContent(oldIndex, newIndex) {
     payload: {
       oldIndex,
       newIndex
+    }
+  };
+}
+
+export function changeQuestFilterText(text) {
+  return {
+    type: QUEST_FILTER_TEXT_CHANGE_SUBMITTED,
+    payload: {
+      text
     }
   };
 }

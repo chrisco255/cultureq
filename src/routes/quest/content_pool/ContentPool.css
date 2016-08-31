@@ -12,7 +12,17 @@
 }
 
 .filter-box-container {
+  margin-top: 4px;
+}
 
+.filter-icon {
+  position: absolute;
+  bottom: 24px;
+}
+
+.filter-field {
+  padding-left: 30px !important;
+  box-sizing: border-box !important;
 }
 
 .content-pool-container {

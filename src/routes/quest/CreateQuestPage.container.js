@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import QuestPageStyles from './QuestPage.css';
+import styles from './CreateQuestPage.css';
 import {
 	addContent,
 	removeContent,
 	selectContent,
 	deselectContent,
-	changeFilterText,
+	changeContentFilterText,
 	movePlaceholder,
 	moveContent,
 	fetchContentPool
@@ -62,7 +62,7 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(deselectContent({ content }));
 		},
 		changeFilterText: (text) => {
-			dispatch(changeFilterText(text));
+			dispatch(changeContentFilterText(text));
 		},
 		movePlaceholder: (index, content) => {
 			dispatch(movePlaceholder(index, content));
@@ -79,15 +79,16 @@ const mapStateToProps = (state) => {
 	return {
     newQuest: state.quest.newQuest,
     contentPool: state.quest.contentPool,
-		filterText: state.quest.filterText,
+		filterText: state.quest.contentFilterText,
 		placeholder: state.quest.placeholder
 	};
 };
 
-class QuestPage extends Component {
+class CreateQuestPage extends Component {
 
 	componentDidMount() {
 		this.props.onLoad();
+		$('.menu-navbar').hide();
 	}
 
 	render() {
@@ -121,5 +122,5 @@ class QuestPage extends Component {
 
 }
 
-QuestPage = CSSModules(QuestPage, QuestPageStyles);
-export default connect(mapStateToProps, mapDispatchToProps) (QuestPage);
+CreateQuestPage = CSSModules(CreateQuestPage, styles);
+export default connect(mapStateToProps, mapDispatchToProps) (CreateQuestPage);

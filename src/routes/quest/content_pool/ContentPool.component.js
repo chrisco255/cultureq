@@ -29,7 +29,7 @@ class ContentPool extends Component {
   };
 
 	render() {
-    const { pool, filterText, connectDropTarget, addContent, selectContent, deselectContent, changeFilterText } = this.props;
+    const { pool, filterText, connectDropTarget, addContent, selectContent, deselectContent } = this.props;
     // debugger;
 
     const selectedContent = pool.filter((content) => {
@@ -37,17 +37,18 @@ class ContentPool extends Component {
     });
 
     const filteredPool = pool.filter((content) => {
-      let text = '';
-      if (content.type === 'QUOTE') {
-        text = content.data.quote + content.data.author;
-      } else if (content.type === 'VIDEO') {
-        text = content.data.title + content.data.url + content.data.description;
-      }
+      const text = content.title + content.description;
+      //mock text
+      // let text = '';
+      // if (content.data.type === 'QUOTE') {
+      //   text = content.data.quote + content.data.author;
+      // } else if (content.data.type === 'VIDEO') {
+      //   text = content.data.title + content.data.url + content.data.description;
+      // }
       const rawText = text.toLowerCase().replace(/\s+/g, '');
       const rawFilterText = filterText.toLowerCase().replace(/\s+/g, '');
       return !rawText || rawText.includes(rawFilterText);
     });
-    console.log(filteredPool);
 
     const contentPoolElements = filteredPool.map((content) => {
 			return (
@@ -105,9 +106,8 @@ class ContentPool extends Component {
           <div className="card" styleName="filter-container">
             <div styleName="filter-title">Select Cards</div>
             <div className="input-field" styleName="filter-box-container">
-              <i className="tiny material-icons prefix">search</i>
-              <input id="filter-box" type="text" onChange={this.filterTextChanged}/>
-              <label htmlFor="filter-box">Filter</label>
+              <i className="material-icons left" styleName="filter-icon">search</i>
+              <input id="filter-box" type="text" placeholder="Filter" styleName="filter-field" onChange={this.filterTextChanged}/>
             </div>
           </div>
           {noItemsMessage}
