@@ -1,67 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CSSModules from 'react-css-modules';
-import ContentPageStyles from '../ContentPage.css';
-import _ from 'lodash';
+import styles from '../ContentPage.css';
 import { createContent, deleteContent, editContent, finishEdit, formEnable, fetchContents, titleChangeContent, descriptionChangeContent, urlChangeContent, quoteChangeContent, authorChangeContent } from '../../../reducers/content/Content.actions';
 import { fetchPillars } from '../../../reducers/pillar/Pillar.actions';
-import Quote from '../../../components/cards/Quote.component';
-import Video from '../../../components/cards/Video.component';
-import ContentTypes from '../ContentTypes';
 import SideMenu from './SideMenu.component';
 import FormArea from './FormArea.component';
-
-const pillarQuery = `
-  {
-    pillars {
-      _id
-      name
-      isDeleted
-    }
-  }
-`;
-
-const contentQuery = `
-  {
-    contents {
-      _id
-      pillarId
-      type
-      isDeleted
-      data {
-        title
-        description
-        url
-        quote
-        author
-        recipient
-        recipientPosition
-        richtext {
-          blocks {
-            inlineStyleRanges {
-              style
-              offset
-              length
-            }
-            entityRanges {
-              key
-              offset
-              length
-            }
-            key
-            text
-            type
-            depth
-          }
-          entityMap {
-            type
-            mutability
-          }
-        }
-      }
-    }
-  }
-`;
+import ContentPreview from './ContentPreview.component';
+import contentQuery from '../ContentQuery';
+import pillarQuery from '../../pillar/PillarQuery';
 
 const mapDispatchToProps = (dispatch) => ({
 		createContent: (content) =>
@@ -109,86 +56,27 @@ class AddContentPage extends Component {
 
 	render() {
 
-    //TODO: have one array with all contents and then filter in render
-    // const listQuoteContents = [];
-    // const listVideoContents = [];
+    let { currentContentType, formEnable, isCreatingContent, pillars, createContent, contents, deleteContent, editContent, isEditing, contentThatIsBeingEdited, finishEdit, authorChangeContent, quoteChangeContent, titleChangeContent, descriptionChangeContent, urlChangeContent } = this.props;
+    const { params } = this.props;
 
-    const contentViewOrder = {display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'};
-
-    if(this.props.params.currentContentType) {
-      this.props.currentContentType = this.props.params.currentContentType;
-    }
-
-    if (this.props.isCreatingContent) {
-      delete contentViewOrder.flexWrap;
-      delete contentViewOrder.justifyContent;
-      contentViewOrder.alignItems = 'center';
-      contentViewOrder.flexDirection = 'column';
-    }
-    let contentCards = [];
-
-    if(this.props.contents.length > 0) {
-      contentCards = this.props.contents.map((content) => {
-
-        let pillarName = content.pillarId;
-        const pillarNameIndex = _.findIndex(this.props.pillars, (pillar) => pillar._id === content.pillarId);
-        if (pillarNameIndex > -1) {
-          pillarName = this.props.pillars[pillarNameIndex].name;
-        }
-        if (content.type === ContentTypes.QUOTE) {
-          return (
-            <div>
-              { content.type === ContentTypes.QUOTE &&
-                <Quote pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} finishEdit={this.props.finishEdit}
-                authorChangeContent={this.props.authorChangeContent} quoteChangeContent={this.props.quoteChangeContent} /> }
-            </div>
-          );
-        }
-
-        if (content.type === ContentTypes.VIDEO) {
-          return (
-            <div>
-              { content.type === ContentTypes.VIDEO &&
-                <Video pillarName={pillarName} deleteContent={this.props.deleteContent} content={content} editContent={this.props.editContent} isEditing={this.props.isEditing} contentThatIsBeingEdited={this.props.contentThatIsBeingEdited} titleChangeContent={this.props.titleChangeContent}
-                       descriptionChangeContent={this.props.descriptionChangeContent}
-                       finishEdit={this.props.finishEdit}
-                       urlChangeContent={this.props.urlChangeContent} /> }
-            </div>
-          );
-        }
-
-          // listQuoteContents.push(
-
-  				// );
-
-          // listVideoContents.push(
-
-          // );
-			});
-
+    if(params.currentContentType) {
+      currentContentType = params.currentContentType;
     }
 
     return (
-      <div styleName="displayFlex">
+      <div className="displayFlex">
 
-      <SideMenu currentContentType={this.props.currentContentType} formEnable={this.props.formEnable} isCreatingContent={this.props.isCreatingContent} />
+        <SideMenu currentContentType={currentContentType} formEnable={formEnable} isCreatingContent={isCreatingContent} />
 
-      <FormArea currentContentType={this.props.currentContentType} pillars={this.props.pillars} createContent={this.props.createContent}/>
+        <FormArea currentContentType={currentContentType} pillars={pillars} createContent={createContent}/>
 
-      { (this.props.currentContentType === ContentTypes.VIDEO) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
-        <h1>Video Content</h1>
-        {contentCards.filter((card) => card.props.children.type.displayName.toUpperCase() === ContentTypes.VIDEO)}
-      </div> }
-      { (this.props.currentContentType === ContentTypes.QUOTE) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
-        <h1>Quote Content</h1>
-        {contentCards}
-      </div> }
+        <ContentPreview currentContentType={currentContentType} contents={contents} pillars={pillars} deleteContent={deleteContent} editContent={editContent} isEditing={isEditing} contentThatIsBeingEdited={contentThatIsBeingEdited} finishEdit={finishEdit} authorChangeContent={authorChangeContent} quoteChangeContent={quoteChangeContent} titleChangeContent={titleChangeContent} descriptionChangeContent={descriptionChangeContent} urlChangeContent={urlChangeContent} />
 
-    </div>
+      </div>
 		);
 	}
 
 }
 
-AddContentPage = CSSModules(AddContentPage, ContentPageStyles);
+AddContentPage = CSSModules(AddContentPage, styles);
 export default connect(mapStateToProps, mapDispatchToProps) (AddContentPage);

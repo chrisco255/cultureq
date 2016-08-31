@@ -4,20 +4,7 @@ import CSSModules from 'react-css-modules';
 import PillarPageStyles from './PillarPage.css';
 import { createPillar, deletePillar, editPillar, nameChangePillar, fetchPillars } from '../../reducers/pillar/Pillar.actions';
 import PillarForm from './pillar_form/PillarForm.component';
-
-const query = `
-{
-  pillars {
-    _id
-    tenantId
-    name
-    isDeleted
-    content {
-      _id
-    }
-  }
-}
-`;
+import pillarQuery from './PillarQuery';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -30,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 		nameChangePillar: (_id, pillarName) =>
 			dispatch(nameChangePillar(_id, pillarName)),
 		onLoad: () =>
-			dispatch(fetchPillars({ query }))
+			dispatch(fetchPillars({ query:pillarQuery }))
 	};
 };
 

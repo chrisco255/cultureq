@@ -31,3 +31,6 @@ label {
     font-size: 14px !important;
     color: #9b9b9b !important;
 }
+:global(.displayFlex) {
+  display: flex;
+}

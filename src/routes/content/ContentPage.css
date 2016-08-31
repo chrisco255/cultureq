@@ -21,10 +21,6 @@
     display: flex;
     justify-content: flex-end;
 }
-/*.input-field
-.prefix.active {
-  color: #757575 !important;
-}*/
 .currentItemLink {
   color: black !important;
 }
@@ -50,7 +46,4 @@
 }
 .typeItem:hover {
   color: #039be5 !important;
-}
-.displayFlex {
-  display: flex;
 }
