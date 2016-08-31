@@ -29,9 +29,7 @@ class Dropdown extends Component {
     if (this.props.duplicatePrimary) {
       allButtonData.splice(0, 0, this.props.primaryButton);
     }
-    console.log(allButtonData);
     const dropdownButtons = allButtonData.map((buttonData, index) => {
-      console.log(buttonData);
       const key = `button-${index}`;
       const button = (
         <li key={key} styleName="drop-button"><a onClick={buttonData.onClick}>{buttonData.name}</a></li>

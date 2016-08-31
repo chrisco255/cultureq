@@ -58,7 +58,6 @@ const collect = (connect, monitor) => {
 class QuestContentArea extends Component {
 
 	render() {
-    console.log('rendering quest content area');
     const {
       questContent,
       placeholder,
@@ -84,7 +83,6 @@ class QuestContentArea extends Component {
 				shouldRenderAddPlaceholder = true;
 			}
     }
-    console.log('real content items - ', realQuestContent);
 
     const questContentElements = realQuestContent.map((content, index) => {
       let realIndex = index;
@@ -111,8 +109,6 @@ class QuestContentArea extends Component {
     if (shouldRenderAddPlaceholder) {
       questContentElements.splice(placeholder.index, 0, <QuestContentDragPlaceholder key="quest-drag-placeholder-key"/>);
     }
-
-    console.log(questContentElements);
 
     let questContentElement = (
       // <ReactCSSTransitionGroup component="div"
