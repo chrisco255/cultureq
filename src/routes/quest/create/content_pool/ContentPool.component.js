@@ -5,7 +5,7 @@ import ContentPoolStyles from './ContentPool.css';
 import PoolContentItem from '../pool_content_item/PoolContentItem.component';
 import { QUEST_CONTENT_ITEM, CONTENT_POOL } from '../ItemTypes';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import RightArrow from '../../../assets/images/right_arrow_white.svg';
+import RightArrow from '../../../../assets/images/right_arrow_white.svg';
 
 const spec = {
   drop(props, monitor, component) {

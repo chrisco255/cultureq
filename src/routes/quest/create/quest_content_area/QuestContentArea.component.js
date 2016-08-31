@@ -10,7 +10,7 @@ import { POOL_CONTENT_ITEM, QUEST_CONTENT_ITEM, QUEST_CONTENT_AREA } from '../It
 import {
 	immutablyAddElementToArray,
 	immutablyRemoveIndexFromArray
-} from '../../../utils';
+} from '../../../../utils';
 
 const spec = {
   drop(props, monitor, component) {

@@ -1,0 +1,22 @@
+.trending-quest {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.trending-quest:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.trending-quest .change-up {
+  color: rgb(157, 222, 87);
+}
+
+.trending-quest .change-down {
+  color: rgb(244, 67, 54);
+}
+
+.trending-quest .quest-title {
+  margin: 0 12px;
+  flex: 1;
+}

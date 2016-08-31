@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './QuestNavBar.css';
-import BackArrow from '../../../assets/images/back-arrow.svg';
-import Dropdown from '../../../components/dropdown/Dropdown.component';
+import BackArrow from '../../../../assets/images/back-arrow.svg';
+import Dropdown from '../../../../components/dropdown/Dropdown.component';
 
 class QuestNavBar extends Component {
 

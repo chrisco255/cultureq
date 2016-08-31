@@ -3,7 +3,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  background-image: url('../../../assets/images/checkerboard.svg');
+  background-image: url('../../../../assets/images/checkerboard.svg');
   padding: 20px;
 }
 

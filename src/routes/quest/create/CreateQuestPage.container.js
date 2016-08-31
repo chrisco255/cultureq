@@ -11,7 +11,7 @@ import {
 	movePlaceholder,
 	moveContent,
 	fetchContentPool
-} from '../../reducers/quest/Quest.actions';
+} from '../../../reducers/quest/Quest.actions';
 import QuestCreateContainer from './quest_create_container/QuestCreateContainer.component';
 import QuestNavBar from './quest_nav_bar/QuestNavBar.component';
 

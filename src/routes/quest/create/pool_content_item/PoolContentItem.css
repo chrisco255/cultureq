@@ -36,7 +36,7 @@
   font-size: 1.1rem !important;
   line-height: initial !important;
   margin-bottom: 8px;
-  composes: lato-bold from '../../../styles/compose_from.css';
+  composes: lato-bold from '../../../../styles/compose_from.css';
 }
 
 .card-description {

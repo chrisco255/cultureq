@@ -17,7 +17,7 @@ import {
 import {
 	IN_PROGRESS,
 	PUBLISHED
-} from '../../routes/quest/QuestStatusEnum';
+} from '../../routes/quest/my_quests/QuestStatusEnum';
 
 const defaultState = {
 	contentPool: [

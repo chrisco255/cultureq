@@ -4,8 +4,8 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import CSSModules from 'react-css-modules';
 import PoolContentStyles from './PoolContentItem.css';
 import { POOL_CONTENT_ITEM, QUEST_CONTENT_AREA } from '../ItemTypes';
-import RightArrow from '../../../assets/images/right_arrow_gray.svg';
-import EditIcon from '../../../assets/images/icon-edit.svg';
+import RightArrow from '../../../../assets/images/right_arrow_gray.svg';
+import EditIcon from '../../../../assets/images/icon-edit.svg';
 
 const spec = {
   beginDrag(props) {
