@@ -6,48 +6,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import { fetchContents, setFilteredContents } from '../../reducers/content/Content.actions';
 import ContentTypes from './ContentTypes';
-
-const contentQuery = `
-  {
-    contents {
-      _id
-      pillarId
-      type
-      isDeleted
-      data {
-        title
-        description
-        url
-        quote
-        author
-        recipient
-        recipientPosition
-        richtext {
-          blocks {
-            inlineStyleRanges {
-              style
-              offset
-              length
-            }
-            entityRanges {
-              key
-              offset
-              length
-            }
-            key
-            text
-            type
-            depth
-          }
-          entityMap {
-            type
-            mutability
-          }
-        }
-      }
-    }
-  }
-`;
+import contentQuery from './ContentQuery';
 
 const mapDispatchToProps = (dispatch) => ({
     setFilteredContents: (filteredContents) =>
