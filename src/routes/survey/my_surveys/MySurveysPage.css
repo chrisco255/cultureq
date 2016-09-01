@@ -1,0 +1,68 @@
+.my-surveys-page {
+  padding: 40px 5%;
+}
+
+.create-survey-container {
+  margin-bottom: 20px;
+}
+
+.create-survey-button {
+  background-color: orange;
+  padding: 0px 20px;
+  height: auto;
+}
+
+.filter-container {
+  padding: 10px;
+  margin: 0 0 8px 0;
+  display: inline-block;
+  min-width: 400px;
+}
+
+.filter-box-container {
+  margin-top: 4px;
+}
+
+.filter-icon {
+  position: absolute;
+  bottom: 11px;
+}
+
+.filter-field {
+  padding-left: 30px !important;
+  box-sizing: border-box !important;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all-surveys {
+  flex: 1;
+  min-width: 900px;
+  margin-right: 32px;
+}
+
+.featured-surveys {
+  flex: 0;
+}
+
+.featured-survey-container {
+  margin-bottom: 20px;
+}
+
+.featured-survey-container .title {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.featured-survey {
+  padding: 20px;
+  background-color: rgb(240, 240, 240);
+  width: 250px;
+}
+
+.trending-surveys {
+  composes: featured-survey;
+}
