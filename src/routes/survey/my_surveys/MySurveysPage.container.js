@@ -6,11 +6,11 @@ import {
 	changeSurveyFilterText
 } from '../../../reducers/survey/Survey.actions';
 import {
-	IN_PROGRESS,
-	PUBLISHED
-} from './SurveyStatusEnum';
+	STATUS
+} from './Enums';
 import TrendingSurvey from './trending_survey/TrendingSurvey.component';
-import StatusContainer from './status_container/StatusContainer.component';
+import PublishedStatusContainer from './status_container/PublishedStatusContainer.component';
+import UnpublishedStatusContainer from './status_container/UnpublishedStatusContainer.component';
 import RecommendedSurvey from './recommended_survey/RecommendedSurvey.component';
 
 const mapDispatchToProps = (dispatch) => {
@@ -38,23 +38,21 @@ class MySurveysPage extends Component {
 	};
 
 	getSurveysWithStatus(status) {
-		let surveys = this.props.surveys.filter((survey) => {
+		return this.props.surveys.filter( (survey) => {
 			return survey.status === status;
-		});
-		surveys = surveys.filter((survey) => {
+		}).filter( (survey) => {
 			const text = survey.title + survey.description;
       const rawText = text.toLowerCase().replace(/\s+/g, '');
       const rawFilterText = this.props.filterText.toLowerCase().replace(/\s+/g, '');
       return !rawText || rawText.includes(rawFilterText);
 		});
-		return surveys;
 	}
 
 	render() {
 		const { recommended, trending } = this.props;
 
-		const inProgressSurveys = this.getSurveysWithStatus(IN_PROGRESS);
-		const publishedSurveys = this.getSurveysWithStatus(PUBLISHED);
+		const unpublishedSurveys = this.getSurveysWithStatus(STATUS.UNPUBLISHED);
+		const publishedSurveys = this.getSurveysWithStatus(STATUS.PUBLISHED);
 
 		const trendingSurveyElements = trending.map( (survey, index) => {
 			return <TrendingSurvey key={index} survey={survey} />;
@@ -73,8 +71,8 @@ class MySurveysPage extends Component {
         </div>
         <div styleName="main-content">
           <div styleName="all-surveys">
-						<StatusContainer name="In Progress" surveys={inProgressSurveys} />
-						{/* <StatusContainer name="Published" surveys={publishedSurveys} /> */}
+						<UnpublishedStatusContainer name="Unpublished" surveys={unpublishedSurveys} />
+						<PublishedStatusContainer name="Published" surveys={publishedSurveys} />
           </div>
           <div styleName="featured-surveys">
             <div styleName="featured-survey-container">

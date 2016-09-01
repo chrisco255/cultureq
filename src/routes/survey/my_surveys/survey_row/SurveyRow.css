@@ -42,10 +42,7 @@
   display: inline-block;
 }
 
-.survey-card-count {
+.survey-card-count, .survey-modified-time {
   flex: 0 0 200px;
-}
-
-.survey-modified-time {
-  flex: 0 0 200px;
+  text-align: center;
 }

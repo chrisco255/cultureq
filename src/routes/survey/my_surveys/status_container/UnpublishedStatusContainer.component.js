@@ -23,7 +23,7 @@ class StatusContainer extends Component {
 			},
 			expanded: true,
 			sorts: {
-				items: SORT_OPTIONS.NONE,
+				type: SORT_OPTIONS.NONE,
 				modified: SORT_OPTIONS.DESCENDING
 			}
 		};
@@ -97,20 +97,20 @@ class StatusContainer extends Component {
       }
       return newSort;
     };
-    let { items } = this.state.sorts;
+    let { type } = this.state.sorts;
     let { modified } = this.state.sorts;
-    if (column === 'items') {
-      items = incrementSort(items);
+    if (column === 'type') {
+      type = incrementSort(type);
       modified = SORT_OPTIONS.NONE;
     } else if (column === 'modified') {
       modified = incrementSort(modified);
-      items = SORT_OPTIONS.NONE;
+      type = SORT_OPTIONS.NONE;
     }
     const state = {
       ...this.state,
       sorts: {
         ...this.state.sorts,
-        items,
+        type,
         modified
       }
     };
@@ -146,36 +146,27 @@ class StatusContainer extends Component {
     };
 
     const sortSurveys = (surveys, sort) => {
-      const itemsSort = sort.items;
+      const typeSort = sort.type;
       const modifiedSort = sort.modified;
-      //sort by item count
-      if (itemsSort === SORT_OPTIONS.ASCENDING) {
-        surveys.sort((one, two) => {
-          return one.content.length - two.content.length;
-        });
-      } else if (itemsSort === SORT_OPTIONS.DESCENDING) {
-        surveys.sort((one, two) => {
-          return two.content.length - one.content.length;
-        });
+
+			// sort by type
+      if (typeSort === SORT_OPTIONS.ASCENDING) {
+        surveys.sort( (one, two) => one.type.localeCompare(two.type) );
+      } else if (typeSort === SORT_OPTIONS.DESCENDING) {
+        surveys.sort( (one, two) => two.type.localeCompare(one.type) );
       }
-      //sort by modified date
+      // sort by modified date
       if (modifiedSort === SORT_OPTIONS.ASCENDING) {
-        surveys.sort((one, two) => {
-          return one.lastModified - two.lastModified;
-        });
+        surveys.sort( (one, two) => one.lastModified - two.lastModified );
       } else if (modifiedSort === SORT_OPTIONS.DESCENDING) {
-        surveys.sort((one, two) => {
-          return two.lastModified - one.lastModified;
-        });
+        surveys.sort( (one, two) => two.lastModified - one.lastModified );
       }
     };
 
     sortSurveys(surveys, this.state.sorts);
-    const surveyElements = surveys.slice(0, this.state.pagination.quantity).map((survey) => {
-			return (
-				<SurveyRow key={survey._id} survey={survey} />
-			);
-		});
+    const surveyElements = surveys.slice(0, this.state.pagination.quantity).map(
+			(survey) => ( <SurveyRow key={survey._id} survey={survey} /> )
+		);
 
     return (
       <div styleName="status-container">
@@ -194,10 +185,10 @@ class StatusContainer extends Component {
             <div styleName="header">
               <div styleName="header-row">
                 <div styleName="header-cell"></div>
-                <div styleName="header-cell">
-                  <span onClick={this.columnSortToggled.bind(this, 'items')} styleName="click-box">
-                    Items
-                    <img styleName="icon" src={mapSortToIcon(this.state.sorts.items)} />
+								<div styleName="header-cell">
+                  <span onClick={this.columnSortToggled.bind(this, 'type')} styleName="click-box">
+                    Type
+                    <img styleName="icon" src={mapSortToIcon(this.state.sorts.type)} />
                   </span>
                 </div>
                 <div styleName="header-cell">
@@ -228,9 +219,7 @@ StatusContainer.propTypes = {
   surveys: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    pillar: PropTypes.string.isRequired,
-    content: PropTypes.arrayOf(PropTypes.object).isRequired
+    description: PropTypes.string,
   })).isRequired,
   name: PropTypes.string.isRequired
 };
