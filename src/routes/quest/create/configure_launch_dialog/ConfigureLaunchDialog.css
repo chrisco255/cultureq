@@ -1,3 +1,15 @@
+.launch-config {
+  width: 45% !important;
+  background-color: #F2F2F2;
+  border-radius: 6px 6px 6px 6px;
+}
+
+.close-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
 .title {
   font-size: 1.5em;
 }
@@ -10,10 +22,12 @@
 
 }
 
-.toggle-description {
-
+.toggle-container label {
+  color: black !important;
+  font-size: 1em !important;
 }
 
-#launch-config {
-  width: 45%;
+.toggle-description {
+  font-size: 0.8em;
+  color: gray;
 }

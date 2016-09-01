@@ -23,7 +23,8 @@ class ConfigureLaunchDialog extends Component {
 		};
 
     return (
-      <div id="launch-config" className="modal">
+      <div id="launch-config" className="modal" styleName="launch-config">
+				<span className="material-icons" styleName="close-icon">close</span>
         <div className="modal-content">
           <h4 styleName="title">Configure Launch</h4>
           <div styleName="launch-options">
