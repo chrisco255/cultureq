@@ -36,7 +36,7 @@ class ConfigureLaunchDialog extends Component {
 						</div>
           </div>
         </div>
-        <div className="modal-footer">
+        <div className="modal-footer" styleName="modal-footer">
 					<a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
           <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Confirm</a>
         </div>

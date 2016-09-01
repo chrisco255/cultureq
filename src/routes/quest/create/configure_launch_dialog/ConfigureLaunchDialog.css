@@ -31,3 +31,7 @@
   font-size: 0.8em;
   color: gray;
 }
+
+.modal-footer {
+  background-color: transparent !important;
+}

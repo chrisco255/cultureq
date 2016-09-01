@@ -38,10 +38,9 @@ class MyQuestsPage extends Component {
 	};
 
 	getQuestsWithStatus(status) {
-		let quests = this.props.quests.filter((quest) => {
+		return this.props.quests.filter((quest) => {
 			return quest.status === status;
-		});
-		quests = quests.filter((quest) => {
+		}).filter((quest) => {
 			const text = quest.title + quest.description;
       const rawText = text.toLowerCase().replace(/\s+/g, '');
       const rawFilterText = this.props.filterText.toLowerCase().replace(/\s+/g, '');

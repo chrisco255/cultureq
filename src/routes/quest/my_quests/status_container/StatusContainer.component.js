@@ -97,8 +97,7 @@ class StatusContainer extends Component {
       }
       return newSort;
     };
-    let { items } = this.state.sorts;
-    let { modified } = this.state.sorts;
+    let { items, modified } = this.state.sorts;
     if (column === 'items') {
       items = incrementSort(items);
       modified = SORT_OPTIONS.NONE;
