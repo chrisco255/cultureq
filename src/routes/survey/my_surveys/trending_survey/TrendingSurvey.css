@@ -1,0 +1,22 @@
+.trending-survey {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.trending-survey:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.trending-survey .change-up {
+  color: rgb(157, 222, 87);
+}
+
+.trending-survey .change-down {
+  color: rgb(244, 67, 54);
+}
+
+.trending-survey .survey-title {
+  margin: 0 12px;
+  flex: 1;
+}
