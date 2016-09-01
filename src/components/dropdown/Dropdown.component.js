@@ -24,6 +24,10 @@ class Dropdown extends Component {
     dropdown.dropdown(this.props.options);
   }
 
+  componentWillUnmount() {
+    $(`#main-button-${this.dropdownId}`).off();
+  }
+
   render() {
     const allButtonData = this.props.otherButtons;
     if (this.props.duplicatePrimary) {
