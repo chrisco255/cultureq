@@ -75,7 +75,7 @@ class ContentPool extends Component {
       //                           transitionName="content-pool-item-transition"
       //                           transitionEnterTimeout={500}
       //                           transitionLeaveTimeout={500}>
-      <div>
+      <div styleName="content-pool">
                                 {contentPoolElements}
       </div>
       // </ReactCSSTransitionGroup>

@@ -42,10 +42,7 @@
   display: inline-block;
 }
 
-.quest-card-count {
+.quest-card-count, .quest-modified-time {
   flex: 0 0 200px;
-}
-
-.quest-modified-time {
-  flex: 0 0 200px;
+  text-align: center;
 }

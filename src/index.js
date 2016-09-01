@@ -7,8 +7,15 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import Root from './root';
 import store from './store/configureStore';
 const history = syncHistoryWithStore(browserHistory, store);
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+const WrappedRoot = () => (
+  <MuiThemeProvider>
+    <Root store={store} history={history} />
+  </MuiThemeProvider>
+);
 
 render(
-  <Root store={store} history={history} />,
+  <WrappedRoot />,
   document.getElementById('main')
 );

@@ -14,6 +14,7 @@ import {
 } from '../../../reducers/quest/Quest.actions';
 import QuestCreateContainer from './quest_create_container/QuestCreateContainer.component';
 import QuestNavBar from './quest_nav_bar/QuestNavBar.component';
+import ConfigureLaunchDialog from './configure_launch_dialog/ConfigureLaunchDialog.component';
 
 const query = `
 {
@@ -98,13 +99,14 @@ class CreateQuestPage extends Component {
 
 		const onLaunch = () => {
 			console.log('quest launched');
+			$('#launch-config').openModal();
 		};
 
     return (
 			<div styleName="quest-page">
 				<QuestNavBar quest={this.props.newQuest} onSave={onSave} onLaunch={onLaunch} />
+				<ConfigureLaunchDialog />
 				<QuestCreateContainer
-					styleName="quest-page"
 					contentPool={this.props.contentPool}
 					newQuest={this.props.newQuest}
 					filterText={this.props.filterText}
