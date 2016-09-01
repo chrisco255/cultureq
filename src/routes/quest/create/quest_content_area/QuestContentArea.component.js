@@ -123,11 +123,9 @@ class QuestContentArea extends Component {
       // </ReactCSSTransitionGroup>
     );
 
-    let questContentActions = null;
     const selectedQuestContent = questContent.filter((content) => {
       return content.isSelected;
     });
-    if (questContentElements.length > 0) {
       const removeAllContent = () => {
         selectedQuestContent.map((content) => {
           removeContent(content);
@@ -137,7 +135,7 @@ class QuestContentArea extends Component {
       if (selectedQuestContent.length === 0) {
         styles.visibility = 'hidden';
       }
-      questContentActions = (
+      let questContentActions = (
         <div styleName="content-actions" style={styles}>
           <a
             className="waves-effect waves-default btn-flat"
@@ -145,7 +143,6 @@ class QuestContentArea extends Component {
             onClick={removeAllContent}>Remove Selected</a>
         </div>
       );
-    }
 
     return (
       connectDropTarget(
