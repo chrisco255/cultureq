@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import CSSModules from 'react-css-modules';
-import ContentPageStyles from '../ContentPage.css';
 import validate from './QuoteForm.validation.js';
 
 export const fields = [
@@ -21,7 +19,7 @@ class QuoteForm extends Component {
       fields: {
         pillarId,
         data
-      }, error, handleSubmit, submitting
+      }, error, handleSubmit, submitting, pillars
     } = this.props;
 
     let submitBtnClassName = 'btn-floating btn-large waves-effect waves-light green';
@@ -52,7 +50,7 @@ class QuoteForm extends Component {
                <label>Choose a Pillar for which this Content pertains to</label>
                <select className="browser-default" { ...pillarId } >
                  <option value="noPillar" disabled hidden>Choose a Pillar</option>
-                 { this.props.pillars.map( pillar => {
+                 { pillars.map( pillar => {
                    if (!pillar.isDeleted) {
                      return (<option key={pillar._id} value={pillar._id}>{pillar.name}</option>);
                    }
@@ -61,9 +59,9 @@ class QuoteForm extends Component {
                </select>
              </div>
             </div>
-            {error && <div style={{color: '#F44336'}}>{error}</div>}
+            {error && <div style={errorStyle}>{error}</div>}
           </div>
-          <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
+          <div className="fixed-action-btn btn-alignment">
             <button className={submitBtnClassName} type="submit" disabled={ submitting }>
               <i className="large material-icons">check</i>
             </button>
@@ -72,10 +70,8 @@ class QuoteForm extends Component {
       </div>
     );
   }
-
 }
 
-QuoteForm = CSSModules(QuoteForm, ContentPageStyles);
 
 QuoteForm = reduxForm({
 	form: 'quote',

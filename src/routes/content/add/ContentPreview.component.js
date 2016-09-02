@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from '../ContentPage.css';
+import styles from './styles.css';
 import ContentTypes from '../ContentTypes';
 import Quote from '../../../components/cards/Quote.component';
 import Video from '../../../components/cards/Video.component';
@@ -42,11 +42,11 @@ class ContentPreview extends Component {
 
     return (
       <div>
-        { (currentContentType === ContentTypes.VIDEO) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
+        { (currentContentType === ContentTypes.VIDEO) && <div styleName="content-preview-section">
           <h1>Video Content</h1>
           {contentCards.filter((card) => card.props.children.type.displayName.toUpperCase() === ContentTypes.VIDEO).reverse()}
         </div> }
-        { (currentContentType === ContentTypes.QUOTE) && <div style={{width: '25%', paddingTop: '2.1rem'}}>
+        { (currentContentType === ContentTypes.QUOTE) && <div styleName="content-preview-section">
           <h1>Quote Content</h1>
           {contentCards.filter((card) => card.props.children.type.displayName.toUpperCase() === ContentTypes.QUOTE).reverse()}
         </div> }

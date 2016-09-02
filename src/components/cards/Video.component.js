@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from './Card.component.css';
 import QuestContentItemStyles from '../../routes/quest/quest_content_item/QuestContentItem.css';
 
 class Video extends Component {
@@ -66,7 +65,6 @@ class Video extends Component {
       <div className="card" key={_id} style={QuestContentItemStyles} styleName="quest-content-item-video">
         { pillarName !== 'noPillar' && <div className="accent-background white-text" style={{textAlign: 'center'}}>{pillarName}</div>}
         <div className="card-content" styleName="card-content" style={contentAlignment}>
-          {/*<div className="card-title" styleName="card-title">Content #{index + 1}</div>*/}
           <div><iframe style={{border: 'solid #BDBDBD 2px', width: '260px'}} src={urlEmbeddedLink}></iframe></div>
           <div>
             <p className="accent-text">{title}</p>

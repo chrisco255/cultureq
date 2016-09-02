@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from '../ContentPage.css';
+import styles from './styles.css';
 import TextEditor from '../../../components/text_editor/TextEditor.component';
 
 class TextEditorForm extends Component {
@@ -41,7 +41,7 @@ class TextEditorForm extends Component {
         <TextEditor onAutosave={ (rawContent) => this.onChange(rawContent) } />
         { this.state.rawState && <h1>Preview</h1> }
         { this.state.rawState && <TextEditor readOnly={true} startingEditorState={this.state.rawState} /> }
-        <div className="fixed-action-btn" style={{bottom: '45px', right: '24px'}}>
+        <div className="fixed-action-btn btn-alignment">
           <button className={submitBtnClassName} onClick={this.onRichtextSubmit}>
             <i className="large material-icons">check</i>
           </button>
