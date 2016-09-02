@@ -10,6 +10,7 @@ export const EDIT_CONTENT = 'EDIT_CONTENT';
 export const FINISH_EDIT = 'FINISH_EDIT';
 export const FORM_ENABLE = 'FORM_ENABLE';
 export const FILTER_CONTENT = 'FILTER_CONTENT';
+export const SEARCH_TEXT_CHANGE_SUBMITTED = 'SEARCH_TEXT_CHANGE_SUBMITTED';
 
 export const CONTENT_TITLE_CHANGE_SUBMITTED = 'CONTENT_TITLE_CHANGE_SUBMITTED';
 export const CONTENT_TITLE_CHANGE_SUCCEEDED = 'CONTENT_TITLE_CHANGE_SUCCEEDED';
@@ -155,4 +156,13 @@ export function recipientPositionChangeContent(contentRecipientPosition, _id) {
 		type: CONTENT_RECIPIENT_POSITION_CHANGE_SUBMITTED,
 		payload: { contentRecipientPosition, _id }
 	};
+}
+
+export function changeSearchText(text) {
+	return {
+    type: SEARCH_TEXT_CHANGE_SUBMITTED,
+    payload: {
+      text
+    }
+  };
 }

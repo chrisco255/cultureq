@@ -24,7 +24,8 @@ class MyContentList extends Component {
 MyContentList.propTypes = {
   contents: PropTypes.array,
   filteredContents: PropTypes.array,
-  setFilteredContents: PropTypes.func
+  setFilteredContents: PropTypes.func,
+  searchText: PropTypes.string
 };
 
 MyContentList = CSSModules(MyContentList, styles);
