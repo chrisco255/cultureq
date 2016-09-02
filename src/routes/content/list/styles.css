@@ -1,0 +1,120 @@
+/*List Component*/
+.margin-right-95 {
+  margin-right: 95px;
+}
+/*Filters Component*/
+.filter-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.68rem;
+  color: #4a4a4a;
+}
+.type-container {
+  display: flex;
+  justify-content: center;
+  width: 165px;
+  padding-left: 17px;
+}
+.type-link-color {
+  color: #4a4a4a;
+}
+.type-dropdown {
+  box-shadow: 0 6px 28px 0 rgba(0, 0, 0, 0.25),0 6px 24px 0 rgba(0,0,0,0.12);
+  background-color: #f5f5f5;
+}
+.the-type-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: #4a4a4a;
+}
+.type-item {
+  text-transform: capitalize !important;
+  line-height: 13px !important;
+  padding: 11px 16px !important;
+  font-size: 15px !important;
+  color: #4a4a4a !important;
+}
+.type-item:hover {
+  color: #039be5 !important;
+}
+.min-height-35 {
+  min-height: 35px;
+}
+.modified-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 165px;
+  padding-right: 5px;
+}
+/*Items Component*/
+.current-item-link {
+  color: black !important;
+}
+.current-item-link:hover {
+  color: #039be5 !important;
+}
+.current-item {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  font-size: 18px !important;
+  text-overflow: ellipsis !important;
+  color: black !important;
+}
+.current-item:hover {
+  color: #039be5 !important;
+}
+.item-icon {
+  margin-right: 15px;
+  color: #757575;
+}
+.item-content-container {
+  width: 375px;
+  margin-right: 50px;
+}
+.item-tags {
+  color: #757575;
+  font-size: 14px;
+  margin: 5px 0 20px 0;
+}
+.item-info-container {
+  display: flex;
+  padding-bottom: 20px;
+}
+.item-type-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 50px 0 50px;
+  color: #757575;
+  width: 115px;
+}
+.margin-0 {
+  margin: 0px;
+}
+.item-type {
+  margin-top: 0px;
+  text-transform: capitalize;
+}
+.item-modified-container {
+  display: flex;
+  align-items: center;
+  margin: 0 50px 0 50px;
+  color: #757575;
+  width: 75px;
+  justify-content: center;
+}
+.margin-top-0 {
+  margin-top: 0px;
+}
+/*Title*/
+.title {
+  margin: 2.1rem 0px 0px 0px;
+}
+.content-amount {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  padding-top: 6px;
+  margin: 2.1rem 0px 0px 8px;
+}

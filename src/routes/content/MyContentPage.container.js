@@ -39,7 +39,7 @@ class MyContentPage extends Component {
         <div className="container" styleName="container-width-90">
           <div className="col s12">
             <Link className="white-text waves-effect waves-light btn accent-background" styleName="link-text-transform" to="addcontent"><i className="material-icons left" styleName="margin-right-10">add</i>Add Content</Link>
-            <Search />
+            <Search contents={contents} />
           </div>
           <List contents={contents} filteredContents={filteredContents} setFilteredContents={setFilteredContents}/>
           <FeaturedQuests />

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from '../ContentPage.css';
+import styles from './styles.css';
 import ContentTypes from '../ContentTypes';
 
 class Filters extends Component {
@@ -22,22 +22,22 @@ class Filters extends Component {
     );
 
     return(
-      <div style={{display: 'flex', justifyContent: 'flex-end', marginBottom: '1.68rem', color: '#4a4a4a'}}>
-        <div style={{display: 'flex', justifyContent: 'center', width: '165px', paddingLeft: '17px'}}>
-          <a className='dropdown-button' data-activates='type-dropdown' style={{display: 'flex', color: '#4a4a4a'}}>Type<i className="material-icons">arrow_drop_down</i></a>
-          <ul id='type-dropdown' className='dropdown-content' style={{boxShadow: '0 6px 28px 0 rgba(0, 0, 0, 0.25),0 6px 24px 0 rgba(0,0,0,0.12)', backgroundColor: '#f5f5f5'}}>
-            <li onClick={this.filterBy.bind(this, '')} ><a style={{display: 'flex', justifyContent: 'space-between', fontSize: '15px', color: '#4a4a4a'}}>Type<i className="material-icons">arrow_drop_up</i></a></li>
+      <div styleName="filter-container">
+        <div styleName="type-container">
+          <a className='dropdown-button displayFlex' data-activates='type-dropdown' styleName="type-link-color">Type<i className="material-icons">arrow_drop_down</i></a>
+          <ul id='type-dropdown' className='dropdown-content' styleName="type-dropdown">
+            <li onClick={this.filterBy.bind(this, '')} ><a styleName="the-type-item">Type<i className="material-icons">arrow_drop_up</i></a></li>
             <li className="divider"></li>
             {Object.keys(ContentTypes.properties).map((type) => {
               return (
-                <li key={type} onClick={this.filterBy.bind(this, type)} style={{minHeight: '35px'}}>
-                  <a styleName="typeItem">{ContentTypes.properties[type].name}</a>
+                <li key={type} onClick={this.filterBy.bind(this, type)} styleName="min-height-35">
+                  <a styleName="type-item">{ContentTypes.properties[type].name}</a>
                 </li>
               );
             })}
           </ul>
         </div>
-        <div style={{display: 'flex', justifyContent: 'flex-end', width: '165px', paddingRight: '5px'}}>Modified<i className="material-icons">arrow_drop_down</i></div>
+        <div styleName="modified-container">Modified<i className="material-icons">arrow_drop_down</i></div>
       </div>
     );
   }

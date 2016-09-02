@@ -21,32 +21,6 @@
     display: flex;
     justify-content: flex-end;
 }
-.currentItemLink {
-  color: black !important;
-}
-.currentItemLink:hover {
-  color: #039be5 !important;
-}
-.currentItem {
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  font-size: 18px !important;
-  text-overflow: ellipsis !important;
-  color: black !important;
-}
-.currentItem:hover {
-  color: #039be5 !important;
-}
-.typeItem {
-  text-transform: capitalize !important;
-  line-height: 13px !important;
-  padding: 11px 16px !important;
-  font-size: 15px !important;
-  color: #4a4a4a !important;
-}
-.typeItem:hover {
-  color: #039be5 !important;
-}
 /*My Content Page*/
 .margin-top-40 {
   margin-top: 40px;

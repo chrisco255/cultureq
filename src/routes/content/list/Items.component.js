@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import styles from '../ContentPage.css';
+import styles from './styles.css';
 import _ from 'lodash';
 import ContentTypes from '../ContentTypes';
 import { Link } from 'react-router';
@@ -50,29 +50,26 @@ class Items extends Component {
       return (
         <div key={content._id} style={itemStyle}>
           <div className="displayFlex">
-            {/*Icon symbol according to type of content*/}
-            <div style={{marginRight: '15px', color: '#757575'}}>{contentItemIcon}</div>
-            <div style={{width: '375px', marginRight: '50px'}}>
-              {/*Quote or Video Title*/}
+            <div styleName="item-icon">{contentItemIcon}</div>
+            <div styleName="item-content-container">
               <div>
-                <div styleName="currentItem"><Link styleName="currentItemLink" to={`addcontent/${currentItemType}`}>{currentItemTitle}</Link></div>
+                <div styleName="current-item"><Link styleName="current-item-link" to={`addcontent/${currentItemType}`}>{currentItemTitle}</Link></div>
               </div>
-              {/*Tags*/}
               <div>
-                <p style={{color: '#757575', fontSize: '14px', margin: '5px 0 20px 0'}}><em>No tags, add some</em></p>
+                <p styleName="item-tags"><em>No tags, add some</em></p>
               </div>
             </div>
           </div>
 
-          <div style={{display: 'flex', paddingBottom: '20px'}}>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 50px 0 50px', color: '#757575', width: '115px'}}>
-              <p style={{margin: '0px'}}>{currentItemInfo}</p>
-              <p style={{marginTop: '0px', textTransform: 'capitalize'}}>{currentItemType.toLowerCase()}</p>
+          <div styleName="item-info-container">
+            <div styleName="item-type-container">
+              <p styleName="margin-0">{currentItemInfo}</p>
+              <p styleName="item-type">{currentItemType.toLowerCase()}</p>
             </div>
 
             {/*TODO: Get real created/modified times/dates*/}
-            <div style={{display: 'flex', alignItems: 'center', margin: '0 50px 0 50px', color: '#757575', width: '75px', justifyContent: 'center'}}>
-              <p style={{marginTop: '0px'}}>56 min ago</p>
+            <div styleName="item-modified-container">
+              <p styleName="margin-top-0">56 min ago</p>
             </div>
           </div>
         </div>
