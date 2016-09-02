@@ -11,7 +11,7 @@ export const fields = [
 class QuoteForm extends Component {
 
   componentDidMount() {
-    $( "#quote" ).focus();
+    $( '#quote' ).focus();
   }
 
   render() {

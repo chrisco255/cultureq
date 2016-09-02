@@ -1,0 +1,76 @@
+.content-card {
+  display: inline-flex;
+  flex-direction: row;
+  /*min-height: min-content;*/
+  justify-content: space-between;
+  height: 140px;
+  min-height: 140px; /*for some reason, height by itself is not sufficient*/
+  margin: 0;
+  background-color: #FFF;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.10);
+}
+
+.drag-preview {
+  z-index: -1;
+  position: absolute;
+  background: blue;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.content-card:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.card-text {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.card-title {
+  font-size: 1.1rem !important;
+  line-height: initial !important;
+  margin-bottom: 8px;
+  composes: lato-bold from '../../../../styles/compose_from.css';
+}
+
+.card-description {
+  font-size: 1rem;
+  white-space: nowrap;
+  width: 170px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-buttons {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex: 1;
+}
+
+.side-buttons .button {
+  cursor: pointer;
+}
+
+.bottom-buttons {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.bottom-buttons .button img {
+  margin-right: 5px;
+  position: relative;
+  top: 9px;
+}

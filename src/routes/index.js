@@ -11,8 +11,9 @@ import AnalyticsPage from './analytics/AnalyticsPage.container.js';
 import AddContentPage from './content/add/AddContentPage.container.js';
 import MyContentPage from './content/MyContentPage.container.js';
 import TextEditorPage from './editor/TextEditor.container.js';
-import CreateQuestPage from './quest/CreateQuestPage.container';
-import MyQuestsPage from './quest/MyQuestsPage.container';
+import CreateQuestPage from './quest/create/CreateQuestPage.container';
+import MyQuestsPage from './quest/my_quests/MyQuestsPage.container';
+import MySurveysPage from './survey/my_surveys/MySurveysPage.container';
 import store from '../store/configureStore';
 
 function IndexComponent(nextState, cb) {
@@ -41,5 +42,6 @@ export default (
     <Route path="editor" component={TextEditorPage} />
 		<Route path="createquest" component={CreateQuestPage} />
     <Route path="myquests" component={MyQuestsPage} />
+		<Route path="mysurveys" component={MySurveysPage} />
   </Route>
 );

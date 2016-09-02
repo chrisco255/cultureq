@@ -1,0 +1,48 @@
+.content-row {
+  padding-bottom: 20px;
+  border-bottom: 0.5px dashed rgb(189, 189, 189);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.quest-info {
+  flex: 1;
+}
+
+.quest-info .title {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 18px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 0.1s;
+  margin-bottom: 5px;
+}
+
+.quest-info .title:hover {
+  color: #039be5;
+}
+
+.quest-info .description {
+  color: rgb(117, 117, 117);
+  margin-bottom: 8px;
+}
+
+.quest-info .pillar-container {
+
+}
+
+.quest-info .pillar {
+  text-transform: uppercase;
+  margin-top: 5px;
+  padding: 4px 15px;
+  background-color: rgb(255, 239, 194);
+  display: inline-block;
+}
+
+.quest-card-count, .quest-modified-time {
+  flex: 0 0 200px;
+  text-align: center;
+}

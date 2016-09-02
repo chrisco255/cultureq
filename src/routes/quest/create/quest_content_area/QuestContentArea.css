@@ -1,0 +1,49 @@
+.quest-content-container {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-image: url('../../../../assets/images/checkerboard.svg');
+  padding: 20px;
+}
+
+.content-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content-actions .action:not(:last-child) {
+  margin-right: 10px;
+}
+
+.quest-content-items {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  overflow-y: auto;
+}
+
+/*.no-items-message {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+}*/
+
+/*:global(.quest-content-item-transition-enter) {
+  transform: scale(0);
+  opacity: 0;
+}
+
+:global(.quest-content-item-transition-enter.quest-content-item-transition-enter-active) {
+  opacity: 1;
+  transform: scale(1);
+  transition: all .5s
+}
+
+:global(.quest-content-item-transition-leave.quest-content-item-transition-leave-active) {
+  transform: scale(0);
+  opacity: 0;
+  transition: all .5s
+}*/

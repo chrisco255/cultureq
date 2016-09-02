@@ -1,0 +1,68 @@
+.my-quests-page {
+  padding: 40px 5%;
+}
+
+.create-quest-container {
+  margin-bottom: 20px;
+}
+
+.create-quest-button {
+  background-color: orange;
+  padding: 0px 20px;
+  height: auto;
+}
+
+.filter-container {
+  padding: 10px;
+  margin: 0 0 8px 0;
+  display: inline-block;
+  min-width: 400px;
+}
+
+.filter-box-container {
+  margin-top: 4px;
+}
+
+.filter-icon {
+  position: absolute;
+  bottom: 11px;
+}
+
+.filter-field {
+  padding-left: 30px !important;
+  box-sizing: border-box !important;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all-quests {
+  flex: 1;
+  min-width: 700px;
+  margin-right: 32px;
+}
+
+.featured-quests {
+  flex: 0;
+}
+
+.featured-quest-container {
+  margin-bottom: 20px;
+}
+
+.featured-quest-container .title {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.featured-quest {
+  padding: 20px;
+  background-color: rgb(240, 240, 240);
+  width: 250px;
+}
+
+.trending-quests {
+  composes: featured-quest;
+}
