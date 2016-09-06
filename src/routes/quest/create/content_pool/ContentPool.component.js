@@ -17,8 +17,8 @@ const spec = {
 const collect = (connect, monitor) => {
   return {
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
+    // isOver: monitor.isOver(),
+    // canDrop: monitor.canDrop()
   };
 };
 
@@ -38,13 +38,6 @@ class ContentPool extends Component {
 
     const filteredPool = pool.filter((content) => {
       const text = content.title + content.description;
-      //mock text
-      // let text = '';
-      // if (content.data.type === 'QUOTE') {
-      //   text = content.data.quote + content.data.author;
-      // } else if (content.data.type === 'VIDEO') {
-      //   text = content.data.title + content.data.url + content.data.description;
-      // }
       const rawText = text.toLowerCase().replace(/\s+/g, '');
       const rawFilterText = filterText.toLowerCase().replace(/\s+/g, '');
       return !rawText || rawText.includes(rawFilterText);
@@ -64,10 +57,10 @@ class ContentPool extends Component {
     //TODO use a JS based animation library to make it so the last removed
     //element does not just dissapear - it should animate out instead
     //temporary half-fix
-    const contentPoolStyles = {};
-    if (contentPoolElements.length === 0) {
-      contentPoolStyles.display = 'none';
-    }
+    // const contentPoolStyles = {};
+    // if (contentPoolElements.length === 0) {
+    //   contentPoolStyles.display = 'none';
+    // }
     let contentPool = (
       // <ReactCSSTransitionGroup component="div"
       //                           style={contentPoolStyles}

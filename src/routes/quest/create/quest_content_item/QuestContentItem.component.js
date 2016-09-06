@@ -26,7 +26,6 @@ const dragSourceSpec = {
   },
   endDrag(props, monitor) {
     if (monitor.didDrop()) {
-      console.log('yay');
       const dropResultType = monitor.getDropResult().type;
       if (dropResultType === CONTENT_POOL) {
         console.log(`Quest content with name ${props.content.title} dropped in content pool`);
@@ -57,11 +56,6 @@ const dropTargetSpec = {
     const draggedItem = monitor.getItem();
     const draggedIndex = draggedItem.index;
     const hoverIndex = props.index;
-    // const placeholderIndex = props.placeholder ? props.placeholder.index : -1;
-
-    // console.log('hovering');
-    // console.log('dragged index - ', draggedIndex);
-    // console.log('hovered index - ', hoverIndex);
 
     if (draggedIndex !== hoverIndex) {
       const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
@@ -74,18 +68,6 @@ const dropTargetSpec = {
       const clientOffset = monitor.getClientOffset();
       if (isPointInsideRect(clientOffset, dropZone)) {
         const nextIndex = hoverIndex;
-        // if (props.placeholder && props.placeholder.index < nextIndex) {
-        //   nextIndex = nextIndex + 1;
-        // }
-        // console.log('moving');
-        // console.log('placeholder index - ', !props.placeholder || props.placeholder.index);
-        // console.log('hover index - ', hoverIndex);
-        // console.log('next index - ', nextIndex);
-        // console.log('moving placeholder to - ', hoverIndex, ' - ', nextIndex);
-        //make the index override not there - overrite a temp index and supply
-        //the placeholder with the original index
-        //or maybe supply the placeholder with the content
-        //idk
         console.log('moving placeholder - ', draggedItem.content.title);
         props.movePlaceholder(nextIndex, draggedItem.content);
         draggedItem.index = nextIndex;

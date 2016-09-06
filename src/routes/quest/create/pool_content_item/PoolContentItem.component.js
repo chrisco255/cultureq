@@ -9,12 +9,14 @@ import EditIcon from '../../../../assets/images/icon-edit.svg';
 
 const spec = {
   beginDrag(props) {
+    console.log('pool content item begin drag');
     return {
       content: props.content,
       type: POOL_CONTENT_ITEM,
     };
   },
   endDrag(props, monitor) {
+    console.log('pool content item end drag');
     if (monitor.didDrop() && monitor.getDropResult().type === QUEST_CONTENT_AREA) {
       console.log(`Pool content with name ${props.content.title} dropped`);
       // props.addContent(props.content);

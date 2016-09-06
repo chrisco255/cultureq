@@ -8,6 +8,7 @@
   position: absolute;
   right: 10px;
   top: 10px;
+  cursor: pointer;
 }
 
 .title {
@@ -16,6 +17,18 @@
 
 .launch-options {
 
+}
+
+.date-picker-container {
+  position: relative;
+}
+
+.date-picker-container .date-icon {
+  position: absolute;
+  top: 0;
+  bottom: 1px;
+  display: flex;
+  align-items: center;
 }
 
 .toggle-container {
@@ -34,4 +47,12 @@
 
 .modal-footer {
   background-color: transparent !important;
+}
+
+.confirm-button {
+  background-color: #ff9800;
+}
+
+.confirm-button:hover {
+  background-color: #ff9800;
 }

@@ -46,7 +46,6 @@ class Dropdown extends Component {
       const divider = <li className="divider" key={key}></li>;
       dropdownButtons.splice(i, 0, divider);
     }
-    console.log('buttons - ', dropdownButtons);
     return (
       <div className="dropdown">
         <div id={this.dropdownId} data-activates={`content-${this.dropdownId}`} styleName="dropdown-container">
