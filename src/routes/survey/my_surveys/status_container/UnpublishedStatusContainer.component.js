@@ -9,7 +9,13 @@ import SortingArrows from '../../../../assets/images/sorting-arrows.svg';
 const SORT_OPTIONS = {
 	ASCENDING: 'ASCENDING',
 	DESCENDING: 'DESCENDING',
-	NONE: 'NONE'
+	NONE: 'NONE',
+};
+
+const FILTER_OPTIONS = {
+	SURVEY: 'SURVEY',
+	CHECK_IN: 'CHECK_IN',
+	NONE: 'NONE',
 };
 
 class StatusContainer extends Component {
@@ -19,13 +25,15 @@ class StatusContainer extends Component {
 		this.state = {
 			pagination: {
 				quantity: 0,
-				needsPagination: false
+				needsPagination: false,
 			},
 			expanded: true,
 			sorts: {
-				type: SORT_OPTIONS.NONE,
-				modified: SORT_OPTIONS.DESCENDING
-			}
+				modified: SORT_OPTIONS.DESCENDING,
+			},
+			filters: {
+				type: FILTER_OPTIONS.NONE,
+			},
 		};
   }
 
@@ -97,21 +105,29 @@ class StatusContainer extends Component {
       }
       return newSort;
     };
-    let { type } = this.state.sorts;
     let { modified } = this.state.sorts;
-    if (column === 'type') {
-      type = incrementSort(type);
-      modified = SORT_OPTIONS.NONE;
-    } else if (column === 'modified') {
+
+		if (column === 'modified') {
       modified = incrementSort(modified);
-      type = SORT_OPTIONS.NONE;
     }
+
     const state = {
       ...this.state,
       sorts: {
         ...this.state.sorts,
-        type,
-        modified
+        modified,
+      }
+    };
+    this.setState(state);
+  }
+
+	columnFilterToggled(event) {
+		event.stopPropagation();
+    const state = {
+      ...this.state,
+      filters: {
+        ...this.state.filters,
+        type: event.target.value,
       }
     };
     this.setState(state);
@@ -122,16 +138,14 @@ class StatusContainer extends Component {
     expanded = !expanded;
     const state = {
       ...this.state,
-      expanded
+      expanded,
     };
     this.setState(state);
   }
 
 	render() {
-    const {
-      name,
-      surveys,
-    } = this.props;
+    let { surveys } = this.props;
+    const { name } = this.props;
 
     const mapSortToIcon = (sort) => {
       let icon;
@@ -145,28 +159,35 @@ class StatusContainer extends Component {
       return icon;
     };
 
-    const sortSurveys = (surveys, sort) => {
-      const typeSort = sort.type;
-      const modifiedSort = sort.modified;
+    const sortSurveys = (surveys, sorts, filters) => {
+      const typeFilter = filters.type;
+      const modifiedSort = sorts.modified;
 
-			// sort by type
-      if (typeSort === SORT_OPTIONS.ASCENDING) {
-        surveys.sort( (one, two) => one.type.localeCompare(two.type) );
-      } else if (typeSort === SORT_OPTIONS.DESCENDING) {
-        surveys.sort( (one, two) => two.type.localeCompare(one.type) );
+			// filter by type
+      if (typeFilter !== FILTER_OPTIONS.NONE) {
+        surveys = surveys.filter( (survey) => survey.type === typeFilter );
       }
+
       // sort by modified date
       if (modifiedSort === SORT_OPTIONS.ASCENDING) {
         surveys.sort( (one, two) => one.lastModified - two.lastModified );
       } else if (modifiedSort === SORT_OPTIONS.DESCENDING) {
         surveys.sort( (one, two) => two.lastModified - one.lastModified );
       }
+
+			return surveys;
     };
 
-    sortSurveys(surveys, this.state.sorts);
+    surveys = sortSurveys(surveys, this.state.sorts, this.state.filters);
     const surveyElements = surveys.slice(0, this.state.pagination.quantity).map(
 			(survey) => ( <SurveyRow key={survey._id} survey={survey} /> )
 		);
+
+		const dropdownItems = [
+      'NONE',
+      'SURVEY',
+			'CHECK_IN',
+    ];
 
     return (
       <div styleName="status-container">
@@ -186,9 +207,10 @@ class StatusContainer extends Component {
               <div styleName="header-row">
                 <div styleName="header-cell"></div>
 								<div styleName="header-cell">
-                  <span onClick={this.columnSortToggled.bind(this, 'type')} styleName="click-box">
-                    Type
-                    <img styleName="icon" src={mapSortToIcon(this.state.sorts.type)} />
+                  <span styleName="click-box">
+                    <select style={{display: 'block'}} defaultValue="NONE" onChange={this.columnFilterToggled.bind(this)}>
+											{ dropdownItems.map( (item) => (<option key={item} value={item}>{item}</option>) )}
+										</select>
                   </span>
                 </div>
                 <div styleName="header-cell">

@@ -34,3 +34,7 @@ label {
 :global(.displayFlex) {
   display: flex;
 }
+:global(.btn-alignment) {
+  bottom: 45px;
+  right: 24px;
+}

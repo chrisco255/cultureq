@@ -12,6 +12,12 @@ const SORT_OPTIONS = {
 	NONE: 'NONE'
 };
 
+const FILTER_OPTIONS = {
+	SURVEY: 'SURVEY',
+	CHECK_IN: 'CHECK_IN',
+	NONE: 'NONE',
+};
+
 class StatusContainer extends Component {
 
   constructor() {
@@ -23,9 +29,11 @@ class StatusContainer extends Component {
 			},
 			expanded: true,
 			sorts: {
-				type: SORT_OPTIONS.NONE,
 				status: SORT_OPTIONS.NONE,
 				modified: SORT_OPTIONS.DESCENDING,
+			},
+			filters: {
+				type: FILTER_OPTIONS.NONE,
 			}
 		};
   }
@@ -98,27 +106,33 @@ class StatusContainer extends Component {
       }
       return newSort;
     };
-    let { type, modified, status } = this.state.sorts;
-    if (column === 'type') {
-      type = incrementSort(type);
-      modified = SORT_OPTIONS.NONE;
-			status = SORT_OPTIONS.NONE;
-    } else if (column === 'modified') {
+    let { modified, status, } = this.state.sorts;
+
+    if (column === 'modified') {
       modified = incrementSort(modified);
-      type = SORT_OPTIONS.NONE;
       status = SORT_OPTIONS.NONE;
     } else if (column === 'status') {
       status = incrementSort(status);
-      type = SORT_OPTIONS.NONE;
       modified = SORT_OPTIONS.NONE;
     }
     const state = {
       ...this.state,
       sorts: {
         ...this.state.sorts,
-        type,
 				status,
         modified,
+      }
+    };
+    this.setState(state);
+  }
+
+	columnFilterToggled(event) {
+		event.stopPropagation();
+    const state = {
+      ...this.state,
+      filters: {
+        ...this.state.filters,
+        type: event.target.value,
       }
     };
     this.setState(state);
@@ -135,10 +149,8 @@ class StatusContainer extends Component {
   }
 
 	render() {
-    const {
-      name,
-      surveys,
-    } = this.props;
+    const { name } = this.props;
+    let { surveys } = this.props;
 
     const mapSortToIcon = (sort) => {
       let icon;
@@ -152,17 +164,16 @@ class StatusContainer extends Component {
       return icon;
     };
 
-    const sortSurveys = (surveys, sort) => {
-      const typeSort = sort.type;
-      const modifiedSort = sort.modified;
-			const statusSort = sort.status;
+    const sortSurveys = (surveys, sorts, filters) => {
+      const typeFilter = filters.type;
+      const modifiedSort = sorts.modified;
+			const statusSort = sorts.status;
 
-			// sort by type
-			if (typeSort === SORT_OPTIONS.ASCENDING) {
-        surveys.sort( (one, two) => one.type.localeCompare(two.type) );
-      } else if (typeSort === SORT_OPTIONS.DESCENDING) {
-        surveys.sort( (one, two) => two.type.localeCompare(one.type) );
+			// filter by type
+			if (typeFilter !== FILTER_OPTIONS.NONE) {
+				surveys = surveys.filter( (survey) => survey.type === typeFilter );
       }
+
       // sort by modified date
       if (modifiedSort === SORT_OPTIONS.ASCENDING) {
         surveys.sort( (one, two) => one.lastModified - two.lastModified );
@@ -176,12 +187,20 @@ class StatusContainer extends Component {
       } else if (statusSort === SORT_OPTIONS.DESCENDING) {
         surveys.sort( (one, two) => two.statusPercent - one.statusPercent );
       }
+
+			return surveys;
     };
 
-    sortSurveys(surveys, this.state.sorts);
+    surveys = sortSurveys(surveys, this.state.sorts, this.state.filters);
     const surveyElements = surveys.slice(0, this.state.pagination.quantity).map(
 			(survey) => ( <SurveyRow key={survey._id} survey={survey} /> )
 		);
+
+		const dropdownItems = [
+      'NONE',
+      'SURVEY',
+			'CHECK_IN',
+    ];
 
     return (
       <div styleName="status-container">
@@ -201,10 +220,11 @@ class StatusContainer extends Component {
               <div styleName="header-row">
                 <div styleName="header-cell"></div>
 								<div styleName="header-cell">
-                  <span onClick={this.columnSortToggled.bind(this, 'type')} styleName="click-box">
-                    Type
-                    <img styleName="icon" src={mapSortToIcon(this.state.sorts.type)} />
-                  </span>
+									<span styleName="click-box">
+										<select style={{display: 'block'}} defaultValue="NONE" onChange={this.columnFilterToggled.bind(this)}>
+											{ dropdownItems.map( (item) => (<option key={item} value={item}>{item}</option>) )}
+										</select>
+									</span>
                 </div>
 								<div styleName="header-cell">
                   <span onClick={this.columnSortToggled.bind(this, 'status')} styleName="click-box">

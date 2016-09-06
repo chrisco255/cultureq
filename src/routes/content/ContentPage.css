@@ -21,29 +21,46 @@
     display: flex;
     justify-content: flex-end;
 }
-.currentItemLink {
-  color: black !important;
+/*My Content Page*/
+.margin-top-40 {
+  margin-top: 40px;
 }
-.currentItemLink:hover {
-  color: #039be5 !important;
+.container-width-90 {
+  width: 90%;
 }
-.currentItem {
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  font-size: 18px !important;
-  text-overflow: ellipsis !important;
-  color: black !important;
+.link-text-transform {
+  padding: 0 20px 0 20px;
+  text-transform: capitalize;
 }
-.currentItem:hover {
-  color: #039be5 !important;
+.margin-right-10 {
+  margin-right: 10px;
 }
-.typeItem {
-  text-transform: capitalize !important;
-  line-height: 13px !important;
-  padding: 11px 16px !important;
-  font-size: 15px !important;
-  color: #4a4a4a !important;
+/*Search Component*/
+.icon-position {
+  position: absolute;
+  bottom: 26px;
 }
-.typeItem:hover {
-  color: #039be5 !important;
+.padding-left-35 {
+  padding-left: 35px;
+}
+/*Featured Quests Component*/
+.quests-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 2.1rem 0 0 0;
+}
+.box-shadow-none {
+  box-shadow: none;
+}
+.padding-25 {
+  padding: 25px;
+}
+.pillar-name-style {
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: .5px;
+  line-height: 20px;
+}
+.font-size-20 {
+  font-size: 20px;
 }

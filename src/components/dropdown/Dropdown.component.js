@@ -33,7 +33,7 @@ class Dropdown extends Component {
     if (this.props.duplicatePrimary) {
       allButtonData.splice(0, 0, this.props.primaryButton);
     }
-    const dropdownButtons = allButtonData.map((buttonData, index) => {
+    const dropdownButtons = allButtonData.map( (buttonData, index) => {
       const key = `button-${index}`;
       const button = (
         <li key={key} styleName="drop-button"><a onClick={buttonData.onClick}>{buttonData.name}</a></li>
@@ -64,19 +64,19 @@ class Dropdown extends Component {
 
 const buttonType = PropTypes.shape({
   name: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
 }).isRequired;
 
 Dropdown.propTypes = {
   primaryButton: buttonType,
   otherButtons: PropTypes.arrayOf(buttonType).isRequired,
   options: PropTypes.object,
-  duplicatePrimary: PropTypes.bool
+  duplicatePrimary: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
   options: {},
-  duplicatePrimary: true
+  duplicatePrimary: true,
 };
 
 Dropdown = CSSModules(Dropdown, styles);

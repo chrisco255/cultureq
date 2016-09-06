@@ -7,7 +7,8 @@ const defaultState = {
     isCreatingContent: false,
     contentThatIsBeingEdited: null,
     currentContentType: '',
-    filteredContents: []
+    filteredContents: [],
+    searchText: ''
 };
 
 export default (state = defaultState, action) => {
@@ -49,6 +50,8 @@ export default (state = defaultState, action) => {
             return formEnable(state, payload);
         case ActionTypes.FILTER_CONTENT:
             return setFilteredContents(state, payload);
+        case ActionTypes.SEARCH_TEXT_CHANGE_SUBMITTED:
+            return searchTextChange(state, payload);
 
         case ActionTypes.CONTENT_TITLE_CHANGE_SUBMITTED:
             return contentDataChanged('CONTENT_TITLE_CHANGE_SUBMITTED', state, contents, payload._id, payload.contentTitle, 'title');
@@ -205,4 +208,10 @@ function fetchContents(state, payload) {
     return Object.assign({}, state, {
         contents: [ ...contents ]
     });
+}
+
+function searchTextChange(state, payload) {
+  return Object.assign({}, state, {
+      searchText: payload.text
+  });
 }
