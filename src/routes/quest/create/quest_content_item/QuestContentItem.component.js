@@ -8,7 +8,6 @@ import QuestContentDragPlaceholder from '../quest_content_drag_placeholder/Quest
 
 const dragSourceSpec = {
   beginDrag(props) {
-    console.log('beginning drag of content item - ', props.index);
     return {
       content: props.content,
       index: props.index,
@@ -21,17 +20,15 @@ const dragSourceSpec = {
     if (draggedType === QUEST_CONTENT_ITEM || draggedType === POOL_CONTENT_ITEM) {
       isDragging = props.content._id === monitor.getItem().content._id;
     }
-    console.log('is dragging - ', isDragging);
     return isDragging;
   },
   endDrag(props, monitor) {
-    if (monitor.didDrop()) {
-      const dropResultType = monitor.getDropResult().type;
-      if (dropResultType === CONTENT_POOL) {
-        console.log(`Quest content with name ${props.content.title} dropped in content pool`);
-        props.removeContent(props.content);
-      }
-    }
+    // if (monitor.didDrop()) {
+    //   const dropResultType = monitor.getDropResult().type;
+    //   if (dropResultType === CONTENT_POOL) {
+    //     props.removeContent(props.content);
+    //   }
+    // }
   }
 };
 
@@ -44,7 +41,6 @@ const dragSourceCollect = (connect, monitor) => {
 
 const dropTargetSpec = {
   hover(props, monitor, component) {
-    console.log('calling hover');
     const DROP_ZONE_INSET = 25;
     const isPointInsideRect = (point, rect) => {
       const xOffset = point.x - rect.x;
@@ -68,7 +64,6 @@ const dropTargetSpec = {
       const clientOffset = monitor.getClientOffset();
       if (isPointInsideRect(clientOffset, dropZone)) {
         const nextIndex = hoverIndex;
-        console.log('moving placeholder - ', draggedItem.content.title);
         props.movePlaceholder(nextIndex, draggedItem.content);
         draggedItem.index = nextIndex;
       }

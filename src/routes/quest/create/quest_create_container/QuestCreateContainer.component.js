@@ -21,6 +21,7 @@ class QuestCreateContainer extends Component {
 			deselectContent,
 			changeFilterText,
 			movePlaceholder,
+			removePlaceholder,
 			moveContent
 		} = this.props;
 
@@ -32,8 +33,10 @@ class QuestCreateContainer extends Component {
 					questContent={newQuest.content}
 					filterText={filterText}
 					addContent={addContent}
+					removeContent={removeContent}
 					selectContent={selectContent}
 					deselectContent={deselectContent}
+					removePlaceholder={removePlaceholder}
 					changeFilterText={changeFilterText} />
 				<QuestContentArea
 					questContent={newQuest.content}

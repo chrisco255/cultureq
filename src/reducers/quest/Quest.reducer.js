@@ -6,6 +6,7 @@ import {
 	CONTENT_DESELECT_SUBMITTED,
 	CONTENT_FILTER_TEXT_CHANGE_SUBMITTED,
 	PLACEHOLDER_MOVE_SUBMITTED,
+	PLACEHOLDER_REMOVE_SUBMITTED,
 	CONTENT_MOVE_SUBMITTED,
 	QUEST_FILTER_TEXT_CHANGE_SUBMITTED
 } from './Quest.actions';
@@ -527,6 +528,8 @@ export default (state = defaultState, action) => {
 			return contentFilterTextChangeSubmitted(state, payload);
 		case PLACEHOLDER_MOVE_SUBMITTED:
 			return placeholderMoveSubmitted(state, payload);
+		case PLACEHOLDER_REMOVE_SUBMITTED:
+			return placeholderRemoveSubmitted(state);
 		case CONTENT_MOVE_SUBMITTED:
 			return contentMoveSubmitted(state, payload);
 		case QUEST_FILTER_TEXT_CHANGE_SUBMITTED:
@@ -603,6 +606,11 @@ function contentFilterTextChangeSubmitted(state, { text }) {
 
 function placeholderMoveSubmitted(state, { index, content }) {
 	state = { ...state, placeholder: {index, content} };
+	return state;
+}
+
+function placeholderRemoveSubmitted(state) {
+	state = { ...state, placeholder: null };
 	return state;
 }
 

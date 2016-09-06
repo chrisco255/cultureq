@@ -17,6 +17,7 @@ export const CONTENT_DESELECT_SUBMITTED = 'CONTENT_DESELECT_SUBMITTED';
 export const CONTENT_FILTER_TEXT_CHANGE_SUBMITTED = 'CONTENT_FILTER_TEXT_CHANGE_SUBMITTED';
 
 export const PLACEHOLDER_MOVE_SUBMITTED = 'PLACEHOLDER_MOVE_SUBMITTED';
+export const PLACEHOLDER_REMOVE_SUBMITTED = 'PLACEHOLDER_REMOVE_SUBMITTED';
 
 export const CONTENT_MOVE_SUBMITTED = 'CONTENT_MOVE_SUBMITTED';
 export const CONTENT_MOVE_SUCCEEDED = 'CONTENT_MOVE_SUCCEEDED';
@@ -85,6 +86,13 @@ export function movePlaceholder(index, content) {
       content
     }
   };
+}
+
+export function removePlaceholder() {
+	return {
+		type: PLACEHOLDER_REMOVE_SUBMITTED,
+		payload: {}
+	};
 }
 
 export function moveContent(oldIndex, newIndex) {

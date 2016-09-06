@@ -16,7 +16,6 @@ const spec = {
   drop(props, monitor, component) {
 		const droppedType = monitor.getItem().type;
 		if (droppedType === QUEST_CONTENT_ITEM) {
-			console.log(`Quest content with name ${monitor.getItem().content.title} dropped in quest content area`);
 			if (props.placeholder) {
 				const oldIndex = props.questContent.findIndex((content) => {
 					return content._id === props.placeholder.content._id;
@@ -27,13 +26,11 @@ const spec = {
 				}
 			}
 		} else if (droppedType === POOL_CONTENT_ITEM) {
-			console.log(`Pool content with name ${monitor.getItem().content.title} dropped in quest content area`);
 			if (props.placeholder) {
 				const newIndex = props.placeholder.index;
 				props.addContent(monitor.getItem().content, newIndex);
 			}
 		}
-    console.log(`Component ${component} dropped into the quest content area`);
     return {type: QUEST_CONTENT_AREA};
   },
   hover(props, monitor, component) {
@@ -66,6 +63,7 @@ class QuestContentArea extends Component {
       selectContent,
       deselectContent,
       movePlaceholder,
+			isOver
     } = this.props;
 
     //insert placeholder into content
@@ -78,7 +76,7 @@ class QuestContentArea extends Component {
       if (previousContentIndex > -1) {
         realQuestContent = immutablyRemoveIndexFromArray(realQuestContent, previousContentIndex);
 				realQuestContent = immutablyAddElementToArray(realQuestContent, placeholder.content, placeholder.index);
-      } else {
+      } else if (isOver) {
 				//adding new content in, so should render add placeholder
 				shouldRenderAddPlaceholder = true;
 			}
@@ -102,7 +100,6 @@ class QuestContentArea extends Component {
           movePlaceholder={movePlaceholder}
           placeholder={placeholder}/>
 			);
-      // realIndex++;
       return contentItem;
 		});
 

@@ -9,16 +9,17 @@ import RightArrow from '../../../../assets/images/right_arrow_white.svg';
 
 const spec = {
   drop(props, monitor, component) {
-    console.log(`Component ${component} dropped into the content pool`);
+    const droppedType = monitor.getItem().type;
+    if (droppedType === QUEST_CONTENT_ITEM) {
+      props.removeContent(monitor.getItem().content);
+    }
     return {type: CONTENT_POOL};
   }
 };
 
 const collect = (connect, monitor) => {
   return {
-    connectDropTarget: connect.dropTarget(),
-    // isOver: monitor.isOver(),
-    // canDrop: monitor.canDrop()
+    connectDropTarget: connect.dropTarget()
   };
 };
 
@@ -29,7 +30,7 @@ class ContentPool extends Component {
   };
 
 	render() {
-    const { pool, filterText, connectDropTarget, addContent, selectContent, deselectContent } = this.props;
+    const { pool, filterText, connectDropTarget, addContent, selectContent, deselectContent, removePlaceholder } = this.props;
     // debugger;
 
     const selectedContent = pool.filter((content) => {
@@ -50,7 +51,8 @@ class ContentPool extends Component {
           content={content}
           addContent={addContent}
           selectContent={selectContent}
-          deselectContent={deselectContent}/>
+          deselectContent={deselectContent}
+          removePlaceholder={removePlaceholder} />
 			);
 		});
 

@@ -3,23 +3,25 @@ import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import CSSModules from 'react-css-modules';
 import PoolContentStyles from './PoolContentItem.css';
-import { POOL_CONTENT_ITEM, QUEST_CONTENT_AREA } from '../ItemTypes';
+import { POOL_CONTENT_ITEM } from '../ItemTypes';
 import RightArrow from '../../../../assets/images/right_arrow_gray.svg';
 import EditIcon from '../../../../assets/images/icon-edit.svg';
 
 const spec = {
   beginDrag(props) {
-    console.log('pool content item begin drag');
     return {
       content: props.content,
       type: POOL_CONTENT_ITEM,
     };
   },
   endDrag(props, monitor) {
-    console.log('pool content item end drag');
-    if (monitor.didDrop() && monitor.getDropResult().type === QUEST_CONTENT_AREA) {
-      console.log(`Pool content with name ${props.content.title} dropped`);
-      // props.addContent(props.content);
+    if (!monitor.didDrop()) {
+      //it is possible that a pool content item that failed to drop leaves
+      //a stranded placeholder in the quest content area
+      //although that placehodler will not be rendered due to the isOver safeguard built
+      //in to the quest content area, that placeholder should be removed in any case
+      //because it is likely semantically correct to do so
+      props.removePlaceholder();
     }
   }
 };
@@ -33,12 +35,6 @@ const collect = (connect, monitor) => {
 };
 
 class PoolContentItem extends Component {
-
-  // componentDidMount () {
-  //   this.props.connectDragPreview(getEmptyImage(), {
-  //     captureDraggingState: true
-  //   });
-  // }
 
 	render() {
     const {

@@ -9,6 +9,7 @@ import {
 	deselectContent,
 	changeContentFilterText,
 	movePlaceholder,
+	removePlaceholder,
 	moveContent,
 	fetchContentPool
 } from '../../../reducers/quest/Quest.actions';
@@ -68,6 +69,9 @@ const mapDispatchToProps = (dispatch) => {
 		movePlaceholder: (index, content) => {
 			dispatch(movePlaceholder(index, content));
 		},
+		removePlaceholder: () => {
+			dispatch(removePlaceholder());
+		},
 		moveContent: (oldIndex, newIndex) => {
 			dispatch(moveContent(oldIndex, newIndex));
 		},
@@ -117,6 +121,7 @@ class CreateQuestPage extends Component {
 					removeContent={this.props.removeContent}
 					changeFilterText={this.props.changeFilterText}
 					movePlaceholder={this.props.movePlaceholder}
+					removePlaceholder={this.props.removePlaceholder}
 					moveContent={this.props.moveContent}/>
 			</div>
     );
