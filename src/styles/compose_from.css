@@ -110,7 +110,7 @@
   color: #757575;
 }
 
-.divider-color {
+:global(.divider-color) {
   color: #BDBDBD;
 }
 

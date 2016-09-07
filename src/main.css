@@ -2,36 +2,39 @@
     cursor: pointer;
 }
 input:not([type]):focus:not([readonly]),
-input[type=text]:focus:not([readonly]),
-input[type=password]:focus:not([readonly]),
-input[type=email]:focus:not([readonly]),
+input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]),
 input[type=url]:focus:not([readonly]),
 input[type=time]:focus:not([readonly]),
-input[type=date]:focus:not([readonly]),
-input[type=datetime]:focus:not([readonly]),
-input[type=datetime-local]:focus:not([readonly]),
-input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]),
+input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 2px solid #9013FE !important;
     box-shadow: none !important;
 }
-
 .btn {
     text-transform: capitalize !important;
 }
-
 h1 {
-  font-family: 'lato' !important;
-  font-size: 24px !important;
-  color: #4A4A4A !important;
-  line-height: 32px !important;
-  font-weight: 700  !important;
+    font-family: 'lato' !important;
+    font-size: 24px !important;
+    color: #4A4A4A !important;
+    line-height: 32px !important;
+    font-weight: 700 !important;
 }
-
 input[type=text]:focus:not([readonly])+label {
     color: #757575 !important;
 }
-
 input[type=text]:focus.valid {
-  border-bottom: 2px solid #FF9800 !important;
-  box-shadow: none !important;
+    border-bottom: 2px solid #FF9800 !important;
+    box-shadow: none !important;
+}
+label {
+    font-size: 14px !important;
+    color: #9b9b9b !important;
+}
+:global(.displayFlex) {
+  display: flex;
+}
+:global(.btn-alignment) {
+  bottom: 45px;
+  right: 24px;
 }

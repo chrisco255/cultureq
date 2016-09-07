@@ -1,0 +1,58 @@
+.launch-config {
+  width: 45% !important;
+  background-color: #F2F2F2;
+  border-radius: 6px 6px 6px 6px;
+}
+
+.close-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.5em;
+}
+
+.launch-options {
+
+}
+
+.date-picker-container {
+  position: relative;
+}
+
+.date-picker-container .date-icon {
+  position: absolute;
+  top: 0;
+  bottom: 1px;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-container {
+
+}
+
+.toggle-container label {
+  color: black !important;
+  font-size: 1em !important;
+}
+
+.toggle-description {
+  font-size: 0.8em;
+  color: gray;
+}
+
+.modal-footer {
+  background-color: transparent !important;
+}
+
+.confirm-button {
+  background-color: #ff9800;
+}
+
+.confirm-button:hover {
+  background-color: #ff9800;
+}

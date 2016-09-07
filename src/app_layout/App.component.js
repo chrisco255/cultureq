@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 import AppStyles from './App.component.css';
 import { login } from '../reducers/user/User.actions';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 const mapDispatchToProps = dispatch => ({
 	onLogin: (payload) => dispatch( login(payload) )
@@ -11,6 +12,7 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component {
 	componentWillMount() {
+		injectTapEventPlugin(); //needed for Material-UI
 		this.props.onLogin( this.getLogin() );
 	}
 

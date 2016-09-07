@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => {
     return {
     	analytics: state.analytics
-    }
-}
+    };
+};
 
 class Page extends Component {
 
@@ -49,29 +49,29 @@ class Page extends Component {
         const { analytics, pointData } = this.props;
 
         if(this.props.analytics) {
-            analytics.pointsByDate = analytics.pointsByDate || []
+            analytics.pointsByDate = analytics.pointsByDate || [];
             const config = {
                 title: {
-                    text: "Culture Points",
+                    text: 'Culture Points',
                 },
                 xAxis: {
                     title: {
-                        text: "Month",
+                        text: 'Month',
                     },
                     type: 'datetime'
                 },
                 yAxis: {
                     title: {
-                        text: "Points",
+                        text: 'Points',
                     }
                 },
                 series: [{
                     // type: 'line',
                     name: 'All',
-                    data: _.sortBy(analytics.pointsByDate,(x) => {
-                        return parseInt(x.date)
+                    data: _.sortBy(analytics.pointsByDate, (x) => {
+                        return parseInt(x.date);
                     }).map((x) => {
-                        return [parseInt(x.date), x.count]
+                        return [parseInt(x.date), x.count];
                     })
                 }]
             };

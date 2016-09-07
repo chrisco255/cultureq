@@ -21,7 +21,46 @@
     display: flex;
     justify-content: flex-end;
 }
-/*.input-field
-.prefix.active {
-  color: #757575 !important;
-}*/
+/*My Content Page*/
+.margin-top-40 {
+  margin-top: 40px;
+}
+.container-width-90 {
+  width: 90%;
+}
+.link-text-transform {
+  padding: 0 20px 0 20px;
+  text-transform: capitalize;
+}
+.margin-right-10 {
+  margin-right: 10px;
+}
+/*Search Component*/
+.icon-position {
+  position: absolute;
+  bottom: 26px;
+}
+.padding-left-35 {
+  padding-left: 35px;
+}
+/*Featured Quests Component*/
+.quests-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 2.1rem 0 0 0;
+}
+.box-shadow-none {
+  box-shadow: none;
+}
+.padding-25 {
+  padding: 25px;
+}
+.pillar-name-style {
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: .5px;
+  line-height: 20px;
+}
+.font-size-20 {
+  font-size: 20px;
+}

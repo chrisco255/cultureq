@@ -1,7 +1,0 @@
-.quest-page {
-  position: fixed;
-  top: 114px; /*must be the sum of the top navigvation bars' heights*/
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-}

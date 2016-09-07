@@ -26,11 +26,9 @@ class TextEditorPage extends Component {
 	render() {
 		console.log('render');
 		console.log('state', this.state);
-		const value = '';
-		console.log(value);
 		return (
 			<div className="container">
-				<TextEditor createButtons={createButtons} onAutosave={ (rawContent) => this.onChange(rawContent) } value={value} />
+				<TextEditor createButtons={createButtons} onAutosave={ (rawContent) => this.onChange(rawContent) } />
 				<br />
 				<br />
 				<br />

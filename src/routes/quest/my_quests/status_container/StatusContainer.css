@@ -1,0 +1,75 @@
+.status-container {
+
+}
+
+.status-container .status-name {
+  margin: 2.1rem 0 0 0;
+  font-size: 24px;
+  color: #4A4A4A;
+  line-height: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.status-container .status-name .expand-trigger {
+  cursor: pointer;
+  user-select: none;
+}
+
+.status-container .status-name .status-quantity {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  padding-top: 6px;
+  color: #BDBDBD;
+  margin-left: 8px;
+}
+
+.status-container .quests {
+
+}
+
+.quests .header {
+  margin-bottom: 15px;
+}
+
+.quests .header .header-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.quests .header .header-cell {
+  text-align: center;
+}
+
+.quests .header .header-cell:nth-child(1) {
+  flex: 1;
+}
+
+.quests .header .header-cell:nth-child(2) {
+  flex: 0 0 200px;
+}
+
+.quests .header .header-cell:nth-child(3) {
+  flex: 0 0 200px;
+}
+
+.quests .header .header-cell .click-box {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.quests .header .header-cell .click-box .icon {
+  margin-left: 4px;
+}
+
+.quests .content {
+
+}
+
+.status-container .show-more {
+  cursor: pointer;
+}

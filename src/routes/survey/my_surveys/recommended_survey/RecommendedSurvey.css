@@ -1,0 +1,34 @@
+.recommended-survey {
+  composes: featured-survey from '../MySurveysPage.css';
+}
+
+.recommended-survey .pillar {
+  color: orange;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.recommended-survey .survey-title {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+
+.recommended-survey .description {
+  margin-bottom: 5px;
+}
+
+.recommended-survey .survey-time {
+  color: rgb(150, 150, 150);
+  display: flex;
+  align-items: center;
+}
+
+.recommended-survey .time {
+  color: rgb(150, 150, 150);
+  display: flex;
+  align-items: center;
+}
+
+.recommended-survey .time .icon {
+  margin-right: 5px;
+}

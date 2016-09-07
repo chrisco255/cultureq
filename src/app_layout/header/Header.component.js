@@ -22,9 +22,10 @@ const mapDispatchToProps = dispatch => ({
 const routes = [
 	{ path: '/', label: 'home', isIndex: true},
 	{ path: 'analytics', label: 'analytics'},
-	{ path: 'content', label: 'content management'},
-	{ path: 'pillar', label: 'pillar management'},
-	{ path: 'quests', label: 'Quest Creation'},
+	{ path: 'mycontent', label: 'my content'},
+	// { path: 'pillar', label: 'pillar management'},
+	{ path: 'myquests', label: 'my quests'},
+	{ path: 'mysurveys', label: 'my surveys'},
 ];
 
 class Header extends Component {
@@ -76,7 +77,7 @@ class Header extends Component {
 						</div>
 					</nav>
 				</div>
-				{loggedIn && <div className="navbar-fixed">
+				{loggedIn && <div className="navbar-fixed menu-navbar" style={{height: '50px'}}>
 					<nav styleName="bottom-navbar">
 						<div styleName="bottom-navbar-fixed">
 							<div styleName="flex-container">

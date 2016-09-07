@@ -1,35 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import QuestContentItemStyles from '../../routes/quest/quest_content_item/QuestContentItem.css';
+import QuestContentItemStyles from '../../routes/quest/create/quest_content_item/QuestContentItem.css';
 
 class Quote extends Component {
 
   onQuoteEditSubmit = (event) => {
     event.preventDefault();
-    this.props.quoteChangeContent(this.refs.quoteThatIsBeingEditedInput.value, this.props.contentThatIsBeingEditedIndex);
+    this.props.quoteChangeContent(this.refs.quoteThatIsBeingEditedInput.value, this.props.contentThatIsBeingEdited._id);
   }
 
   onAuthorEditSubmit = (event) => {
     event.preventDefault();
-    this.props.authorChangeContent(this.refs.authorThatIsBeingEditedInput.value, this.props.contentThatIsBeingEditedIndex);
+    this.props.authorChangeContent(this.refs.authorThatIsBeingEditedInput.value, this.props.contentThatIsBeingEdited._id);
   }
 
   render() {
-    const { key, data, content, index, deleteContent, editContent, isEditing, contentThatIsBeingEditedIndex, finishEdit, pillarName } = this.props;
+    const { content, deleteContent, editContent, isEditing, finishEdit, pillarName, contentThatIsBeingEdited } = this.props;
+    const { _id, data } = content;
+    const { quote, author } = data;
 
-    console.log(pillarName);
-
-    if(isEditing && index === contentThatIsBeingEditedIndex) {
+    if(isEditing && _id === contentThatIsBeingEdited._id) {
       return (
-        <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item">
-          <div className="card-content">
+        <div className="card" key={_id} style={QuestContentItemStyles} styleName="quest-content-item">
+          <div className="card-content" styleName="card-content">
           <form>
             <div className="input-field">
-              <input ref="quoteThatIsBeingEditedInput" id="quote" defaultValue={data.quote} type="text" className="validate" onBlur={this.onQuoteEditSubmit} />
+              <input ref="quoteThatIsBeingEditedInput" id="quote" defaultValue={quote} type="text" className="validate" onBlur={this.onQuoteEditSubmit} />
               <label htmlFor="quote" className="active">Quote</label>
             </div>
             <div className="input-field">
-              <input ref="authorThatIsBeingEditedInput" id="author" defaultValue={data.author} type="text" className="validate" onBlur={this.onAuthorEditSubmit} />
+              <input ref="authorThatIsBeingEditedInput" id="author" defaultValue={author} type="text" className="validate" onBlur={this.onAuthorEditSubmit} />
               <label htmlFor="author" className="active">Author</label>
             </div>
           </form>
@@ -49,10 +49,9 @@ class Quote extends Component {
     }
 
     return (
-      <div className="card" key={key} style={QuestContentItemStyles} styleName="quest-content-item">
+      <div className="card" key={_id} style={QuestContentItemStyles} styleName="quest-content-item">
         { pillarName !== 'noPillar' && <div className="accent-background white-text" style={{textAlign: 'center'}}>{pillarName}</div>}
-        <div className="card-content" style={contentPaddingTop}>
-          {/*<div className="card-title" styleName="card-title">Content #{index + 1}</div>*/}
+        <div className="card-content" styleName="card-content" style={contentPaddingTop}>
            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
              <i className="material-icons" style={{fontSize: '-webkit-xxx-large'}}>format_quote</i>
            </div>
@@ -62,7 +61,7 @@ class Quote extends Component {
           </div>
         </div>
         <div styleName="buttons">
-          <a className="waves-effect waves-default btn-flat" styleName="button" onClick={editContent.bind(this, content, index)}>edit</a>
+          <a className="waves-effect waves-default btn-flat" styleName="button" onClick={editContent.bind(this, content)}>edit</a>
           <a className="waves-effect waves-default btn-flat" styleName="button" onClick={deleteContent.bind(this, content)}>remove</a>
         </div>
       </div>
@@ -71,16 +70,12 @@ class Quote extends Component {
 }
 
 Quote.propTypes = {
-  key: PropTypes.string,
-  data: PropTypes.object,
   content: PropTypes.object,
-  index: PropTypes.number,
   pillarName: PropTypes.string,
   deleteContent: PropTypes.func,
   editContent: PropTypes.func,
   isEditing: PropTypes.bool,
   contentThatIsBeingEdited: PropTypes.object,
-  contentThatIsBeingEditedIndex: PropTypes.number,
   finishEdit: PropTypes.func,
   authorChangeContent: PropTypes.func,
   quoteChangeContent: PropTypes.func

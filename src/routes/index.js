@@ -8,9 +8,12 @@ import DashboardPage from './dashboard/DashboardPage.container.js';
 import ProfilePage from './profile/ProfilePage.container.js';
 import PillarPage from './pillar/PillarPage.container.js';
 import AnalyticsPage from './analytics/AnalyticsPage.container.js';
-import ContentPage from './content/ContentPage.container.js';
+import AddContentPage from './content/add/AddContentPage.container.js';
+import MyContentPage from './content/MyContentPage.container.js';
 import TextEditorPage from './editor/TextEditor.container.js';
-import QuestPage from './quest/QuestPage.container';
+import CreateQuestPage from './quest/create/CreateQuestPage.container';
+import MyQuestsPage from './quest/my_quests/MyQuestsPage.container';
+import MySurveysPage from './survey/my_surveys/MySurveysPage.container';
 import store from '../store/configureStore';
 
 function IndexComponent(nextState, cb) {
@@ -33,8 +36,12 @@ export default (
     <Route path="dashboard" component={DashboardPage} />
     <Route path="profile" component={ProfilePage} />
     <Route path="pillar" component={PillarPage} />
-    <Route path="content" component={ContentPage} />
+		<Route path="addcontent" component={AddContentPage} />
+		<Route path="addcontent/:currentContentType" component={AddContentPage} />
+    <Route path="mycontent" component={MyContentPage} />
     <Route path="editor" component={TextEditorPage} />
-    <Route path="quests" component={QuestPage} />
+		<Route path="createquest" component={CreateQuestPage} />
+    <Route path="myquests" component={MyQuestsPage} />
+		<Route path="mysurveys" component={MySurveysPage} />
   </Route>
 );

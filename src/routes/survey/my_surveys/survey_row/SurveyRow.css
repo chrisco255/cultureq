@@ -1,0 +1,48 @@
+.content-row {
+  padding-bottom: 20px;
+  border-bottom: 0.5px dashed rgb(189, 189, 189);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.survey-info {
+  flex: 1;
+}
+
+.survey-info .title {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 18px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 0.1s;
+  margin-bottom: 5px;
+}
+
+.survey-info .title:hover {
+  color: #039be5;
+}
+
+.survey-info .description {
+  color: rgb(117, 117, 117);
+  margin-bottom: 8px;
+}
+
+.survey-info .pillar-container {
+
+}
+
+.survey-info .pillar {
+  text-transform: uppercase;
+  margin-top: 5px;
+  padding: 4px 15px;
+  background-color: rgb(255, 239, 194);
+  display: inline-block;
+}
+
+.survey-card-count, .survey-modified-time {
+  flex: 0 0 200px;
+  text-align: center;
+}
