@@ -36,7 +36,7 @@ class App extends Component {
 		const { location } = this.props;
 		return (
 			<div>
-				<Header location={location}/>
+				<Header location={location} />
 				<div styleName="main-container">
 					{this.props.children}
 				</div>
