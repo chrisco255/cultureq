@@ -14,7 +14,7 @@ class QuestRow extends Component {
           <div styleName="title">{quest.title}</div>
           <div styleName="description">{quest.description}</div>
           <div styleName="pillar-container">
-            Pillar:<br />
+            Pillar:
             <div styleName="pillar">{quest.pillar}</div>
           </div>
         </div>

@@ -12,7 +12,7 @@ class ConfigureLaunchDialog extends Component {
 		this.state = {
 			startDate: null,
 			endDate: null,
-			highPriority: false,
+			highPriority: true,
 			hoverClose: false
 		};
 	}
@@ -21,7 +21,7 @@ class ConfigureLaunchDialog extends Component {
 		this.setState({
 			startDate: null,
 			endDate: null,
-			highPriority: false,
+			highPriority: true,
 			hoverClose: false
 		});
 	}

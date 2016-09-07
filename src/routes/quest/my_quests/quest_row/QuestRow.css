@@ -31,14 +31,12 @@
 }
 
 .quest-info .pillar-container {
-
+  margin-top: 5px;
 }
 
 .quest-info .pillar {
   text-transform: uppercase;
-  margin-top: 5px;
   padding: 4px 15px;
-  background-color: rgb(255, 239, 194);
   display: inline-block;
 }
 
